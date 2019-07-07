@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:cardBackgroundColor="?android:attr/colorControlHighlight"
+                app:cardBackgroundColor="@color/colorCard"
                 app:cardCornerRadius="8dp"
                 app:contentPadding="@dimen/nav_header_vertical_spacing"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                app:cardBackgroundColor="?android:attr/colorControlHighlight"
+                app:cardBackgroundColor="@color/colorCard"
                 app:cardCornerRadius="8dp"
                 app:contentPadding="@dimen/nav_header_vertical_spacing"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -105,8 +105,7 @@
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbarStyle="outsideInset">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -230,9 +229,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                app:cardBackgroundColor="?android:attr/colorControlHighlight"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@color/colorCard"
                 app:cardCornerRadius="8dp">
 
                 <androidx.recyclerview.widget.RecyclerView
