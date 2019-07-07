@@ -11,19 +11,23 @@
         <item
             android:id="@+id/menuprogram"
             android:icon="@drawable/rules_icon"
-            android:title="My Program" />
+            android:title="myProgram" />
         <item
             android:id="@+id/menuplan"
             android:icon="@drawable/widget_icon"
-            android:title="My Plan" />
+            android:title="myPlan" />
         <item
             android:id="@+id/menuprofile"
             android:icon="@drawable/profile_icon"
-            android:title="Profile" />
+            android:title="myProfile" />
         <item
             android:id="@+id/menusaved"
             android:icon="@drawable/bookmark_icon"
             android:title="Saved Items" />
+        <item
+            android:id="@+id/menusettings"
+            android:icon="@drawable/settings_icon"
+            android:title="Settings" />
     </group>
 
 </menu>
