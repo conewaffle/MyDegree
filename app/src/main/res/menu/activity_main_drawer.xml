@@ -20,6 +20,10 @@
             android:id="@+id/menuprofile"
             android:icon="@drawable/profile_icon"
             android:title="Profile" />
+        <item
+            android:id="@+id/menusaved"
+            android:icon="@drawable/bookmark_icon"
+            android:title="Saved Items" />
     </group>
 
 </menu>
