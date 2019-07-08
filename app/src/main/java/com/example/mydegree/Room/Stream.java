@@ -9,28 +9,29 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "stream")
 public class Stream {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey
     @NonNull
-    private int id;
+    private String id;
     private String name;
     private int uoc;
     private String program;
+    private boolean ismajor;
 
     @Ignore
     public Stream() {};
 
-    public Stream(int id, String name, int uoc, String program) {
+    public Stream(String id, String name, int uoc, String program, boolean ismajor) {
         this.id = id;
         this.name = name;
         this.uoc = uoc;
         this.program = program;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
