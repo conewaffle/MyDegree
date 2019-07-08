@@ -18,7 +18,7 @@ public class Course implements Parcelable {
     private String description;
     private int level;
     private int uoc;
-    private int hrs;
+    private double hrs;
     private boolean t1;
     private boolean t2;
     private boolean t3;
@@ -29,7 +29,7 @@ public class Course implements Parcelable {
     @Ignore
     public Course(){    }
 
-    public Course(@NonNull String code, String name, String description, int level, int uoc, int hrs, boolean t1, boolean t2, boolean t3, String url, String otherreq, String mode) {
+    public Course(@NonNull String code, String name, String description, int level, int uoc, double hrs, boolean t1, boolean t2, boolean t3, String url, String otherreq, String mode) {
         this.code = code;
         this.name = name;
         this.description = description;
@@ -50,7 +50,7 @@ public class Course implements Parcelable {
         description = in.readString();
         level = in.readInt();
         uoc = in.readInt();
-        hrs = in.readInt();
+        hrs = in.readDouble();
         t1 = in.readInt()!=0;  //if t1 == true, int ==1
         t2 = in.readInt()!=0;
         t3 = in.readInt()!=0;
@@ -84,7 +84,7 @@ public class Course implements Parcelable {
         dest.writeString(description);
         dest.writeInt(level);
         dest.writeInt(uoc);
-        dest.writeInt(hrs);
+        dest.writeDouble(hrs);
         dest.writeInt(t1?1:0);
         dest.writeInt(t2?1:0);
         dest.writeInt(t3?1:0);
@@ -134,11 +134,11 @@ public class Course implements Parcelable {
         this.uoc = uoc;
     }
 
-    public int getHrs() {
+    public double getHrs() {
         return hrs;
     }
 
-    public void setHrs(int hrs) {
+    public void setHrs(double hrs) {
         this.hrs = hrs;
     }
 
