@@ -22,11 +22,13 @@ public class Course implements Parcelable {
     private boolean t1;
     private boolean t2;
     private boolean t3;
+    private String url;
+    private String otherreq;
 
     @Ignore
     public Course(){    }
 
-    public Course(@NonNull String code, String name, String description, int level, int uoc, int hrs, boolean t1, boolean t2, boolean t3) {
+    public Course(@NonNull String code, String name, String description, int level, int uoc, int hrs, boolean t1, boolean t2, boolean t3, String url, String otherreq) {
         this.code = code;
         this.name = name;
         this.description = description;
@@ -36,6 +38,8 @@ public class Course implements Parcelable {
         this.t1 = t1;
         this.t2 = t2;
         this.t3 = t3;
+        this.url = url;
+        this.otherreq = otherreq;
     }
 
     protected Course(Parcel in){
@@ -48,6 +52,8 @@ public class Course implements Parcelable {
         t1 = in.readInt()!=0;  //if t1 == true, int ==1
         t2 = in.readInt()!=0;
         t3 = in.readInt()!=0;
+        url = in.readString();
+        otherreq = in.readString();
     }
 
 
@@ -79,6 +85,8 @@ public class Course implements Parcelable {
         dest.writeInt(t1?1:0);
         dest.writeInt(t2?1:0);
         dest.writeInt(t3?1:0);
+        dest.writeString(url);
+        dest.writeString(otherreq);
     }
 
     @NonNull
@@ -154,4 +162,19 @@ public class Course implements Parcelable {
         this.t3 = t3;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getOtherreq() {
+        return otherreq;
+    }
+
+    public void setOtherreq(String otherreq) {
+        this.otherreq = otherreq;
+    }
 }
