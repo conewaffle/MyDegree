@@ -1,4 +1,6 @@
-package com.example.mydegree;
+package com.example.mydegree.Room;
+
+import com.example.mydegree.Room.Course;
 
 import java.util.List;
 

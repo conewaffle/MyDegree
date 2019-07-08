@@ -1,4 +1,4 @@
-package com.example.mydegree;
+package com.example.mydegree.Room;
 
 import android.os.Parcel;
 import android.os.Parcelable;
