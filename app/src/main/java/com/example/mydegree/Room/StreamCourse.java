@@ -1,12 +1,15 @@
 package com.example.mydegree.Room;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
 @Entity(tableName = "streamcourse", primaryKeys = {"streamId", "course"})
 public class StreamCourse {
 
+    @NonNull
     private String streamId;
+    @NonNull
     private String course;
     private boolean core;
 

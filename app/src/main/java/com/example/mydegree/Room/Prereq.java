@@ -1,12 +1,15 @@
 package com.example.mydegree.Room;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
 @Entity(tableName = "prereq", primaryKeys = {"course","prereq"})
 public class Prereq {
 
+    @NonNull
     private String course;
+    @NonNull
     private String prereq;
 
     @Ignore

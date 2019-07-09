@@ -58,4 +58,14 @@ public class Stream {
     public void setProgram(String program) {
         this.program = program;
     }
+
+
+    public boolean isIsmajor() {
+        return ismajor;
+    }
+
+    public void setIsmajor(boolean ismajor) {
+        this.ismajor = ismajor;
+    }
+
 }
