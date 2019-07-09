@@ -32,4 +32,26 @@ public class InsertData {
 
         return prereqs;
     }
+
+    public static ArrayList<Stream> getStreams() {
+        ArrayList<Stream> streams = new ArrayList<>();
+        streams.add(new Stream("39791C", "Stage 1 Compulsory Core",42,"3979",false));
+        //insert more streams here
+        return streams;
+    }
+
+    public static ArrayList<ProgramStream> getProgramStreams() {
+        ArrayList<ProgramStream> programStreams = new ArrayList<>();
+        programStreams.add(new ProgramStream("3979","39791C"));
+        //insert more programstreams here
+        return programStreams;
+    }
+
+    public static ArrayList<StreamCourse> getStreamCourse() {
+        ArrayList<StreamCourse> streamCourses = new ArrayList<>();
+        streamCourses.add(new StreamCourse("39791C", "INFS1602", true));
+        //insert more stream courses here
+        return streamCourses;
+    }
+
 }
