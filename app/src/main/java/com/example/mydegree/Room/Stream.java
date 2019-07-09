@@ -19,10 +19,10 @@ public class Stream {
     @Ignore
     public Stream() {}
 
-    public Stream(String id, String streamName, int uoc, boolean isMajor) {
+    public Stream(@NonNull String id, String streamName, int streamUoc, boolean isMajor) {
         this.id = id;
         this.streamName = streamName;
-        this.streamUoc = uoc;
+        this.streamUoc = streamUoc;
         this.isMajor = isMajor;
     }
 

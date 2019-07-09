@@ -49,7 +49,7 @@ public class InsertData {
 
     public static ArrayList<StreamCourse> getStreamCourse() {
         ArrayList<StreamCourse> streamCourses = new ArrayList<>();
-        streamCourses.add(new StreamCourse("39791C", "INFS1602", true));
+        streamCourses.add(new StreamCourse("S1CC", "INFS1602", true));
         //insert more stream courses here
         return streamCourses;
     }

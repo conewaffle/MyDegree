@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
-@Entity(tableName = "prereq", primaryKeys = {"course","prereq"})
+@Entity(tableName = "prereq", primaryKeys = {"postreq","prereq"})
 public class Prereq {
 
     @NonNull
