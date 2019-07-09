@@ -1,6 +1,7 @@
 package com.example.mydegree;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //THIS WILL check for the database and execute querying it
         SharedPreferences checkDbPrefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
         if (checkDbPrefs.getInt(ROOM_INITIALISED,0)!=1){
             //new insert courses asynctask
@@ -102,17 +104,23 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+            Intent intent = null;
         if (id == R.id.menusearch) {
-            // Handle the search action
+            intent = new Intent(MainActivity.this, Search.class);
         } else if (id == R.id.menuplan) {
 
         } else if (id == R.id.menuprofile) {
 
         } else if (id == R.id.menuprogram) {
-
+            intent = new Intent(MainActivity.this, ProgramDetail.class);
         } else if (id == R.id.menusaved) {
 
+        } else if (id == R.id.menusettings) {
+
+        }
+
+        if(intent!=null){
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -120,6 +128,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+    //THIS WILL POPULATE THE DATABASE ON INITIALISATION
     private class InsertRoomTask extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog progDialog = new ProgressDialog(MainActivity.this);
