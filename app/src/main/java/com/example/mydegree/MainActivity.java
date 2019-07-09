@@ -22,6 +22,7 @@ import androidx.room.Room;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ import static com.example.mydegree.Room.InsertData.getCourses;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    protected DrawerLayout drawer;
     public static final String ROOM_INITIALISED = "coursesInitialised";
 
     @Override
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.menuprogram);
 
         //THIS WILL check for the database and execute querying it
         SharedPreferences checkDbPrefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -77,27 +81,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -106,24 +89,24 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
             Intent intent = null;
         if (id == R.id.menusearch) {
-            intent = new Intent(MainActivity.this, Search.class);
+            intent = new Intent(this, Search.class);
         } else if (id == R.id.menuplan) {
-
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menuprofile) {
-
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menuprogram) {
-            intent = new Intent(MainActivity.this, ProgramDetail.class);
+
         } else if (id == R.id.menusaved) {
-
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menusettings) {
-
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         }
 
         if(intent!=null){
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
