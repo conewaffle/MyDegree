@@ -12,60 +12,50 @@ public class Stream {
     @PrimaryKey
     @NonNull
     private String id;
-    private String name;
-    private int uoc;
-    private String program;
-    private boolean ismajor;
+    private String streamName;
+    private int streamUoc;
+    private boolean isMajor;
 
     @Ignore
-    public Stream() {};
+    public Stream() {}
 
-    public Stream(String id, String name, int uoc, String program, boolean ismajor) {
+    public Stream(String id, String streamName, int uoc, boolean isMajor) {
         this.id = id;
-        this.name = name;
-        this.uoc = uoc;
-        this.program = program;
+        this.streamName = streamName;
+        this.streamUoc = uoc;
+        this.isMajor = isMajor;
     }
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStreamName() {
+        return streamName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStreamName(String streamName) {
+        this.streamName = streamName;
     }
 
-    public int getUoc() {
-        return uoc;
+    public int getStreamUoc() {
+        return streamUoc;
     }
 
-    public void setUoc(int uoc) {
-        this.uoc = uoc;
+    public void setStreamUoc(int streamUoc) {
+        this.streamUoc = streamUoc;
     }
 
-    public String getProgram() {
-        return program;
+    public boolean isMajor() {
+        return isMajor;
     }
 
-    public void setProgram(String program) {
-        this.program = program;
+    public void setMajor(boolean major) {
+        isMajor = major;
     }
-
-
-    public boolean isIsmajor() {
-        return ismajor;
-    }
-
-    public void setIsmajor(boolean ismajor) {
-        this.ismajor = ismajor;
-    }
-
 }

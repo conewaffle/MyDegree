@@ -13,48 +13,45 @@ public class Course implements Parcelable {
 
     @PrimaryKey
     @NonNull
-    private String code;
-    private String name;
-    private String description;
+    private String courseCode;
+    private String courseName;
+    private String courseDesc;
     private int level;
-    private int uoc;
+    private int courseUoc;
     private double hrs;
     private boolean t1;
     private boolean t2;
     private boolean t3;
-    private String url;
     private String otherreq;
     private String mode;
 
     @Ignore
     public Course(){    }
 
-    public Course(@NonNull String code, String name, String description, int level, int uoc, double hrs, boolean t1, boolean t2, boolean t3, String url, String otherreq, String mode) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
+    public Course(@NonNull String courseCode, String courseName, String courseDesc, int level, int courseUoc, double hrs, boolean t1, boolean t2, boolean t3, String otherreq, String mode) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.courseDesc = courseDesc;
         this.level = level;
-        this.uoc = uoc;
+        this.courseUoc = courseUoc;
         this.hrs = hrs;
         this.t1 = t1;
         this.t2 = t2;
         this.t3 = t3;
-        this.url = url;
         this.otherreq = otherreq;
         this.mode = mode;
     }
 
     protected Course(Parcel in){
-        code = in.readString();
-        name = in.readString();
-        description = in.readString();
+        courseCode = in.readString();
+        courseName = in.readString();
+        courseDesc = in.readString();
         level = in.readInt();
-        uoc = in.readInt();
+        courseUoc = in.readInt();
         hrs = in.readDouble();
         t1 = in.readInt()!=0;  //if t1 == true, int ==1
         t2 = in.readInt()!=0;
         t3 = in.readInt()!=0;
-        url = in.readString();
         otherreq = in.readString();
         mode = in.readString();
     }
@@ -79,43 +76,42 @@ public class Course implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(code);
-        dest.writeString(name);
-        dest.writeString(description);
+        dest.writeString(courseCode);
+        dest.writeString(courseName);
+        dest.writeString(courseDesc);
         dest.writeInt(level);
-        dest.writeInt(uoc);
+        dest.writeInt(courseUoc);
         dest.writeDouble(hrs);
         dest.writeInt(t1?1:0);
         dest.writeInt(t2?1:0);
         dest.writeInt(t3?1:0);
-        dest.writeString(url);
         dest.writeString(otherreq);
         dest.writeString(mode);
     }
 
     @NonNull
-    public String getCode() {
-        return code;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public void setCode(@NonNull String code) {
-        this.code = code;
+    public void setCourseCode(@NonNull String courseCode) {
+        this.courseCode = courseCode;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCourseDesc() {
+        return courseDesc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCourseDesc(String courseDesc) {
+        this.courseDesc = courseDesc;
     }
 
     public int getLevel() {
@@ -126,12 +122,12 @@ public class Course implements Parcelable {
         this.level = level;
     }
 
-    public int getUoc() {
-        return uoc;
+    public int getCourseUoc() {
+        return courseUoc;
     }
 
-    public void setUoc(int uoc) {
-        this.uoc = uoc;
+    public void setCourseUoc(int courseUoc) {
+        this.courseUoc = courseUoc;
     }
 
     public double getHrs() {
@@ -164,14 +160,6 @@ public class Course implements Parcelable {
 
     public void setT3(boolean t3) {
         this.t3 = t3;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getOtherreq() {

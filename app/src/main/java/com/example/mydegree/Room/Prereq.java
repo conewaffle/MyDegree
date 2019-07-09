@@ -8,24 +8,22 @@ import androidx.room.Ignore;
 public class Prereq {
 
     @NonNull
-    private String course;
+    private String postreq;
     @NonNull
     private String prereq;
 
     @Ignore
-    public Prereq() {};
+    public Prereq() {}
 
-    public Prereq(String course, String prereq) {
-        this.course = course;
+    public Prereq(String postreq, String prereq) {
+        this.postreq = postreq;
         this.prereq = prereq;
     }
 
-    public String getCourse() {
-        return course;
-    }
+    public String getPostreq() { return postreq;    }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setPostreq(String postreq) {
+        this.postreq = postreq;
     }
 
     public String getPrereq() {

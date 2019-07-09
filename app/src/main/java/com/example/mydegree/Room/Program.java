@@ -9,56 +9,54 @@ import androidx.room.PrimaryKey;
 public class Program {
     @PrimaryKey
     @NonNull
-    private String code;
-    private String name;
-    private String description;
-    private int uoc;
+    private String progCode;
+    private String progName;
+    private String progDesc;
+    private int progUoc;
     private int years;
-    private String url;
 
     @Ignore
-    public Program() {};
+    public Program() {}
 
-    public Program(@NonNull String code, String name, String description, int uoc, int years, String url) {
-        this.code = code;
-        this.name = name;
-        this.description = description;
-        this.uoc = uoc;
+    public Program(@NonNull String progCode, String progName, String progDesc, int progUoc, int years) {
+        this.progCode = progCode;
+        this.progName = progName;
+        this.progDesc = progDesc;
+        this.progUoc = progUoc;
         this.years = years;
-        this.url = url;
     }
 
     @NonNull
-    public String getCode() {
-        return code;
+    public String getProgCode() {
+        return progCode;
     }
 
-    public void setCode(@NonNull String code) {
-        this.code = code;
+    public void setProgCode(@NonNull String progCode) {
+        this.progCode = progCode;
     }
 
-    public String getName() {
-        return name;
+    public String getProgName() {
+        return progName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProgName(String progName) {
+        this.progName = progName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProgDesc() {
+        return progDesc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProgDesc(String progDesc) {
+        this.progDesc = progDesc;
     }
 
-    public int getUoc() {
-        return uoc;
+    public int getProgUoc() {
+        return progUoc;
     }
 
-    public void setUoc(int uoc) {
-        this.uoc = uoc;
+    public void setProgUoc(int progUoc) {
+        this.progUoc = progUoc;
     }
 
     public int getYears() {
@@ -67,13 +65,5 @@ public class Program {
 
     public void setYears(int years) {
         this.years = years;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }
