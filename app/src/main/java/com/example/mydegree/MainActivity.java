@@ -13,6 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     protected DrawerLayout drawer;
+    protected int menuSelected = 0;
     public static final String ROOM_INITIALISED = "coursesInitialised";
 
     @Override
@@ -56,10 +59,59 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        //handles stutter by closing drawer first before loading the new activity (but slower overall). decide if we want this, or the version in baseactivity
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener(){
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                switch (menuSelected) {
+                    case R.id.menuplan:
+                        Toast.makeText(getApplicationContext(), "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menuprofile:
+                        Toast.makeText(getApplicationContext(), "You are already here.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menuprogram:
+                        break;
+                    case R.id.menusaved:
+                        Toast.makeText(getApplicationContext(), "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menusearch:
+                        startActivity(new Intent(getApplicationContext(),Search.class));
+                        break;
+                    case R.id.menusettings:
+                        Toast.makeText(getApplicationContext(), "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        //customise
         navigationView.setCheckedItem(R.id.menuprogram);
+
+
 
         //THIS WILL check for the database and execute querying it
         SharedPreferences checkDbPrefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
@@ -86,25 +138,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-            Intent intent = null;
-        if (id == R.id.menusearch) {
-            intent = new Intent(this, Search.class);
-        } else if (id == R.id.menuplan) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.menuprofile) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.menuprogram) {
-
-        } else if (id == R.id.menusaved) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.menusettings) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
-        }
-
-        if(intent!=null){
-            startActivity(intent);
-        }
+        menuSelected = item.getItemId();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
