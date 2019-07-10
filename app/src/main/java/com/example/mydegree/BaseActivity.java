@@ -53,6 +53,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view2);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //this removes the activity transition animation and the screen will just appear when loaded
+        overridePendingTransition(0,0);
     }
 
 
@@ -71,9 +73,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Handler mHandler = new Handler();
 
         if (id == R.id.menusearch) {
-            Handler mHandler = new Handler();
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -85,7 +87,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.menuprofile) {
             Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menuprogram) {
-            Handler mHandler = new Handler();
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

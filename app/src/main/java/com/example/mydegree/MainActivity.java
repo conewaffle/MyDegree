@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity
         //customise
         navigationView.setCheckedItem(R.id.menuprogram);
 
-
+        //this removes the activity transition animation and the screen will just appear when loaded
+        overridePendingTransition(0,0);
 
         //THIS WILL check for the database and execute querying it
         SharedPreferences checkDbPrefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
