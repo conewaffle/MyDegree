@@ -17,8 +17,7 @@ public class SavedItems extends BaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         //inflate your activity layout here!
-        View contentView = inflater.inflate(R.layout.activity_saved_items, null, false);
-        mDrawer.addView(contentView, 0);
+        inflater.inflate(R.layout.activity_saved_items, frameLayout, true);
 
         //customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menusaved);

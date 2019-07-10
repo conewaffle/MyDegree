@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.drm.DrmStore;
+import android.media.MicrophoneInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,13 +38,15 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected ActionBarDrawerToggle toggle;
     protected NavigationView navigationView;
     protected static final int NAVDRAWER_LAUNCH_DELAY = 200;
-
+    protected CoordinatorLayout coordinatorLayout;
+    protected FrameLayout frameLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorBase);
+        frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
         toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
@@ -100,7 +105,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(),Program.class));
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusaved) {

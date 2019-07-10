@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     protected DrawerLayout drawer;
     protected int menuSelected = 0;
-    public static final String ROOM_INITIALISED = "coursesInitialised";
+
     protected static final int NAVDRAWER_LAUNCH_DELAY = 200;
 
     @Override
@@ -77,13 +77,7 @@ public class MainActivity extends AppCompatActivity
         //this removes the activity transition animation and the screen will just appear when loaded
         overridePendingTransition(0,0);
 
-        //THIS WILL check for the database and execute querying it
-        SharedPreferences checkDbPrefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
-        if (checkDbPrefs.getInt(ROOM_INITIALISED,0)!=1){
-            //new insert courses asynctask
-        } else {
-            // new insert query task
-        }
+
 
     }
 
@@ -154,42 +148,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    //THIS WILL POPULATE THE DATABASE ON INITIALISATION
-    private class InsertRoomTask extends AsyncTask<Void, Void, Void> {
 
-        ProgressDialog progDialog = new ProgressDialog(MainActivity.this);
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            progDialog.setMessage("Initialising...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids){
-            CourseDb db = Room
-                    .databaseBuilder(MainActivity.this, CourseDb.class, "coursedb")
-                    .build();
-            ArrayList<Course> courses = InsertData.getCourses();
-            for(int i = 0;i<courses.size();i++){
-                db.courseDao().insert(courses.get(i));
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            SharedPreferences prefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt(ROOM_INITIALISED, 1);
-            editor.apply();
-            progDialog.dismiss();
-            //new Query Courses Task . execute
-        }
-
-    }
 }
 
