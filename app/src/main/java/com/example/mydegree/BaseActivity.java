@@ -83,9 +83,19 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuplan) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Plan.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuprofile) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Profile.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuprogram) {
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -94,9 +104,19 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusaved) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),SavedItems.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusettings) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Settings.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         }
 
 

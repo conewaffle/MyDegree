@@ -103,9 +103,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Handler mHandler = new Handler();
         if (id == R.id.menusearch) {
-            Handler mHandler = new Handler();
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -113,11 +112,20 @@ public class MainActivity extends AppCompatActivity
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuplan) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Plan.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuprofile) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Profile.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuprogram) {
-            Handler mHandler = new Handler();
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -125,9 +133,19 @@ public class MainActivity extends AppCompatActivity
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusaved) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),SavedItems.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusettings) {
-            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Settings.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
