@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity
-            android:name=".Program.ProgramDetail"
-            android:parentActivityName=".Search" />
-        <activity android:name=".Profile" />
+        <activity android:name=".Profile"></activity>
         <activity android:name=".Plan" />
         <activity android:name=".SavedItems" />
         <activity android:name=".Settings" />
         <activity android:name=".Search" />
+        <activity
+            android:name=".ProgramDetails.ProgramDetail"
+            android:parentActivityName=".Search" />
         <activity
             android:name=".BaseActivity"
             android:exported="true" />

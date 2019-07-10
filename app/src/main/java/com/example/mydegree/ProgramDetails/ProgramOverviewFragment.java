@@ -1,7 +1,5 @@
-package com.example.mydegree.Program;
+package com.example.mydegree.ProgramDetails;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
