@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 public class Search extends BaseActivity {
 
@@ -25,7 +26,6 @@ public class Search extends BaseActivity {
         //customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menusearch);
         setTitle("Search");
-
 
         //Do the rest as you want for each activity
     }

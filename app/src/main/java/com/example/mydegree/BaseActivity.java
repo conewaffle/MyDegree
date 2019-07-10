@@ -8,13 +8,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.drm.DrmStore;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,6 +34,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected Toolbar toolbar;
     protected ActionBarDrawerToggle toggle;
     protected NavigationView navigationView;
+    protected static final int NAVDRAWER_LAUNCH_DELAY = 200;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,27 +71,38 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Intent intent = null;
+
         if (id == R.id.menusearch) {
-            intent = new Intent(this, Search.class);
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Search.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuplan) {
             Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menuprofile) {
             Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menuprogram) {
-            intent = new Intent(this, MainActivity.class);
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusaved) {
             Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menusettings) {
             Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
         }
 
-        if(intent!=null){
-            startActivity(intent);
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

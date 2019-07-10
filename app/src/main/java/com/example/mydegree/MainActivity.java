@@ -1,5 +1,6 @@
 package com.example.mydegree;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,8 @@ import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.InsertData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import android.os.Handler;
 import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 
@@ -22,8 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     protected DrawerLayout drawer;
     protected int menuSelected = 0;
     public static final String ROOM_INITIALISED = "coursesInitialised";
+    protected static final int NAVDRAWER_LAUNCH_DELAY = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //FLOATING ACTION BUTTON STUFFS
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,56 +60,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //NAV DRAWER STUFFS
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
-        //handles stutter by closing drawer first before loading the new activity (but slower overall). decide if we want this, or the version in baseactivity
-        drawer.addDrawerListener(new DrawerLayout.DrawerListener(){
-            @Override
-            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View drawerView) {
-                switch (menuSelected) {
-                    case R.id.menuplan:
-                        Toast.makeText(getApplicationContext(), "This has yet to be implemented", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuprofile:
-                        Toast.makeText(getApplicationContext(), "You are already here.", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuprogram:
-                        break;
-                    case R.id.menusaved:
-                        Toast.makeText(getApplicationContext(), "This has yet to be implemented", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menusearch:
-                        startActivity(new Intent(getApplicationContext(),Search.class));
-                        break;
-                    case R.id.menusettings:
-                        Toast.makeText(getApplicationContext(), "This has yet to be implemented", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
-        });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -138,7 +101,33 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        menuSelected = item.getItemId();
+        int id = item.getItemId();
+
+        if (id == R.id.menusearch) {
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),Search.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
+        } else if (id == R.id.menuplan) {
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuprofile) {
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menuprogram) {
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }
+            }, NAVDRAWER_LAUNCH_DELAY);
+        } else if (id == R.id.menusaved) {
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menusettings) {
+            Toast.makeText(this, "This has yet to be implemented", Toast.LENGTH_SHORT).show();
+        }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
