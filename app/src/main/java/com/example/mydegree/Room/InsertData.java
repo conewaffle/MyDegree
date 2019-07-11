@@ -75,28 +75,87 @@ public class InsertData {
     public static ArrayList<Prereq> getPrereqs(){
         ArrayList<Prereq> prereqs = new ArrayList<>();
 
-        // insert prereq objects here
+        prereqs.add(new Prereq("INFS2101","INFS1609"));
+        prereqs.add(new Prereq("INFS2101","INFS2603"));
+        prereqs.add(new Prereq("INFS2603","INFS1602"));
+        prereqs.add(new Prereq("INFS2603","INFS1603"));
+        prereqs.add(new Prereq("INFS2605","INFS1603"));
+        prereqs.add(new Prereq("INFS2605","INFS1609"));
+        prereqs.add(new Prereq("INFS2608","INFS1603"));
+        prereqs.add(new Prereq("INFS2621","INFS1602"));
+        prereqs.add(new Prereq("INFS2631","INFS1602"));
+        prereqs.add(new Prereq("INFS3202","INFS2101"));
+        prereqs.add(new Prereq("INFS3303","INFS3202"));
+        prereqs.add(new Prereq("INFS3603","INFS1602"));
+        prereqs.add(new Prereq("INFS3604","INFS2603"));
+        prereqs.add(new Prereq("INFS3605","INFS3634"));
+        prereqs.add(new Prereq("INFS3617","INFS1602"));
+        prereqs.add(new Prereq("INFS3632","INFS1602"));
+        prereqs.add(new Prereq("INFS3634","INFS2605"));
+        prereqs.add(new Prereq("INFS3634","INFS2608"));
+        prereqs.add(new Prereq("INFS3830","INFS3603"));
+        prereqs.add(new Prereq("INFS3873","INFS3603"));
+        prereqs.add(new Prereq("ACCT1511", "ACCT1501"));
+
 
         return prereqs;
     }
 
     public static ArrayList<Stream> getStreams() {
         ArrayList<Stream> streams = new ArrayList<>();
-        streams.add(new Stream("39791C", "Stage 1 Compulsory Core",42,false));
+        streams.add(new Stream("INFS1C", "Stage 1 Compulsory Core",30,false));
+        streams.add(new Stream("INFS1CA","Stage 1 Compulsory Core Option 1", 6, false));
+        streams.add(new Stream("INFS1CB", "Stage 1 Compulsory Core Option 2", 6, false));
+        streams.add(new Stream("INFS2C","Stage 2 Compulsory Core",24,false));
+        streams.add(new Stream("39793C","Stage 3 Compulsory Core",30,false));
+        streams.add(new Stream("3979E","INFS Stage 2/3 Electives (choose 2)", 12, false));
+        streams.add(new Stream("3979F","Free Electives",24,false));
+        streams.add(new Stream("GENED","General Education",12,false));
         //insert more streams here
         return streams;
     }
 
     public static ArrayList<ProgramStream> getProgramStreams() {
         ArrayList<ProgramStream> programStreams = new ArrayList<>();
-        programStreams.add(new ProgramStream("3979","39791C"));
+        programStreams.add(new ProgramStream("3979","INFS1C"));
+        programStreams.add(new ProgramStream("3979","INFS1CA"));
+        programStreams.add(new ProgramStream("3979","INFS1CB"));
+        programStreams.add(new ProgramStream("3979","INFS2C"));
+        programStreams.add(new ProgramStream("3979","39793C"));
+        programStreams.add(new ProgramStream("3979","3979E"));
+        programStreams.add(new ProgramStream("3979","3979F"));
+        programStreams.add(new ProgramStream("3979","GENED"));
+
         //insert more programstreams here
         return programStreams;
     }
 
     public static ArrayList<StreamCourse> getStreamCourse() {
         ArrayList<StreamCourse> streamCourses = new ArrayList<>();
-        streamCourses.add(new StreamCourse("S1CC", "INFS1602", true));
+        streamCourses.add(new StreamCourse("INFS1C", "INFS1602", true));
+        streamCourses.add(new StreamCourse("INFS1C", "INFS1603", true));
+        streamCourses.add(new StreamCourse("INFS1C", "INFS1609", true));
+        streamCourses.add(new StreamCourse("INFS1C", "INFS1501", true));
+        streamCourses.add(new StreamCourse("INFS1C", "MGMT1001", true));
+        streamCourses.add(new StreamCourse("INFS1CA", "ECON1203", false));
+        streamCourses.add(new StreamCourse("INFS1CA", "MATH1041", false));
+        streamCourses.add(new StreamCourse("INFS1CB", "ACCT1511", false));
+        streamCourses.add(new StreamCourse("INFS1CB", "ECON1101", false));
+        streamCourses.add(new StreamCourse("INFS2C", "INFS2603", true));
+        streamCourses.add(new StreamCourse("INFS2C", "INFS2605", true));
+        streamCourses.add(new StreamCourse("INFS2C", "INFS2608", true));
+        streamCourses.add(new StreamCourse("INFS2C", "INFS2621", true));
+        streamCourses.add(new StreamCourse("39793C", "INFS3603", true));
+        streamCourses.add(new StreamCourse("39793C", "INFS3604", true));
+        streamCourses.add(new StreamCourse("39793C", "INFS3605", true));
+        streamCourses.add(new StreamCourse("39793C", "INFS3617", true));
+        streamCourses.add(new StreamCourse("39793C", "INFS3634", true));
+        streamCourses.add(new StreamCourse("3979E", "INFS2631", false));
+        streamCourses.add(new StreamCourse("3979E", "INFS3020", false));
+        streamCourses.add(new StreamCourse("3979E", "INFS3632", false));
+        streamCourses.add(new StreamCourse("3979E", "INFS3830", false));
+        streamCourses.add(new StreamCourse("3979E", "INFS3873", false));
+
         //insert more stream courses here
         return streamCourses;
     }
