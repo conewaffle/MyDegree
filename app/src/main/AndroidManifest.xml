@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".CourseOverview"
-            android:parentActivityName=".Search"/>
+            android:parentActivityName=".Search"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".Profile" />
         <activity android:name=".Plan" />
         <activity android:name=".SavedItems" />
@@ -19,7 +20,7 @@
         <activity android:name=".Search" />
         <activity
             android:name=".ProgramDetails.ProgramDetail"
-            android:parentActivityName=".Search" />
+            android:parentActivityName=".Search"/>
         <activity
             android:name=".BaseActivity"
             android:exported="true" />

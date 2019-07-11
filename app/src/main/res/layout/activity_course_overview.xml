@@ -7,6 +7,7 @@
     android:padding="8dp"
     tools:context=".CourseOverview">
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab3"
         android:layout_width="wrap_content"
@@ -200,10 +201,29 @@
                 android:id="@+id/prereqs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_margin="16dp"
                 android:text="Preqreuisites: N/A"
                 android:textColor="#000" />
+
+            <Button
+                android:id="@+id/courseOutline"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:padding="16dp"
+                android:layout_margin="8dp"
+                android:text="Course Outline" />
+
+            <Button
+                android:id="@+id/courseTimetable"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:layout_margin="8dp"
+                android:padding="16dp"
+                android:text="Course Timetable" />
 
         </LinearLayout>
 
