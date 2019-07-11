@@ -53,7 +53,7 @@ public class Program extends BaseActivity {
         //THIS WILL check for the database and execute querying it
         SharedPreferences checkDbPrefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
         if (checkDbPrefs.getInt(ROOM_INITIALISED,0)!=1){
-            //new insert courses asynctask
+            new InsertRoomTask().execute();
         } else {
             // new insert query task
         }
@@ -98,10 +98,18 @@ public class Program extends BaseActivity {
             CourseDb db = Room
                     .databaseBuilder(Program.this, CourseDb.class, "coursedb")
                     .build();
+
             ArrayList<Course> courses = InsertData.getCourses();
             for(int i = 0;i<courses.size();i++){
-                db.courseDao().insert(courses.get(i));
+                db.courseDao().insertCourse(courses.get(i));
             }
+
+            ArrayList<com.example.mydegree.Room.Program> programs = InsertData.getPrograms();
+            for(int i = 0; i<programs.size();i++){
+                db.courseDao().insertProgram(programs.get(i));
+            }
+
+
             return null;
         }
 

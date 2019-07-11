@@ -15,7 +15,10 @@ public interface CourseDao {
     List<Course> getCourses();
 
     @Insert
-    void insert(Course course);
+    void insertCourse(Course course);
+
+    @Insert
+    void insertProgram(Program program);
 
     @Update
     void updateCourse(Course course);
