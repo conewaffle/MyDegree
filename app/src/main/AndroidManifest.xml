@@ -9,24 +9,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Program">
+        <activity android:name=".Login.Signup"></activity>
+        <activity android:name=".Login.Login" />
+        <activity
+            android:name=".CourseOverview"
+            android:parentActivityName=".Search"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Program" />
+        <activity android:name=".Plan" />
+        <activity android:name=".SavedItems" />
+        <activity android:name=".Settings" />
+        <activity android:name=".Search" />
+        <activity
+            android:name=".ProgramDetails.ProgramDetail"
+            android:parentActivityName=".Search" />
+        <activity
+            android:name=".BaseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile" />
-        <activity android:name=".Plan" />
-        <activity android:name=".SavedItems" />
-        <activity android:name=".Settings" />
-        <activity android:name=".Search" />
-        <activity android:name=".BaseActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
