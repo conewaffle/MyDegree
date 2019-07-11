@@ -35,6 +35,8 @@ import java.util.ArrayList;
 
 import static com.example.mydegree.Room.InsertData.getCourses;
 
+//IGNORE THIS ACTIVITY ITS HERE just in case
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
