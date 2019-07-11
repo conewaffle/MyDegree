@@ -29,6 +29,9 @@ public interface CourseDao {
     @Insert
     void insertStreamCourses(StreamCourse streamCourse);
 
+    @Query("SELECT * FROM course WHERE courseCode LIKE :query OR courseName LIKE :query")
+    List<Course> getSearchCourses(String query);
+
     @Update
     void updateCourse(Course course);
 

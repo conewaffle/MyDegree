@@ -13,7 +13,7 @@
         <activity android:name=".Login.Login" />
         <activity
             android:name=".CourseOverview"
-            android:parentActivityName=".Search"
+            android:parentActivityName=".Search.Search"
             android:theme="@style/AppTheme" />
         <activity android:name=".Profile" />
         <activity android:name=".Program">
@@ -26,10 +26,10 @@
         <activity android:name=".Plan" />
         <activity android:name=".SavedItems" />
         <activity android:name=".Settings" />
-        <activity android:name=".Search" />
+        <activity android:name=".Search.Search" />
         <activity
             android:name=".ProgramDetails.ProgramDetail"
-            android:parentActivityName=".Search" />
+            android:parentActivityName=".Search.Search" />
         <activity
             android:name=".BaseActivity" />
         <activity
