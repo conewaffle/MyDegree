@@ -43,6 +43,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:scaleType="centerInside"
                             android:src="@drawable/ic_baseline_hourglass_empty_24px" />
 
                         <TextView
@@ -65,6 +66,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:scaleType="centerInside"
                             android:src="@drawable/ic_outline_domain_24px" />
 
                         <TextView
@@ -87,6 +89,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:scaleType="centerInside"
                             android:src="@drawable/ic_outline_school_24px" />
 
                         <TextView
@@ -109,6 +112,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:scaleType="centerInside"
                             android:src="@drawable/ic_outline_import_contacts_24px" />
 
                         <TextView
