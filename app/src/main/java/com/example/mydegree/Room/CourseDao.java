@@ -20,6 +20,15 @@ public interface CourseDao {
     @Insert
     void insertProgram(Program program);
 
+    @Insert
+    void insertPrereq(Prereq prereq);
+
+    @Insert
+    void insertProgramStreams(ProgramStream programStream);
+
+    @Insert
+    void insertStreamCourses(StreamCourse streamCourse);
+
     @Update
     void updateCourse(Course course);
 
