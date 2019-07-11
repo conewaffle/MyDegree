@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Search for courses and programs" />
+            android:hint="Search for courses and programs"
+            android:singleLine="true" />
 
         <FrameLayout
             android:layout_width="wrap_content"

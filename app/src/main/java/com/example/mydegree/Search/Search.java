@@ -56,6 +56,7 @@ public class Search extends BaseActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         //pressing search button takes EditText text and uses it as a query for database.  It checks to ensure the query exists (otherwise database call fails)
+        //consider making it that it searches whenever EditText state change (using listener) so that list updates without having to press search button
         fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
