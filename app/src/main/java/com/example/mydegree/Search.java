@@ -15,6 +15,7 @@ import com.example.mydegree.ProgramDetails.ProgramDetail;
 public class Search extends BaseActivity {
 
     private Button prog;
+    private Button course;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,16 @@ public class Search extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Search.this, ProgramDetail.class);
+                startActivity(intent);
+            }
+        });
+
+        course = findViewById(R.id.button2);
+        course.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Search.this, CourseOverview.class);
                 startActivity(intent);
             }
         });
