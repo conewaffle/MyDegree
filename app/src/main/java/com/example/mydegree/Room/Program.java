@@ -1,12 +1,15 @@
 package com.example.mydegree.Room;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "program")
-public class Program {
+public class Program implements Parcelable {
     @PrimaryKey
     @NonNull
     private String progCode;
@@ -65,5 +68,27 @@ public class Program {
 
     public void setYears(int years) {
         this.years = years;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    protected Program(Parcel in){
+        progCode = in.readString();
+        progName = in.readString();
+        progDesc = in.readString();
+        progUoc = in.readInt();
+        years = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(progCode);
+        dest.writeString(progName);
+        dest.writeString(progDesc);
+        dest.writeInt(progUoc);
+        dest.writeInt(years);
     }
 }

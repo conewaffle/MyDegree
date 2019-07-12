@@ -21,6 +21,10 @@ public class ProgramCoursesFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_program_courses, container, false);
         return view;
+
+        //getActivity().
+
+
     }
 
 }
