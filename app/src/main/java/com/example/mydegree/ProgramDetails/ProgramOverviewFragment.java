@@ -12,10 +12,12 @@ import com.example.mydegree.R;
 
 public class ProgramOverviewFragment extends Fragment {
 
+    private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_program_overview, container, false);
+        view = inflater.inflate(R.layout.fragment_program_overview, container, false);
+        return view;
     }
 }
