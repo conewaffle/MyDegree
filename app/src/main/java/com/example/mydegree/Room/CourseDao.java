@@ -32,6 +32,9 @@ public interface CourseDao {
     @Query("SELECT * FROM course WHERE courseCode LIKE :query OR courseName LIKE :query")
     List<Course> getSearchCourses(String query);
 
+    @Query("SELECT * FROM prereq WHERE postreq = :postreq")
+    List<Prereq> getPrereqs(String postreq);
+
     @Update
     void updateCourse(Course course);
 

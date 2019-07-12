@@ -57,6 +57,7 @@ public class ProgramDetail extends AppCompatActivity {
         toolbar.setTitle(progString);
 
 
+
     }
 
     @Override
