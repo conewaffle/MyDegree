@@ -67,15 +67,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position){
         if(mDataset.get(position).getCourseCode().length()==4){
-            holder.code.setText("Program "+ mDataset.get(position).getCourseCode());
+            holder.code.setText(mDataset.get(position).getCourseCode() + " - " + mDataset.get(position).getCourseName());
+            holder.name.setText("Program");
             holder.code.setTypeface(Typeface.DEFAULT_BOLD);
-            holder.name.setTypeface(Typeface.DEFAULT_BOLD);
         } else {
             holder.code.setText(mDataset.get(position).getCourseCode());
+            holder.name.setText(mDataset.get(position).getCourseName());
             holder.code.setTypeface(Typeface.DEFAULT);
-            holder.name.setTypeface(Typeface.DEFAULT);
+
         }
-        holder.name.setText(mDataset.get(position).getCourseName());
+
     }
 
     @Override

@@ -27,7 +27,7 @@ public class ProgramOverviewFragment extends Fragment {
 
     private View view;
     private Program myProgram;
-    private TextView duration, uoc, desc;
+    private TextView duration, uoc, desc, name, code;
     private ProgressDialog progDialog;
     private String progString;
 
@@ -78,9 +78,13 @@ public class ProgramOverviewFragment extends Fragment {
             duration = view.findViewById(R.id.duration);
             uoc = view.findViewById(R.id.totalUoc);
             desc = view.findViewById(R.id.progDesc);
+            name = view.findViewById(R.id.progDetailName);
+            code = view.findViewById(R.id.progDetailCode);
             desc.setText(myProgram.getProgDesc());
             uoc.setText(myProgram.getProgUoc() + " UOC");
             duration.setText(myProgram.getYears() + " Years");
+            name.setText(myProgram.getProgName());
+            code.setText(myProgram.getProgCode());
 
             progDialog.dismiss();
         }
