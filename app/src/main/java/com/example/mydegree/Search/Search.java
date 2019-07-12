@@ -37,6 +37,7 @@ public class Search extends BaseActivity {
     private ProgressDialog progDialog;
     private EditText searchText;
     private SearchAdapter mAdapter;
+    private ArrayList<Course> defaultList;
 
 
     @Override
@@ -59,7 +60,7 @@ public class Search extends BaseActivity {
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         //adds programs to top of list
-        ArrayList<Course> defaultList = InsertData.getCourses();
+        defaultList = InsertData.getCourses();
         mAdapter = new SearchAdapter(defaultList);
         recycler.setAdapter(mAdapter);
 
@@ -165,6 +166,9 @@ public class Search extends BaseActivity {
 
         if(query.isEmpty()){
             Toast.makeText(Search.this, "Error! There is nothing to search for!", Toast.LENGTH_LONG).show();
+            mAdapter = new SearchAdapter(defaultList);
+            recycler.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
             searchText.requestFocus();
         } else {
             //percent are used for the LIKE SQL statement
