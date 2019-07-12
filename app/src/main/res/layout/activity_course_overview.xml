@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".CourseOverview">
+    tools:context=".CourseOverview.CourseOverview">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -148,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
-                            android:text="Undergraduate" />
+                            android:text="Undergrad" />
 
                     </LinearLayout>
 
@@ -170,7 +170,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
-                            android:text="6 UOC" />
+                            android:text="6 UOC"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 
@@ -198,12 +199,46 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/prereqs"
+                android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Preqreuisites: N/A"
-                android:textColor="#000" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Requirements"
+                android:textSize="18sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/colorCard"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerPrereq"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:orientation="horizontal">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/otherReqText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:padding="8dp"
+                        android:text="Other Requirements: N/A" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/courseOutline"

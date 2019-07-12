@@ -1,9 +1,6 @@
 package com.example.mydegree.ProgramDetails;
 
-import com.example.mydegree.CourseOverview;
 import com.example.mydegree.R;
-import com.example.mydegree.Room.CourseDb;
-import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Program;
 import com.example.mydegree.Search.SearchAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -14,20 +11,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
 
 public class ProgramDetail extends AppCompatActivity {
 

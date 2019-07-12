@@ -12,7 +12,7 @@
         <activity android:name=".Login.Signup"></activity>
         <activity android:name=".Login.Login" />
         <activity
-            android:name=".CourseOverview"
+            android:name=".CourseOverview.CourseOverview"
             android:parentActivityName=".Search.Search"
             android:theme="@style/AppTheme" />
         <activity android:name=".Profile" />

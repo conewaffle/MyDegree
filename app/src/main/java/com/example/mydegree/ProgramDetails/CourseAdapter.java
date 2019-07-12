@@ -1,13 +1,12 @@
 package com.example.mydegree.ProgramDetails;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.mydegree.CourseOverview;
+import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Search.SearchAdapter;

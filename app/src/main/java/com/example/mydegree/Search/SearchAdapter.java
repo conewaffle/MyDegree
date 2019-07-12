@@ -1,16 +1,13 @@
 package com.example.mydegree.Search;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mydegree.CourseOverview;
+import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.ProgramDetails.ProgramDetail;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
@@ -18,8 +15,6 @@ import com.example.mydegree.Room.Course;
 import java.util.ArrayList;
 
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
