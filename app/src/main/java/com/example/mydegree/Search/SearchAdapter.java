@@ -77,6 +77,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             holder.name.setTypeface(Typeface.DEFAULT_BOLD);
         } else {
             holder.code.setText(mDataset.get(position).getCourseCode());
+            holder.code.setTypeface(Typeface.DEFAULT);
+            holder.name.setTypeface(Typeface.DEFAULT);
         }
         holder.name.setText(mDataset.get(position).getCourseName());
     }
