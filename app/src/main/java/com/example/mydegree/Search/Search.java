@@ -5,13 +5,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -55,20 +58,22 @@ public class Search extends BaseActivity {
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        //pressing search button takes EditText text and uses it as a query for database.  It checks to ensure the query exists (otherwise database call fails)
+        //pressing search/Enter takes EditText and uses it to query db, in the doSearch method at bottom which initiates an AsyncTask
         //consider making it that it searches whenever EditText state change (using listener) so that list updates without having to press search button
         fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String query = searchText.getText().toString();
+                doSearch();
+            }
+        });
 
-                if(query.isEmpty()){
-                    Toast.makeText(Search.this, "Error! There is nothing to search for!", Toast.LENGTH_LONG).show();
-                } else {
-                    //percent are used for the LIKE SQL statement
-                    String query2 = "%" + query + "%";
-                    new GetSearchTask().execute(query2);
+        searchText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if((event.getAction()==KeyEvent.ACTION_DOWN)&&(keyCode==KeyEvent.KEYCODE_ENTER)){
+                    doSearch();
                 }
+                return true;
             }
         });
 
@@ -136,11 +141,39 @@ public class Search extends BaseActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Course> result){
-           mAdapter = new SearchAdapter(result);
-           recycler.setAdapter(mAdapter);
+           if (result.size()==0){
+               Toast.makeText(Search.this,"No results found.",Toast.LENGTH_SHORT).show();
+               searchText.requestFocus();
+           } else {
+               mAdapter = new SearchAdapter(result);
+               recycler.setAdapter(mAdapter);
+               hideKeyboard(Search.this);
+           }
+
            progDialog.dismiss();
         }
     }
 
+    private void doSearch(){
+        String query = searchText.getText().toString();
+
+        if(query.isEmpty()){
+            Toast.makeText(Search.this, "Error! There is nothing to search for!", Toast.LENGTH_LONG).show();
+            searchText.requestFocus();
+        } else {
+            //percent are used for the LIKE SQL statement
+            String query2 = "%" + query + "%";
+            new GetSearchTask().execute(query2);
+        }
+    }
+
+    public static void hideKeyboard(Activity activity){
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if(view==null){
+            view =  new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
 
 }

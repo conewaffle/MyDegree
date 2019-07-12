@@ -48,8 +48,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             viewIntent.putExtra(COURSE_PARCEL, myCourse);
             view.getContext().startActivity(viewIntent);
 
-            //Toast.makeText(view.getContext(), "This will lead to course overview", Toast.LENGTH_SHORT).show();
-
         }
     }
 
