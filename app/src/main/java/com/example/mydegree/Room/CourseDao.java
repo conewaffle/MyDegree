@@ -38,6 +38,8 @@ public interface CourseDao {
     @Query("SELECT * FROM program WHERE progCode = :progCode")
     List<Program> getPrograms(String progCode);
 
+    //@Query("SELECT streamCourse.streamCourse FROM streamcourse JOIN programstream ON streamCourse.streamId2 = programstream.streamId WHERE programCode = ")
+
     @Update
     void updateCourse(Course course);
 
