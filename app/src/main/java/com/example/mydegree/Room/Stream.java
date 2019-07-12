@@ -6,24 +6,26 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "stream")
+@Entity(tableName = "stream", primaryKeys = {"id","streamProg"})
 public class Stream {
 
-    @PrimaryKey
     @NonNull
     private String id;
     private String streamName;
     private int streamUoc;
     private boolean isMajor;
+    @NonNull
+    private String streamProg;
 
     @Ignore
     public Stream() {}
 
-    public Stream(@NonNull String id, String streamName, int streamUoc, boolean isMajor) {
+    public Stream(@NonNull String id, String streamName, int streamUoc, boolean isMajor, String streamProg) {
         this.id = id;
         this.streamName = streamName;
         this.streamUoc = streamUoc;
         this.isMajor = isMajor;
+        this.streamProg = streamProg;
     }
 
     @NonNull
@@ -58,4 +60,8 @@ public class Stream {
     public void setMajor(boolean major) {
         isMajor = major;
     }
+
+    public String getStreamProg() { return streamProg; }
+
+    public void setStreamProg(String streamProg) { this.streamProg = streamProg; }
 }
