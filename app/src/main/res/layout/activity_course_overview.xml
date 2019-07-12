@@ -28,8 +28,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="60dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="60dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -44,32 +44,32 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/codeCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ACCT1501"
-                    android:textColor="#000"
-                    android:textSize="24sp"/>
+                    <TextView
+                        android:id="@+id/courseCode1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ACCT1501"
+                        android:textColor="#000"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/courseName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Accounting &amp; Financial Management 1A"/>
+                    <TextView
+                        android:id="@+id/courseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Accounting &amp; Financial Management 1A" />
                 </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    app:srcCompat="@drawable/ic_baseline_bookmark_border_24px"
+                    android:layout_gravity="right"
                     android:background="@color/colorCard"
-                    android:layout_gravity="right"/>
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_baseline_bookmark_border_24px" />
 
             </androidx.cardview.widget.CardView>
 
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:padding="8dp"
-                    android:text="The compulsory core accounting unit will have a preparer perspective. It will provide an introduction to basic concepts in accounting and their application for decision making by a wide range of potential users (e.g., shareholders, investment analysts, lenders, managers etc). This unit should benefit students who wish to specialise in accounting, and will also be of value to students whose primary interest lies elsewhere in the field of business."/>
+                    android:text="The compulsory core accounting unit will have a preparer perspective. It will provide an introduction to basic concepts in accounting and their application for decision making by a wide range of potential users (e.g., shareholders, investment analysts, lenders, managers etc). This unit should benefit students who wish to specialise in accounting, and will also be of value to students whose primary interest lies elsewhere in the field of business." />
 
             </androidx.cardview.widget.CardView>
 
@@ -210,9 +210,9 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="8dp"
                 android:background="@color/colorPrimary"
                 android:padding="16dp"
-                android:layout_margin="8dp"
                 android:text="Course Outline" />
 
             <Button
@@ -220,8 +220,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/colorPrimary"
                 android:layout_margin="8dp"
+                android:background="@color/colorPrimary"
                 android:padding="16dp"
                 android:text="Course Timetable" />
 

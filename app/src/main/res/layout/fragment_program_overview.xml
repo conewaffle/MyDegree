@@ -43,7 +43,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:scaleType="centerInside"
                             android:src="@drawable/ic_baseline_hourglass_empty_24px" />
 
                         <TextView
@@ -51,7 +50,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
-                            android:text="3 Years" />
+                            android:text="3 Years"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 
@@ -74,7 +74,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
-                            android:text="Kensington" />
+                            android:text="Kensington"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 
@@ -97,7 +98,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
-                            android:text="Undergraduate" />
+                            android:text="Undergrad"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 
@@ -120,7 +122,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="4dp"
-                            android:text="144 UOC" />
+                            android:text="144 UOC"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 

@@ -7,27 +7,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.drm.DrmStore;
-import android.media.MicrophoneInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.mydegree.Search.Search;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -85,7 +73,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(),Search.class));
+                    startActivity(new Intent(getApplicationContext(), Search.class));
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuplan) {
