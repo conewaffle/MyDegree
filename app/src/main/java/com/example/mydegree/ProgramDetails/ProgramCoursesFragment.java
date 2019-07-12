@@ -13,11 +13,14 @@ import com.example.mydegree.R;
 
 public class ProgramCoursesFragment extends Fragment {
 
+    private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_program_courses, container, false);
+        view = inflater.inflate(R.layout.fragment_program_courses, container, false);
+        return view;
     }
 
 }

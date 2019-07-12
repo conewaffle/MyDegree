@@ -60,7 +60,6 @@ public class Search extends BaseActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
         //adds programs to top of list
         ArrayList<Course> defaultList = InsertData.getCourses();
-        defaultList.add(0, new Course("3979","Information Systems",null,0,0,0,false,false,false,null,null));
         mAdapter = new SearchAdapter(defaultList);
         recycler.setAdapter(mAdapter);
 
@@ -142,7 +141,6 @@ public class Search extends BaseActivity {
                     .build();
 
             ArrayList<Course> courseList = (ArrayList<Course>) db.courseDao().getSearchCourses(query[0]);
-            courseList.add(0, new Course("3979","Information Systems",null,0,0,0,false,false,false,null,null));
             return courseList;
         }
 
