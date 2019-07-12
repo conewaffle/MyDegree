@@ -23,6 +23,7 @@ import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
+import com.example.mydegree.Room.InsertData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -57,6 +58,11 @@ public class Search extends BaseActivity {
         searchText = findViewById(R.id.searchEdit);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
+        //adds programs to top of list
+        ArrayList<Course> defaultList = InsertData.getCourses();
+        defaultList.add(0, new Course("3979","Information Systems",null,0,0,0,false,false,false,null,null));
+        mAdapter = new SearchAdapter(defaultList);
+        recycler.setAdapter(mAdapter);
 
         //pressing search/Enter takes EditText and uses it to query db, in the doSearch method at bottom which initiates an AsyncTask
         //consider making it that it searches whenever EditText state change (using listener) so that list updates without having to press search button
@@ -147,6 +153,7 @@ public class Search extends BaseActivity {
            } else {
                mAdapter = new SearchAdapter(result);
                recycler.setAdapter(mAdapter);
+               mAdapter.notifyDataSetChanged();
                hideKeyboard(Search.this);
            }
 

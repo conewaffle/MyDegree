@@ -2,6 +2,7 @@ package com.example.mydegree.Search;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydegree.CourseOverview;
+import com.example.mydegree.ProgramDetails.ProgramDetail;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 
 import java.util.ArrayList;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
 
     public static final String COURSE_PARCEL = "courseParcel";
+    public static final String PROG_CODE = "progCode";
 
     private ArrayList<Course> mDataset;
 
@@ -44,9 +49,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         public void onClick(View view){
             int position = getAdapterPosition();
             Course myCourse = mDataset.get(position);
-            Intent viewIntent = new Intent(view.getContext(), CourseOverview.class);
-            viewIntent.putExtra(COURSE_PARCEL, myCourse);
-            view.getContext().startActivity(viewIntent);
+            if(myCourse.getCourseCode().length()==4){
+                Intent viewIntent = new Intent(view.getContext(), ProgramDetail.class);
+                viewIntent.putExtra(PROG_CODE, myCourse.getCourseCode());
+                view.getContext().startActivity(viewIntent);
+            } else {
+                Intent viewIntent = new Intent(view.getContext(), CourseOverview.class);
+                viewIntent.putExtra(COURSE_PARCEL, myCourse);
+                view.getContext().startActivity(viewIntent);
+            }
 
         }
     }
@@ -60,7 +71,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position){
-        holder.code.setText(mDataset.get(position).getCourseCode());
+        if(mDataset.get(position).getCourseCode().length()==4){
+            holder.code.setText("Program "+ mDataset.get(position).getCourseCode());
+            holder.code.setTypeface(Typeface.DEFAULT_BOLD);
+            holder.name.setTypeface(Typeface.DEFAULT_BOLD);
+        } else {
+            holder.code.setText(mDataset.get(position).getCourseCode());
+        }
         holder.name.setText(mDataset.get(position).getCourseName());
     }
 

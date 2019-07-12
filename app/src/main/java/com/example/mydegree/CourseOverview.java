@@ -52,6 +52,7 @@ public class CourseOverview extends AppCompatActivity {
         final Course myCourse =  i.getParcelableExtra(COURSE_PARCEL);
         code.setText(myCourse.getCourseCode());
         name.setText(myCourse.getCourseName());
+        setTitle(myCourse.getCourseName());
         String terms = "";
         if(myCourse.isT1()){
             terms = terms + "T1 ";
