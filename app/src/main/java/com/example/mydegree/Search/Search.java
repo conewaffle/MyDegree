@@ -83,26 +83,6 @@ public class Search extends BaseActivity {
             }
         });
 
-
-/*        prog = findViewById(R.id.button);
-        prog.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Search.this, ProgramDetail.class);
-                startActivity(intent);
-            }
-        });
-
-        course = findViewById(R.id.button2);
-        course.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Search.this, CourseOverview.class);
-                startActivity(intent);
-            }
-        });*/
     }
 
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS

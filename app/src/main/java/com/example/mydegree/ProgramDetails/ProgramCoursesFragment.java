@@ -19,8 +19,8 @@ import java.util.ArrayList;
 public class ProgramCoursesFragment extends Fragment {
 
     private View view;
-    private RecyclerView r1, r2, r3, r4, r5,r6;
-    private CourseAdapter c1, c2, c3, c4, c5, c6;
+    private RecyclerView r1, r2, r3, r4, r5,r6, r7, r8, r9, r10;
+    private CourseAdapter c1, c2, c3, c4, c5, c6, c7,c8,c9,c10;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +46,18 @@ public class ProgramCoursesFragment extends Fragment {
         r6 = view.findViewById(R.id.recycler6);
         r6.setHasFixedSize(true);
         r6.setLayoutManager(new LinearLayoutManager(getActivity()));
+        r7 = view.findViewById(R.id.recycler7);
+        r7.setHasFixedSize(true);
+        r7.setLayoutManager(new LinearLayoutManager(getActivity()));
+        r8 = view.findViewById(R.id.recycler8);
+        r8.setHasFixedSize(true);
+        r8.setLayoutManager(new LinearLayoutManager(getActivity()));
+        r9 = view.findViewById(R.id.recycler9);
+        r9.setHasFixedSize(true);
+        r9.setLayoutManager(new LinearLayoutManager(getActivity()));
+        r10 = view.findViewById(R.id.recycler10);
+        r10.setHasFixedSize(true);
+        r10.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         c1 = new CourseAdapter(new ArrayList<Course>());
         c2 = new CourseAdapter(new ArrayList<Course>());
@@ -53,6 +65,10 @@ public class ProgramCoursesFragment extends Fragment {
         c4 = new CourseAdapter(new ArrayList<Course>());
         c5 = new CourseAdapter(new ArrayList<Course>());
         c6 = new CourseAdapter(new ArrayList<Course>());
+        c7 = new CourseAdapter(new ArrayList<Course>());
+        c8 = new CourseAdapter(new ArrayList<Course>());
+        c9 = new CourseAdapter(new ArrayList<Course>());
+        c10 = new CourseAdapter(new ArrayList<Course>());
 
         r1.setAdapter(c1);
         r2.setAdapter(c2);
@@ -60,6 +76,10 @@ public class ProgramCoursesFragment extends Fragment {
         r4.setAdapter(c4);
         r5.setAdapter(c5);
         r6.setAdapter(c6);
+        r7.setAdapter(c7);
+        r8.setAdapter(c8);
+        r9.setAdapter(c9);
+        r10.setAdapter(c10);
 
 
 
