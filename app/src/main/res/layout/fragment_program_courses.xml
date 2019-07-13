@@ -44,8 +44,7 @@
                             android:id="@+id/cardView1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic1"
@@ -55,7 +54,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="Stage 1 Compulsory Core"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
@@ -90,8 +89,7 @@
                             android:id="@+id/cardView2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic2"
@@ -101,7 +99,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="Researching"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
 
@@ -134,8 +132,7 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic3"
@@ -145,7 +142,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="Referencing"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
 
@@ -177,8 +174,7 @@
                             android:id="@+id/cardView4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic4"
@@ -188,7 +184,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="Assignment Writing"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
@@ -223,8 +219,7 @@
                             android:id="@+id/cardView5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic5"
@@ -234,7 +229,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="Assignment Writing"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
@@ -269,8 +264,7 @@
                             android:id="@+id/cardView6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic6"
@@ -280,7 +274,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="General Education"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
@@ -315,8 +309,7 @@
                             android:id="@+id/cardView7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic7"
@@ -326,7 +319,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="General Education"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
@@ -361,8 +354,7 @@
                             android:id="@+id/cardView8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic8"
@@ -372,7 +364,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="General Education"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
@@ -407,8 +399,7 @@
                             android:id="@+id/cardView9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic9"
@@ -418,7 +409,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="General Education"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
@@ -453,8 +444,7 @@
                             android:id="@+id/cardView10"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark"
-                            app:cardElevation="2dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
                                 android:id="@+id/textTopic10"
@@ -464,7 +454,7 @@
                                 android:fontFamily="sans-serif-thin"
                                 android:text="General Education"
                                 android:textColor="@android:color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
