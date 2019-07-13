@@ -18,6 +18,7 @@ import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.InsertData;
 import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.ProgramStream;
+import com.example.mydegree.Room.Stream;
 import com.example.mydegree.Room.StreamCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -117,10 +118,10 @@ public class Program extends BaseActivity {
                 db.courseDao().insertPrereq(prereqs.get(i));
             }
 
-/*            ArrayList<ProgramStream> programStreams = InsertData.getProgramStreams();
-            for(int i = 0; i<programStreams.size();i++){
-                db.courseDao().insertProgramStreams(programStreams.get(i));
-            }*/
+            ArrayList<Stream> streams = InsertData.getStreams();
+            for(int i = 0; i<streams.size();i++){
+                db.courseDao().insertStream(streams.get(i));
+            }
 
             ArrayList<StreamCourse> streamCourses = InsertData.getStreamCourse();
             for(int i = 0; i<streamCourses.size();i++){

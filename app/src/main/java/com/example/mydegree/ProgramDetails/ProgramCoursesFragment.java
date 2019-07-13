@@ -21,6 +21,7 @@ import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.Stream;
+import com.example.mydegree.Room.StreamCourse;
 import com.example.mydegree.Search.Search;
 import com.example.mydegree.Search.SearchAdapter;
 
@@ -80,16 +81,16 @@ public class ProgramCoursesFragment extends Fragment {
         //endregion
 
         //region adapter instantiation
-        c1 = new CourseAdapter(new ArrayList<Course>());
-        c2 = new CourseAdapter(new ArrayList<Course>());
-        c3 = new CourseAdapter(new ArrayList<Course>());
-        c4 = new CourseAdapter(new ArrayList<Course>());
-        c5 = new CourseAdapter(new ArrayList<Course>());
-        c6 = new CourseAdapter(new ArrayList<Course>());
-        c7 = new CourseAdapter(new ArrayList<Course>());
-        c8 = new CourseAdapter(new ArrayList<Course>());
-        c9 = new CourseAdapter(new ArrayList<Course>());
-        c10 = new CourseAdapter(new ArrayList<Course>());
+        c1 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c2 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c3 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c4 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c5 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c6 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c7 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c8 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c9 = new CourseAdapter(new ArrayList<StreamCourse>());
+        c10 = new CourseAdapter(new ArrayList<StreamCourse>());
         //endregion
 
         //region bind adapter to recycler
@@ -144,15 +145,16 @@ public class ProgramCoursesFragment extends Fragment {
         card10.setVisibility(View.GONE);
         //endregion
 
+
         Intent i = getActivity().getIntent();
-        if(i!=null){
-            progString = i.getStringExtra(SearchAdapter.PROG_CODE);
+        progString = i.getStringExtra(SearchAdapter.PROG_CODE);
+        if (progString!=null) {
             new GetStreamsTask().execute(progString);
         }
 
-        //then call a getstreamcoursestask from onpostexecute of getstreamstask, returning nested arraylist of courses
-
         return view;
+
+
     }
 
     private class GetStreamsTask extends AsyncTask<String, Void, ArrayList<Stream>> {
@@ -221,7 +223,62 @@ public class ProgramCoursesFragment extends Fragment {
                 streamIds.add(result.get(i).getId());
             }
 
+            new GetStreamCoursesTask().execute();
+
+        }
+    }
+
+    private class GetStreamCoursesTask extends AsyncTask<Void, Void, ArrayList<ArrayList<StreamCourse>>> {
+
+        @Override
+        protected void onPreExecute(){
+           super.onPreExecute();
+
+        }
+
+        @Override
+        protected ArrayList<ArrayList<StreamCourse>> doInBackground(Void... voids) {
+            CourseDb db = Room
+                    .databaseBuilder(getActivity(), CourseDb.class, "coursedb")
+                    .build();
+
+            ArrayList<ArrayList<StreamCourse>> masterList = new ArrayList<>();
+            for(int i=0;i<streamIds.size();i++){
+                masterList.add((ArrayList<StreamCourse>) db.courseDao().getStreamCourses(streamIds.get(i)));
+            }
+
+            return masterList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ArrayList<StreamCourse>> result){
+
+            for(int i = 0; i<result.size();i++){
+                if (i==0){
+                    c1.setCourses(result.get(i));
+                } else if (i==1){
+                    c2.setCourses(result.get(i));
+                } else if (i==2){
+                    c3.setCourses(result.get(i));
+                } else if (i==3){
+                    c4.setCourses(result.get(i));
+                } else if (i==4){
+                    c5.setCourses(result.get(i));
+                } else if (i==5){
+                    c6.setCourses(result.get(i));
+                } else if (i==6){
+                    c7.setCourses(result.get(i));
+                } else if (i==7){
+                    c8.setCourses(result.get(i));
+                } else if (i==8){
+                    c9.setCourses(result.get(i));
+                } else if (i==9){
+                    c10.setCourses(result.get(i));
+                }
+            }
+
             progDialog.dismiss();
         }
     }
+
 }

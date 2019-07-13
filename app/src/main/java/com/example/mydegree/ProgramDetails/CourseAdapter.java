@@ -1,14 +1,18 @@
 package com.example.mydegree.ProgramDetails;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mydegree.CourseOverview.CourseOverview;
+import com.example.mydegree.CourseOverview.PrereqAdapter;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
+import com.example.mydegree.Room.Stream;
+import com.example.mydegree.Room.StreamCourse;
 import com.example.mydegree.Search.SearchAdapter;
 
 import java.util.ArrayList;
@@ -18,9 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder>{
 
-    private ArrayList<Course> mDataset;
+    private ArrayList<StreamCourse> mDataset;
 
-    public CourseAdapter(ArrayList<Course> myDataset){mDataset = myDataset;}
+    public CourseAdapter(ArrayList<StreamCourse> myDataset){mDataset = myDataset;}
 
     public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -39,10 +43,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         @Override
         public void onClick(View view){
             int position = getAdapterPosition();
-            Course myCourse = mDataset.get(position);
+            StreamCourse myStreamCourse = mDataset.get(position);
+            String myCourse = myStreamCourse.getStreamCourse();
 
             Intent courseIntent = new Intent(view.getContext(),CourseOverview.class);
-            courseIntent.putExtra(SearchAdapter.COURSE_PARCEL,myCourse);
+            courseIntent.putExtra(PrereqAdapter.PREREQ_PARCEL,myCourse);
             view.getContext().startActivity(courseIntent);
         }
     }
@@ -57,13 +62,25 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
     @Override
     public void onBindViewHolder(CourseAdapter.CourseViewHolder holder, int position){
-        holder.code.setText(mDataset.get(position).getCourseCode());
-        holder.name.setText(mDataset.get(position).getCourseName());
+        holder.code.setText(mDataset.get(position).getStreamCourse());
+        if (mDataset.get(position).isCore()) {
+            holder.name.setText("Core");
+        } else {
+            holder.searchCard.setBackgroundColor(Color.WHITE);
+            holder.name.setText("Option " + (position+1));
+        }
+
     }
 
     @Override
     public int getItemCount(){
         return mDataset.size();
+    }
+
+    public void setCourses(ArrayList<StreamCourse> streamCourses){
+        mDataset.clear();
+        mDataset.addAll(streamCourses);
+        this.notifyDataSetChanged();
     }
 
 }

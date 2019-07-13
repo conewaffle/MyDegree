@@ -236,23 +236,23 @@ public class InsertData {
     public static ArrayList<Stream> getStreams() {
         ArrayList<Stream> streams = new ArrayList<>();
         streams.add(new Stream("INFS1C", "Stage 1 Compulsory Core",30,false, "3979"));
-        streams.add(new Stream("INFS1CA","Stage 1 Compulsory Core Option 1", 6, false,"3979"));
-        streams.add(new Stream("INFS1CB", "Stage 1 Compulsory Core Option 2", 6, false,"3979"));
+        streams.add(new Stream("INFS1CA","Stage 1 Compulsory Option 1", 6, false,"3979"));
+        streams.add(new Stream("INFS1CB", "Stage 1 Compulsory Option 2", 6, false,"3979"));
         streams.add(new Stream("INFS2C","Stage 2 Compulsory Core",24,false,"3979"));
         streams.add(new Stream("39793C","Stage 3 Compulsory Core",30,false,"3979"));
         streams.add(new Stream("3979E","INFS Stage 2/3 Electives (choose 2)", 12, false,"3979"));
         streams.add(new Stream("3979F","Free Electives",24,false,"3979"));
         streams.add(new Stream("GENED","General Education",12,false,"3979"));
+        streams.add(new Stream("INFS1C", "Stage 1 Compulsory Core",30,false, "3964"));
+        streams.add(new Stream("INFS1CA","Stage 1 Compulsory Option 1", 6, false,"3964"));
+        streams.add(new Stream("INFS1CB", "Stage 1 Compulsory Option 2", 6, false,"3964"));
+        streams.add(new Stream("INFS2C","Stage 2 Compulsory Core",24,false,"3964"));
         streams.add(new Stream("3964C","Stage 3 Compulsory Core",24,false,"3964"));
         streams.add(new Stream("3964CE","INFS Level 2/3 Elective",6,false,"3964"));
         streams.add(new Stream("3964I","Industrial Placement", 36, false,"3964"));
         streams.add(new Stream("3964HC", "Honours Core", 36, false,"3964"));
         streams.add(new Stream("3964HE", "Honours Elective", 12, false,"3964"));
         streams.add(new Stream("GENED","General Education",12,false,"3964"));
-        streams.add(new Stream("INFS1C", "Stage 1 Compulsory Core",30,false, "3964"));
-        streams.add(new Stream("INFS1CA","Stage 1 Compulsory Core Option 1", 6, false,"3964"));
-        streams.add(new Stream("INFS1CB", "Stage 1 Compulsory Core Option 2", 6, false,"3964"));
-        streams.add(new Stream("INFS2C","Stage 2 Compulsory Core",24,false,"3964"));
         streams.add(new Stream("3584COC","Commerce Core",18,false,"3584"));
         streams.add(new Stream("3584COCO","Commerce Core Option",6,false,"3584"));
         streams.add(new Stream("3584F","Flexible Core",18,false,"3584"));
@@ -289,7 +289,7 @@ public class InsertData {
         streamCourses.add(new StreamCourse("INFS1C", "INFS1602", true));
         streamCourses.add(new StreamCourse("INFS1C", "INFS1603", true));
         streamCourses.add(new StreamCourse("INFS1C", "INFS1609", true));
-        streamCourses.add(new StreamCourse("INFS1C", "INFS1501", true));
+        streamCourses.add(new StreamCourse("INFS1C", "ACCT1501", true));
         streamCourses.add(new StreamCourse("INFS1C", "MGMT1001", true));
         streamCourses.add(new StreamCourse("INFS1CA", "ECON1203", false));
         streamCourses.add(new StreamCourse("INFS1CA", "MATH1041", false));
@@ -342,6 +342,10 @@ public class InsertData {
         streamCourses.add(new StreamCourse("3584F","MARK1012",false));
         streamCourses.add(new StreamCourse("3584F","MGMT1101",false));
         streamCourses.add(new StreamCourse("3584F","TABL1710",false));
+        streamCourses.add(new StreamCourse("3584I1","INFS1602",true));
+        streamCourses.add(new StreamCourse("3584I1","INFS1603",true));
+        streamCourses.add(new StreamCourse("3584I1","INFS1609",true));
+
 
 
 

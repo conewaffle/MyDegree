@@ -1,5 +1,6 @@
 package com.example.mydegree.ProgramDetails;
 
+import com.example.mydegree.CourseOverview.PrereqAdapter;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Program;
 import com.example.mydegree.Search.SearchAdapter;
@@ -42,6 +43,8 @@ public class ProgramDetail extends AppCompatActivity {
 
     public static final String PROG_PARCEL = "progParcel";
 
+    private Intent i;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +71,7 @@ public class ProgramDetail extends AppCompatActivity {
 
         progDialog = new ProgressDialog(ProgramDetail.this);
 
-        //activity code begins here
-        Intent i = getIntent();
+        i = getIntent();
         progString = i.getStringExtra(SearchAdapter.PROG_CODE);
 
         String title = progString;
@@ -125,6 +127,7 @@ public class ProgramDetail extends AppCompatActivity {
                     break;
                 case 1:
                     fragment = new ProgramCoursesFragment();
+                    fragment.setArguments(bundle);
                     break;
             }
             return fragment;
@@ -135,7 +138,6 @@ public class ProgramDetail extends AppCompatActivity {
             return 2;
         }
     }
-
 
 
 
