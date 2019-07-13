@@ -117,10 +117,10 @@ public class Program extends BaseActivity {
                 db.courseDao().insertPrereq(prereqs.get(i));
             }
 
-            ArrayList<ProgramStream> programStreams = InsertData.getProgramStreams();
+/*            ArrayList<ProgramStream> programStreams = InsertData.getProgramStreams();
             for(int i = 0; i<programStreams.size();i++){
                 db.courseDao().insertProgramStreams(programStreams.get(i));
-            }
+            }*/
 
             ArrayList<StreamCourse> streamCourses = InsertData.getStreamCourse();
             for(int i = 0; i<streamCourses.size();i++){
