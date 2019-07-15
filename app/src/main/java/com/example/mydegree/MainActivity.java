@@ -3,6 +3,7 @@ package com.example.mydegree;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.mydegree.Saved.SavedItems;
 import com.example.mydegree.Search.Search;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(),SavedItems.class));
+                    startActivity(new Intent(getApplicationContext(), SavedItems.class));
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusettings) {

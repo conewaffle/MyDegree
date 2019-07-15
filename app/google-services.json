@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "209748883863",
+    "firebase_url": "https://mydegree-de737.firebaseio.com",
+    "project_id": "mydegree-de737",
+    "storage_bucket": "mydegree-de737.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209748883863:android:dd45722789643d35",
+        "android_client_info": {
+          "package_name": "com.example.mydegree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209748883863-jblhcv1d871i76tm2av6eq0j2qto4gd6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mydegree",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "209748883863-2bbonv112rfsju73nabhml3vvdhp1hlh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mydegree",
+            "certificate_hash": "36e5284f7ea0f3976192cdbfa7f6a614d1bd831c"
+          }
+        },
+        {
+          "client_id": "209748883863-tr59r62ruuh05ofiai0arhphm4786du2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWvLg25L7mOovGnO6Exo2n3CTbRFMHK6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209748883863-tr59r62ruuh05ofiai0arhphm4786du2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

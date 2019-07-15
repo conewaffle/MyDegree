@@ -183,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:padding="8dp"
-                    android:text="The Bachelor of Information Systems (BIS) degree is a highly prized qualification which provides students with information systems expertise and business skills. The program is intended to develop conceptual and practical skills. After an introductory first stage, students will learn about business systems analysis and design, data management, enterprise systems, business process management, big data business analytics, business systems infrastructure and security as well as mathematics, management accounting and commercial programming. &#xA;&#xA;This three year degree is designed for students interested in the use and application of IS and IT commercial environment. It combines courses that assist students to learn about the technical environment of IS as well as develop an understanding of the business implications of these systems. Organisations are always looking for 'business savvy' IS graduates who understand the business and technical issues which surround and impact their information systems." />
+                    android:text=""/>
 
             </androidx.cardview.widget.CardView>
 

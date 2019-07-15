@@ -1,8 +1,10 @@
 package com.example.mydegree.CourseOverview;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Query;
 import androidx.room.Room;
 
 import android.app.ProgressDialog;
@@ -12,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.mydegree.R;
@@ -21,6 +24,12 @@ import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Program;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -30,6 +39,7 @@ public class CourseOverview extends AppCompatActivity {
 
     private TextView code, name, availability, campus, grad, uoc, desc, otherreq;
     private Button courseOut, courseTime;
+    private ImageButton bookmark;
     private ProgressDialog progDialog;
     private RecyclerView recycler;
     private PrereqAdapter mAdapter;
@@ -65,6 +75,27 @@ public class CourseOverview extends AppCompatActivity {
         courseOut = findViewById(R.id.courseOutline);
         courseTime = findViewById(R.id.courseTimetable);
 
+        bookmark = findViewById(R.id.bookmark);
+        FirebaseApp.initializeApp(this);
+
+        checkBookmark();
+
+        bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookmark.setSelected(!bookmark.isSelected());
+                if (bookmark.isSelected()) {
+                    addBookmark();
+                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
+                }
+                else {
+                    removeBookmark();
+                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
+                }
+            }
+        });
+
+
         Intent i = getIntent();
         final Course myCourse =  i.getParcelableExtra(COURSE_PARCEL);
         String fromPrereq = i.getStringExtra(PrereqAdapter.PREREQ_PARCEL);
@@ -93,6 +124,76 @@ public class CourseOverview extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkBookmark() {
+        Intent i = getIntent();
+        final Course course =  i.getParcelableExtra(COURSE_PARCEL);
+        final DatabaseReference bookmarks = FirebaseDatabase.getInstance().getReference();
+        // Need to change .child("4PUZCL...") to user ID when login is connected
+        DatabaseReference check = bookmarks.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
+        check.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(course.getCourseCode()).exists()) {
+                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
+                    bookmark.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            bookmark.setSelected(!bookmark.isSelected());
+                            if (bookmark.isSelected()) {
+                                removeBookmark();
+                                bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
+                            }
+                            else {
+                                addBookmark();
+                                bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
+                            }
+                        }
+                    });
+                }
+                else {
+                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void addBookmark() {
+        Intent i = getIntent();
+        final Course course =  i.getParcelableExtra(COURSE_PARCEL);
+        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+        // Need to change .child("4PUZCL...") to user ID when login is connected
+        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().setValue(course.getCourseName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void removeBookmark() {
+        Intent i = getIntent();
+        final Course course =  i.getParcelableExtra(COURSE_PARCEL);
+        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+        // Need to change .child("4PUZCL...") to user ID when login is connected
+        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     private void fillActivityContent(Course myCourse){
