@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
+//DECIDED TO NOT USE. JUST ADD PROGRAM CODE TO STREAM INSTEAD.
+
 @Entity(tableName = "programstream", primaryKeys = {"programCode", "streamId"})
 public class ProgramStream {
 

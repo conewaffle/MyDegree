@@ -1,194 +1,476 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".ProgramDetails.ProgramDetail">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="60dp"
-            android:orientation="vertical">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Could alternatively just have a list of courses"
-                android:textColor="#000" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Compulsory Core"
-                android:textColor="#000" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:cardBackgroundColor="@color/colorCard"
-                app:cardCornerRadius="8dp"
-                app:contentPaddingBottom="8dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:padding="8dp"
-                        android:text="Level 1"
-                        android:textColor="#000" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/cardView1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="8dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
+                                android:id="@+id/textTopic1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="ACCT1501" />
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="Stage 1 Compulsory Core"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
                         </androidx.cardview.widget.CardView>
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="MGMT1001" />
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="INFS1602" />
-                        </androidx.cardview.widget.CardView>
-
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:padding="8dp"
-                        android:text="Level 2"
-                        android:textColor="#000" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/cardView2"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="8dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
+                                android:id="@+id/textTopic2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="INFS2603" />
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="Researching"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/background_light"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="8dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
+                                android:id="@+id/textTopic3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="INFS2608" />
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="Referencing"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/cardView4"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:cardBackgroundColor="#fff"
-                            app:cardCornerRadius="8dp">
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
                             <TextView
+                                android:id="@+id/textTopic4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:text="INFS2621" />
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="Assignment Writing"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
                         </androidx.cardview.widget.CardView>
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
                     </LinearLayout>
 
+                </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-            </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Electives n dat"
-                android:textColor="#000" />
+                            <TextView
+                                android:id="@+id/textTopic5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="Assignment Writing"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardBackgroundColor="@color/colorCard"
-                app:cardCornerRadius="8dp"
-                app:contentPaddingBottom="8dp">
-            </androidx.cardview.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
 
-    </ScrollView>
+                </androidx.cardview.widget.CardView>
 
-</RelativeLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                            <TextView
+                                android:id="@+id/textTopic6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="General Education"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                            <TextView
+                                android:id="@+id/textTopic7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="General Education"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                            <TextView
+                                android:id="@+id/textTopic8"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="General Education"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                            <TextView
+                                android:id="@+id/textTopic9"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="General Education"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@android:color/background_light"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                            <TextView
+                                android:id="@+id/textTopic10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="General Education"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

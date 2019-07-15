@@ -1,16 +1,13 @@
 package com.example.mydegree.Search;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mydegree.CourseOverview;
+import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.ProgramDetails.ProgramDetail;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
@@ -18,8 +15,6 @@ import com.example.mydegree.Room.Course;
 import java.util.ArrayList;
 
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
@@ -72,15 +67,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position){
         if(mDataset.get(position).getCourseCode().length()==4){
-            holder.code.setText("Program "+ mDataset.get(position).getCourseCode());
+            holder.code.setText(mDataset.get(position).getCourseCode() + " - " + mDataset.get(position).getCourseName());
+            holder.name.setText("Program");
             holder.code.setTypeface(Typeface.DEFAULT_BOLD);
-            holder.name.setTypeface(Typeface.DEFAULT_BOLD);
         } else {
             holder.code.setText(mDataset.get(position).getCourseCode());
+            holder.name.setText(mDataset.get(position).getCourseName());
             holder.code.setTypeface(Typeface.DEFAULT);
-            holder.name.setTypeface(Typeface.DEFAULT);
+
         }
-        holder.name.setText(mDataset.get(position).getCourseName());
+
     }
 
     @Override
