@@ -1,46 +1,33 @@
 package com.example.mydegree.Saved;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.Bookmark;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
-import com.example.mydegree.Room.CourseDb;
-import com.example.mydegree.Search.Search;
-import com.example.mydegree.Search.SearchAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SavedItems extends BaseActivity {
 
     private RecyclerView rv;
     private SavedItemAdapter adapter;
-    private List<Bookmark> bookmarkList;
-
+    private ArrayList<Course> bookmarkList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,19 +49,18 @@ public class SavedItems extends BaseActivity {
         bookmarkList = new ArrayList<>();
         adapter = new SavedItemAdapter(bookmarkList, this);
         rv.setAdapter(adapter);
-/*
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
-        Query display = ref.child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").orderByChild("bookmark");
-        ref.addValueEventListener(valueEventListener);
-*/
 
-//        Query order = FirebaseDatabase.getInstance().getReference("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").orderByChild("total").limitToFirst(10);
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference yourRef = rootRef.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
         yourRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Course bookmark = new Course();
+                    bookmark.setCourseCode(ds.getKey());
+                    bookmark.setCourseName(String.valueOf(ds.getValue()));
+                    bookmarkList.add(bookmark);
+                }
                 adapter.notifyDataSetChanged();
             }
 
@@ -83,6 +69,8 @@ public class SavedItems extends BaseActivity {
 
             }
         });
+
+
 
     }
 
@@ -103,23 +91,5 @@ public class SavedItems extends BaseActivity {
         }
         return true;
     }
-
-/*    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Bookmark bookmarks = ds.getValue(Bookmark.class);
-                    bookmarkList.add(bookmarks);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-        }
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            throw databaseError.toException();
-        }
-    };*/
 
 }
