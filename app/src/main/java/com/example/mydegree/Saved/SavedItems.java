@@ -87,7 +87,7 @@ public class SavedItems extends BaseActivity {
         return true;
     }
 
-    private class GetSavedCodesTask extends AsyncTask<Void, Void, ArrayList<String>> {
+    private class GetSavedCodesTask extends AsyncTask<Void, Void, ArrayList<Bookmark>> {
 
         @Override
         protected void onPreExecute(){
@@ -100,37 +100,35 @@ public class SavedItems extends BaseActivity {
         }
 
         @Override
-        protected ArrayList<String> doInBackground(Void... voids) {
+        protected ArrayList<Bookmark> doInBackground(Void... voids) {
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             DatabaseReference yourRef = rootRef.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
+            final ArrayList<Bookmark> myBookmarks = new ArrayList<>();
             yourRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        Bookmark bookmark = new Bookmark();
-                        bookmark.setCourseCode(ds.getKey());
-                        bookmarkList.add(bookmark);
-                    }
-
-                    for(int i = 0; i<bookmarkList.size();i++){
-                        myStrings.add(bookmarkList.get(i).getCourseCode());
+                        Bookmark bookmark = new Bookmark(ds.getKey());
+                        myBookmarks.add(bookmark);
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
-            return myStrings;
+            return myBookmarks;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<String> result){
-            if(result.size()==0){
-                Toast.makeText(SavedItems.this, "THERE ARE NO STRINGS", Toast.LENGTH_SHORT).show();
+        protected void onPostExecute(ArrayList<Bookmark> result){
+            if (result.size()==0){
+                Toast.makeText(SavedItems.this, "THERE ARE NO BOOKMARKS", Toast.LENGTH_SHORT).show();
             }
-            new GetCoursesTask().execute(result);
+            for(int i = 0; i<result.size();i++){
+                myStrings.add(result.get(i).getCourseCode());
+            }
+            new GetCoursesTask().execute(myStrings);
         }
     }
 

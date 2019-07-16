@@ -92,8 +92,7 @@ public class CourseOverview extends AppCompatActivity {
 
         if (myCourse!=null) {
             String myCode = myCourse.getCourseCode();
-            String myName = myCourse.getCourseName();
-            final Bookmark bookmark2 = new Bookmark(myCode, myName);
+            final Bookmark bookmark2 = new Bookmark(myCode);
             myBookmark = bookmark2;
             new CheckBkMarkTask().execute(bookmark2);
         }
