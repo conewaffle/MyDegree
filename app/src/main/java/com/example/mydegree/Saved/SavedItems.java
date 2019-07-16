@@ -5,21 +5,29 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.Bookmark;
+import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
+import com.example.mydegree.Room.CourseDb;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +35,9 @@ public class SavedItems extends BaseActivity {
 
     private RecyclerView rv;
     private SavedItemAdapter adapter;
-    private ArrayList<Course> bookmarkList;
+    private ArrayList<Bookmark> bookmarkList;
+    private ArrayList<String> myStrings;
+    private ProgressDialog progDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,31 +54,16 @@ public class SavedItems extends BaseActivity {
         //Do the rest as you want for each activity
 
         rv = findViewById(R.id.recyclerSaved);
+        progDialog = new ProgressDialog(SavedItems.this);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         bookmarkList = new ArrayList<>();
-        adapter = new SavedItemAdapter(bookmarkList, this);
-        rv.setAdapter(adapter);
+        myStrings = new ArrayList<>();
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference yourRef = rootRef.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
-        yourRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Course bookmark = new Course();
-                    bookmark.setCourseCode(ds.getKey());
-                    bookmark.setCourseName(String.valueOf(ds.getValue()));
-                    bookmarkList.add(bookmark);
-                }
-                adapter.notifyDataSetChanged();
-            }
+        new GetSavedCodesTask().execute();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        //set the adapter to a courseList instead
 
-            }
-        });
 
 
 
@@ -91,5 +86,85 @@ public class SavedItems extends BaseActivity {
         }
         return true;
     }
+
+    private class GetSavedCodesTask extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progDialog.setMessage("Loading Saved Items...");
+            progDialog.setIndeterminate(false);
+            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progDialog.setCancelable(true);
+            progDialog.show();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... voids) {
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference yourRef = rootRef.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
+            yourRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Bookmark bookmark = new Bookmark();
+                        bookmark.setCourseCode(ds.getKey());
+                        bookmarkList.add(bookmark);
+                    }
+
+                    for(int i = 0; i<bookmarkList.size();i++){
+                        myStrings.add(bookmarkList.get(i).getCourseCode());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            return myStrings;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> result){
+            if(result.size()==0){
+                Toast.makeText(SavedItems.this, "THERE ARE NO STRINGS", Toast.LENGTH_SHORT).show();
+            }
+            new GetCoursesTask().execute(result);
+        }
+    }
+
+
+    private class GetCoursesTask extends AsyncTask<ArrayList<String>, Void, ArrayList<Course>> {
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<Course> doInBackground(ArrayList<String>... query) {
+            CourseDb db = Room
+                    .databaseBuilder(SavedItems.this, CourseDb.class, "coursedb")
+                    .build();
+
+            ArrayList<String> myStrings = query[0];
+            ArrayList<Course> courseList = new ArrayList<>();
+            for(int i=0; i<myStrings.size();i++){
+                courseList.add(db.courseDao().getCourseByCode(myStrings.get(i)).get(0));
+            }
+
+            return courseList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Course> result){
+            adapter = new SavedItemAdapter(result, SavedItems.this);
+            rv.setAdapter(adapter);
+
+            progDialog.dismiss();
+        }
+    }
+
 
 }

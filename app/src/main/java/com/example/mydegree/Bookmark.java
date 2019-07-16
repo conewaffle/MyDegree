@@ -4,13 +4,12 @@ import com.example.mydegree.Room.Course;
 
 public class Bookmark {
 
-    public String courseCode, courseName;
+    public String courseCode;
 
     public Bookmark() { }
 
     public Bookmark(String courseCode, String courseName) {
         this.courseCode = courseCode;
-        this.courseName = courseName;
     }
 
     public String getCourseCode() {
@@ -21,11 +20,4 @@ public class Bookmark {
         this.courseCode = courseCode;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
 }

@@ -219,7 +219,7 @@ public class CourseOverview extends AppCompatActivity {
             bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bookmark2.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    dataSnapshot.getRef().setValue(bookmark2.getCourseName());
+                    dataSnapshot.getRef().setValue(bookmark2.getCourseCode());
                 }
 
                 @Override
