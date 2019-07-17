@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
@@ -78,7 +80,7 @@ public class SavedItems extends BaseActivity {
     private class GetSavedCodesTask extends AsyncTask<String, Void, ArrayList<Course>> {
 
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             super.onPreExecute();
             progDialog.setMessage("Loading...");
             progDialog.setIndeterminate(false);
@@ -101,8 +103,13 @@ public class SavedItems extends BaseActivity {
                         bookmarkList.add(bookmark);
                     }
                     adapter.notifyDataSetChanged();
+
+                    if (bookmarkList.size() == 0) {
+                        Toast.makeText(SavedItems.this, "You have no bookmarks.", Toast.LENGTH_SHORT).show();
+                    }
                     progDialog.dismiss();
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
