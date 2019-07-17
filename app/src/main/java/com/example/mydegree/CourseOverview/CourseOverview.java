@@ -25,6 +25,7 @@ import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Program;
+import com.example.mydegree.Saved.SavedItemAdapter;
 import com.example.mydegree.Settings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -88,6 +89,7 @@ public class CourseOverview extends AppCompatActivity {
         Intent i = getIntent();
         final Course myCourse =  i.getParcelableExtra(COURSE_PARCEL);
         String fromPrereq = i.getStringExtra(PrereqAdapter.PREREQ_PARCEL);
+        String fromBookmark = i.getStringExtra(SavedItemAdapter.SAVED_PARCEL);
 
         if (myCourse!=null) {
             String myCode = myCourse.getCourseCode();
@@ -97,11 +99,18 @@ public class CourseOverview extends AppCompatActivity {
             fillActivityContent(myCourse);
         }
 
-        if (fromPrereq!=null){
+        if (fromPrereq!=null) {
             final Bookmark bm = new Bookmark(fromPrereq);
             myBookmark = bm;
             new CheckBkMarkTask().execute(bm);
             new GetCourseTask().execute(fromPrereq);
+        }
+
+        if (fromBookmark!=null) {
+            final Bookmark bm = new Bookmark(fromBookmark);
+            myBookmark = bm;
+            new CheckBkMarkTask().execute(bm);
+            new GetCourseTask().execute(fromBookmark);
         }
 
         courseOut.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +200,6 @@ public class CourseOverview extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             progDialog.dismiss();
         }
-
     }
 
     private class AddBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
