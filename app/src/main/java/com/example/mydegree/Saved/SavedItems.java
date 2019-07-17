@@ -61,6 +61,7 @@ public class SavedItems extends BaseActivity {
 
         new GetSavedCodesTask().execute();
 
+        //Swipe to remove bookmark - probably need to add an undo option
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
