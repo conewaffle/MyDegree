@@ -12,14 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
-import com.example.mydegree.Room.CourseDb;
-import com.example.mydegree.Search.Search;
-import com.example.mydegree.Search.SearchAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,10 +54,6 @@ public class SavedItems extends BaseActivity {
         rv.setAdapter(adapter);
 
         new GetSavedCodesTask().execute();
-
-
-        //set the adapter to a courseList instead
-
 
     }
 
@@ -110,17 +101,13 @@ public class SavedItems extends BaseActivity {
                         bookmarkList.add(bookmark);
                     }
                     adapter.notifyDataSetChanged();
+                    progDialog.dismiss();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
             return bookmarkList;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Course> bm){
-            progDialog.dismiss();
         }
     }
 
