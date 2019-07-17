@@ -66,6 +66,8 @@ public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.View
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
+
+
             Course myCourse = bookmarkList.get(position);
             Intent intent = new Intent(context, CourseOverview.class);
             intent.putExtra(COURSE_PARCEL, myCourse);

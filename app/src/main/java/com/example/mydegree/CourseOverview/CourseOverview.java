@@ -9,6 +9,7 @@ import androidx.room.Room;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,12 +17,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mydegree.Bookmark;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Program;
+import com.example.mydegree.Settings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
@@ -33,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.mydegree.Program.ROOM_INITIALISED;
 import static com.example.mydegree.Search.SearchAdapter.COURSE_PARCEL;
 
 public class CourseOverview extends AppCompatActivity {
@@ -44,6 +49,7 @@ public class CourseOverview extends AppCompatActivity {
     private RecyclerView recycler;
     private PrereqAdapter mAdapter;
     private boolean hasreqs = false;
+    private Bookmark myBookmark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,33 +84,23 @@ public class CourseOverview extends AppCompatActivity {
         bookmark = findViewById(R.id.bookmark);
         FirebaseApp.initializeApp(this);
 
-        checkBookmark();
-
-        bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bookmark.setSelected(!bookmark.isSelected());
-                if (bookmark.isSelected()) {
-                    addBookmark();
-                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
-                }
-                else {
-                    removeBookmark();
-                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
-                }
-            }
-        });
-
 
         Intent i = getIntent();
         final Course myCourse =  i.getParcelableExtra(COURSE_PARCEL);
         String fromPrereq = i.getStringExtra(PrereqAdapter.PREREQ_PARCEL);
 
-        if (myCourse!=null){
+        if (myCourse!=null) {
+            String myCode = myCourse.getCourseCode();
+            final Bookmark bm = new Bookmark(myCode);
+            myBookmark = bm;
+            new CheckBkMarkTask().execute(bm);
             fillActivityContent(myCourse);
         }
 
         if (fromPrereq!=null){
+            final Bookmark bm = new Bookmark(fromPrereq);
+            myBookmark = bm;
+            new CheckBkMarkTask().execute(bm);
             new GetCourseTask().execute(fromPrereq);
         }
 
@@ -124,76 +120,155 @@ public class CourseOverview extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void checkBookmark() {
-        Intent i = getIntent();
-        final Course course =  i.getParcelableExtra(COURSE_PARCEL);
-        final DatabaseReference bookmarks = FirebaseDatabase.getInstance().getReference();
-        // Need to change .child("4PUZCL...") to user ID when login is connected
-        DatabaseReference check = bookmarks.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
-        check.addListenerForSingleValueEvent(new ValueEventListener() {
+        bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(course.getCourseCode()).exists()) {
+            public void onClick(View v) {
+                bookmark.setSelected(!bookmark.isSelected());
+                if (bookmark.isSelected()) {
+                    new AddBkmarkTask().execute(myBookmark);
                     bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
-                    bookmark.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            bookmark.setSelected(!bookmark.isSelected());
-                            if (bookmark.isSelected()) {
-                                removeBookmark();
-                                bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
-                            }
-                            else {
-                                addBookmark();
-                                bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
-                            }
-                        }
-                    });
                 }
                 else {
+                    new RemoveBkmarkTask().execute(myBookmark);
                     bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
                 }
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
         });
+
     }
 
-    private void addBookmark() {
-        Intent i = getIntent();
-        final Course course =  i.getParcelableExtra(COURSE_PARCEL);
-        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-        // Need to change .child("4PUZCL...") to user ID when login is connected
-        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().setValue(course.getCourseName());
-            }
+    private class CheckBkMarkTask extends AsyncTask<Bookmark, Void, Void> {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+        ProgressDialog progDialog = new ProgressDialog(CourseOverview.this);
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progDialog.setMessage("Deleting Database...");
+            progDialog.setIndeterminate(false);
+            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Bookmark... myBookmarks){
+            final Bookmark bm = myBookmarks[0];
+            final DatabaseReference bookmarks = FirebaseDatabase.getInstance().getReference();
+            // Need to change .child("4PUZCL...") to user ID when login is connected
+            DatabaseReference check = bookmarks.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
+            check.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child(bm.getCourseCode()).exists()) {
+                        bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
+                        bookmark.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bookmark.setSelected(!bookmark.isSelected());
+                                if (bookmark.isSelected()) {
+                                    new RemoveBkmarkTask().execute(bm);
+                                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
+                                }
+                                else {
+                                    new AddBkmarkTask().execute(bm);
+                                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progDialog.dismiss();
+        }
+
     }
 
-    private void removeBookmark() {
-        Intent i = getIntent();
-        final Course course =  i.getParcelableExtra(COURSE_PARCEL);
-        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-        // Need to change .child("4PUZCL...") to user ID when login is connected
-        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().removeValue();
-            }
+    private class AddBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+        ProgressDialog progDialog = new ProgressDialog(CourseOverview.this);
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progDialog.setMessage("Loading Bookmarks...");
+            progDialog.setIndeterminate(false);
+            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Bookmark... myBookmarks){
+            final Bookmark bm = myBookmarks[0];
+            DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+            // Need to change .child("4PUZCL...") to user ID when login is connected
+            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    dataSnapshot.getRef().setValue(bm.getCourseCode());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progDialog.dismiss();
+
+        }
+    }
+
+    private class RemoveBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
+
+        ProgressDialog progDialog = new ProgressDialog(CourseOverview.this);
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progDialog.setMessage("Loading Bookmarks...");
+            progDialog.setIndeterminate(false);
+            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Bookmark... myBookmarks){
+            final Bookmark bm = myBookmarks[0];
+            DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+            // Need to change .child("4PUZCL...") to user ID when login is connected
+            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    dataSnapshot.getRef().removeValue();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progDialog.dismiss();
+
+        }
     }
 
     private void fillActivityContent(Course myCourse){
