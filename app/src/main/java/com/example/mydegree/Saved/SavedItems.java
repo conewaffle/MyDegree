@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
@@ -34,6 +35,7 @@ public class SavedItems extends BaseActivity {
     private SavedItemAdapter adapter;
     private ArrayList<Course> bookmarkList;
     private ProgressDialog progDialog;
+    private TextView text;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class SavedItems extends BaseActivity {
         setTitle("Saved Items");
 
         //Do the rest as you want for each activity
-
+        text = findViewById(R.id.text);
         rv = findViewById(R.id.recyclerSaved);
         progDialog = new ProgressDialog(SavedItems.this);
         rv.setHasFixedSize(true);
@@ -74,6 +76,10 @@ public class SavedItems extends BaseActivity {
                 removeBookmark(position);
                 bookmarkList.remove(position);
                 adapter.notifyDataSetChanged();
+
+                if (bookmarkList.size() == 0) {
+                    text.setText("You have no courses saved.");
+                }
             }
 
             private void removeBookmark(int position) {
@@ -94,22 +100,6 @@ public class SavedItems extends BaseActivity {
 
         helper.attachToRecyclerView(rv);
 
-    }
-
-    private void removeBookdmark() {
-        Course bm = new Course();
-        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getRef().removeValue();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
 
@@ -159,7 +149,7 @@ public class SavedItems extends BaseActivity {
                     adapter.notifyDataSetChanged();
 
                     if (bookmarkList.size() == 0) {
-                        Toast.makeText(SavedItems.this, "You have no bookmarks.", Toast.LENGTH_SHORT).show();
+                        text.setText("You have no courses saved.");
                     }
                     progDialog.dismiss();
                 }
