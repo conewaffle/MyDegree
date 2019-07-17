@@ -91,23 +91,27 @@ public class CourseOverview extends AppCompatActivity {
         String fromPrereq = i.getStringExtra(PrereqAdapter.PREREQ_PARCEL);
         String fromBookmark = i.getStringExtra(SavedItemAdapter.SAVED_PARCEL);
 
+
         if (myCourse!=null) {
             String myCode = myCourse.getCourseCode();
-            final Bookmark bm = new Bookmark(myCode);
+            String courseName = myCourse.getCourseName();
+            final Bookmark bm = new Bookmark(myCode, courseName);
             myBookmark = bm;
             new CheckBkMarkTask().execute(bm);
             fillActivityContent(myCourse);
         }
 
+        final String courseName = (String) name.getText();
+
         if (fromPrereq!=null) {
-            final Bookmark bm = new Bookmark(fromPrereq);
+            final Bookmark bm = new Bookmark(fromPrereq, courseName);
             myBookmark = bm;
             new CheckBkMarkTask().execute(bm);
             new GetCourseTask().execute(fromPrereq);
         }
 
         if (fromBookmark!=null) {
-            final Bookmark bm = new Bookmark(fromBookmark);
+            final Bookmark bm = new Bookmark(fromBookmark, courseName);
             myBookmark = bm;
             new CheckBkMarkTask().execute(bm);
             new GetCourseTask().execute(fromBookmark);
@@ -223,7 +227,7 @@ public class CourseOverview extends AppCompatActivity {
             bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    dataSnapshot.getRef().setValue(bm.getCourseCode());
+                    dataSnapshot.getRef().setValue(bm.getCourseName());
                 }
 
                 @Override

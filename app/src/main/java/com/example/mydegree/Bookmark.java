@@ -6,8 +6,10 @@ public class Bookmark {
 
     public Bookmark() { }
 
-    public Bookmark(String courseCode) {
+    public Bookmark (String courseCode, String courseName) {
         this.courseCode = courseCode;
+        this.courseName = courseName;
+
     }
 
     public String getCourseCode() {
