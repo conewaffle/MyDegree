@@ -85,23 +85,22 @@ public class CourseOverview extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
 
-
         Intent i = getIntent();
         final Course myCourse =  i.getParcelableExtra(COURSE_PARCEL);
         String fromPrereq = i.getStringExtra(PrereqAdapter.PREREQ_PARCEL);
 
         if (myCourse!=null) {
             String myCode = myCourse.getCourseCode();
-            final Bookmark bookmark2 = new Bookmark(myCode);
-            myBookmark = bookmark2;
-            new CheckBkMarkTask().execute(bookmark2);
-        }
-
-        if (myCourse!=null){
+            final Bookmark bm = new Bookmark(myCode);
+            myBookmark = bm;
+            new CheckBkMarkTask().execute(bm);
             fillActivityContent(myCourse);
         }
 
         if (fromPrereq!=null){
+            final Bookmark bm = new Bookmark(fromPrereq);
+            myBookmark = bm;
+            new CheckBkMarkTask().execute(bm);
             new GetCourseTask().execute(fromPrereq);
         }
 
@@ -153,25 +152,25 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Bookmark... myBookmarks){
-            final Bookmark bookmark2 = myBookmarks[0];
+            final Bookmark bm = myBookmarks[0];
             final DatabaseReference bookmarks = FirebaseDatabase.getInstance().getReference();
             // Need to change .child("4PUZCL...") to user ID when login is connected
             DatabaseReference check = bookmarks.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
             check.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child(bookmark2.getCourseCode()).exists()) {
+                    if (dataSnapshot.child(bm.getCourseCode()).exists()) {
                         bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
                         bookmark.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 bookmark.setSelected(!bookmark.isSelected());
                                 if (bookmark.isSelected()) {
-                                    new RemoveBkmarkTask().execute(bookmark2);
+                                    new RemoveBkmarkTask().execute(bm);
                                     bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
                                 }
                                 else {
-                                    new AddBkmarkTask().execute(bookmark2);
+                                    new AddBkmarkTask().execute(bm);
                                     bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
                                 }
                             }
@@ -190,9 +189,7 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-
             progDialog.dismiss();
-
         }
 
     }
@@ -212,13 +209,13 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Bookmark... myBookmarks){
-            final Bookmark bookmark2 = myBookmarks[0];
+            final Bookmark bm = myBookmarks[0];
             DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
             // Need to change .child("4PUZCL...") to user ID when login is connected
-            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bookmark2.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    dataSnapshot.getRef().setValue(bookmark2.getCourseCode());
+                    dataSnapshot.getRef().setValue(bm.getCourseCode());
                 }
 
                 @Override
@@ -234,9 +231,7 @@ public class CourseOverview extends AppCompatActivity {
             progDialog.dismiss();
 
         }
-
     }
-
 
     private class RemoveBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
 
@@ -253,10 +248,10 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Bookmark... myBookmarks){
-            final Bookmark bookmark2 = myBookmarks[0];
+            final Bookmark bm = myBookmarks[0];
             DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
             // Need to change .child("4PUZCL...") to user ID when login is connected
-            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bookmark2.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     dataSnapshot.getRef().removeValue();
@@ -274,7 +269,6 @@ public class CourseOverview extends AppCompatActivity {
             progDialog.dismiss();
 
         }
-
     }
 
     private void fillActivityContent(Course myCourse){

@@ -1,7 +1,5 @@
 package com.example.mydegree;
 
-import com.example.mydegree.Room.Course;
-
 public class Bookmark {
 
     private String courseCode;
