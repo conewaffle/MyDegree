@@ -1,8 +1,8 @@
 package com.example.mydegree.Saved;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -17,26 +17,22 @@ import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.Bookmark;
-import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
-import com.example.mydegree.Room.CourseDb;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SavedItems extends BaseActivity {
 
     private RecyclerView rv;
     private SavedItemAdapter adapter;
-    private ArrayList<Bookmark> bookmarkList;
-    private ArrayList<String> myStrings;
+    private ArrayList<Course> bookmarkList;
     private ProgressDialog progDialog;
 
     @Override
@@ -58,16 +54,63 @@ public class SavedItems extends BaseActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         bookmarkList = new ArrayList<>();
-        myStrings = new ArrayList<>();
+
+        FirebaseApp.initializeApp(this);
+        adapter = new SavedItemAdapter(bookmarkList, this);
+        rv.setAdapter(adapter);
 
         new GetSavedCodesTask().execute();
 
-        //set the adapter to a courseList instead
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
 
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                final int position = viewHolder.getAdapterPosition();
+                removeBookmark(position);
+                bookmarkList.remove(position);
+                adapter.notifyDataSetChanged();
+            }
 
+            private void removeBookmark(int position) {
+                DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+                bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bookmarkList.get(position).getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().removeValue();
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        helper.attachToRecyclerView(rv);
 
     }
+
+    private void removeBookdmark() {
+        Course bm = new Course();
+        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
     @Override
@@ -87,12 +130,12 @@ public class SavedItems extends BaseActivity {
         return true;
     }
 
-    private class GetSavedCodesTask extends AsyncTask<Void, Void, ArrayList<Bookmark>> {
+    private class GetSavedCodesTask extends AsyncTask<String, Void, ArrayList<Course>> {
 
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             super.onPreExecute();
-            progDialog.setMessage("Loading Saved Items...");
+            progDialog.setMessage("Loading...");
             progDialog.setIndeterminate(false);
             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progDialog.setCancelable(true);
@@ -100,69 +143,32 @@ public class SavedItems extends BaseActivity {
         }
 
         @Override
-        protected ArrayList<Bookmark> doInBackground(Void... voids) {
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference yourRef = rootRef.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
-            final ArrayList<Bookmark> myBookmarks = new ArrayList<>();
-            yourRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        protected ArrayList<Course> doInBackground(String... strings) {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference load = databaseReference.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
+            load.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        Bookmark bookmark = new Bookmark(ds.getKey());
-                        myBookmarks.add(bookmark);
+                        Course bookmark = new Course();
+                        bookmark.setCourseCode(ds.getKey());
+                        bookmark.setCourseName(String.valueOf(ds.getValue()));
+                        bookmarkList.add(bookmark);
                     }
+                    adapter.notifyDataSetChanged();
+
+                    if (bookmarkList.size() == 0) {
+                        Toast.makeText(SavedItems.this, "You have no bookmarks.", Toast.LENGTH_SHORT).show();
+                    }
+                    progDialog.dismiss();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-            return myBookmarks;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Bookmark> result){
-            if (result.size()==0){
-                Toast.makeText(SavedItems.this, "THERE ARE NO BOOKMARKS", Toast.LENGTH_SHORT).show();
-            }
-            for(int i = 0; i<result.size();i++){
-                myStrings.add(result.get(i).getCourseCode());
-            }
-            new GetCoursesTask().execute(myStrings);
+            return bookmarkList;
         }
     }
-
-
-    private class GetCoursesTask extends AsyncTask<ArrayList<String>, Void, ArrayList<Course>> {
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-        }
-
-        @Override
-        protected ArrayList<Course> doInBackground(ArrayList<String>... query) {
-            CourseDb db = Room
-                    .databaseBuilder(SavedItems.this, CourseDb.class, "coursedb")
-                    .build();
-
-            ArrayList<String> myStrings = query[0];
-            ArrayList<Course> courseList = new ArrayList<>();
-            for(int i=0; i<myStrings.size();i++){
-                courseList.add(db.courseDao().getCourseByCode(myStrings.get(i)).get(0));
-            }
-
-            return courseList;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Course> result){
-            adapter = new SavedItemAdapter(result, SavedItems.this);
-            rv.setAdapter(adapter);
-
-            progDialog.dismiss();
-        }
-    }
-
 
 }

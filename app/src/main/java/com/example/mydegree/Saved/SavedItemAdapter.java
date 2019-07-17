@@ -38,6 +38,7 @@ public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.View
         return new ViewHolder(item);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.code.setText(bookmarkList.get(position).getCourseCode());
