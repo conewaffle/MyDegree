@@ -80,6 +80,8 @@ public class SavedItems extends BaseActivity {
                 removeBookmark(position);
                 bookmarkList.remove(position);
                 adapter.notifyDataSetChanged();
+
+
                 Snackbar mySnackbar = Snackbar.make(viewHolder.itemView, "Item removed from your saved items.", Snackbar.LENGTH_SHORT);
                 mySnackbar.setAction("Undo", new View.OnClickListener(){
                     @Override
@@ -93,6 +95,8 @@ public class SavedItems extends BaseActivity {
                 }
             }
 
+            //may need to move addBookmark and removeBookmark to Asyntask in case of slow internet connection
+            //position is passed so it goes back in the right place in the recyclerview
             private void addBookmark(final Course course, final int position){
                 DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
                 bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -123,44 +127,6 @@ public class SavedItems extends BaseActivity {
                 });
             }
 
-      /*      class AddBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
-
-                ProgressDialog progDialog = new ProgressDialog(SavedItems.this);
-
-                @Override
-                protected void onPreExecute(){
-                    super.onPreExecute();
-                    progDialog.setMessage("Loading Bookmarks...");
-                    progDialog.setIndeterminate(false);
-                    progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progDialog.show();
-                }
-
-                @Override
-                protected Void doInBackground(Bookmark... myBookmarks){
-                    final Bookmark bm = myBookmarks[0];
-                    DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-                    // Need to change .child("4PUZCL...") to user ID when login is connected
-                    bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            dataSnapshot.getRef().setValue(bm.getCourseName());
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    progDialog.dismiss();
-
-                }
-            }*/
 
         });
 
