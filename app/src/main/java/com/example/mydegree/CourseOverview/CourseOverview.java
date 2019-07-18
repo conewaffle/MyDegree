@@ -128,11 +128,9 @@ public class CourseOverview extends AppCompatActivity {
                 bookmark.setSelected(!bookmark.isSelected());
                 if (bookmark.isSelected()) {
                     new AddBkmarkTask().execute(myBookmark);
-                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
                 }
                 else {
                     new RemoveBkmarkTask().execute(myBookmark);
-                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
                 }
             }
         });
@@ -146,10 +144,10 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progDialog.setMessage("Deleting Database...");
+/*            progDialog.setMessage("Deleting Database...");
             progDialog.setIndeterminate(false);
             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.show();
+            progDialog.show();*/
         }
 
         @Override
@@ -163,27 +161,16 @@ public class CourseOverview extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.child(bm.getCourseCode()).exists()) {
                         bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
-                        bookmark.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                bookmark.setSelected(!bookmark.isSelected());
-                                if (bookmark.isSelected()) {
-                                    new RemoveBkmarkTask().execute(bm);
-                                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
-                                }
-                                else {
-                                    new AddBkmarkTask().execute(bm);
-                                    bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
-                                }
-                            }
-                        });
+                        bookmark.setSelected(true);
                     }
                     else {
                         bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
+                        bookmark.setSelected(false);
                     }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(CourseOverview.this, "Connection Error", Toast.LENGTH_SHORT).show();
                 }
             });
             return null;
@@ -191,7 +178,7 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            progDialog.dismiss();
+            //progDialog.dismiss();
         }
     }
 
@@ -202,10 +189,10 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progDialog.setMessage("Loading Bookmarks...");
+/*            progDialog.setMessage("Loading Bookmarks...");
             progDialog.setIndeterminate(false);
             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.show();
+            progDialog.show();*/
         }
 
         @Override
@@ -221,7 +208,10 @@ public class CourseOverview extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(CourseOverview.this, "Connection Error", Toast.LENGTH_SHORT).show();
                 }
+
+
             });
 
             return null;
@@ -229,7 +219,9 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            progDialog.dismiss();
+            bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
+            Snackbar.make(bookmark, "Course bookmarked", Snackbar.LENGTH_SHORT).show();
+            //progDialog.dismiss();
 
         }
     }
@@ -241,10 +233,10 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progDialog.setMessage("Loading Bookmarks...");
+/*            progDialog.setMessage("Loading Bookmarks...");
             progDialog.setIndeterminate(false);
             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.show();
+            progDialog.show();*/
         }
 
         @Override
@@ -260,6 +252,7 @@ public class CourseOverview extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(CourseOverview.this, "Connection Error", Toast.LENGTH_SHORT).show();
                 }
             });
             return null;
@@ -267,7 +260,9 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            progDialog.dismiss();
+            bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
+            Snackbar.make(bookmark, "Course removed from bookmarks", Snackbar.LENGTH_SHORT).show();
+            //progDialog.dismiss();
 
         }
     }
@@ -316,11 +311,11 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-/*            progDialog.setMessage("Loading Course...");
+            progDialog.setMessage("Loading Course...");
             progDialog.setIndeterminate(false);
             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progDialog.setCancelable(true);
-            progDialog.show();*/
+            progDialog.show();
         }
 
         @Override
@@ -346,7 +341,7 @@ public class CourseOverview extends AppCompatActivity {
                 }
             }
 
-/*            progDialog.dismiss();*/
+            progDialog.dismiss();
         }
     }
 

@@ -119,6 +119,7 @@ public class SavedItems extends BaseActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(SavedItems.this, "Connection Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -139,6 +140,7 @@ public class SavedItems extends BaseActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(SavedItems.this, "Connection Error", Toast.LENGTH_SHORT).show();
             }
         });
 
