@@ -1,8 +1,13 @@
 package com.example.mydegree.Saved;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +30,7 @@ public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.View
 
     private ArrayList<Course> bookmarkList;
     private Context context;
+    private int position;
 
     public SavedItemAdapter(ArrayList<Course> bookmarkList, Context context) {
         this.bookmarkList = bookmarkList;
@@ -50,7 +56,16 @@ public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.View
         return bookmarkList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public void setPosition(int position){
+        this.position = position;
+    }
+
+    public int getPosition(){
+        return position;
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, View.OnCreateContextMenuListener {
         public TextView code, name;
         public CardView savedCard;
 
@@ -61,6 +76,9 @@ public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.View
             savedCard = item.findViewById(R.id.savedCard);
 
             savedCard.setOnClickListener(this);
+            savedCard.setOnCreateContextMenuListener(this);
+            savedCard.setOnLongClickListener(this);
+
         }
 
         @Override
@@ -72,5 +90,19 @@ public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.View
             i.putExtra(SAVED_PARCEL, bookmarkCode);
             context.startActivity(i);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            MenuInflater inflater = ((Activity) v.getContext()).getMenuInflater();
+            inflater.inflate(R.menu.saved_items_longclick, menu);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            setPosition(getAdapterPosition());
+            return false;
+        }
     }
+
+
 }

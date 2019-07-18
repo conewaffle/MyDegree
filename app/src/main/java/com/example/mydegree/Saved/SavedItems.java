@@ -63,6 +63,7 @@ public class SavedItems extends BaseActivity {
         FirebaseApp.initializeApp(this);
         adapter = new SavedItemAdapter(bookmarkList, this);
         rv.setAdapter(adapter);
+        registerForContextMenu(rv);
 
         new GetSavedCodesTask().execute();
 
@@ -78,11 +79,8 @@ public class SavedItems extends BaseActivity {
                 final int position = viewHolder.getAdapterPosition();
                 final Course temporaryCourse = bookmarkList.get(position);
                 removeBookmark(position);
-                bookmarkList.remove(position);
-                adapter.notifyDataSetChanged();
 
-
-                Snackbar mySnackbar = Snackbar.make(viewHolder.itemView, "Item removed from your saved items.", Snackbar.LENGTH_SHORT);
+                Snackbar mySnackbar = Snackbar.make(viewHolder.itemView, "Item removed from your saved items.", Snackbar.LENGTH_LONG);
                 mySnackbar.setAction("Undo", new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
@@ -90,42 +88,10 @@ public class SavedItems extends BaseActivity {
                     }
                 }).show();
 
-                if (bookmarkList.size() == 0) {
-                    text.setText("You have no courses saved.");
-                }
             }
 
             //may need to move addBookmark and removeBookmark to Asyntask in case of slow internet connection
-            //position is passed so it goes back in the right place in the recyclerview
-            private void addBookmark(final Course course, final int position){
-                DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-                bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().setValue(course.getCourseName());
-                        Toast.makeText(SavedItems.this, "Bookmark Restored",Toast.LENGTH_SHORT).show();
-                        bookmarkList.add(position, course);
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
-            }
-
-            private void removeBookmark(int position) {
-                DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-                bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bookmarkList.get(position).getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().removeValue();
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
-            }
+            //if no internet, maybe save onto local database ?
 
 
         });
@@ -135,7 +101,66 @@ public class SavedItems extends BaseActivity {
     }
 
 
+    private void addBookmark(final Course course, final int position){
+        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().setValue(course.getCourseName());
+                Toast.makeText(SavedItems.this, "Bookmark Restored",Toast.LENGTH_SHORT).show();
+                bookmarkList.add(position, course);
+                adapter.notifyDataSetChanged();
+                if (bookmarkList.size() == 0) {
+                    text.setText("You have no courses saved.");
+                } else {
+                    text.setText("");
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void removeBookmark(final int position) {
+        DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bookmarkList.get(position).getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getRef().removeValue();
+                bookmarkList.remove(position);
+                adapter.notifyDataSetChanged();
+                if (bookmarkList.size() == 0) {
+                    text.setText("You have no courses saved.");
+                } else {
+                    text.setText("");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+
+
+    }
+
+
+    //FOR LONGPRESS DELETE BOOKMARK
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_remove:
+                final int position = ((SavedItemAdapter) rv.getAdapter()).getPosition();
+
+                removeBookmark(position);
+
+                Toast.makeText(SavedItems.this, "Bookmark removed", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onContextItemSelected(item);
+    }
 
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
     @Override
