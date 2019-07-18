@@ -405,6 +405,19 @@ public class InsertData {
         streams.add(new Stream("3584M","Commerce Major",48,true,"3584"));
         streams.add(new Stream("3584BE","Business School Electives",18,false,"3584"));
         streams.add(new Stream("GENED","General Education",12,false,"3584"));
+        streams.add(new Stream("ACCTA1", "Accounting", 48,true,"3584"));
+        streams.add(new Stream("COMMF1","Real Estate Studies",48,true,"3584"));
+        streams.add(new Stream("ECONF1","Business Economics", 48, true,"3584"));
+        streams.add(new Stream("ECONI1","Business Strategy & Economic Management", 48, true, "3584"));
+        streams.add(new Stream("ECONJ1","Financial Economics",60,true,"3584"));
+        streams.add(new Stream("FINSA1","Finance",48,true,"3584"));
+        streams.add(new Stream("IBUSA1","International Business",48,true,"3584"));
+        streams.add(new Stream("MARKA1","Marketing",48,true,"3584"));
+        streams.add(new Stream("MGMTA1", "Management",48,true,"3584"));
+        streams.add(new Stream("MGMTH1","Human Resource Management",48,true,"3584"));
+        streams.add(new Stream("TABLA1","Business Law",48,true,"3584"));
+        streams.add(new Stream("TABLC1","Taxation",48,true,"3584"));
+
 
         //insert more streams here
         return streams;
@@ -488,11 +501,27 @@ public class InsertData {
         streamCourses.add(new StreamCourse("3584I1","INFS1602",true));
         streamCourses.add(new StreamCourse("3584I1","INFS1603",true));
         streamCourses.add(new StreamCourse("3584I1","INFS1609",true));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT1501",true));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT1511",true));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT2522",true));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT2542",true));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT3563",true));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT2507",false));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT3583",false));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT3601",false));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT3610",false));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT3672",false));
+        streamCourses.add(new StreamCourse("ACCTA1","ACCT3708",false));
+        streamCourses.add(new StreamCourse("ACCTA1","COMM2101",false));
+        streamCourses.add(new StreamCourse("ACCTA1","COMM2222",false));
+        streamCourses.add(new StreamCourse("ACCTA1","COMM2233",false));
+        streamCourses.add(new StreamCourse("ACCTA1","COMM3020",false));
+        streamCourses.add(new StreamCourse("ACCTA1","COMM3030",false));
+        streamCourses.add(new StreamCourse("ACCTA1","COMM3202",false));
+        streamCourses.add(new StreamCourse("ACCTA1","FINS3626",false));
+        streamCourses.add(new StreamCourse("ACCTA1","TABL2741",false));
 
-
-
-
-
+        //to do: all other majors than accounting, and gen ed courses, and business electives?
 
         //insert more stream courses here
         return streamCourses;

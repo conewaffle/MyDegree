@@ -166,10 +166,12 @@ public class CourseOverview extends AppCompatActivity {
                     if (dataSnapshot.child(bm.getCourseCode()).exists()) {
                         bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
                         bookmark.setSelected(true);
+                        bookmark.setVisibility(View.VISIBLE);
                     }
                     else {
                         bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
                         bookmark.setSelected(false);
+                        bookmark.setVisibility(View.VISIBLE);
                     }
                 }
                 @Override
@@ -182,7 +184,7 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            bookmark.setVisibility(View.VISIBLE);
+
             //progDialog.dismiss();
         }
     }
