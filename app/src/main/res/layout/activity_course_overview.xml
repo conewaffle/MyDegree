@@ -51,15 +51,13 @@
                         android:id="@+id/courseCode1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="ACCT1501"
                         android:textColor="#000"
                         android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/courseName"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Accounting &amp; Financial Management 1A" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <ImageButton
@@ -193,8 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:padding="8dp"
-                    android:text="The compulsory core accounting unit will have a preparer perspective. It will provide an introduction to basic concepts in accounting and their application for decision making by a wide range of potential users (e.g., shareholders, investment analysts, lenders, managers etc). This unit should benefit students who wish to specialise in accounting, and will also be of value to students whose primary interest lies elsewhere in the field of business." />
+                    android:padding="8dp" />
 
             </androidx.cardview.widget.CardView>
 

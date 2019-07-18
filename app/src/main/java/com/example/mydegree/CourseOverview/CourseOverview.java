@@ -84,6 +84,7 @@ public class CourseOverview extends AppCompatActivity {
         courseTime = findViewById(R.id.courseTimetable);
 
         bookmark = findViewById(R.id.bookmark);
+        bookmark.setVisibility(View.INVISIBLE);
         FirebaseApp.initializeApp(this);
 
 
@@ -178,6 +179,7 @@ public class CourseOverview extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            bookmark.setVisibility(View.VISIBLE);
             //progDialog.dismiss();
         }
     }
