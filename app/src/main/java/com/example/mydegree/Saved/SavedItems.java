@@ -13,13 +13,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.Bookmark;
+import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,13 +76,38 @@ public class SavedItems extends BaseActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
+                final Course temporaryCourse = bookmarkList.get(position);
                 removeBookmark(position);
                 bookmarkList.remove(position);
                 adapter.notifyDataSetChanged();
+                Snackbar mySnackbar = Snackbar.make(viewHolder.itemView, "Item removed from your saved items.", Snackbar.LENGTH_SHORT);
+                mySnackbar.setAction("Undo", new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        addBookmark(temporaryCourse, position);
+                    }
+                }).show();
 
                 if (bookmarkList.size() == 0) {
                     text.setText("You have no courses saved.");
                 }
+            }
+
+            private void addBookmark(final Course course, final int position){
+                DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+                bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().setValue(course.getCourseName());
+                        Toast.makeText(SavedItems.this, "Bookmark Restored",Toast.LENGTH_SHORT).show();
+                        bookmarkList.add(position, course);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
             }
 
             private void removeBookmark(int position) {
@@ -89,18 +117,58 @@ public class SavedItems extends BaseActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         dataSnapshot.getRef().removeValue();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
             }
+
+      /*      class AddBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
+
+                ProgressDialog progDialog = new ProgressDialog(SavedItems.this);
+
+                @Override
+                protected void onPreExecute(){
+                    super.onPreExecute();
+                    progDialog.setMessage("Loading Bookmarks...");
+                    progDialog.setIndeterminate(false);
+                    progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progDialog.show();
+                }
+
+                @Override
+                protected Void doInBackground(Bookmark... myBookmarks){
+                    final Bookmark bm = myBookmarks[0];
+                    DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
+                    // Need to change .child("4PUZCL...") to user ID when login is connected
+                    bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            dataSnapshot.getRef().setValue(bm.getCourseName());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    progDialog.dismiss();
+
+                }
+            }*/
+
         });
 
         helper.attachToRecyclerView(rv);
 
     }
+
+
 
 
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
