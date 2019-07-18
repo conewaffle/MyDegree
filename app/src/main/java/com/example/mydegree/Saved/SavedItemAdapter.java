@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.ViewHolder> {
 
-    public static final String COURSE_PARCEL = "courseParcel";
+    public static final String SAVED_PARCEL = "savedParcel";
 
     private ArrayList<Course> bookmarkList;
     private Context context;
@@ -66,10 +66,11 @@ public class SavedItemAdapter extends RecyclerView.Adapter<SavedItemAdapter.View
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Course myCourse = bookmarkList.get(position);
-            Intent intent = new Intent(context, CourseOverview.class);
-            intent.putExtra(COURSE_PARCEL, myCourse);
-            context.startActivity(intent);
+            Course bookmark = bookmarkList.get(position);
+            String bookmarkCode = bookmark.getCourseCode();
+            Intent i = new Intent(context, CourseOverview.class);
+            i.putExtra(SAVED_PARCEL, bookmarkCode);
+            context.startActivity(i);
         }
     }
 }
