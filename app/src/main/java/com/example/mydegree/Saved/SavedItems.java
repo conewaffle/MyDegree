@@ -9,6 +9,8 @@ import androidx.room.Room;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -65,7 +67,11 @@ public class SavedItems extends BaseActivity {
         rv.setAdapter(adapter);
         registerForContextMenu(rv);
 
-        new GetSavedCodesTask().execute();
+        if(isNetworkAvailable()) {
+            new GetSavedCodesTask().execute();
+        } else {
+            text.setText("Unable to access saved items without network connection.");
+        }
 
         //Swipe to remove bookmark - probably need to add an undo option
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -221,6 +227,13 @@ public class SavedItems extends BaseActivity {
             });
             return bookmarkList;
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }
