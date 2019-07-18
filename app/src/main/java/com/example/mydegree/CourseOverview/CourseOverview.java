@@ -51,6 +51,7 @@ public class CourseOverview extends AppCompatActivity {
     private PrereqAdapter mAdapter;
     private boolean hasreqs = false;
     private Bookmark myBookmark;
+    private String courseName2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,28 +93,16 @@ public class CourseOverview extends AppCompatActivity {
         String fromBookmark = i.getStringExtra(SavedItemAdapter.SAVED_PARCEL);
 
 
+        //check bookmark task has been moved to end of fillactivitycontent to ensure that all course information is retrieved before creating bookmark object
         if (myCourse!=null) {
-            String myCode = myCourse.getCourseCode();
-            String courseName = myCourse.getCourseName();
-            final Bookmark bm = new Bookmark(myCode, courseName);
-            myBookmark = bm;
-            new CheckBkMarkTask().execute(bm);
             fillActivityContent(myCourse);
         }
 
-        final String courseName = (String) name.getText();
-
         if (fromPrereq!=null) {
-            final Bookmark bm = new Bookmark(fromPrereq, courseName);
-            myBookmark = bm;
-            new CheckBkMarkTask().execute(bm);
             new GetCourseTask().execute(fromPrereq);
         }
 
         if (fromBookmark!=null) {
-            final Bookmark bm = new Bookmark(fromBookmark, courseName);
-            myBookmark = bm;
-            new CheckBkMarkTask().execute(bm);
             new GetCourseTask().execute(fromBookmark);
         }
 
@@ -317,6 +306,9 @@ public class CourseOverview extends AppCompatActivity {
         }
         new GetPrereqTask().execute(courseCode);
 
+        myBookmark = new Bookmark(myCourse.getCourseCode(), myCourse.getCourseName());
+        new CheckBkMarkTask().execute(myBookmark);
+
     }
 
     private class GetPrereqTask extends AsyncTask<String, Void, ArrayList<Prereq>> {
@@ -324,11 +316,11 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progDialog.setMessage("Loading Course...");
+/*            progDialog.setMessage("Loading Course...");
             progDialog.setIndeterminate(false);
             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progDialog.setCancelable(true);
-            progDialog.show();
+            progDialog.show();*/
         }
 
         @Override
@@ -354,7 +346,7 @@ public class CourseOverview extends AppCompatActivity {
                 }
             }
 
-            progDialog.dismiss();
+/*            progDialog.dismiss();*/
         }
     }
 
@@ -363,11 +355,11 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progDialog.setMessage("Loading Course...");
+/*            progDialog.setMessage("Loading Course...");
             progDialog.setIndeterminate(false);
             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progDialog.setCancelable(true);
-            progDialog.show();
+            progDialog.show();*/
         }
 
         @Override
@@ -383,7 +375,7 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPostExecute(Course result){
             fillActivityContent(result);
-            progDialog.dismiss();
+  /*          progDialog.dismiss();*/
         }
     }
 
