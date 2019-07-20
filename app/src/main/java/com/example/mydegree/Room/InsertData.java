@@ -794,9 +794,8 @@ public class InsertData {
         streamCourses.add(new StreamCourse("TABLC1","TABL4722",false));
 
 
-        //to do: all other majors than accounting, and gen ed courses, and business electives?
+        //to do: gen ed courses, and business electives?
 
-        //insert more stream courses here
         return streamCourses;
     }
 
