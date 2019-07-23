@@ -17,21 +17,22 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
             android:orientation="vertical"
             android:paddingHorizontal="4dp">
 
             <TextView
                 android:id="@+id/courseListCode"
-                android:layout_width="95dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="MATH1041"
+                android:fontFamily="sans-serif-condensed"
+                android:text="MGMT1001"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/courseListName"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="12sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
