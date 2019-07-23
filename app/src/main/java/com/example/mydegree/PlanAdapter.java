@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydegree.ProgramDetails.CourseAdapter;
@@ -13,7 +15,7 @@ import com.example.mydegree.Room.StreamCourse;
 
 import java.util.ArrayList;
 
-public class PlanAdapter {
+public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
 
     private ArrayList<Plan> mDataset;
 
@@ -21,23 +23,26 @@ public class PlanAdapter {
 
     public class PlanViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView courseCode;
+        private CardView courseCard;
+
         public PlanViewHolder(View itemView){
             super(itemView);
-
+            courseCard = itemView.findViewById(R.id.courseCard);
+            courseCode = itemView.findViewById(R.id.courseCode);
         }
     }
 
-   /* @Override
+    @Override
     public PlanAdapter.PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        replace layout
-        View searchView = LayoutInflater.from(parent.getContext()).inflate(R.layout.prog_course_item, parent, false);
-        PlanAdapter.PlanViewHolder vh = new PlanAdapter.PlanViewHolder(searchView);
+        View planView = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item, parent, false);
+        PlanAdapter.PlanViewHolder vh = new PlanAdapter.PlanViewHolder(planView);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(PlanAdapter.PlanViewHolder holder, int position){
-
+        holder.courseCode.setText(mDataset.get(position).getCourseCode());
 
     }
 
@@ -46,12 +51,11 @@ public class PlanAdapter {
         return mDataset.size();
     }
 
-    public void setCourses(ArrayList<StreamCourse> streamCourses){
+    public void setPlan(ArrayList<Plan> plans){
         mDataset.clear();
-        mDataset.addAll();
+        mDataset.addAll(plans);
         this.notifyDataSetChanged();
     }
 
-*/
 
 }

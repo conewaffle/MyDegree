@@ -72,32 +72,97 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r1"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 1" />
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r2"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 2" />
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 3" />
+                                </LinearLayout>
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r3"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:id="@+id/b11"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b13"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
@@ -155,33 +220,97 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r4"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 1" />
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r5"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 2" />
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 3" />
+                                </LinearLayout>
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r6"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/r4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
 
+                                        </androidx.recyclerview.widget.RecyclerView>
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/r5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                        </androidx.recyclerview.widget.RecyclerView>
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/r6"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                        </androidx.recyclerview.widget.RecyclerView>
+
+                                    </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:id="@+id/b21"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b22"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b23"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                </LinearLayout>
                             </LinearLayout>
 
 
@@ -238,32 +367,97 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r7"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 1" />
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r8"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 2" />
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 3" />
+                                </LinearLayout>
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r9"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r7"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r8"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r9"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:id="@+id/b31"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b32"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b33"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
@@ -321,32 +515,100 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r10"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:id="@+id/textView14"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 1" />
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r11"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:id="@+id/textView15"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 2" />
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <TextView
+                                        android:id="@+id/textView16"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Term 3" />
+                                </LinearLayout>
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/r12"
-                                    android:layout_weight="1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
 
-                                </androidx.recyclerview.widget.RecyclerView>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r10"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r11"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/r12"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                    </androidx.recyclerview.widget.RecyclerView>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <ImageButton
+                                        android:id="@+id/b41"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b42"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                    <ImageButton
+                                        android:id="@+id/b43"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@android:color/white"
+                                        android:tint="@android:color/darker_gray"
+                                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
