@@ -29,6 +29,19 @@ public class Program implements Parcelable {
         this.years = years;
     }
 
+    public static final Creator<Program> CREATOR = new Creator<Program>() {
+        @Override
+        public Program createFromParcel(Parcel in) {
+            return new Program(in);
+        }
+
+        @Override
+        public Program[] newArray(int size) {
+            return new Program[size];
+        }
+    };
+
+
     @NonNull
     public String getProgCode() {
         return progCode;
