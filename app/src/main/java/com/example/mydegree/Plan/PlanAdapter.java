@@ -1,7 +1,6 @@
-package com.example.mydegree;
+package com.example.mydegree.Plan;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.CourseOverview.PrereqAdapter;
-import com.example.mydegree.ProgramDetails.CourseAdapter;
+import com.example.mydegree.R;
 import com.example.mydegree.Room.Plan;
-import com.example.mydegree.Room.StreamCourse;
 
 import java.util.ArrayList;
 

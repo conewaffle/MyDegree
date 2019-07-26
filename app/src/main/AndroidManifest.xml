@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mydegree">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Login.Signup"></activity>
+        <activity android:name=".Plan.AddPlan"></activity>
+        <activity android:name=".Login.Signup" />
         <activity android:name=".Login.Login" />
         <activity
             android:name=".CourseOverview.CourseOverview"
@@ -27,20 +28,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Plan" />
+        <activity android:name=".Plan.Plan" />
         <activity android:name=".Saved.SavedItems" />
         <activity android:name=".Settings" />
         <activity android:name=".Search.Search" />
         <activity
             android:name=".ProgramDetails.ProgramDetail"
             android:parentActivityName=".Search.Search" />
-        <activity
-            android:name=".BaseActivity" />
+        <activity android:name=".BaseActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

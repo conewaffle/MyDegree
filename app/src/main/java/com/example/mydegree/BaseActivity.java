@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.mydegree.Plan.Plan;
 import com.example.mydegree.Saved.SavedItems;
 import com.example.mydegree.Search.Search;
 import com.google.android.material.navigation.NavigationView;
@@ -81,7 +82,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(),Plan.class));
+                    startActivity(new Intent(getApplicationContext(), Plan.class));
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuprofile) {
