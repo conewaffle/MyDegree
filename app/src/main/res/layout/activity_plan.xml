@@ -65,19 +65,22 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 1" />
+                                android:text="Term 1"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 2" />
+                                android:text="Term 2"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 3" />
+                                android:text="Term 3"
+                                android:textAlignment="center" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -207,19 +210,22 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 1" />
+                                android:text="Term 1"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 2" />
+                                android:text="Term 2"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 3" />
+                                android:text="Term 3"
+                                android:textAlignment="center" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -347,19 +353,22 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 1" />
+                                android:text="Term 1"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 2" />
+                                android:text="Term 2"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 3" />
+                                android:text="Term 3"
+                                android:textAlignment="center" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -489,21 +498,24 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 1" />
+                                android:text="Term 1"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:id="@+id/textView15"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 2" />
+                                android:text="Term 2"
+                                android:textAlignment="center" />
 
                             <TextView
                                 android:id="@+id/textView16"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Term 3" />
+                                android:text="Term 3"
+                                android:textAlignment="center" />
                         </LinearLayout>
 
                         <LinearLayout

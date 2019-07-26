@@ -24,6 +24,7 @@ public class Plan extends BaseActivity {
     private PlanAdapter p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
     private ImageButton b11, b12, b13, b21, b22, b23, b31, b32, b33, b41, b42, b43;
     private CardView c1, c2, c3, c4;
+    private FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class Plan extends BaseActivity {
         inflater.inflate(R.layout.activity_plan, frameLayout, true);
 
         //region setting up fab
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
+        fab = (FloatingActionButton) findViewById(R.id.fab2);
         fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +43,6 @@ public class Plan extends BaseActivity {
             }
         });
         //endregion
-
         //region  setting up recyclers
         r1 = findViewById(R.id.r1);
         r1.setHasFixedSize(true);
@@ -81,7 +81,6 @@ public class Plan extends BaseActivity {
         r12.setHasFixedSize(true);
         r12.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
         //endregion
-
         //region instantiating adapters
         p1 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
         p2 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
@@ -96,7 +95,6 @@ public class Plan extends BaseActivity {
         p11 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
         p12 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
         //endregion
-
         //region bind recycler to adapter
         r1.setAdapter(p1);
         r2.setAdapter(p2);
@@ -111,19 +109,19 @@ public class Plan extends BaseActivity {
         r11.setAdapter(p11);
         r12.setAdapter(p12);
         //endregion
-
         //region card instantiation
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         c3 = findViewById(R.id.c3);
         c4 = findViewById(R.id.c4);
         //endregion
-
-        //customise this for each nav menu destination
+        //region customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuplan);
         setTitle("myPlan");
-
+        //endregion
         //Do the rest as you want for each activity
+
+
     }
 
 
@@ -142,7 +140,7 @@ public class Plan extends BaseActivity {
 
 
 
-
+    //region extending baseactivity things
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
     @Override
     public void onBackPressed() {
@@ -160,4 +158,5 @@ public class Plan extends BaseActivity {
         }
         return true;
     }
+    //endregion
 }

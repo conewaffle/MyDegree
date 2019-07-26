@@ -29,6 +29,7 @@ import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Program;
 import com.example.mydegree.Saved.SavedItemAdapter;
+import com.example.mydegree.Saved.SavedItems;
 import com.example.mydegree.Settings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -227,7 +228,14 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
-            Snackbar.make(bookmark, "Course bookmarked", Snackbar.LENGTH_SHORT).show();
+            Snackbar mySnackbar = Snackbar.make(bookmark, "Course bookmarked", Snackbar.LENGTH_SHORT);
+            mySnackbar.setAction("Go to bookmarks", new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Intent viewBkmark = new Intent(CourseOverview.this, SavedItems.class);
+                    startActivity(viewBkmark);
+                }
+            }).show();
             //progDialog.dismiss();
 
         }
