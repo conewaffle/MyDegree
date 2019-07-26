@@ -3,14 +3,18 @@ package com.example.mydegree.Plan;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.example.mydegree.Bookmark;
 import com.example.mydegree.Program;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
@@ -22,10 +26,10 @@ import java.util.concurrent.Executors;
 public class AddPlan extends AppCompatActivity {
 
     private Spinner progSpinner, majorSpinner;
-    private ArrayList<String> programList, majorList;
     private ArrayAdapter<String> progAdapter, majorAdapter;
     private String programCode, major;
     private Button button;
+    private TextView majSpin;
     public static final String RESULT_PROG = "resultProg";
     public static final String RESULT_MAJOR = "resultMajor";
 
@@ -37,25 +41,12 @@ public class AddPlan extends AppCompatActivity {
         button = findViewById(R.id.pickProgBtn);
         progSpinner = findViewById(R.id.progSpinner);
         majorSpinner = findViewById(R.id.majorSpinner);
+        majSpin = findViewById(R.id.textMajSpin);
         majorSpinner.setVisibility(View.GONE);
+        majSpin.setVisibility(View.GONE);
 
-        Executor myExecutor = Executors.newSingleThreadExecutor();
-        myExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                CourseDb db = Room
-                        .databaseBuilder(AddPlan.this, CourseDb.class, "coursedb")
-                        .build();
-                programList = (ArrayList<String>) db.courseDao().getProgramList();
-                majorList = (ArrayList<String>) db.courseDao().getMajors();
-                progAdapter = new ArrayAdapter<String>(AddPlan.this, android.R.layout.simple_spinner_item, programList);
-                majorAdapter = new ArrayAdapter<String>(AddPlan.this, android.R.layout.simple_spinner_item, majorList);
-                progAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                majorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                progSpinner.setAdapter(progAdapter);
-                majorSpinner.setAdapter(majorAdapter);
-            }
-        });
+        new GetSpinnerItemsTask().execute();
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +69,11 @@ public class AddPlan extends AppCompatActivity {
                 String lol = (String) parent.getItemAtPosition(position);
                 programCode = lol.substring(0,4);
                 if (programCode.equals("3584")){
+                    majSpin.setVisibility(View.VISIBLE);
                     majorSpinner.setVisibility(View.VISIBLE);
+                } else {
+                    majorSpinner.setVisibility(View.GONE);
+                    majSpin.setVisibility(View.GONE);
                 }
             }
 
@@ -102,7 +97,50 @@ public class AddPlan extends AppCompatActivity {
         //endregion
 
 
+    }
 
+    private class GetSpinnerItemsTask extends AsyncTask<Void, Void, ArrayList<ArrayList<String>>> {
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<ArrayList<String>> doInBackground(Void... voids) {
+            CourseDb db = Room
+                    .databaseBuilder(AddPlan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            ArrayList<String> majors = (ArrayList<String>) db.courseDao().getMajors();
+
+            ArrayList<Bookmark> dummyList = (ArrayList<Bookmark>) db.courseDao().getProgramList();
+            ArrayList<String> programs = new ArrayList<>();
+            for(int i =0; i<dummyList.size(); i++){
+                String ok = dummyList.get(i).getCourseCode() + " - " + dummyList.get(i).getCourseName();
+                programs.add(ok);
+            }
+
+            ArrayList<ArrayList<String>> masterList = new ArrayList<>();
+            masterList.add(programs);
+            masterList.add(majors);
+
+            return masterList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ArrayList<String>> result){
+            ArrayList<String> myPrograms = result.get(0);
+            ArrayList<String> myMajors = result.get(1);
+
+            progAdapter = new ArrayAdapter<String>(AddPlan.this, android.R.layout.simple_spinner_item, myPrograms);
+            majorAdapter = new ArrayAdapter<String>(AddPlan.this, android.R.layout.simple_spinner_item, myMajors);
+            progAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            majorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            progSpinner.setAdapter(progAdapter);
+            majorSpinner.setAdapter(majorAdapter);
+
+        }
     }
 
 }

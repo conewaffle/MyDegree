@@ -1,9 +1,12 @@
 package com.example.mydegree;
 
+import androidx.room.Ignore;
+
 public class Bookmark {
 
     private String courseCode, courseName;
 
+    @Ignore
     public Bookmark() { }
 
     public Bookmark (String courseCode, String courseName) {

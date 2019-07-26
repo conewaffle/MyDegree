@@ -1,5 +1,6 @@
 package com.example.mydegree.Room;
 
+import com.example.mydegree.Bookmark;
 import com.example.mydegree.Room.Course;
 
 import java.util.List;
@@ -47,10 +48,10 @@ public interface CourseDao {
     @Query("SELECT * FROM streamcourse WHERE streamId2 = :stream")
     List<StreamCourse> getStreamCourses(String stream);
 
-    @Query("SELECT CONCAT(progCode, ' - ', progName) AS 'PROGRAM' FROM program")
-    List<String> getProgramList();
+    @Query("SELECT progCode AS courseCode, progName AS courseName FROM program")
+    List<Bookmark> getProgramList();
 
-    @Query("SELECT streamName FROM stream WHERE isMajor = 'TRUE'")
+    @Query("SELECT streamName FROM stream WHERE isMajor = '1'")
     List<String> getMajors();
 
     @Update
