@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.ProgramDetails.ProgramDetail;
@@ -48,10 +49,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 Intent viewIntent = new Intent(view.getContext(), ProgramDetail.class);
                 viewIntent.putExtra(PROG_CODE, myCourse.getCourseCode());
                 view.getContext().startActivity(viewIntent);
-            } else {
+            } else if (myCourse.getCourseCode().length()==8){
                 Intent viewIntent = new Intent(view.getContext(), CourseOverview.class);
                 viewIntent.putExtra(COURSE_PARCEL, myCourse);
                 view.getContext().startActivity(viewIntent);
+            } else if (myCourse.getCourseCode().length()==6){
+
             }
 
         }

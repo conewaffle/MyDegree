@@ -42,7 +42,7 @@ public interface CourseDao {
     @Query("SELECT * FROM course WHERE courseCode = :query")
     List<Course> getCourseByCode(String query);
 
-    @Query("SELECT * FROM stream WHERE streamProg = :prog")
+    @Query("SELECT * FROM stream WHERE streamProg = :prog AND isMajor = '0'")
     List<Stream> getStreams(String prog);
 
     @Query("SELECT * FROM streamcourse WHERE streamId2 = :stream")
