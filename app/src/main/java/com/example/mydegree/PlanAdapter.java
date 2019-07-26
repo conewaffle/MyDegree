@@ -1,5 +1,6 @@
 package com.example.mydegree;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mydegree.CourseOverview.CourseOverview;
+import com.example.mydegree.CourseOverview.PrereqAdapter;
 import com.example.mydegree.ProgramDetails.CourseAdapter;
 import com.example.mydegree.Room.Plan;
 import com.example.mydegree.Room.StreamCourse;
@@ -21,7 +24,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     public PlanAdapter(ArrayList<com.example.mydegree.Room.Plan> myDataset) {mDataset = myDataset;}
 
-    public class PlanViewHolder extends RecyclerView.ViewHolder {
+    public class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView courseCode;
         private CardView courseCard;
@@ -30,6 +33,17 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             super(itemView);
             courseCard = itemView.findViewById(R.id.courseCard);
             courseCode = itemView.findViewById(R.id.courseCode);
+            courseCard.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            String myCourse = mDataset.get(position).getCourseCode();
+
+            Intent courseIntent = new Intent(v.getContext(), CourseOverview.class);
+            courseIntent.putExtra(PrereqAdapter.PREREQ_PARCEL,myCourse);
+            v.getContext().startActivity(courseIntent);
         }
     }
 

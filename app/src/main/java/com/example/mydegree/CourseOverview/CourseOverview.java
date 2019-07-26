@@ -111,21 +111,7 @@ public class CourseOverview extends AppCompatActivity {
             new GetCourseTask().execute(fromBookmark);
         }
 
-        courseOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.business.unsw.edu.au/degrees-courses/course-outlines/"+myCourse.getCourseCode()));
-                startActivity(webIntent);
-            }
-        });
 
-        courseTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://timetable.unsw.edu.au/2019/"+myCourse.getCourseCode()+".html"));
-                startActivity(webIntent);
-            }
-        });
 
         bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,7 +269,7 @@ public class CourseOverview extends AppCompatActivity {
     }
 
     private void fillActivityContent(Course myCourse){
-        String courseCode = myCourse.getCourseCode();
+        final String courseCode = myCourse.getCourseCode();
         code.setText(courseCode);
         name.setText(myCourse.getCourseName());
         setTitle(courseCode + " - " + myCourse.getCourseName());
@@ -308,6 +294,22 @@ public class CourseOverview extends AppCompatActivity {
         grad.setText(level);
         uoc.setText(Integer.toString(myCourse.getCourseUoc()) + " UOC");
         desc.setText(myCourse.getCourseDesc());
+        courseOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.business.unsw.edu.au/degrees-courses/course-outlines/"+courseCode));
+                startActivity(webIntent);
+            }
+        });
+
+        courseTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://timetable.unsw.edu.au/2019/"+courseCode+".html"));
+                startActivity(webIntent);
+            }
+        });
+
         if(myCourse.getOtherreq()==null){
             otherreq.setVisibility(View.GONE);
         } else {
