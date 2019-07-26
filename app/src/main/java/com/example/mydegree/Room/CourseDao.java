@@ -47,6 +47,12 @@ public interface CourseDao {
     @Query("SELECT * FROM streamcourse WHERE streamId2 = :stream")
     List<StreamCourse> getStreamCourses(String stream);
 
+    @Query("SELECT CONCAT(progCode, ' - ', progName) AS 'PROGRAM' FROM program")
+    List<String> getProgramList();
+
+    @Query("SELECT streamName FROM stream WHERE isMajor = 'TRUE'")
+    List<String> getMajors();
+
     @Update
     void updateCourse(Course course);
 

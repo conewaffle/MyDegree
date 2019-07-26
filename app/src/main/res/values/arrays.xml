@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="progs_array">
+        <item>3979 - Information Systems</item>
+        <item>3964 - Information Systems (Co-op) (Hons)</item>
+        <item>3584 - Commerce / Information Systems</item>
+    </string-array>
+
+    <string-array name="majors_array">
+        <item>3979 - Information Systems</item>
+        <item>3964 - Information Systems (Co-op) (Hons)</item>
+        <item>3584 - Commerce / Information Systems</item>
+    </string-array>
+</resources>

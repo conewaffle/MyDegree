@@ -1,11 +1,13 @@
 package com.example.mydegree.Plan;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +28,7 @@ public class Plan extends BaseActivity {
     private ImageButton b11, b12, b13, b21, b22, b23, b31, b32, b33, b41, b42, b43;
     private CardView c1, c2, c3, c4;
     private FloatingActionButton fab;
+    private static final int PICK_PROGRAM_REQUEST = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class Plan extends BaseActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "This will eventually lead to add plan!", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
+                Intent pickIntent = new Intent(Plan.this, AddPlan.class);
+                startActivityForResult(pickIntent, PICK_PROGRAM_REQUEST);
             }
         });
         //endregion
@@ -125,21 +130,16 @@ public class Plan extends BaseActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (requestCode == PICK_PROGRAM_REQUEST){
+            if(resultCode==RESULT_OK){
+                //DO SOMETHING HERE WITH THE PROGRAM/MAJOR , maybe create a bin of courses???
+                }
+            }
+        }
 
     //region extending baseactivity things
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS

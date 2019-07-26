@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Plan.AddPlan"></activity>
+        <activity
+            android:name=".Plan.AddPlan"
+            android:parentActivityName=".Plan.Plan"
+            />
         <activity android:name=".Login.Signup" />
         <activity android:name=".Login.Login" />
         <activity
