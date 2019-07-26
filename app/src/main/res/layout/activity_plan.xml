@@ -122,6 +122,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:scaleType="center"
                                 android:tint="@android:color/darker_gray"
                                 app:srcCompat="@drawable/ic_add_black_24dp" />
 
@@ -132,7 +135,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                             <ImageButton
                                 android:id="@+id/b13"
@@ -141,7 +146,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                         </LinearLayout>
 
@@ -258,7 +265,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                             <ImageButton
                                 android:id="@+id/b22"
@@ -267,7 +276,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                             <ImageButton
                                 android:id="@+id/b23"
@@ -276,7 +287,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -392,7 +405,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                             <ImageButton
                                 android:id="@+id/b32"
@@ -401,7 +416,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                             <ImageButton
                                 android:id="@+id/b33"
@@ -410,7 +427,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                         </LinearLayout>
 
@@ -530,7 +549,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                             <ImageButton
                                 android:id="@+id/b42"
@@ -539,7 +560,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                             <ImageButton
                                 android:id="@+id/b43"
@@ -548,7 +571,9 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
                                 android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp" />
+                                app:srcCompat="@drawable/ic_add_black_24dp"
+                                android:clickable="true"
+                                android:foreground="?android:attr/selectableItemBackground"/>
 
                         </LinearLayout>
 

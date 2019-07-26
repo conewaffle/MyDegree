@@ -2,22 +2,26 @@ package com.example.mydegree.Room;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 
 @Entity(tableName = "plan", primaryKeys = {"planId","courseCode"})
 public class Plan {
 
     @NonNull
     private int planId;
+    private String planProgram;
     private String progCode;
     private int year;
     private int term;
     @NonNull
     private String courseCode;
 
+    @Ignore
     public Plan(){}
 
-    public Plan(int planId, String progCode, int year, int term, String courseCode) {
+    public Plan(int planId, String planProgram, String progCode, int year, int term, String courseCode) {
         this.planId = planId;
+        this.planProgram = planProgram;
         this.progCode = progCode;
         this.year = year;
         this.term = term;
@@ -64,5 +68,11 @@ public class Plan {
         this.courseCode = courseCode;
     }
 
+    public String getPlanProgram() {
+        return planProgram;
+    }
 
+    public void setPlanProgram(String planProgram) {
+        this.planProgram = planProgram;
+    }
 }

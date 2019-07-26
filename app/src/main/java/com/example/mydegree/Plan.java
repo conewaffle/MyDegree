@@ -1,6 +1,7 @@
 package com.example.mydegree;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class Plan extends BaseActivity {
@@ -19,13 +23,25 @@ public class Plan extends BaseActivity {
     private RecyclerView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12;
     private PlanAdapter p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
     private ImageButton b11, b12, b13, b21, b22, b23, b31, b32, b33, b41, b42, b43;
-
+    private CardView c1, c2, c3, c4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.activity_plan, frameLayout, true);
 
+        //region setting up fab
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
+        fab.show();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "This will eventually lead to add plan!", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+            }
+        });
+        //endregion
 
         //region  setting up recyclers
         r1 = findViewById(R.id.r1);
@@ -96,10 +112,12 @@ public class Plan extends BaseActivity {
         r12.setAdapter(p12);
         //endregion
 
-
-
-        //inflate your activity layout here!
-        inflater.inflate(R.layout.activity_plan, frameLayout, true);
+        //region card instantiation
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+        c3 = findViewById(R.id.c3);
+        c4 = findViewById(R.id.c4);
+        //endregion
 
         //customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuplan);
