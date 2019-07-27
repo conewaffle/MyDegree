@@ -344,6 +344,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:nestedScrollingEnabled="false" />
+
+                        <TextView
+                            android:id="@+id/freeText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"/>
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -390,7 +396,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:nestedScrollingEnabled="false" />
+                            android:nestedScrollingEnabled="false">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                        <TextView
+                            android:id="@+id/bizElec"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView"
+                            android:layout_margin="8dp"/>
+
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>

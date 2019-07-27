@@ -35,7 +35,7 @@ public class ProgramCoursesFragment extends Fragment {
     private CourseAdapter c1, c2, c3, c4, c5, c6, c7,c8,c9,c10;
     private ProgressDialog  progDialog;
     private CardView card1, card2, card3, card4, card5, card6, card7, card8, card9, card10;
-    private TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
+    private TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, free7, biz8;
     private ArrayList<String> streamIds;
     private String progString;
 
@@ -145,6 +145,10 @@ public class ProgramCoursesFragment extends Fragment {
         card10.setVisibility(View.GONE);
         //endregion
 
+        free7 = view.findViewById(R.id.freeText);
+        biz8 = view.findViewById(R.id.bizElec);
+        free7.setVisibility(View.GONE);
+        biz8.setVisibility(View.GONE);
 
         Intent i = getActivity().getIntent();
         progString = i.getStringExtra(SearchAdapter.PROG_CODE);
@@ -268,8 +272,16 @@ public class ProgramCoursesFragment extends Fragment {
                     c6.setCourses(result.get(i));
                 } else if (i==6){
                     c7.setCourses(result.get(i));
+                    if(result.get(i).size()==0){
+                        free7.setVisibility(View.VISIBLE);
+                        free7.setText("24 UOC of courses from Business School or other faculties");
+                    }
                 } else if (i==7){
                     c8.setCourses(result.get(i));
+                    if(result.get(i).size()==0){
+                        biz8.setVisibility(View.VISIBLE);
+                        biz8.setText("Up to 30 UOC (depending on major) of Business School courses to ensure minimum program requirements are met.");
+                    }
                 } else if (i==8){
                     c9.setCourses(result.get(i));
                 } else if (i==9){
