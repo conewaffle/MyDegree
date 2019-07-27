@@ -811,6 +811,19 @@ public class InsertData {
         streamCourses.add(new StreamCourse("GENED","COMP1511", false));
         streamCourses.add(new StreamCourse("GENED","COMP2521", false));
 
+        streamCourses.add(new StreamCourse("3584M","ACCTA1", false));
+        streamCourses.add(new StreamCourse("3584M","COMMF1", false));
+        streamCourses.add(new StreamCourse("3584M","ECONF1", false));
+        streamCourses.add(new StreamCourse("3584M","ECONI1", false));
+        streamCourses.add(new StreamCourse("3584M","ECONJ1", false));
+        streamCourses.add(new StreamCourse("3584M","FINSA1", false));
+        streamCourses.add(new StreamCourse("3584M","IBUSA1", false));
+        streamCourses.add(new StreamCourse("3584M","MARKA1", false));
+        streamCourses.add(new StreamCourse("3584M","MGMTA1", false));
+        streamCourses.add(new StreamCourse("3584M","MGMTH1", false));
+        streamCourses.add(new StreamCourse("3584M","TABLA1", false));
+        streamCourses.add(new StreamCourse("3584M","TABLC1", false));
+
         //to do: more gen ed courses?? (OR LIKE  a create your own gen-ed subject placeholder with its own term offerings?, and business electives?
 
         return streamCourses;

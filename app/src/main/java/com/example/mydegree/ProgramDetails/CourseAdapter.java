@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.CourseOverview.PrereqAdapter;
+import com.example.mydegree.Major;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.Stream;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.example.mydegree.Major.MAJOR_PARCEL;
+import static com.example.mydegree.Search.SearchAdapter.COURSE_PARCEL;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder>{
 
@@ -46,9 +50,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             StreamCourse myStreamCourse = mDataset.get(position);
             String myCourse = myStreamCourse.getStreamCourse();
 
-            Intent courseIntent = new Intent(view.getContext(),CourseOverview.class);
-            courseIntent.putExtra(PrereqAdapter.PREREQ_PARCEL,myCourse);
-            view.getContext().startActivity(courseIntent);
+            if(myCourse.length()==8) {
+                Intent courseIntent = new Intent(view.getContext(), CourseOverview.class);
+                courseIntent.putExtra(PrereqAdapter.PREREQ_PARCEL, myCourse);
+                view.getContext().startActivity(courseIntent);
+            } else if(myCourse.length()==6){
+                Intent viewIntent = new Intent(view.getContext(), Major.class);
+                viewIntent.putExtra(MAJOR_PARCEL, myCourse);
+                view.getContext().startActivity(viewIntent);
+            }
         }
     }
 

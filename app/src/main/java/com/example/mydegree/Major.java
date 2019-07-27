@@ -33,6 +33,7 @@ public class Major extends AppCompatActivity {
     private Button majorLink;
     private ProgressDialog  progDialog;
     private int uoc;
+    public static final String MAJOR_PARCEL = "majorParcel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +63,60 @@ public class Major extends AppCompatActivity {
 
         Intent i = getIntent();
         final Course myCourse = i.getParcelableExtra(COURSE_PARCEL);
+        final String fromMajorStream = i.getStringExtra(MAJOR_PARCEL);
         if(myCourse!=null){
-            majorName.setText(myCourse.getCourseName());
-            majorCode.setText(myCourse.getCourseCode());
-            uoc = myCourse.getCourseUoc();
-            majorUoc.setText(Integer.toString(myCourse.getCourseUoc()) + " UOC");
-            majorDesc.setText(myCourse.getCourseDesc());
-            if (myCourse.getOtherreq()==null){
-                majorReq.setVisibility(View.GONE);
-            } else {
-                majorReq.setText(myCourse.getOtherreq());
+           fillActivityContent(myCourse);
+        }
+        if(fromMajorStream!=null){
+            new GetMajorTask().execute(fromMajorStream);
+        }
+
+    }
+
+    private void fillActivityContent(Course course){
+        majorName.setText(course.getCourseName());
+        majorCode.setText(course.getCourseCode());
+        uoc = course.getCourseUoc();
+        majorUoc.setText(course.getCourseUoc() + " UOC");
+        majorDesc.setText(course.getCourseDesc());
+        if (course.getOtherreq()==null){
+            majorReq.setVisibility(View.GONE);
+        } else {
+            majorReq.setText(course.getOtherreq());
+        }
+        final String webCode = course.getCourseCode();
+        majorLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.handbook.unsw.edu.au/undergraduate/specialisations/2019/"+webCode));
+                startActivity(webIntent);
             }
-            majorLink.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.handbook.unsw.edu.au/undergraduate/specialisations/2019/"+myCourse.getCourseCode()));
-                    startActivity(webIntent);
-                }
-            });
-            setTitle(myCourse.getCourseCode() + " - " + myCourse.getCourseName());
-            new GetMajorCourses().execute(myCourse.getCourseCode());
+        });
+        setTitle(course.getCourseCode() + " - " + course.getCourseName());
+        new GetMajorCourses().execute(course.getCourseCode());
+    }
+
+
+    private class GetMajorTask extends AsyncTask<String, Void, Course> {
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Course doInBackground(String... query) {
+            CourseDb db = Room
+                    .databaseBuilder(Major.this, CourseDb.class, "coursedb")
+                    .build();
+
+            ArrayList<Course> courseList = (ArrayList<Course>) db.courseDao().getCourseByCode(query[0]);
+            return courseList.get(0);
+        }
+
+        @Override
+        protected void onPostExecute(Course result){
+            fillActivityContent(result);
         }
     }
 
