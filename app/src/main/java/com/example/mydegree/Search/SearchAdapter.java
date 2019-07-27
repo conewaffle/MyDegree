@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydegree.CourseOverview.CourseOverview;
+import com.example.mydegree.Major;
 import com.example.mydegree.ProgramDetails.ProgramDetail;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
@@ -22,6 +23,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     public static final String COURSE_PARCEL = "courseParcel";
     public static final String PROG_CODE = "progCode";
+    public static final String MAJOR_CODE = "majorCode";
 
     private ArrayList<Course> mDataset;
 
@@ -29,13 +31,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     public class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public TextView code, name;
+        public TextView code, name, searchType;
         public CardView searchCard;
 
         public SearchViewHolder(View itemView){
             super(itemView);
             code = itemView.findViewById(R.id.searchItemCode);
             name = itemView.findViewById(R.id.searchItemName);
+            searchType = itemView.findViewById(R.id.searchType);
             searchCard = itemView.findViewById(R.id.searchCard);
 
             searchCard.setOnClickListener(this);
@@ -54,7 +57,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 viewIntent.putExtra(COURSE_PARCEL, myCourse);
                 view.getContext().startActivity(viewIntent);
             } else if (myCourse.getCourseCode().length()==6){
-
+                Intent viewIntent = new Intent(view.getContext(), Major.class);
+                viewIntent.putExtra(COURSE_PARCEL, myCourse);
+                view.getContext().startActivity(viewIntent);
             }
 
         }
@@ -69,15 +74,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position){
+        holder.code.setText(mDataset.get(position).getCourseCode());
+        holder.name.setText(mDataset.get(position).getCourseName());
         if(mDataset.get(position).getCourseCode().length()==4){
-            holder.code.setText(mDataset.get(position).getCourseCode() + " - " + mDataset.get(position).getCourseName());
-            holder.name.setText("Program");
-            holder.code.setTypeface(Typeface.DEFAULT_BOLD);
-        } else {
-            holder.code.setText(mDataset.get(position).getCourseCode());
-            holder.name.setText(mDataset.get(position).getCourseName());
-            holder.code.setTypeface(Typeface.DEFAULT);
-
+            holder.searchType.setText("Program");
+        } else if (mDataset.get(position).getCourseCode().length()==6){
+            holder.searchType.setText("Major");
+        } else if (mDataset.get(position).getCourseCode().length()==8){
+            holder.searchType.setText("Course");
         }
 
     }

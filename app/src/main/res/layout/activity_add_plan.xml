@@ -24,9 +24,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textProgSpin" />
+        app:layout_constraintTop_toBottomOf="@+id/textProgSpin"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
     <TextView
         android:id="@+id/textMajSpin"
@@ -48,7 +51,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMajSpin" />
+        app:layout_constraintTop_toBottomOf="@+id/textMajSpin"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"/>
 
     <Button
         android:id="@+id/pickProgBtn"

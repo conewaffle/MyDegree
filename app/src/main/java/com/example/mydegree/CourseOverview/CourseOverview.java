@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Query;
 import androidx.room.Room;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -27,10 +25,8 @@ import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.Prereq;
-import com.example.mydegree.Room.Program;
 import com.example.mydegree.Saved.SavedItemAdapter;
 import com.example.mydegree.Saved.SavedItems;
-import com.example.mydegree.Settings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
@@ -42,7 +38,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.mydegree.Program.ROOM_INITIALISED;
 import static com.example.mydegree.Search.SearchAdapter.COURSE_PARCEL;
 
 public class CourseOverview extends AppCompatActivity {

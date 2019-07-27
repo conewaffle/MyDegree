@@ -7,7 +7,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingBottom="8dp"
-    tools:context=".CourseOverview.CourseOverview">
+    tools:context=".Major">
 
 
     <ScrollView
@@ -49,7 +49,7 @@
 
                     <TextView
                         android:id="@+id/majorCode"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:text="ECONI1" />
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/courseDesc"
+                    android:id="@+id/majorDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -99,36 +99,49 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textCore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="Core Units"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerMajCore"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:orientation="horizontal">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textElec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="Elective Units"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerMajElec"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"/>
 
                     <TextView
-                        android:id="@+id/strucText"
+                        android:id="@+id/majorReq"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp" />
 
                 </LinearLayout>
 
@@ -142,7 +155,7 @@
                 android:layout_margin="8dp"
                 android:background="@color/colorPrimary"
                 android:padding="16dp"
-                android:text="Course Outline" />
+                android:text="Major Outline" />
 
         </LinearLayout>
 

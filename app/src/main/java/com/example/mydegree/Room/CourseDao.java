@@ -48,6 +48,12 @@ public interface CourseDao {
     @Query("SELECT * FROM streamcourse WHERE streamId2 = :stream")
     List<StreamCourse> getStreamCourses(String stream);
 
+    @Query("SELECT * FROM streamcourse WHERE streamId2 = :stream AND core = '1'")
+    List<StreamCourse> getMajorCores(String stream);
+
+    @Query("SELECT * FROM streamcourse WHERE streamId2 = :stream AND core = '0'")
+    List<StreamCourse> getMajorElecs(String stream);
+
     @Query("SELECT progCode AS courseCode, progName AS courseName FROM program")
     List<Bookmark> getProgramList();
 

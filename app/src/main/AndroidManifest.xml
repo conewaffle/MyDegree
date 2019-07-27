@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Major"></activity>
+        <activity
+            android:name=".Major"
+            android:parentActivityName=".Search.Search"
+            android:theme="@style/AppTheme"
+            />
         <activity
             android:name=".Plan.AddPlan"
             android:parentActivityName=".Plan.Plan"
