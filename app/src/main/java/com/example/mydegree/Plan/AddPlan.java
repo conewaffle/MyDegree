@@ -44,6 +44,7 @@ public class AddPlan extends AppCompatActivity {
         majSpin = findViewById(R.id.textMajSpin);
         majorSpinner.setVisibility(View.GONE);
         majSpin.setVisibility(View.GONE);
+        setTitle("Create a plan");
 
         new GetSpinnerItemsTask().execute();
 
