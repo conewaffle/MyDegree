@@ -57,8 +57,8 @@ public interface CourseDao {
     @Query("SELECT progCode AS courseCode, progName AS courseName FROM program")
     List<Bookmark> getProgramList();
 
-    @Query("SELECT streamName FROM stream WHERE isMajor = '1'")
-    List<String> getMajors();
+    @Query("SELECT id AS courseCode, streamName AS courseName FROM stream WHERE isMajor = '1'")
+    List<Bookmark> getMajors();
 
     @Update
     void updateCourse(Course course);

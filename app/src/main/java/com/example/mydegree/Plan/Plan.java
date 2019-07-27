@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
@@ -20,6 +21,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+
+import static com.example.mydegree.Plan.AddPlan.RESULT_MAJOR;
+import static com.example.mydegree.Plan.AddPlan.RESULT_PROG;
 
 public class Plan extends BaseActivity {
 
@@ -29,6 +33,7 @@ public class Plan extends BaseActivity {
     private CardView c1, c2, c3, c4;
     private FloatingActionButton fab;
     private static final int PICK_PROGRAM_REQUEST = 1;
+    private String programCode, majorName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +47,6 @@ public class Plan extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "This will eventually lead to add plan!", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
                 Intent pickIntent = new Intent(Plan.this, AddPlan.class);
                 startActivityForResult(pickIntent, PICK_PROGRAM_REQUEST);
             }
@@ -136,6 +139,15 @@ public class Plan extends BaseActivity {
 
         if (requestCode == PICK_PROGRAM_REQUEST){
             if(resultCode==RESULT_OK){
+                programCode = data.getStringExtra(RESULT_PROG);
+                Toast.makeText(Plan.this, "program is " + programCode,Toast.LENGTH_SHORT).show();
+                majorName = data.getStringExtra(RESULT_MAJOR);
+                if(majorName!=null){
+                    Toast.makeText(Plan.this, "Major is " + majorName + programCode, Toast.LENGTH_SHORT).show();
+                }
+
+
+
                 //DO SOMETHING HERE WITH THE PROGRAM/MAJOR , maybe create a bin of courses???
                 }
             }
@@ -160,4 +172,6 @@ public class Plan extends BaseActivity {
         return true;
     }
     //endregion
+
+
 }

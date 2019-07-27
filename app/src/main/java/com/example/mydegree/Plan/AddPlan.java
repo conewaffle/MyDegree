@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mydegree.Bookmark;
 import com.example.mydegree.Program;
@@ -52,12 +53,13 @@ public class AddPlan extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent resultIntent = new Intent(AddPlan.this, Plan.class);
                 resultIntent.putExtra(RESULT_PROG, programCode);
                 if(major!=null) {
                     resultIntent.putExtra(RESULT_MAJOR, major);
                 }
-                setResult(RESULT_OK);
+                setResult(RESULT_OK, resultIntent);
                 finish();
             }
         });
@@ -87,7 +89,8 @@ public class AddPlan extends AppCompatActivity {
         majorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // parent.getItemAtPosition(pos)
+                String lol = (String) parent.getItemAtPosition(position);
+                major = lol.substring(0,6);
             }
 
             @Override
@@ -113,12 +116,16 @@ public class AddPlan extends AppCompatActivity {
                     .databaseBuilder(AddPlan.this, CourseDb.class, "coursedb")
                     .build();
 
-            ArrayList<String> majors = (ArrayList<String>) db.courseDao().getMajors();
-
-            ArrayList<Bookmark> dummyList = (ArrayList<Bookmark>) db.courseDao().getProgramList();
+            ArrayList<Bookmark> dummyMajor = (ArrayList<Bookmark>) db.courseDao().getMajors();
+            ArrayList<String> majors = new ArrayList<>();
+            for(int i =0; i<dummyMajor.size(); i++){
+                String lol = dummyMajor.get(i).getCourseCode() + " - " + dummyMajor.get(i).getCourseName();
+                majors.add(lol);
+            }
+            ArrayList<Bookmark> dummyProgram = (ArrayList<Bookmark>) db.courseDao().getProgramList();
             ArrayList<String> programs = new ArrayList<>();
-            for(int i =0; i<dummyList.size(); i++){
-                String ok = dummyList.get(i).getCourseCode() + " - " + dummyList.get(i).getCourseName();
+            for(int i =0; i<dummyProgram.size(); i++){
+                String ok = dummyProgram.get(i).getCourseCode() + " - " + dummyProgram.get(i).getCourseName();
                 programs.add(ok);
             }
 
@@ -133,6 +140,7 @@ public class AddPlan extends AppCompatActivity {
         protected void onPostExecute(ArrayList<ArrayList<String>> result){
             ArrayList<String> myPrograms = result.get(0);
             ArrayList<String> myMajors = result.get(1);
+            myMajors.add(0,"No major chosen yet");
 
             progAdapter = new ArrayAdapter<String>(AddPlan.this, android.R.layout.simple_spinner_item, myPrograms);
             majorAdapter = new ArrayAdapter<String>(AddPlan.this, android.R.layout.simple_spinner_item, myMajors);
