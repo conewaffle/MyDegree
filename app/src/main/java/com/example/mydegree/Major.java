@@ -28,11 +28,11 @@ import static com.example.mydegree.Search.SearchAdapter.MAJOR_CODE;
 public class Major extends AppCompatActivity {
 
     private RecyclerView coreCycler, elecCycler;
-    private TextView coreText, elecTest, majorName, majorCode, majorDesc,majorReq;
+    private TextView coreText, elecText, majorName, majorCode, majorDesc,majorReq, majorUoc;
     private CourseAdapter coreAdapter, elecAdapter;
     private Button majorLink;
     private ProgressDialog  progDialog;
-
+    private int uoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,12 @@ public class Major extends AppCompatActivity {
 
         majorName = findViewById(R.id.majorName);
         majorCode = findViewById(R.id.majorCode);
+        majorUoc = findViewById(R.id.majorUoc);
         majorDesc = findViewById(R.id.majorDesc);
         majorReq = findViewById(R.id.majorReq);
         majorLink = findViewById(R.id.majorWeb);
+        coreText = findViewById(R.id.textCore);
+        elecText = findViewById(R.id.textElec);
 
         coreCycler = findViewById(R.id.recyclerMajCore);
         elecCycler = findViewById(R.id.recyclerMajElec);
@@ -62,6 +65,8 @@ public class Major extends AppCompatActivity {
         if(myCourse!=null){
             majorName.setText(myCourse.getCourseName());
             majorCode.setText(myCourse.getCourseCode());
+            uoc = myCourse.getCourseUoc();
+            majorUoc.setText(Integer.toString(myCourse.getCourseUoc()) + " UOC");
             majorDesc.setText(myCourse.getCourseDesc());
             if (myCourse.getOtherreq()==null){
                 majorReq.setVisibility(View.GONE);
@@ -75,7 +80,7 @@ public class Major extends AppCompatActivity {
                     startActivity(webIntent);
                 }
             });
-            setTitle(myCourse.getCourseName());
+            setTitle(myCourse.getCourseCode() + " - " + myCourse.getCourseName());
             new GetMajorCourses().execute(myCourse.getCourseCode());
         }
     }
@@ -102,9 +107,6 @@ public class Major extends AppCompatActivity {
             ArrayList<ArrayList<StreamCourse>> masterList = new ArrayList<>();
             ArrayList<StreamCourse> coreList = (ArrayList<StreamCourse>) db.courseDao().getMajorCores(query[0]);
             ArrayList<StreamCourse> elecList = (ArrayList<StreamCourse>) db.courseDao().getMajorElecs(query[0]);
-            if (coreList.size()==1){
-                Toast.makeText(Major.this, "CORES ARE EMPTY!!!", Toast.LENGTH_SHORT);
-            }
             masterList.add(coreList);
             masterList.add(elecList);
 
@@ -115,7 +117,10 @@ public class Major extends AppCompatActivity {
         protected void onPostExecute(ArrayList<ArrayList<StreamCourse>> result){
 
             coreAdapter.setCourses(result.get(0));
+            coreText.setText("Core Courses (" + result.get(0).size()*6 + " UOC)");
             elecAdapter.setCourses(result.get(1));
+            int elecUoc = uoc - result.get(0).size()*6;
+            elecText.setText("Core Courses (" + elecUoc + " UOC)");
             coreCycler.setAdapter(coreAdapter);
             elecCycler.setAdapter(elecAdapter);
 
