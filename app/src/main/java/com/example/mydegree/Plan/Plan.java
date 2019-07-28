@@ -220,9 +220,9 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         return super.onContextItemSelected(item);
     }
 
-    private void showPickDialog(String programCode, int t1, int t2, int t3){
+    private void showPickDialog(String programCode, int term){
         FragmentManager fm = getSupportFragmentManager();
-        PickCourseFragment pickCourseFragment = PickCourseFragment.newInstance(programCode, t1, t2, t3);
+        PickCourseFragment pickCourseFragment = PickCourseFragment.newInstance(programCode, term);
         pickCourseFragment.show(fm, "PickCourseFragment");
     }
 
@@ -231,40 +231,40 @@ public class Plan extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.b11:
-                showPickDialog(programCode, 1, 0, 0);
+                showPickDialog(programCode, 1);
                 break;
             case R.id.b12:
-                showPickDialog(programCode, 0,1,0);
+                showPickDialog(programCode, 2);
                 break;
             case R.id.b13:
-                showPickDialog(programCode, 0,0,1);
+                showPickDialog(programCode, 3);
                 break;
             case R.id.b21:
-                showPickDialog(programCode, 1, 0, 0);
+                showPickDialog(programCode, 1);
                 break;
             case R.id.b22:
-                showPickDialog(programCode, 0,1,0);
+                showPickDialog(programCode, 2);
                 break;
             case R.id.b23:
-                showPickDialog(programCode, 0,0,1);
+                showPickDialog(programCode, 3);
                 break;
             case R.id.b31:
-                showPickDialog(programCode, 1, 0, 0);
+                showPickDialog(programCode, 1);
                 break;
             case R.id.b32:
-                showPickDialog(programCode, 0,1,0);
+                showPickDialog(programCode, 2);
                 break;
             case R.id.b33:
-                showPickDialog(programCode, 0,0,1);
+                showPickDialog(programCode, 3);
                 break;
             case R.id.b41:
-                showPickDialog(programCode, 1, 0, 0);
+                showPickDialog(programCode, 1);
                 break;
             case R.id.b42:
-                showPickDialog(programCode, 0,1,0);
+                showPickDialog(programCode, 2);
                 break;
             case R.id.b43:
-                showPickDialog(programCode, 0,0,1);
+                showPickDialog(programCode, 3);
                 break;
         }
     }
