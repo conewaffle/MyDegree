@@ -137,10 +137,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                             <ImageButton
                                 android:id="@+id/b13"
@@ -148,12 +148,17 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"></LinearLayout>
 
                     </LinearLayout>
 
@@ -594,6 +599,23 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Your Courses"
+                android:textSize="16sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
         </LinearLayout>
     </ScrollView>

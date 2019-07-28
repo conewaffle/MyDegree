@@ -60,6 +60,9 @@ public interface CourseDao {
     @Query("SELECT id AS courseCode, streamName AS courseName FROM stream WHERE isMajor = '1'")
     List<Bookmark> getMajors();
 
+    @Query("SELECT streamId2, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t1 = :t1 AND c.t2 = :t2 AND c.t3 = :t3 ")
+    List<StreamCourse> getPossiblePlan(String program, int t1, int t2, int t3);
+
     @Update
     void updateCourse(Course course);
 

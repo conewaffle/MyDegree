@@ -1,7 +1,10 @@
 package com.example.mydegree.Plan;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,10 +22,11 @@ import java.util.ArrayList;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
 
     private ArrayList<Plan> mDataset;
+    private int position;
 
     public PlanAdapter(ArrayList<com.example.mydegree.Room.Plan> myDataset) {mDataset = myDataset;}
 
-    public class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, View.OnCreateContextMenuListener{
 
         private TextView courseCode;
         private CardView courseCard;
@@ -43,7 +47,31 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             courseIntent.putExtra(PrereqAdapter.PREREQ_PARCEL,myCourse);
             v.getContext().startActivity(courseIntent);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            MenuInflater inflater = ((Activity) v.getContext()).getMenuInflater();
+            inflater.inflate(R.menu.saved_items_longclick, menu);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            setPosition(getAdapterPosition());
+            return false;
+        }
     }
+
+
+    public void setPosition(int position){
+        this.position = position;
+    }
+
+    public int getPosition(){
+        return position;
+    }
+
+
+
 
     @Override
     public PlanAdapter.PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType){

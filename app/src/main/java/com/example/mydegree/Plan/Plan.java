@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import static com.example.mydegree.Plan.AddPlan.RESULT_MAJOR;
 import static com.example.mydegree.Plan.AddPlan.RESULT_PROG;
 
-public class Plan extends BaseActivity {
+public class Plan extends BaseActivity implements View.OnClickListener{
 
     private RecyclerView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12;
     private PlanAdapter p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
@@ -124,10 +125,39 @@ public class Plan extends BaseActivity {
         c3 = findViewById(R.id.c3);
         c4 = findViewById(R.id.c4);
         //endregion
+        //region button setup and onclick
+        b11 = findViewById(R.id.b11);
+        b11.setOnClickListener(this);
+        b12 = findViewById(R.id.b12);
+        b12.setOnClickListener(this);
+        b13 = findViewById(R.id.b13);
+        b13.setOnClickListener(this);
+        b21 = findViewById(R.id.b21);
+        b21.setOnClickListener(this);
+        b22 = findViewById(R.id.b22);
+        b22.setOnClickListener(this);
+        b23 = findViewById(R.id.b23);
+        b23.setOnClickListener(this);
+        b31 = findViewById(R.id.b31);
+        b31.setOnClickListener(this);
+        b32 = findViewById(R.id.b32);
+        b32.setOnClickListener(this);
+        b33 = findViewById(R.id.b33);
+        b33.setOnClickListener(this);
+        b41 = findViewById(R.id.b41);
+        b41.setOnClickListener(this);
+        b42 = findViewById(R.id.b42);
+        b42.setOnClickListener(this);
+        b43 = findViewById(R.id.b43);
+        b43.setOnClickListener(this);
+        //endregion
         //region customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuplan);
         setTitle("myPlan");
         //endregion
+
+
+
         //Do the rest as you want for each activity
 
 
@@ -146,12 +176,60 @@ public class Plan extends BaseActivity {
                     Toast.makeText(Plan.this, "Major is " + majorName + programCode, Toast.LENGTH_SHORT).show();
                 }
 
-
-
                 //DO SOMETHING HERE WITH THE PROGRAM/MAJOR , maybe create a bin of courses???
-                }
             }
         }
+    }
+
+    //LONG-CLICK PLAN TO DELETE THINGS....
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.menu_remove:
+                final int position = ((PlanAdapter)  r1.getAdapter()).getPosition();
+                //((PlanAdapter)((RecyclerView) item.getActionView().getParent()).getAdapter()).getPosition();
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                int index = info.position;
+                View view = info.targetView;
+
+                //remove plan from db
+
+                Toast.makeText(Plan.this, "Course removed", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    //handling + button clicks
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.b11:
+                break;
+            case R.id.b12:
+                break;
+            case R.id.b13:
+                break;
+            case R.id.b21:
+                break;
+            case R.id.b22:
+                break;
+            case R.id.b23:
+                break;
+            case R.id.b31:
+                break;
+            case R.id.b32:
+                break;
+            case R.id.b33:
+                break;
+            case R.id.b41:
+                break;
+            case R.id.b42:
+                break;
+            case R.id.b43:
+                break;
+        }
+    }
 
     //region extending baseactivity things
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
@@ -172,6 +250,5 @@ public class Plan extends BaseActivity {
         return true;
     }
     //endregion
-
 
 }
