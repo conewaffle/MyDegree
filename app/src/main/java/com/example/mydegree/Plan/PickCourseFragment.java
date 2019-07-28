@@ -50,11 +50,14 @@ public class PickCourseFragment extends DialogFragment {
         courseSpinner = (Spinner) view.findViewById(R.id.courseSpinner);
 
         // Fetch arguments from bundle and set title
-        String title = getArguments().getString("title", "Enter Name");
+        String program = getArguments().getString(FRAG_PROGRAM);
+        int t1 = getArguments().getInt(FRAG_T1, 0);
+        int t2 = getArguments().getInt(FRAG_T2, 0);
+        int t3 = getArguments().getInt(FRAG_T3, 0);
+
         getDialog().setTitle("Pick a Course");
-        // Show soft keyboard automatically and request focus to field
-        //mEditText.requestFocus();
-        //getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+
     }
 
 

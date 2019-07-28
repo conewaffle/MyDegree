@@ -115,6 +115,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/buttons1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
@@ -154,11 +155,6 @@
                                 app:srcCompat="@drawable/ic_add_black_24dp" />
 
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"></LinearLayout>
 
                     </LinearLayout>
 
@@ -265,6 +261,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/buttons2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
@@ -275,10 +272,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                             <ImageButton
                                 android:id="@+id/b22"
@@ -286,10 +283,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                             <ImageButton
                                 android:id="@+id/b23"
@@ -297,10 +294,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -408,6 +405,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/buttons3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
@@ -418,10 +416,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                             <ImageButton
                                 android:id="@+id/b32"
@@ -429,10 +427,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                             <ImageButton
                                 android:id="@+id/b33"
@@ -440,10 +438,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                         </LinearLayout>
 
@@ -555,6 +553,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/buttons4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
@@ -565,10 +564,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                             <ImageButton
                                 android:id="@+id/b42"
@@ -576,10 +575,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                             <ImageButton
                                 android:id="@+id/b43"
@@ -587,10 +586,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@android:color/white"
-                                android:tint="@android:color/darker_gray"
-                                app:srcCompat="@drawable/ic_add_black_24dp"
                                 android:clickable="true"
-                                android:foreground="?android:attr/selectableItemBackground"/>
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:tint="@android:color/darker_gray"
+                                app:srcCompat="@drawable/ic_add_black_24dp" />
 
                         </LinearLayout>
 

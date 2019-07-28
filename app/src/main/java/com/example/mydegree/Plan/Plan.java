@@ -3,6 +3,7 @@ package com.example.mydegree.Plan;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
@@ -33,6 +35,7 @@ public class Plan extends BaseActivity implements View.OnClickListener{
     private ImageButton b11, b12, b13, b21, b22, b23, b31, b32, b33, b41, b42, b43;
     private CardView c1, c2, c3, c4;
     private FloatingActionButton fab;
+    private LinearLayout buttons1, buttons2, buttons3, buttons4;
     private static final int PICK_PROGRAM_REQUEST = 1;
     private String programCode, majorName;
 
@@ -151,6 +154,17 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         b43 = findViewById(R.id.b43);
         b43.setOnClickListener(this);
         //endregion
+        //region setting up button linearlayout
+        buttons1 = findViewById(R.id.buttons1);
+        buttons2 = findViewById(R.id.buttons2);
+        buttons3 = findViewById(R.id.buttons3);
+        buttons4 = findViewById(R.id.buttons4);
+        buttons1.setVisibility(View.GONE);
+        buttons2.setVisibility(View.GONE);
+        buttons3.setVisibility(View.GONE);
+        buttons4.setVisibility(View.GONE);
+        //endregion
+
         //region customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuplan);
         setTitle("myPlan");
@@ -177,6 +191,12 @@ public class Plan extends BaseActivity implements View.OnClickListener{
                 }
 
                 //DO SOMETHING HERE WITH THE PROGRAM/MAJOR , maybe create a bin of courses???
+
+                //first make buttons visible
+                buttons1.setVisibility(View.VISIBLE);
+                buttons2.setVisibility(View.VISIBLE);
+                buttons3.setVisibility(View.VISIBLE);
+                buttons4.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -200,33 +220,51 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         return super.onContextItemSelected(item);
     }
 
+    private void showPickDialog(String programCode, int t1, int t2, int t3){
+        FragmentManager fm = getSupportFragmentManager();
+        PickCourseFragment pickCourseFragment = PickCourseFragment.newInstance(programCode, t1, t2, t3);
+        pickCourseFragment.show(fm, "PickCourseFragment");
+    }
+
     //handling + button clicks
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.b11:
+                showPickDialog(programCode, 1, 0, 0);
                 break;
             case R.id.b12:
+                showPickDialog(programCode, 0,1,0);
                 break;
             case R.id.b13:
+                showPickDialog(programCode, 0,0,1);
                 break;
             case R.id.b21:
+                showPickDialog(programCode, 1, 0, 0);
                 break;
             case R.id.b22:
+                showPickDialog(programCode, 0,1,0);
                 break;
             case R.id.b23:
+                showPickDialog(programCode, 0,0,1);
                 break;
             case R.id.b31:
+                showPickDialog(programCode, 1, 0, 0);
                 break;
             case R.id.b32:
+                showPickDialog(programCode, 0,1,0);
                 break;
             case R.id.b33:
+                showPickDialog(programCode, 0,0,1);
                 break;
             case R.id.b41:
+                showPickDialog(programCode, 1, 0, 0);
                 break;
             case R.id.b42:
+                showPickDialog(programCode, 0,1,0);
                 break;
             case R.id.b43:
+                showPickDialog(programCode, 0,0,1);
                 break;
         }
     }
