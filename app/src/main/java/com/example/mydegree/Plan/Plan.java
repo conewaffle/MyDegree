@@ -3,13 +3,17 @@ package com.example.mydegree.Plan;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -46,8 +50,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private FloatingActionButton fab;
     private LinearLayout buttons1, buttons2, buttons3, buttons4;
     private int myPlanInfoId;
-    private static final int PICK_PROGRAM_REQUEST = 1;
+    public static final int PICK_PROGRAM_REQUEST = 1;
+    public static final String PICK_FRAG_TAG = "pickFragTag";
     private String programCode, majorName, planName;
+    public int buttonLastClick;
+    private com.example.mydegree.Room.Plan temporaryItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -272,7 +279,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private void showPickDialog(String programCode, int year, int term){
         FragmentManager fm = getSupportFragmentManager();
         PickCourseFragment pickCourseFragment = PickCourseFragment.newInstance(programCode, year, term);
-        pickCourseFragment.show(fm, "PickCourseFragment");
+        pickCourseFragment.show(fm, PICK_FRAG_TAG);
     }
 
     @Override
@@ -280,77 +287,80 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         String course = bundle.getString(RESULT_COURSE);
         int term = bundle.getInt(FRAG_TERM);
         int year = bundle.getInt(FRAG_YEAR);
-        Toast.makeText(Plan.this, "Bundle received successfully: " + course + year + term, Toast.LENGTH_SHORT).show();
 
-        //region populating recyclers based on the term/year of selection
-        if(year==1){
+        temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
+
+        new InsertPlanItemTask().execute(temporaryItem);
+
+        //region populating recyclers based on the term/year of selection - NOT USED ANYMORE BUT KEEP CODE IN CASE
+/*        if(year==1){
             switch(term){
                 case 1:
-                    ar1.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar1.add(temporaryItem);
                     p1.setPlan(ar1);
                     break;
                 case 2:
-                    ar2.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar2.add(temporaryItem);
                     p2.setPlan(ar2);
                     break;
                 case 3:
-                    ar3.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar3.add(temporaryItem);
                     p3.setPlan(ar3);
                     break;
             }
         } else if(year==2){
             switch(term) {
                 case 1:
-                    ar4.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar4.add(temporaryItem);
                     p4.setPlan(ar4);
                     break;
                 case 2:
-                    ar5.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar5.add(temporaryItem);
                     p5.setPlan(ar5);
                     break;
                 case 3:
-                    ar6.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar6.add(temporaryItem);
                     p6.setPlan(ar6);
                     break;
             }
         } else if(year==3){
             switch(term) {
                 case 1:
-                    ar7.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar7.add(temporaryItem);
                     p7.setPlan(ar7);
                     break;
                 case 2:
-                    ar8.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar8.add(temporaryItem);
                     p8.setPlan(ar8);
                     break;
                 case 3:
-                    ar9.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar9.add(temporaryItem);
                     p9.setPlan(ar9);
                     break;
             }
         } else if(year==4){
             switch(term) {
                 case 1:
-                    ar10.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar10.add(temporaryItem);
                     p10.setPlan(ar10);
                     break;
                 case 2:
-                    ar11.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar11.add(temporaryItem);
                     p11.setPlan(ar11);
                     break;
                 case 3:
-                    ar12.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    ar12.add(temporaryItem);
                     p12.setPlan(ar12);
                     break;
             }
-        }
+        }*/
         //endregion
-
     }
 
     //handling + button clicks
     @Override
     public void onClick(View v) {
+        buttonLastClick = v.getId();
         switch(v.getId()){
             case R.id.b11:
                 showPickDialog(programCode, 1, 1);
@@ -439,11 +449,81 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
                     .build();
 
-            Long myLong = db.courseDao().insertPlan(plans[0]);
+            try {
+                Long myLong = db.courseDao().insertPlan(plans[0]);
 
-            return myLong;
+                //dismiss fragment dialog
+                Fragment prev = getSupportFragmentManager().findFragmentByTag(PICK_FRAG_TAG);
+                if (prev != null) {
+                    DialogFragment df = (DialogFragment) prev;
+                    df.dismiss();
+                }
+                return myLong;
+
+            }
+            catch (SQLiteConstraintException e){
+                return null;
+            }
+
         }
 
+        @Override
+        protected void onPostExecute(Long aLong) {
+            if(aLong==null){
+                Toast.makeText(Plan.this,"Error: You have already put this course on your plan.", Toast.LENGTH_SHORT).show();
+            } else {
+                switch (buttonLastClick) {
+                    case R.id.b11:
+                        ar1.add(temporaryItem);
+                        p1.setPlan(ar1);
+                        break;
+                    case R.id.b12:
+                        ar2.add(temporaryItem);
+                        p2.setPlan(ar2);
+                        break;
+                    case R.id.b13:
+                        ar3.add(temporaryItem);
+                        p3.setPlan(ar3);
+                        break;
+                    case R.id.b21:
+                        ar4.add(temporaryItem);
+                        p4.setPlan(ar4);
+                        break;
+                    case R.id.b22:
+                        ar5.add(temporaryItem);
+                        p5.setPlan(ar5);
+                        break;
+                    case R.id.b23:
+                        ar6.add(temporaryItem);
+                        p6.setPlan(ar6);
+                        break;
+                    case R.id.b31:
+                        ar7.add(temporaryItem);
+                        p7.setPlan(ar7);
+                        break;
+                    case R.id.b32:
+                        ar8.add(temporaryItem);
+                        p8.setPlan(ar8);
+                        break;
+                    case R.id.b33:
+                        ar9.add(temporaryItem);
+                        p9.setPlan(ar9);
+                        break;
+                    case R.id.b41:
+                        ar10.add(temporaryItem);
+                        p10.setPlan(ar10);
+                        break;
+                    case R.id.b42:
+                        ar11.add(temporaryItem);
+                        p11.setPlan(ar11);
+                        break;
+                    case R.id.b43:
+                        ar12.add(temporaryItem);
+                        p12.setPlan(ar12);
+                        break;
+                }
+            }
+        }
     }
 
 

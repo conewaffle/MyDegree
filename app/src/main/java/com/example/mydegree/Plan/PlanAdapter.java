@@ -36,6 +36,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             courseCard = itemView.findViewById(R.id.courseCard);
             courseCode = itemView.findViewById(R.id.courseCode);
             courseCard.setOnClickListener(this);
+            courseCard.setOnLongClickListener(this);
+            courseCard.setOnCreateContextMenuListener(this);
         }
 
         @Override

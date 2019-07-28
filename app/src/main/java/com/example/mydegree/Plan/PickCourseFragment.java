@@ -101,7 +101,8 @@ public class PickCourseFragment extends DialogFragment {
                 myBundle.putInt(FRAG_TERM, term);
                 PickCoursesListener listener = (PickCoursesListener) getActivity();
                 listener.onFinishPick(myBundle);
-                dismiss();
+                //dismiss now moved into onfragmentdialog
+                //dismiss();
             }
         }) ;
         //endregion

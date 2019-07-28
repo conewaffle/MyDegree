@@ -7,6 +7,7 @@ import java.util.List;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -33,7 +34,7 @@ public interface CourseDao {
     @Insert
     long insertPlanInfo(PlanInfo planInfo);
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.ABORT)
     long insertPlan(Plan plan);
 
     @Query("SELECT * FROM course WHERE courseCode LIKE :query OR courseName LIKE :query")
