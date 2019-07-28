@@ -6,9 +6,11 @@ import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,24 +22,32 @@ import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
+import com.example.mydegree.Room.CourseDb;
+import com.example.mydegree.Room.PlanInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 import static com.example.mydegree.Plan.AddPlan.RESULT_MAJOR;
+import static com.example.mydegree.Plan.AddPlan.RESULT_NAME;
 import static com.example.mydegree.Plan.AddPlan.RESULT_PROG;
+import static com.example.mydegree.Plan.PickCourseFragment.FRAG_TERM;
+import static com.example.mydegree.Plan.PickCourseFragment.FRAG_YEAR;
+import static com.example.mydegree.Plan.PickCourseFragment.RESULT_COURSE;
 
-public class Plan extends BaseActivity implements View.OnClickListener{
+public class Plan extends BaseActivity implements View.OnClickListener, PickCourseFragment.PickCoursesListener {
 
     private RecyclerView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12;
     private PlanAdapter p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
     private ImageButton b11, b12, b13, b21, b22, b23, b31, b32, b33, b41, b42, b43;
+    private ArrayList<com.example.mydegree.Room.Plan> ar1, ar2, ar3, ar4, ar5, ar6, ar7, ar8, ar9, ar10, ar11, ar12;
     private CardView c1, c2, c3, c4;
     private FloatingActionButton fab;
     private LinearLayout buttons1, buttons2, buttons3, buttons4;
+    private int myPlanInfoId;
     private static final int PICK_PROGRAM_REQUEST = 1;
-    private String programCode, majorName;
+    private String programCode, majorName, planName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class Plan extends BaseActivity implements View.OnClickListener{
             }
         });
         //endregion
+
         //region  setting up recyclers
         r1 = findViewById(R.id.r1);
         r1.setHasFixedSize(true);
@@ -94,6 +105,7 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         r12.setHasFixedSize(true);
         r12.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
         //endregion
+
         //region instantiating adapters
         p1 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
         p2 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
@@ -108,6 +120,7 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         p11 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
         p12 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
         //endregion
+
         //region bind recycler to adapter
         r1.setAdapter(p1);
         r2.setAdapter(p2);
@@ -122,12 +135,14 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         r11.setAdapter(p11);
         r12.setAdapter(p12);
         //endregion
+
         //region card instantiation
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         c3 = findViewById(R.id.c3);
         c4 = findViewById(R.id.c4);
         //endregion
+
         //region button setup and onclick
         b11 = findViewById(R.id.b11);
         b11.setOnClickListener(this);
@@ -154,6 +169,7 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         b43 = findViewById(R.id.b43);
         b43.setOnClickListener(this);
         //endregion
+
         //region setting up button linearlayout
         buttons1 = findViewById(R.id.buttons1);
         buttons2 = findViewById(R.id.buttons2);
@@ -164,6 +180,22 @@ public class Plan extends BaseActivity implements View.OnClickListener{
         buttons3.setVisibility(View.GONE);
         buttons4.setVisibility(View.GONE);
         //endregion
+
+        //region setting up arraylists
+        ar1 = new ArrayList<>();
+        ar2 = new ArrayList<>();
+        ar3 = new ArrayList<>();
+        ar4 = new ArrayList<>();
+        ar5 = new ArrayList<>();
+        ar6 = new ArrayList<>();
+        ar7 = new ArrayList<>();
+        ar8 = new ArrayList<>();
+        ar9 = new ArrayList<>();
+        ar10 = new ArrayList<>();
+        ar11 = new ArrayList<>();
+        ar12 = new ArrayList<>();
+        //endregion
+
 
         //region customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuplan);
@@ -183,12 +215,29 @@ public class Plan extends BaseActivity implements View.OnClickListener{
 
         if (requestCode == PICK_PROGRAM_REQUEST){
             if(resultCode==RESULT_OK){
+                //receiving data back and making Toasts to ensure its done
                 programCode = data.getStringExtra(RESULT_PROG);
-                Toast.makeText(Plan.this, "program is " + programCode,Toast.LENGTH_SHORT).show();
                 majorName = data.getStringExtra(RESULT_MAJOR);
                 if(majorName!=null){
                     Toast.makeText(Plan.this, "Major is " + majorName + programCode, Toast.LENGTH_SHORT).show();
                 }
+                planName = data.getStringExtra(RESULT_NAME);
+                if(planName!=null){
+                    if(!planName.isEmpty()){
+                        setTitle(planName);
+                    }
+                }
+
+                //DOING STUFF WITH THE DATA
+                //if its 3979, its only 3 years, so make the 4th card disappear.
+                if(programCode.equals("3979")){
+                    c4.setVisibility(View.GONE);
+                }
+
+                PlanInfo toInsert = new PlanInfo(0, planName,programCode);
+
+                new InsertPlanInfoTask().execute(toInsert);
+
 
                 //DO SOMETHING HERE WITH THE PROGRAM/MAJOR , maybe create a bin of courses???
 
@@ -214,16 +263,89 @@ public class Plan extends BaseActivity implements View.OnClickListener{
 
                 //remove plan from db
 
-                Toast.makeText(Plan.this, "Course removed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Plan.this, "Course removed (not really though, but it  will be once we figure it out)", Toast.LENGTH_SHORT).show();
         }
 
         return super.onContextItemSelected(item);
     }
 
-    private void showPickDialog(String programCode, int term){
+    private void showPickDialog(String programCode, int year, int term){
         FragmentManager fm = getSupportFragmentManager();
-        PickCourseFragment pickCourseFragment = PickCourseFragment.newInstance(programCode, term);
+        PickCourseFragment pickCourseFragment = PickCourseFragment.newInstance(programCode, year, term);
         pickCourseFragment.show(fm, "PickCourseFragment");
+    }
+
+    @Override
+    public void onFinishPick(Bundle bundle){
+        String course = bundle.getString(RESULT_COURSE);
+        int term = bundle.getInt(FRAG_TERM);
+        int year = bundle.getInt(FRAG_YEAR);
+        Toast.makeText(Plan.this, "Bundle received successfully: " + course + year + term, Toast.LENGTH_SHORT).show();
+
+        //region populating recyclers based on the term/year of selection
+        if(year==1){
+            switch(term){
+                case 1:
+                    ar1.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p1.setPlan(ar1);
+                    break;
+                case 2:
+                    ar2.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p2.setPlan(ar2);
+                    break;
+                case 3:
+                    ar3.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p3.setPlan(ar3);
+                    break;
+            }
+        } else if(year==2){
+            switch(term) {
+                case 1:
+                    ar4.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p4.setPlan(ar4);
+                    break;
+                case 2:
+                    ar5.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p5.setPlan(ar5);
+                    break;
+                case 3:
+                    ar6.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p6.setPlan(ar6);
+                    break;
+            }
+        } else if(year==3){
+            switch(term) {
+                case 1:
+                    ar7.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p7.setPlan(ar7);
+                    break;
+                case 2:
+                    ar8.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p8.setPlan(ar8);
+                    break;
+                case 3:
+                    ar9.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p9.setPlan(ar9);
+                    break;
+            }
+        } else if(year==4){
+            switch(term) {
+                case 1:
+                    ar10.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p10.setPlan(ar10);
+                    break;
+                case 2:
+                    ar11.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p11.setPlan(ar11);
+                    break;
+                case 3:
+                    ar12.add(new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course));
+                    p12.setPlan(ar12);
+                    break;
+            }
+        }
+        //endregion
+
     }
 
     //handling + button clicks
@@ -231,43 +353,100 @@ public class Plan extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.b11:
-                showPickDialog(programCode, 1);
+                showPickDialog(programCode, 1, 1);
                 break;
             case R.id.b12:
-                showPickDialog(programCode, 2);
+                showPickDialog(programCode, 1,2);
                 break;
             case R.id.b13:
-                showPickDialog(programCode, 3);
+                showPickDialog(programCode, 1,3);
                 break;
             case R.id.b21:
-                showPickDialog(programCode, 1);
+                showPickDialog(programCode, 2,1);
                 break;
             case R.id.b22:
-                showPickDialog(programCode, 2);
+                showPickDialog(programCode, 2,2);
                 break;
             case R.id.b23:
-                showPickDialog(programCode, 3);
+                showPickDialog(programCode, 2,3);
                 break;
             case R.id.b31:
-                showPickDialog(programCode, 1);
+                showPickDialog(programCode, 3,1);
                 break;
             case R.id.b32:
-                showPickDialog(programCode, 2);
+                showPickDialog(programCode, 3,2);
                 break;
             case R.id.b33:
-                showPickDialog(programCode, 3);
+                showPickDialog(programCode, 3,3);
                 break;
             case R.id.b41:
-                showPickDialog(programCode, 1);
+                showPickDialog(programCode, 4,1);
                 break;
             case R.id.b42:
-                showPickDialog(programCode, 2);
+                showPickDialog(programCode, 4,2);
                 break;
             case R.id.b43:
-                showPickDialog(programCode, 3);
+                showPickDialog(programCode, 4,3);
                 break;
         }
     }
+
+    private class InsertPlanInfoTask extends AsyncTask<PlanInfo, Void, Long> {
+        @Override
+        protected Long doInBackground(PlanInfo... planInfos) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            Long myLong = db.courseDao().insertPlanInfo(planInfos[0]);
+
+            return myLong;
+        }
+
+        @Override
+        protected void onPostExecute(Long result) {
+            myPlanInfoId = result.intValue();
+        }
+    }
+
+    private class GetPlanInfosTask extends AsyncTask<Void, Void, ArrayList<PlanInfo>>{
+        @Override
+        protected ArrayList<PlanInfo> doInBackground(Void... voids){
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            ArrayList<PlanInfo> myList = (ArrayList<PlanInfo>) db.courseDao().getAllPlanInfos();
+            return myList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<PlanInfo> result) {
+
+        }
+    }
+
+    private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Long doInBackground(com.example.mydegree.Room.Plan... plans) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            Long myLong = db.courseDao().insertPlan(plans[0]);
+
+            return myLong;
+        }
+
+    }
+
+
 
     //region extending baseactivity things
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS

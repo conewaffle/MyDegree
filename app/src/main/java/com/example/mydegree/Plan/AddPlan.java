@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +29,13 @@ public class AddPlan extends AppCompatActivity {
 
     private Spinner progSpinner, majorSpinner;
     private ArrayAdapter<String> progAdapter, majorAdapter;
-    private String programCode, major;
+    private String programCode, major, planName;
     private Button button;
     private TextView majSpin;
+    private EditText editName;
     public static final String RESULT_PROG = "resultProg";
     public static final String RESULT_MAJOR = "resultMajor";
+    public static final String RESULT_NAME = "resultName";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class AddPlan extends AppCompatActivity {
         setContentView(R.layout.activity_add_plan);
 
         button = findViewById(R.id.pickProgBtn);
+        editName = findViewById(R.id.namePlan);
         progSpinner = findViewById(R.id.progSpinner);
         majorSpinner = findViewById(R.id.majorSpinner);
         majSpin = findViewById(R.id.textMajSpin);
@@ -58,6 +62,12 @@ public class AddPlan extends AppCompatActivity {
                 resultIntent.putExtra(RESULT_PROG, programCode);
                 if(major!=null) {
                     resultIntent.putExtra(RESULT_MAJOR, major);
+                }
+                planName = editName.getText().toString();
+                if(planName.isEmpty()){
+                    resultIntent.putExtra(RESULT_NAME, "");
+                } else {
+                    resultIntent.putExtra(RESULT_NAME,planName);
                 }
                 setResult(RESULT_OK, resultIntent);
                 finish();
