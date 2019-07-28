@@ -264,9 +264,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             case R.id.menu_remove:
                 final int position = ((PlanAdapter)  r1.getAdapter()).getPosition();
                 //((PlanAdapter)((RecyclerView) item.getActionView().getParent()).getAdapter()).getPosition();
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                int index = info.position;
-                View view = info.targetView;
+
 
                 //remove plan from db
 
