@@ -357,46 +357,98 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         //endregion
     }
 
+    private void showToastCourseFull(){
+        Toast.makeText(Plan.this, "You cannot place anymore courses in this term!", Toast.LENGTH_SHORT).show();
+    }
+
     //handling + button clicks
     @Override
     public void onClick(View v) {
         buttonLastClick = v.getId();
-        switch(v.getId()){
+        switch(v.getId()) {
             case R.id.b11:
-                showPickDialog(programCode, 1, 1);
+                if (ar1.size() == 3) {
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 1, 1);
+                }
                 break;
             case R.id.b12:
-                showPickDialog(programCode, 1,2);
+                if (ar2.size() == 3) {
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 1, 2);
+                }
                 break;
             case R.id.b13:
-                showPickDialog(programCode, 1,3);
+                if(ar3.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 1,3);
+                }
                 break;
             case R.id.b21:
-                showPickDialog(programCode, 2,1);
+                if(ar4.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 2,1);
+                }
                 break;
             case R.id.b22:
-                showPickDialog(programCode, 2,2);
+                if(ar5.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 2,2);
+                }
                 break;
             case R.id.b23:
-                showPickDialog(programCode, 2,3);
+                if(ar6.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 2, 3);
+                }
                 break;
             case R.id.b31:
-                showPickDialog(programCode, 3,1);
+                if(ar7.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 3, 1);
+                }
                 break;
             case R.id.b32:
-                showPickDialog(programCode, 3,2);
+                if(ar8.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 3, 2);
+                }
                 break;
             case R.id.b33:
-                showPickDialog(programCode, 3,3);
+                if(ar9.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 3, 3);
+                }
                 break;
             case R.id.b41:
-                showPickDialog(programCode, 4,1);
+                if(ar10.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 4, 1);
+                }
                 break;
             case R.id.b42:
-                showPickDialog(programCode, 4,2);
+                if(ar11.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 4, 2);
+                }
                 break;
             case R.id.b43:
-                showPickDialog(programCode, 4,3);
+                if(ar12.size()==3){
+                    showToastCourseFull();
+                } else {
+                    showPickDialog(programCode, 4, 3);
+                }
                 break;
         }
     }
