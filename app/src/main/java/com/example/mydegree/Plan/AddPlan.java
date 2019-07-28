@@ -33,6 +33,7 @@ public class AddPlan extends AppCompatActivity {
     private Button button;
     private TextView majSpin;
     private EditText editName;
+    private String fullProgString;
     public static final String RESULT_PROG = "resultProg";
     public static final String RESULT_MAJOR = "resultMajor";
     public static final String RESULT_NAME = "resultName";
@@ -65,7 +66,7 @@ public class AddPlan extends AppCompatActivity {
                 }
                 planName = editName.getText().toString();
                 if(planName.isEmpty()){
-                    resultIntent.putExtra(RESULT_NAME, "");
+                    resultIntent.putExtra(RESULT_NAME, fullProgString);
                 } else {
                     resultIntent.putExtra(RESULT_NAME,planName);
                 }
@@ -81,6 +82,7 @@ public class AddPlan extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String lol = (String) parent.getItemAtPosition(position);
                 programCode = lol.substring(0,4);
+                fullProgString = lol.substring(7);
                 if (programCode.equals("3584")){
                     majSpin.setVisibility(View.VISIBLE);
                     majorSpinner.setVisibility(View.VISIBLE);
@@ -101,6 +103,7 @@ public class AddPlan extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String lol = (String) parent.getItemAtPosition(position);
                 major = lol.substring(0,6);
+                fullProgString.concat(" - " + lol.substring(10));
             }
 
             @Override

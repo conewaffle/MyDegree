@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
@@ -20,8 +21,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
@@ -55,6 +58,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private String programCode, majorName, planName;
     public int buttonLastClick;
     private com.example.mydegree.Room.Plan temporaryItem;
+    private Spinner planSpinner;
+    private ArrayAdapter<String> spinAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -203,17 +208,51 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         ar12 = new ArrayList<>();
         //endregion
 
+        //region setting up spinner
+        planSpinner = findViewById(R.id.planSpinner);
+        planSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String lol = (String) parent.getItemAtPosition(position);
+                int i = lol.indexOf(" ");
+                String haha = lol.substring(0,i+1);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //endregion
+
+        new GetPlanInfosTask().execute();
+
 
         //region customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuplan);
         setTitle("myPlan");
         //endregion
-
-
-
         //Do the rest as you want for each activity
 
 
+    }
+
+    private void setupContent(){
+        if(programCode.equals("3979")){
+            c4.setVisibility(View.GONE);
+        }
+        if(planName!=null){
+            if(!planName.isEmpty()){
+                setTitle(planName);
+            }
+        }
+
+        //first make buttons visible
+        buttons1.setVisibility(View.VISIBLE);
+        buttons2.setVisibility(View.VISIBLE);
+        buttons3.setVisibility(View.VISIBLE);
+        buttons4.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -225,34 +264,13 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 //receiving data back and making Toasts to ensure its done
                 programCode = data.getStringExtra(RESULT_PROG);
                 majorName = data.getStringExtra(RESULT_MAJOR);
-                if(majorName!=null){
-                    Toast.makeText(Plan.this, "Major is " + majorName + programCode, Toast.LENGTH_SHORT).show();
-                }
                 planName = data.getStringExtra(RESULT_NAME);
-                if(planName!=null){
-                    if(!planName.isEmpty()){
-                        setTitle(planName);
-                    }
-                }
-
-                //DOING STUFF WITH THE DATA
-                //if its 3979, its only 3 years, so make the 4th card disappear.
-                if(programCode.equals("3979")){
-                    c4.setVisibility(View.GONE);
-                }
 
                 PlanInfo toInsert = new PlanInfo(0, planName,programCode);
 
                 new InsertPlanInfoTask().execute(toInsert);
-
-
-                //DO SOMETHING HERE WITH THE PROGRAM/MAJOR , maybe create a bin of courses???
-
-                //first make buttons visible
-                buttons1.setVisibility(View.VISIBLE);
-                buttons2.setVisibility(View.VISIBLE);
-                buttons3.setVisibility(View.VISIBLE);
-                buttons4.setVisibility(View.VISIBLE);
+                new GetPlanInfosTask().execute();
+                setupContent();
             }
         }
     }
@@ -262,6 +280,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     public boolean onContextItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_remove:
+
+                //idk how to do this because you need the specific recycler but i'm not sure how to access the recycler the item was in?? if that makes sense
                 final int position = ((PlanAdapter)  r1.getAdapter()).getPosition();
                 //((PlanAdapter)((RecyclerView) item.getActionView().getParent()).getAdapter()).getPosition();
 
@@ -470,6 +490,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     }
 
     private class GetPlanInfosTask extends AsyncTask<Void, Void, ArrayList<PlanInfo>>{
+
         @Override
         protected ArrayList<PlanInfo> doInBackground(Void... voids){
             CourseDb db = Room
@@ -482,9 +503,40 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         @Override
         protected void onPostExecute(ArrayList<PlanInfo> result) {
+            ArrayList<String> myStrings = new ArrayList<>();
+            for(int i = 0; i<result.size(); i++){
+                myStrings.add(result.get(i).getPlanId() + " - " + result.get(i).getPlanName());
+            }
+            spinAdapter = new ArrayAdapter<String>(Plan.this, android.R.layout.simple_spinner_item, myStrings);
+            spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            planSpinner.setAdapter(spinAdapter);
+            planSpinner.setSelection(myStrings.size()-1);
 
         }
     }
+
+    private class GetPlanItemsTask extends AsyncTask<Integer, Void, ArrayList<ArrayList<com.example.mydegree.Room.Plan>>>{
+
+        @Override
+        protected ArrayList<ArrayList<com.example.mydegree.Room.Plan>> doInBackground(Integer... integers) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            ArrayList<com.example.mydegree.Room.Plan> myList = (ArrayList<com.example.mydegree.Room.Plan>) db.courseDao().getPlanItems(integers[0]);
+
+            //create 12 arraylists for the different recyclers depending on the planItems year/term
+            //then after getplanitemstask, set the content with the program info etc.
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ArrayList<com.example.mydegree.Room.Plan>> arrayLists) {
+            super.onPostExecute(arrayLists);
+        }
+    }
+
+
 
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
 
