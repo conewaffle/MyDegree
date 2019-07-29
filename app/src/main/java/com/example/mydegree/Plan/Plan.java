@@ -60,12 +60,14 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private com.example.mydegree.Room.Plan temporaryItem;
     private Spinner planSpinner;
     private ArrayAdapter<String> spinAdapter;
+    private int justCreated;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_plan, frameLayout, true);
+        justCreated=0;
 
         //region setting up fab
         fab = (FloatingActionButton) findViewById(R.id.fab2);
@@ -309,70 +311,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
 
         new InsertPlanItemTask().execute(temporaryItem);
-
-        //region populating recyclers based on the term/year of selection - NOT USED ANYMORE BUT KEEP CODE IN CASE
-/*        if(year==1){
-            switch(term){
-                case 1:
-                    ar1.add(temporaryItem);
-                    p1.setPlan(ar1);
-                    break;
-                case 2:
-                    ar2.add(temporaryItem);
-                    p2.setPlan(ar2);
-                    break;
-                case 3:
-                    ar3.add(temporaryItem);
-                    p3.setPlan(ar3);
-                    break;
-            }
-        } else if(year==2){
-            switch(term) {
-                case 1:
-                    ar4.add(temporaryItem);
-                    p4.setPlan(ar4);
-                    break;
-                case 2:
-                    ar5.add(temporaryItem);
-                    p5.setPlan(ar5);
-                    break;
-                case 3:
-                    ar6.add(temporaryItem);
-                    p6.setPlan(ar6);
-                    break;
-            }
-        } else if(year==3){
-            switch(term) {
-                case 1:
-                    ar7.add(temporaryItem);
-                    p7.setPlan(ar7);
-                    break;
-                case 2:
-                    ar8.add(temporaryItem);
-                    p8.setPlan(ar8);
-                    break;
-                case 3:
-                    ar9.add(temporaryItem);
-                    p9.setPlan(ar9);
-                    break;
-            }
-        } else if(year==4){
-            switch(term) {
-                case 1:
-                    ar10.add(temporaryItem);
-                    p10.setPlan(ar10);
-                    break;
-                case 2:
-                    ar11.add(temporaryItem);
-                    p11.setPlan(ar11);
-                    break;
-                case 3:
-                    ar12.add(temporaryItem);
-                    p12.setPlan(ar12);
-                    break;
-            }
-        }*/
-        //endregion
     }
 
     private void showToastCourseFull(){
@@ -512,6 +450,17 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             planSpinner.setAdapter(spinAdapter);
             planSpinner.setSelection(myStrings.size()-1);
 
+            String omg = planSpinner.getSelectedItem().toString();
+            int fail = omg.indexOf(" ");
+            String thePlanId = omg.substring(0,fail);
+
+            if(justCreated==1){
+                new GetPlanItemsTask().execute(Integer.valueOf(thePlanId));
+                justCreated=0;
+                setupContent();
+            }
+
+
         }
     }
 
@@ -525,14 +474,107 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
             ArrayList<com.example.mydegree.Room.Plan> myList = (ArrayList<com.example.mydegree.Room.Plan>) db.courseDao().getPlanItems(integers[0]);
 
-            //create 12 arraylists for the different recyclers depending on the planItems year/term
-            //then after getplanitemstask, set the content with the program info etc.
-            return null;
+
+            ArrayList<com.example.mydegree.Room.Plan> term1 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term2 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term3 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term4 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term5 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term6 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term7 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term8 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term9 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term10 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term11 = new ArrayList<>();
+            ArrayList<com.example.mydegree.Room.Plan> term12 = new ArrayList<>();
+
+            for (int i = 0; i<myList.size();i++){
+                if (myList.get(i).getYear()==1){
+                    switch (myList.get(i).getTerm()){
+                        case 1:
+                            term1.add(myList.get(i));
+                            break;
+                        case 2:
+                            term2.add(myList.get(i));
+                            break;
+                        case 3:
+                            term3.add(myList.get(i));
+                            break;
+                    }
+                } else if (myList.get(i).getYear()==2){
+                    switch (myList.get(i).getTerm()){
+                        case 1:
+                            term4.add(myList.get(i));
+                            break;
+                        case 2:
+                            term5.add(myList.get(i));
+                            break;
+                        case 3:
+                            term6.add(myList.get(i));
+                            break;
+                    }
+                } else if (myList.get(i).getYear()==3){
+                    switch (myList.get(i).getTerm()){
+                        case 1:
+                            term7.add(myList.get(i));
+                            break;
+                        case 2:
+                            term8.add(myList.get(i));
+                            break;
+                        case 3:
+                            term9.add(myList.get(i));
+                            break;
+                    }
+                } else if (myList.get(i).getYear()==4){
+                    switch (myList.get(i).getTerm()){
+                        case 1:
+                            term10.add(myList.get(i));
+                            break;
+                        case 2:
+                            term11.add(myList.get(i));
+                            break;
+                        case 3:
+                            term12.add(myList.get(i));
+                            break;
+                    }
+                }
+            }
+
+            ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterList = new ArrayList<>();
+            masterList.add(term1);
+            masterList.add(term2);
+            masterList.add(term3);
+            masterList.add(term4);
+            masterList.add(term5);
+            masterList.add(term6);
+            masterList.add(term7);
+            masterList.add(term8);
+            masterList.add(term9);
+            masterList.add(term10);
+            masterList.add(term11);
+            masterList.add(term12);
+
+
+            return masterList;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ArrayList<com.example.mydegree.Room.Plan>> arrayLists) {
-            super.onPostExecute(arrayLists);
+        protected void onPostExecute(ArrayList<ArrayList<com.example.mydegree.Room.Plan>> result) {
+            int i = 0;
+            p1.setPlan(result.get(i)); i++;
+            p2.setPlan(result.get(i)); i++;
+            p3.setPlan(result.get(i)); i++;
+            p4.setPlan(result.get(i)); i++;
+            p5.setPlan(result.get(i)); i++;
+            p6.setPlan(result.get(i)); i++;
+            p7.setPlan(result.get(i)); i++;
+            p8.setPlan(result.get(i)); i++;
+            p9.setPlan(result.get(i)); i++;
+            p10.setPlan(result.get(i)); i++;
+            p11.setPlan(result.get(i)); i++;
+            p12.setPlan(result.get(i)); i++;
+
+
         }
     }
 
