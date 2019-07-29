@@ -15,23 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "209748883863-v3ob85qnuv3q8e7t6vsocjv88obkahid.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.mydegree",
-            "certificate_hash": "2042248ca1d53da3dbf7c520414dd0d421beb777"
-          }
-        },
-        {
-          "client_id": "209748883863-jblhcv1d871i76tm2av6eq0j2qto4gd6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.mydegree",
-            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
-          }
-        },
-        {
-          "client_id": "209748883863-2bbonv112rfsju73nabhml3vvdhp1hlh.apps.googleusercontent.com",
+          "client_id": "209748883863-6qoqimrg1261shac22ifstjo8f9jg91i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.mydegree",
