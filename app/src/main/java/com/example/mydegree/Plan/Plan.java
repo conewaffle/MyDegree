@@ -61,13 +61,14 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private Spinner planSpinner;
     private ArrayAdapter<String> spinAdapter;
     private int justCreated;
+    private ProgressDialog progDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_plan, frameLayout, true);
-        justCreated=0;
+        justCreated=1;
 
         //region setting up fab
         fab = (FloatingActionButton) findViewById(R.id.fab2);
@@ -217,7 +218,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String lol = (String) parent.getItemAtPosition(position);
                 int i = lol.indexOf(" ");
-                String haha = lol.substring(0,i+1);
+                String haha = lol.substring(0,i);
+                new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
 
             }
 
@@ -227,6 +229,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         });
         //endregion
+
+        progDialog = new ProgressDialog(Plan.this, ProgressDialog.STYLE_SPINNER);
 
         new GetPlanInfosTask().execute();
 
@@ -430,6 +434,15 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private class GetPlanInfosTask extends AsyncTask<Void, Void, ArrayList<PlanInfo>>{
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progDialog.setMessage("Loading Plan..");
+            progDialog.setIndeterminate(false);
+            progDialog.setCancelable(true);
+            progDialog.show();
+        }
+
+        @Override
         protected ArrayList<PlanInfo> doInBackground(Void... voids){
             CourseDb db = Room
                     .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
@@ -444,23 +457,73 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             ArrayList<String> myStrings = new ArrayList<>();
             for(int i = 0; i<result.size(); i++){
                 myStrings.add(result.get(i).getPlanId() + " - " + result.get(i).getPlanName());
-            }
-            spinAdapter = new ArrayAdapter<String>(Plan.this, android.R.layout.simple_spinner_item, myStrings);
-            spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            planSpinner.setAdapter(spinAdapter);
-            planSpinner.setSelection(myStrings.size()-1);
 
-            String omg = planSpinner.getSelectedItem().toString();
-            int fail = omg.indexOf(" ");
-            String thePlanId = omg.substring(0,fail);
+                if(justCreated==1){
+                    if(i==(result.size()-1)){
+                        programCode = result.get(i).getProgCode();
+                        planName = result.get(i).getPlanName();
+                        myPlanInfoId = result.get(i).getPlanId();
+                    }
+                }
 
-            if(justCreated==1){
-                new GetPlanItemsTask().execute(Integer.valueOf(thePlanId));
-                justCreated=0;
-                setupContent();
             }
 
+            if(result.size()==0){
+                planSpinner.setVisibility(View.GONE);
+                Snackbar.make(fab, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
+            } else {
+                planSpinner.setVisibility(View.VISIBLE);
+                spinAdapter = new ArrayAdapter<String>(Plan.this, android.R.layout.simple_spinner_item, myStrings);
+                spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                planSpinner.setAdapter(spinAdapter);
+                planSpinner.setSelection(myStrings.size() - 1);
+            }
 
+            if(result.size()!=0) {
+                String omg = planSpinner.getSelectedItem().toString();
+                int fail = omg.indexOf(" ");
+                String thePlanId = omg.substring(0, fail);
+                if(justCreated==1){
+                    new GetPlanItemsTask().execute(Integer.valueOf(thePlanId));
+                    justCreated=0;
+                    //fill content (after getting other program info??? , also then need to implement spinner onSelected
+                    setupContent();
+                }
+            }
+
+
+
+            progDialog.dismiss();
+
+
+        }
+    }
+
+    private class GetOnePlanInfoTask extends AsyncTask<Integer, Void, PlanInfo>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected PlanInfo doInBackground(Integer... integers){
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            PlanInfo myPlan = db.courseDao().getSinglePlanInfo(integers[0]);
+            return myPlan;
+        }
+
+        @Override
+        protected void onPostExecute(PlanInfo result) {
+            programCode = result.getProgCode();
+            planName = result.getPlanName();
+            myPlanInfoId = result.getPlanId();
+
+            new GetPlanItemsTask().execute(result.getPlanId());
+            setupContent();
         }
     }
 
@@ -606,6 +669,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
             }
             catch (SQLiteConstraintException e){
+                e.printStackTrace();
                 return null;
             }
 

@@ -88,6 +88,9 @@ public interface CourseDao {
     @Query("SELECT * FROM planinfo")
     List<PlanInfo> getAllPlanInfos();
 
+    @Query("SELECT * FROM planinfo WHERE planId = :planId")
+    PlanInfo getSinglePlanInfo(int planId);
+
     @Query("SELECT * FROM 'plan' WHERE planId = :planId")
     List<Plan> getPlanItems(int planId);
 
