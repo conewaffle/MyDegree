@@ -94,6 +94,8 @@ public interface CourseDao {
     @Query("SELECT * FROM 'plan' WHERE planId = :planId")
     List<Plan> getPlanItems(int planId);
 
+    @Query("DELETE FROM planinfo WHERE planId = :planId")
+    void deleteWholePlan(int planId);
 
     @Update
     void updateCourse(Course course);

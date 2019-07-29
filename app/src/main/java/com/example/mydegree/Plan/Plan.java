@@ -13,11 +13,13 @@ import androidx.room.Room;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,6 +70,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_plan, frameLayout, true);
+
+        //region customise this for each nav menu destination
+        navigationView.setCheckedItem(R.id.menuplan);
+        setTitle("myPlan");
+        //endregion
+
         justCreated=1;
 
         //region setting up fab
@@ -235,10 +243,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         new GetPlanInfosTask().execute();
 
 
-        //region customise this for each nav menu destination
-        navigationView.setCheckedItem(R.id.menuplan);
-        setTitle("myPlan");
-        //endregion
+
         //Do the rest as you want for each activity
 
 
@@ -300,6 +305,41 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         return super.onContextItemSelected(item);
     }
 
+    //DELETE WHOLE PLAN MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    //DELETE WHOLE PLAN MENU ONCLICK
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_delete) {
+            if(programCode!=null && myPlanInfoId!=0){
+                new AlertDialog.Builder(Plan.this)
+                        .setTitle("Confirm Delete")
+                        .setMessage("Are you sure you want to delete this plan?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new DeleteWholePlanTask().execute(myPlanInfoId);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+            } else {
+                Toast.makeText(Plan.this, "There is no plan to delete!", Toast.LENGTH_SHORT).show();
+            }
+
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void showPickDialog(String programCode, int year, int term){
         FragmentManager fm = getSupportFragmentManager();
         PickCourseFragment pickCourseFragment = PickCourseFragment.newInstance(programCode, year, term);
@@ -321,7 +361,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         Toast.makeText(Plan.this, "You cannot place anymore courses in this term!", Toast.LENGTH_SHORT).show();
     }
 
-    //handling + button clicks
     @Override
     public void onClick(View v) {
         buttonLastClick = v.getId();
@@ -431,6 +470,26 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
+    private class DeleteWholePlanTask extends AsyncTask<Integer, Void, Void> {
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            db.courseDao().deleteWholePlan(integers[0]);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(Plan.this, "Plan deleted.", Toast.LENGTH_SHORT).show();
+            justCreated=1;
+            new GetPlanInfosTask().execute();
+        }
+    }
+
     private class GetPlanInfosTask extends AsyncTask<Void, Void, ArrayList<PlanInfo>>{
 
         @Override
@@ -470,6 +529,23 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
             if(result.size()==0){
                 planSpinner.setVisibility(View.GONE);
+                p1.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p2.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p3.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p4.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p5.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p6.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p7.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p8.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p9.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p10.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p11.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                p12.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
+                setTitle("myPlan");
+                buttons1.setVisibility(View.GONE);
+                buttons2.setVisibility(View.GONE);
+                buttons3.setVisibility(View.GONE);
+                buttons4.setVisibility(View.GONE);
                 Snackbar.make(fab, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
             } else {
                 planSpinner.setVisibility(View.VISIBLE);
@@ -652,8 +728,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         }
     }
-
-
 
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
 
