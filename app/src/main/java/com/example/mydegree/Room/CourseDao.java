@@ -6,6 +6,7 @@ import com.example.mydegree.Room.Course;
 import java.util.List;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -96,6 +97,12 @@ public interface CourseDao {
 
     @Query("DELETE FROM planinfo WHERE planId = :planId")
     void deleteWholePlan(int planId);
+
+/*    @Query("DELETE FROM `plan` WHERE planId = :planId AND courseCode = :courseCode")
+    void deletePlanItem(int planId, String courseCode);*/
+
+    @Delete
+    void deletePlanItem(Plan plan);
 
     @Update
     void updateCourse(Course course);

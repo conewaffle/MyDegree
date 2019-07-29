@@ -54,6 +54,10 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             MenuInflater inflater = ((Activity) v.getContext()).getMenuInflater();
             inflater.inflate(R.menu.saved_items_longclick, menu);
+
+            //some complex ass way of getting the correct recycler
+            //((com.example.mydegree.Plan.Plan) v.getContext()).setRecyclerClicked((RecyclerView) v.getParent().getParent());
+            ((com.example.mydegree.Plan.Plan) v.getContext()).setRecyclerLongClicked(((RecyclerView) v.getParent().getParent()).getId());
         }
 
         @Override

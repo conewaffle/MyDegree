@@ -65,6 +65,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private int justCreated;
     private ProgressDialog progDialog;
 
+    private RecyclerView recyclerClicked;
+    private int recyclerLongClicked;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -249,6 +252,14 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
     }
 
+    public void setRecyclerClicked(RecyclerView view){
+        this.recyclerClicked = view;
+    }
+
+    public void setRecyclerLongClicked(int id){
+        this.recyclerLongClicked = id;
+    }
+
     private void setupContent(){
         if(programCode.equals("3979")){
             c4.setVisibility(View.GONE);
@@ -292,14 +303,94 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         switch(item.getItemId()){
             case R.id.menu_remove:
 
-                //idk how to do this because you need the specific recycler but i'm not sure how to access the recycler the item was in?? if that makes sense
-                final int position = ((PlanAdapter)  r1.getAdapter()).getPosition();
-                //((PlanAdapter)((RecyclerView) item.getActionView().getParent()).getAdapter()).getPosition();
+                switch(recyclerLongClicked){
+                    case R.id.r1:
+                        int position = ((PlanAdapter) r1.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete = ar1.get(position);
+                        ar1.remove(position);
+                        p1.setPlan(ar1);
+                        new DeletePlanItemTask().execute(toDelete);
+                        break;
+                    case R.id.r2:
+                        final int position2 = ((PlanAdapter) r2.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete2 = ar2.get(position2);
+                        ar2.remove(position2);
+                        p2.setPlan(ar2);
+                        new DeletePlanItemTask().execute(toDelete2);
+                        break;
+                    case R.id.r3:
+                        final int position3 = ((PlanAdapter) r3.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete3 = ar3.get(position3);
+                        ar3.remove(position3);
+                        p3.setPlan(ar3);
+                        new DeletePlanItemTask().execute(toDelete3);
+                        break;
+                    case R.id.r4:
+                        final int position4 = ((PlanAdapter) r4.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete4 = ar4.get(position4);
+                        ar4.remove(position4);
+                        p4.setPlan(ar4);
+                        new DeletePlanItemTask().execute(toDelete4);
+                        break;
+                    case R.id.r5:
+                        final int position5 = ((PlanAdapter) r5.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete5 = ar5.get(position5);
+                        ar5.remove(position5);
+                        p5.setPlan(ar5);
+                        new DeletePlanItemTask().execute(toDelete5);
+                        break;
+                    case R.id.r6:
+                        final int position6 = ((PlanAdapter) r6.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete6 = ar6.get(position6);
+                        ar6.remove(position6);
+                        p6.setPlan(ar6);
+                        new DeletePlanItemTask().execute(toDelete6);
+                        break;
+                    case R.id.r7:
+                        final int position7 = ((PlanAdapter) r7.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete7 = ar7.get(position7);
+                        ar7.remove(position7);
+                        p7.setPlan(ar7);
+                        new DeletePlanItemTask().execute(toDelete7);
+                        break;
+                    case R.id.r8:
+                        final int position8 = ((PlanAdapter) r8.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete8 = ar8.get(position8);
+                        ar8.remove(position8);
+                        p8.setPlan(ar8);
+                        new DeletePlanItemTask().execute(toDelete8);
+                        break;
+                    case R.id.r9:
+                        final int position9 = ((PlanAdapter) r9.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete9 = ar9.get(position9);
+                        ar9.remove(position9);
+                        p9.setPlan(ar9);
+                        new DeletePlanItemTask().execute(toDelete9);
+                        break;
+                    case R.id.r10:
+                        final int position10 = ((PlanAdapter) r10.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete10 = ar10.get(position10);
+                        ar10.remove(position10);
+                        p10.setPlan(ar10);
+                        new DeletePlanItemTask().execute(toDelete10);
+                        break;
+                    case R.id.r11:
+                        final int position11 = ((PlanAdapter) r11.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete11 = ar11.get(position11);
+                        ar11.remove(position11);
+                        p11.setPlan(ar11);
+                        new DeletePlanItemTask().execute(toDelete11);
+                        break;
+                    case R.id.r12:
+                        final int position12 = ((PlanAdapter) r12.getAdapter()).getPosition();
+                        final com.example.mydegree.Room.Plan toDelete12 = ar12.get(position12);
+                        ar12.remove(position12);
+                        p12.setPlan(ar12);
+                        new DeletePlanItemTask().execute(toDelete12);
+                        break;
+                }
 
 
-                //remove plan from db
-
-                Toast.makeText(Plan.this, "Course removed (not really though, but it  will be once we figure it out)", Toast.LENGTH_SHORT).show();
         }
 
         return super.onContextItemSelected(item);
@@ -470,7 +561,25 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
-    private class DeleteWholePlanTask extends AsyncTask<Integer, Void, Void> {
+    private class DeletePlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Void> {
+        @Override
+        protected Void doInBackground(com.example.mydegree.Room.Plan... plans) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            db.courseDao().deletePlanItem(plans[0]);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(Plan.this, "Course deleted from plan.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+     private class DeleteWholePlanTask extends AsyncTask<Integer, Void, Void> {
         @Override
         protected Void doInBackground(Integer... integers) {
             CourseDb db = Room
@@ -516,7 +625,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             ArrayList<String> myStrings = new ArrayList<>();
             for(int i = 0; i<result.size(); i++){
                 myStrings.add(result.get(i).getPlanId() + " - " + result.get(i).getPlanName());
-
                 if(justCreated==1){
                     if(i==(result.size()-1)){
                         programCode = result.get(i).getProgCode();
@@ -524,9 +632,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         myPlanInfoId = result.get(i).getPlanId();
                     }
                 }
-
             }
-
             if(result.size()==0){
                 planSpinner.setVisibility(View.GONE);
                 p1.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
@@ -562,16 +668,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 if(justCreated==1){
                     new GetPlanItemsTask().execute(Integer.valueOf(thePlanId));
                     justCreated=0;
-                    //fill content (after getting other program info??? , also then need to implement spinner onSelected
                     setupContent();
                 }
             }
-
-
-
             progDialog.dismiss();
-
-
         }
     }
 
@@ -729,6 +829,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
+
+    //VALIDATION WILL TAKE PLACE HERE.
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
 
         @Override
