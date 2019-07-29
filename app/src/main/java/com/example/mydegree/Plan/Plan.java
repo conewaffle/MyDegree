@@ -624,17 +624,29 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         @Override
         protected void onPostExecute(ArrayList<ArrayList<com.example.mydegree.Room.Plan>> result) {
             int i = 0;
+            ar1 = result.get(i);
             p1.setPlan(result.get(i)); i++;
+            ar2 = result.get(i);
             p2.setPlan(result.get(i)); i++;
+            ar3 = result.get(i);
             p3.setPlan(result.get(i)); i++;
+            ar4 = result.get(i);
             p4.setPlan(result.get(i)); i++;
+            ar5 = result.get(i);
             p5.setPlan(result.get(i)); i++;
+            ar6 = result.get(i);
             p6.setPlan(result.get(i)); i++;
+            ar7 = result.get(i);
             p7.setPlan(result.get(i)); i++;
+            ar8 = result.get(i);
             p8.setPlan(result.get(i)); i++;
+            ar9 = result.get(i);
             p9.setPlan(result.get(i)); i++;
+            ar10 = result.get(i);
             p10.setPlan(result.get(i)); i++;
+            ar11 = result.get(i);
             p11.setPlan(result.get(i)); i++;
+            ar12 = result.get(i);
             p12.setPlan(result.get(i)); i++;
 
 
