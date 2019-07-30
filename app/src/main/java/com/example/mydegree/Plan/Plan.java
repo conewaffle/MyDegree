@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
@@ -67,6 +68,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
     private RecyclerView recyclerClicked;
     private int recyclerLongClicked;
+
+    private RecyclerView rs1, rs2, rs3, rs4, rs5, rs6;
+    private CardView cs1, cs2, cs3, cs4, cs5, cs6;
+    private TextView ts1, ts2, ts3, ts4, ts5, ts6, uoc1, uoc2, uoc3, uoc4, uoc5, uoc6;
+    private PlanAdapter ps1, ps2, ps3, ps4, ps5, ps6;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -241,6 +247,50 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         });
         //endregion
 
+
+        //region STREAMS SETUPS
+
+        //set up textViews
+        ts1 = findViewById(R.id.streamText1);
+        ts2 = findViewById(R.id.streamText2);
+        ts3 = findViewById(R.id.streamText3);
+        ts4 = findViewById(R.id.streamText4);
+        ts5 = findViewById(R.id.streamText5);
+        ts6 = findViewById(R.id.streamText6);
+        uoc1 = findViewById(R.id.streamUOC1);
+        uoc2 = findViewById(R.id.streamUOC2);
+        uoc3 = findViewById(R.id.streamUOC3);
+        uoc4 = findViewById(R.id.streamUOC4);
+        uoc5 = findViewById(R.id.streamUOC5);
+        uoc6 = findViewById(R.id.streamUOC6);
+
+
+        //set up recyclers
+        rs1 = findViewById(R.id.streamRV1);
+        rs2 = findViewById(R.id.streamRV2);
+        rs3 = findViewById(R.id.streamRV3);
+        rs4 = findViewById(R.id.streamRV4);
+        rs5 = findViewById(R.id.streamRV5);
+        rs6 = findViewById(R.id.streamRV6);
+
+
+        //setting adapters
+        ps1 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
+        ps2 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
+        ps3 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
+        ps4 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
+        ps5 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
+        ps6 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
+
+        //bind recyclers to adapters
+        rs1.setAdapter(ps1);
+        rs2.setAdapter(ps2);
+        rs3.setAdapter(ps3);
+        rs4.setAdapter(ps4);
+        rs5.setAdapter(ps5);
+        rs6.setAdapter(ps6);
+
+        //endregion
         progDialog = new ProgressDialog(Plan.this, ProgressDialog.STYLE_SPINNER);
 
         new GetPlanInfosTask().execute();
@@ -269,6 +319,48 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 setTitle(planName);
             }
         }
+
+        if(programCode.equals("3584")){
+            ts1.setText("Compulsory Commerce Core");
+            uoc1.setText("24 UOC");
+            ts2.setText("Flexible Core");
+            uoc2.setText("18 UOC");
+            ts3.setText("Compulsory INFS Core");
+            uoc3.setText("72 UOC");
+            ts4.setText("Major");
+            uoc4.setText("36-48 UOC");
+            ts5.setText("Business Electives");
+            uoc5.setText("18-30 UOC");
+            ts6.setText("General Education");
+            uoc6.setText("12 UOC");
+        } else if(programCode.equals("3979")){
+            ts1.setText("Stage 1 Compulsory");
+            uoc1.setText("42 UOC");
+            ts2.setText("Stage 2 Compulsory");
+            uoc2.setText("24 UOC");
+            ts3.setText("Stage 3 Compulsory");
+            uoc3.setText("30 UOC");
+            ts4.setText("INFS 2/3 Electives");
+            uoc4.setText("12 UOC");
+            ts5.setText("Free Electives");
+            uoc5.setText("24 UOC");
+            ts6.setText("General Education");
+            uoc6.setText("12 UOC");
+        } else if(programCode.equals("3964")){
+            ts1.setText("Stage 1 Compulsory");
+            uoc1.setText("42 UOC");
+            ts2.setText("Stage 2 Compulsory");
+            uoc2.setText("24 UOC");
+            ts3.setText("Stage 3 Courses");
+            uoc3.setText("30 UOC");
+            ts4.setText("Industry Placement");
+            uoc4.setText("36 UOC");
+            ts5.setText("Honours");
+            uoc5.setText("48 UOC");
+            ts6.setText("General Education");
+            uoc6.setText("12 UOC");
+        }
+
 
         //first make buttons visible
         buttons1.setVisibility(View.VISIBLE);
@@ -829,7 +921,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
-
     //VALIDATION WILL TAKE PLACE HERE.
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
 
@@ -921,8 +1012,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         }
     }
-
-
 
     //region extending baseactivity things
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
