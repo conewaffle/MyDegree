@@ -26,6 +26,7 @@ import com.example.mydegree.Room.StreamCourse;
 import com.example.mydegree.Room.StreamCoursePlan;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PickCourseFragment extends DialogFragment {
 
@@ -144,6 +145,8 @@ public class PickCourseFragment extends DialogFragment {
             for(int i=0; i<myList.size(); i++){
                 myStrings.add(myList.get(i).getStreamCourse() + " - " + myList.get(i).getStreamName());
             }
+
+            Collections.sort(myStrings);
 
             return myStrings;
 
