@@ -68,7 +68,7 @@ public interface CourseDao {
     @Query("SELECT id AS courseCode, streamName AS courseName FROM stream WHERE isMajor = '1'")
     List<Bookmark> getMajors();
 
-    @Query("SELECT streamId2, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t1 = '1' ")
+    @Query("SELECT streamId2, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t1 = '1' " )
     List<StreamCourse> getTermOne(String program);
 
     @Query("SELECT streamId2, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t2 = '1' ")
@@ -77,13 +77,13 @@ public interface CourseDao {
     @Query("SELECT streamId2, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t3 = '1' ")
     List<StreamCourse> getTermThree(String program);
 
-    @Query("SELECT streamId2 AS streamId, streamName, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t1 = '1' ")
+    @Query("SELECT streamId2 AS streamId, streamName, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t1 = '1' GROUP BY c.courseCode")
     List<StreamCoursePlan> getTermOneX(String program);
 
-    @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t2 = '1' ")
+    @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t2 = '1' GROUP BY c.courseCode")
     List<StreamCoursePlan> getTermTwoX(String program);
 
-    @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t3 = '1' ")
+    @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t3 = '1' GROUP BY c.courseCode")
     List<StreamCoursePlan> getTermThreeX(String program);
 
     @Query("SELECT * FROM planinfo")

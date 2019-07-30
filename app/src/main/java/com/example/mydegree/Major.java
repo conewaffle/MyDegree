@@ -155,7 +155,7 @@ public class Major extends AppCompatActivity {
             coreText.setText("Core Courses (" + result.get(0).size()*6 + " UOC)");
             elecAdapter.setCourses(result.get(1));
             int elecUoc = uoc - result.get(0).size()*6;
-            elecText.setText("Core Courses (" + elecUoc + " UOC)");
+            elecText.setText("Elective Courses (" + elecUoc + " UOC)");
             coreCycler.setAdapter(coreAdapter);
             elecCycler.setAdapter(elecAdapter);
 

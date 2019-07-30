@@ -235,8 +235,8 @@ public class ProgramCoursesFragment extends Fragment {
     private class GetStreamCoursesTask extends AsyncTask<Void, Void, ArrayList<ArrayList<StreamCourse>>> {
 
         @Override
-        protected void onPreExecute(){
-           super.onPreExecute();
+        protected void onPreExecute() {
+            super.onPreExecute();
 
         }
 
@@ -247,7 +247,7 @@ public class ProgramCoursesFragment extends Fragment {
                     .build();
 
             ArrayList<ArrayList<StreamCourse>> masterList = new ArrayList<>();
-            for(int i=0;i<streamIds.size();i++){
+            for (int i = 0; i < streamIds.size(); i++) {
                 masterList.add((ArrayList<StreamCourse>) db.courseDao().getStreamCourses(streamIds.get(i)));
             }
 
@@ -255,42 +255,45 @@ public class ProgramCoursesFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ArrayList<StreamCourse>> result){
+        protected void onPostExecute(ArrayList<ArrayList<StreamCourse>> result) {
 
-            for(int i = 0; i<result.size();i++){
-                if (i==0){
+            for (int i = 0; i < result.size(); i++) {
+                if (i == 0) {
                     c1.setCourses(result.get(i));
-                } else if (i==1){
+                } else if (i == 1) {
                     c2.setCourses(result.get(i));
-                } else if (i==2){
+                } else if (i == 2) {
                     c3.setCourses(result.get(i));
-                } else if (i==3){
+                } else if (i == 3) {
                     c4.setCourses(result.get(i));
-                } else if (i==4){
+                } else if (i == 4) {
                     c5.setCourses(result.get(i));
-                } else if (i==5){
+                } else if (i == 5) {
                     c6.setCourses(result.get(i));
-                } else if (i==6){
+                } else if (i == 6) {
                     c7.setCourses(result.get(i));
-                    if(result.get(i).size()==0){
+                    if (result.get(i).size() == 0) {
                         free7.setVisibility(View.VISIBLE);
                         free7.setText("24 UOC of courses from Business School or other faculties");
                     }
-                } else if (i==7){
+                } else if (i == 7) {
                     c8.setCourses(result.get(i));
-                    if(result.get(i).size()==0){
+                    if (result.get(i).size() == 0) {
                         biz8.setVisibility(View.VISIBLE);
                         biz8.setText("Up to 30 UOC (depending on major) of Business School courses to ensure minimum program requirements are met.");
                     }
-                } else if (i==8){
+                } else if (i == 8) {
                     c9.setCourses(result.get(i));
-                } else if (i==9){
-                    c10.setCourses(result.get(i));
+                } else if (i == 9) {
+                    if (result.get(i).get(0).getStreamId2().equals("INFSE")) {
+                        card10.setVisibility(View.GONE);
+                    } else {
+                        c10.setCourses(result.get(i));
+                    }
                 }
-            }
 
-            progDialog.dismiss();
+                progDialog.dismiss();
+            }
         }
     }
-
 }

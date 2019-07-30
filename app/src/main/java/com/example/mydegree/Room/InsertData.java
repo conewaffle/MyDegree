@@ -427,6 +427,8 @@ public class InsertData {
         streams.add(new Stream("MGMTH1","Human Resource Management",48,true,"3584"));
         streams.add(new Stream("TABLA1","Business Law",48,true,"3584"));
         streams.add(new Stream("TABLC1","Taxation",48,true,"3584"));
+        streams.add(new Stream("INFSE","INFS Elective",30,false,"3584"));
+        streams.add(new Stream("INFSE","INFS Elective",30,false,"3979"));
 
 
         //insert more streams here
@@ -823,6 +825,12 @@ public class InsertData {
         streamCourses.add(new StreamCourse("3584M","MGMTH1", false));
         streamCourses.add(new StreamCourse("3584M","TABLA1", false));
         streamCourses.add(new StreamCourse("3584M","TABLC1", false));
+
+        streamCourses.add(new StreamCourse("INFSE","INFS2631", false));
+        streamCourses.add(new StreamCourse("INFSE","INFS3020", false));
+        streamCourses.add(new StreamCourse("INFSE","INFS3632", false));
+        streamCourses.add(new StreamCourse("INFSE","INFS3830", false));
+        streamCourses.add(new StreamCourse("INFSE","INFS3873", false));
 
         //to do: more gen ed courses?? (OR LIKE  a create your own gen-ed subject placeholder with its own term offerings?, and business electives?
 
