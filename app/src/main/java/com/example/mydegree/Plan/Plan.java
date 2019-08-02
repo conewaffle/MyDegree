@@ -34,9 +34,12 @@ import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.PlanInfo;
+import com.example.mydegree.Room.Stream;
+import com.example.mydegree.Room.StreamCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static com.example.mydegree.Plan.AddPlan.RESULT_MAJOR;
@@ -74,6 +77,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private TextView ts1, ts2, ts3, ts4, ts5, ts6, uoc1, uoc2, uoc3, uoc4, uoc5, uoc6;
     private PlanAdapter ps1, ps2, ps3, ps4, ps5, ps6;
     private ArrayList<com.example.mydegree.Room.Plan> ars1, ars2, ars3, ars4, ars5, ars6;
+    private ArrayList<StreamCourse> arsc1, arsc2, arsc3, arsc4, arsc5, arsc6;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -379,6 +383,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         buttons3.setVisibility(View.VISIBLE);
         buttons4.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -702,6 +707,62 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
+    private class GetStreamCoursesTask extends AsyncTask<String, Void, ArrayList<StreamCourse>> {
+        @Override
+        protected ArrayList<StreamCourse> doInBackground(String... strings) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+           ArrayList<StreamCourse> masterList = (ArrayList<StreamCourse>) db.courseDao().getProgStreamCourses(strings[0]);
+
+            return masterList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<StreamCourse> result) {
+            if(programCode.equals("3584")){
+                for(int i=0; i<result.size(); i++){
+                    if (result.get(i).getStreamId2().contains("3584COC")){
+                        arsc1.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals("3584F")){
+                        arsc2.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals("3584I1")||result.get(i).getStreamId2().equals("INFS2C")||result.get(i).getStreamId2().equals("39793C")){
+                        arsc3.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals(majorName)){
+                        arsc4.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals("GENED")){
+                        arsc6.add(result.get(i));
+                    } else {
+                        //EVERYTHING WOULD BE A BIZ ELEC.
+                        arsc5.add(result.get(i));
+                    }
+                }
+            } else {
+                for(int i=0; i<result.size(); i++){
+                    if (result.get(i).getStreamId2().contains("INFS1C")){
+                        arsc1.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals("INFS2C")){
+                        arsc2.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals("39793C")||result.get(i).getStreamId2().contains("3964C")){
+                        arsc3.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals("3979E")||result.get(i).getStreamId2().equals("3964I")){
+                        arsc4.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().contains("3964H")){
+                        arsc5.add(result.get(i));
+                    } else if(result.get(i).getStreamId2().equals("GENED")){
+                        arsc6.add(result.get(i));
+                    } else {
+                        //EVERYTHING ELSE WOULD BE A FREE ELECTIVE
+                        arsc5.add(result.get(i));
+                    }
+                }
+            }
+
+
+        }
+    }
+
     private class GetPlanInfosTask extends AsyncTask<Void, Void, ArrayList<PlanInfo>>{
 
         @Override
@@ -764,6 +825,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 planSpinner.setSelection(myStrings.size() - 1);
             }
 
+            //this could prob be put in the "else" block above tho,.. idk why i put it in separate
             if(result.size()!=0) {
                 String omg = planSpinner.getSelectedItem().toString();
                 int fail = omg.indexOf(" ");

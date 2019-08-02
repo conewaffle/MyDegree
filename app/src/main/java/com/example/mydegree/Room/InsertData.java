@@ -428,8 +428,6 @@ public class InsertData {
         streams.add(new Stream("TABLA1","Business Law",48,true,"3584"));
         streams.add(new Stream("TABLC1","Taxation",48,true,"3584"));
         streams.add(new Stream("INFSE","INFS Elective",30,false,"3584"));
-        streams.add(new Stream("INFSE","INFS Elective",30,false,"3979"));
-
 
         //insert more streams here
         return streams;
