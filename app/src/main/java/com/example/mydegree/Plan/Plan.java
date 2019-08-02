@@ -73,6 +73,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private CardView cs1, cs2, cs3, cs4, cs5, cs6;
     private TextView ts1, ts2, ts3, ts4, ts5, ts6, uoc1, uoc2, uoc3, uoc4, uoc5, uoc6;
     private PlanAdapter ps1, ps2, ps3, ps4, ps5, ps6;
+    private ArrayList<com.example.mydegree.Room.Plan> ars1, ars2, ars3, ars4, ars5, ars6;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -250,6 +251,14 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         //region STREAMS SETUPS
 
+        //set up new stream ArrayList
+        ars1 = new ArrayList<>();
+        ars2 = new ArrayList<>();
+        ars3 = new ArrayList<>();
+        ars4 = new ArrayList<>();
+        ars5 = new ArrayList<>();
+        ars6 = new ArrayList<>();
+
         //set up textViews
         ts1 = findViewById(R.id.streamText1);
         ts2 = findViewById(R.id.streamText2);
@@ -320,6 +329,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         }
 
+        //region setting text for stream headings
         if(programCode.equals("3584")){
             ts1.setText("Compulsory Commerce Core");
             uoc1.setText("24 UOC");
@@ -360,6 +370,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             ts6.setText("General Education");
             uoc6.setText("12 UOC");
         }
+        //endregion
 
 
         //first make buttons visible

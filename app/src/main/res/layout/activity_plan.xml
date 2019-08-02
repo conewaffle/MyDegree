@@ -648,17 +648,19 @@
                                     android:id="@+id/streamText1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Recycler View 1" />
+                                    android:text="Recycler View 1"
+                                    android:textAlignment="center" />
 
                                 <TextView
                                     android:id="@+id/streamUOC1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="# UOC" />
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/streamRV1"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -681,17 +683,19 @@
                                     android:id="@+id/streamText2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Recycler View 2" />
+                                    android:text="Recycler View 2"
+                                    android:textAlignment="center" />
 
                                 <TextView
                                     android:id="@+id/streamUOC2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="# UOC" />
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/streamRV2"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -714,17 +718,19 @@
                                     android:id="@+id/streamText3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Recycler View 3"/>
+                                    android:text="Recycler View 3"
+                                    android:textAlignment="center" />
 
                                 <TextView
                                     android:id="@+id/streamUOC3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="# UOC" />
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/streamRV3"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -747,17 +753,19 @@
                                     android:id="@+id/streamText4"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Recycler View 4"/>
+                                    android:text="Recycler View 4"
+                                    android:textAlignment="center" />
 
                                 <TextView
                                     android:id="@+id/streamUOC4"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="# UOC" />
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/streamRV4"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -780,17 +788,19 @@
                                     android:id="@+id/streamText5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Recycler View 5"/>
+                                    android:text="Recycler View 5"
+                                    android:textAlignment="center" />
 
                                 <TextView
                                     android:id="@+id/streamUOC5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="# UOC" />
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/streamRV5"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -813,17 +823,19 @@
                                     android:id="@+id/streamText6"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Recycler View 6"/>
+                                    android:text="Recycler View 6"
+                                    android:textAlignment="center" />
 
                                 <TextView
                                     android:id="@+id/streamUOC6"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="# UOC" />
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
 
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/streamRV6"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
