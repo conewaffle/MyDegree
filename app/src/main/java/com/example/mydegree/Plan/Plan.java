@@ -262,6 +262,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         ars4 = new ArrayList<>();
         ars5 = new ArrayList<>();
         ars6 = new ArrayList<>();
+        arsc1 = new ArrayList<>();
+        arsc2 = new ArrayList<>();
+        arsc3 = new ArrayList<>();
+        arsc4 = new ArrayList<>();
+        arsc5 = new ArrayList<>();
+        arsc6 = new ArrayList<>();
 
         //set up textViews
         ts1 = findViewById(R.id.streamText1);
@@ -335,11 +341,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         //region setting text for stream headings
         if(programCode.equals("3584")){
-            ts1.setText("Compulsory Commerce Core");
+            ts1.setText("Commerce Core");
             uoc1.setText("24 UOC");
             ts2.setText("Flexible Core");
             uoc2.setText("18 UOC");
-            ts3.setText("Compulsory INFS Core");
+            ts3.setText("INFS Core");
             uoc3.setText("72 UOC");
             ts4.setText("Major");
             uoc4.setText("36-48 UOC");
@@ -400,6 +406,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
                 new InsertPlanInfoTask().execute(toInsert);
                 new GetPlanInfosTask().execute();
+                new GetStreamCoursesTask().execute(programCode);
                 setupContent();
             }
         }
