@@ -37,6 +37,8 @@ public class AddPlan extends AppCompatActivity {
     public static final String RESULT_PROG = "resultProg";
     public static final String RESULT_MAJOR = "resultMajor";
     public static final String RESULT_NAME = "resultName";
+    private ArrayList<Bookmark> majorNames;
+    private String majorTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,11 @@ public class AddPlan extends AppCompatActivity {
                 }
                 planName = editName.getText().toString();
                 if(planName.isEmpty()){
-                    resultIntent.putExtra(RESULT_NAME, fullProgString);
+                    if(major!=null) {
+                        resultIntent.putExtra(RESULT_NAME, fullProgString + " - " + returnMajorTitle(major));
+                    } else {
+                        resultIntent.putExtra(RESULT_NAME, fullProgString);
+                    }
                 } else {
                     resultIntent.putExtra(RESULT_NAME,planName);
                 }
@@ -116,6 +122,18 @@ public class AddPlan extends AppCompatActivity {
 
     }
 
+    private String returnMajorTitle(String majorCode){
+
+        String result = null;
+        for(int i = 0; i<majorNames.size(); i++){
+            if(majorNames.get(i).getCourseCode().equals(majorCode)){
+                result = majorNames.get(i).getCourseName();
+            }
+        }
+
+        return result;
+    }
+
     private class GetSpinnerItemsTask extends AsyncTask<Void, Void, ArrayList<ArrayList<String>>> {
 
         @Override
@@ -135,6 +153,7 @@ public class AddPlan extends AppCompatActivity {
                 String lol = dummyMajor.get(i).getCourseCode() + " - " + dummyMajor.get(i).getCourseName();
                 majors.add(lol);
             }
+            majorNames = dummyMajor;
             ArrayList<Bookmark> dummyProgram = (ArrayList<Bookmark>) db.courseDao().getProgramList();
             ArrayList<String> programs = new ArrayList<>();
             for(int i =0; i<dummyProgram.size(); i++){
