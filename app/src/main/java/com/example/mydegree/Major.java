@@ -100,11 +100,6 @@ public class Major extends AppCompatActivity {
     private class GetMajorTask extends AsyncTask<String, Void, Course> {
 
         @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-        }
-
-        @Override
         protected Course doInBackground(String... query) {
             CourseDb db = Room
                     .databaseBuilder(Major.this, CourseDb.class, "coursedb")
@@ -122,16 +117,6 @@ public class Major extends AppCompatActivity {
 
 
     private class GetMajorCourses extends AsyncTask<String, Void, ArrayList<ArrayList<StreamCourse>>> {
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            progDialog.setMessage("Loading Courses...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.setCancelable(true);
-            progDialog.show();
-        }
 
         @Override
         protected ArrayList<ArrayList<StreamCourse>> doInBackground(String... query) {
@@ -158,9 +143,6 @@ public class Major extends AppCompatActivity {
             elecText.setText("Elective Courses (" + elecUoc + " UOC)");
             coreCycler.setAdapter(coreAdapter);
             elecCycler.setAdapter(elecAdapter);
-
-            progDialog.dismiss();
-
 
         }
     }

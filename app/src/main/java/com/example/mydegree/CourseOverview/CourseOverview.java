@@ -143,15 +143,11 @@ public class CourseOverview extends AppCompatActivity {
 
     private class CheckBkMarkTask extends AsyncTask<Bookmark, Void, Void> {
 
-        ProgressDialog progDialog = new ProgressDialog(CourseOverview.this);
 
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-/*            progDialog.setMessage("Deleting Database...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.show();*/
+
         }
 
         @Override
@@ -185,22 +181,10 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            //progDialog.dismiss();
         }
     }
 
     private class AddBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
-
-        ProgressDialog progDialog = new ProgressDialog(CourseOverview.this);
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-/*            progDialog.setMessage("Loading Bookmarks...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.show();*/
-        }
 
         @Override
         protected Void doInBackground(Bookmark... myBookmarks){
@@ -235,23 +219,11 @@ public class CourseOverview extends AppCompatActivity {
                     startActivity(viewBkmark);
                 }
             }).show();
-            //progDialog.dismiss();
 
         }
     }
 
     private class RemoveBkmarkTask extends AsyncTask<Bookmark, Void, Void> {
-
-        ProgressDialog progDialog = new ProgressDialog(CourseOverview.this);
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-/*            progDialog.setMessage("Loading Bookmarks...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.show();*/
-        }
 
         @Override
         protected Void doInBackground(Bookmark... myBookmarks){
@@ -276,7 +248,6 @@ public class CourseOverview extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
             Snackbar.make(bookmark, "Course removed from bookmarks", Snackbar.LENGTH_SHORT).show();
-            //progDialog.dismiss();
 
         }
     }
@@ -342,16 +313,6 @@ public class CourseOverview extends AppCompatActivity {
     private class GetPrereqTask extends AsyncTask<String, Void, ArrayList<Prereq>> {
 
         @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            progDialog.setMessage("Loading Course...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.setCancelable(true);
-            progDialog.show();
-        }
-
-        @Override
         protected ArrayList<Prereq> doInBackground(String... query) {
             CourseDb db = Room
                     .databaseBuilder(CourseOverview.this, CourseDb.class, "coursedb")
@@ -374,21 +335,11 @@ public class CourseOverview extends AppCompatActivity {
                 }
             }
 
-            progDialog.dismiss();
         }
     }
 
     private class GetCourseTask extends AsyncTask<String, Void, Course> {
 
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-/*            progDialog.setMessage("Loading Course...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.setCancelable(true);
-            progDialog.show();*/
-        }
 
         @Override
         protected Course doInBackground(String... query) {
@@ -403,7 +354,7 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPostExecute(Course result){
             fillActivityContent(result);
-  /*          progDialog.dismiss();*/
+
         }
     }
 

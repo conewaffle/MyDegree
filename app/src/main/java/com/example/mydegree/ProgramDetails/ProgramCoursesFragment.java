@@ -164,16 +164,6 @@ public class ProgramCoursesFragment extends Fragment {
     private class GetStreamsTask extends AsyncTask<String, Void, ArrayList<Stream>> {
 
         @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            progDialog.setMessage("Loading Courses...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.setCancelable(true);
-            progDialog.show();
-        }
-
-        @Override
         protected ArrayList<Stream> doInBackground(String... query) {
             CourseDb db = Room
                     .databaseBuilder(getActivity(), CourseDb.class, "coursedb")
@@ -292,7 +282,6 @@ public class ProgramCoursesFragment extends Fragment {
                     }
                 }
 
-                progDialog.dismiss();
             }
         }
     }

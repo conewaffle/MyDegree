@@ -24,7 +24,7 @@
         <activity android:name=".Login.SignUp"/>
         <activity android:name=".Login.ForgotPassword"/>
         <activity android:name=".Login.Login">
-<!--                <intent-filter>
+                <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

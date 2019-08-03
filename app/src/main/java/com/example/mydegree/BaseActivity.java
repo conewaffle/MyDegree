@@ -12,7 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.mydegree.Plan.Plan;
 import com.example.mydegree.Saved.SavedItems;
@@ -30,6 +32,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected static final int NAVDRAWER_LAUNCH_DELAY = 200;
     protected CoordinatorLayout coordinatorLayout;
     protected FrameLayout frameLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
