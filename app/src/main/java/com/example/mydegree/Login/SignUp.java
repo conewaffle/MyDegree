@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +55,8 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        input_confirmPassword.addTextChangedListener(new addListenerOnTextChange(this, input_confirmPassword));
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -89,6 +96,18 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    private void changeButton() {
+        String name = input_name.getText().toString();
+        String email = input_email.getText().toString();
+        String password = input_password.getText().toString();
+        String confirmPassword = input_confirmPassword.getText().toString();
+
+        if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
+            signup.setBackgroundColor(Color.parseColor("#33a7ff"));
+            signup.setTextColor(Color.parseColor("#ffffff"));
+        }
+    }
+
     // If sign up is a success
     public void onSignUpSuccess() {
         signup.setEnabled(true);
@@ -102,9 +121,7 @@ public class SignUp extends AppCompatActivity {
                             final String name = input_name.getText().toString().trim();
                             final String email = input_email.getText().toString().trim();
                             final String password = input_password.getText().toString().trim();
-                            final String confirmPassword = input_confirmPassword.getText().toString().trim();
 
-                            User user = new User(name, email);
                             auth.signInWithEmailAndPassword(email, password);
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
                             DatabaseReference currentUser = databaseReference.child(auth.getCurrentUser().getUid());
@@ -163,6 +180,29 @@ public class SignUp extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    public class addListenerOnTextChange implements TextWatcher {
+        private Context context;
+        EditText editText;
+
+        public addListenerOnTextChange(Context context, EditText editText) {
+            super();
+            this.context = context;
+            this.editText= editText;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            signup.setBackgroundColor(Color.parseColor("#33a7ff"));
+            signup.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {}
     }
 
 }

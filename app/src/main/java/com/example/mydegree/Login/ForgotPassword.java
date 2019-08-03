@@ -1,8 +1,12 @@
 package com.example.mydegree.Login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +45,8 @@ public class ForgotPassword extends AppCompatActivity {
             }
         });
 
+        input_email.addTextChangedListener(new addListenerOnTextChange(this, input_email));
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -76,6 +82,29 @@ public class ForgotPassword extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public class addListenerOnTextChange implements TextWatcher {
+        private Context context;
+        EditText editText;
+
+        public addListenerOnTextChange(Context context, EditText editText) {
+            super();
+            this.context = context;
+            this.editText= editText;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            sendEmail.setBackgroundColor(Color.parseColor("#33a7ff"));
+            sendEmail.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {}
     }
 
 }

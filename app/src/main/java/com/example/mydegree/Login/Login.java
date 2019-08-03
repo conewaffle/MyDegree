@@ -4,10 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +36,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Login extends AppCompatActivity {
 
-    private TextView email, password, createAccount, forgotPassword;
-    private Button login, noLogin;
+    private TextView email, password, createAccount, forgotPassword, noLogin;
+    private Button login;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private GoogleSignInClient googleSignInClient;
@@ -50,6 +55,8 @@ public class Login extends AppCompatActivity {
         forgotPassword = findViewById(R.id.forgotPassword);
         login = findViewById(R.id.login);
         noLogin = findViewById(R.id.noLogin);
+
+        password.addTextChangedListener(new addListenerOnTextChange(this, (EditText) password));
 
         noLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +105,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
+/*
 
         // Need to fix this - keeps coming up with Error 12500
 
@@ -160,7 +167,30 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(Login.this, "Error - "+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+*/
+    }
 
+    public class addListenerOnTextChange implements TextWatcher {
+        private Context context;
+        EditText editText;
+
+        public addListenerOnTextChange(Context context, EditText editText) {
+            super();
+            this.context = context;
+            this.editText= editText;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            login.setBackgroundColor(Color.parseColor("#33a7ff"));
+            login.setTextColor(Color.parseColor("#ffffff"));
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {}
     }
 
 }

@@ -95,8 +95,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-
-
         //this removes the activity transition animation and the screen will just appear when loaded
         overridePendingTransition(0,0);
     }
