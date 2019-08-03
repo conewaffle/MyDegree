@@ -914,7 +914,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
-     private class DeleteWholePlanTask extends AsyncTask<Integer, Void, Void> {
+    private class DeleteWholePlanTask extends AsyncTask<Integer, Void, Void> {
         @Override
         protected Void doInBackground(Integer... integers) {
             CourseDb db = Room

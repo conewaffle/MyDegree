@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".Login">
+    tools:context=".Login.Login">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +22,6 @@
             android:layout_marginTop="104dp"
             android:layout_gravity="center"
             app:srcCompat="@mipmap/unsw_icon" />
-<!--
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +33,6 @@
             android:textColor="#000"
             android:textFontWeight="bold"
             android:textSize="32sp" />
--->
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -46,18 +48,71 @@
             android:padding="16dp"
             android:orientation="vertical">
 
-            <com.google.android.gms.common.SignInButton
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
                 android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log in"/>
+
+            <TextView
+                android:id="@+id/forgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:text="Forgot password?"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                >
+                android:text="OR"
+                android:layout_gravity="center"/>
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/googleLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
             </com.google.android.gms.common.SignInButton>
+
+            <TextView
+                android:id="@+id/createAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? Create"
+                android:textAlignment="center"/>
 
         </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

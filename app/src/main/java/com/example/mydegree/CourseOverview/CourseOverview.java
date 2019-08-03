@@ -30,6 +30,8 @@ import com.example.mydegree.Saved.SavedItems;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +53,10 @@ public class CourseOverview extends AppCompatActivity {
     private boolean hasreqs = false;
     private Bookmark myBookmark;
     private String courseName2;
+    private String uid;
+    private FirebaseAuth auth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +90,19 @@ public class CourseOverview extends AppCompatActivity {
 
         bookmark = findViewById(R.id.bookmark);
         bookmark.setVisibility(View.INVISIBLE);
+
         FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            uid = user.getUid();
+        } else {
+            uid = "4PUZCL42tVhL6wP90ZO2gZqOyhC3";
+        }
+
 
 
         Intent i = getIntent();
@@ -141,7 +159,7 @@ public class CourseOverview extends AppCompatActivity {
             final Bookmark bm = myBookmarks[0];
             final DatabaseReference bookmarks = FirebaseDatabase.getInstance().getReference();
             // Need to change .child("4PUZCL...") to user ID when login is connected
-            DatabaseReference check = bookmarks.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
+            DatabaseReference check = bookmarks.child("User").child(uid).child("bookmark");
             check.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -189,7 +207,7 @@ public class CourseOverview extends AppCompatActivity {
             final Bookmark bm = myBookmarks[0];
             DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
             // Need to change .child("4PUZCL...") to user ID when login is connected
-            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            bookmark.child("User").child(uid).child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     dataSnapshot.getRef().setValue(bm.getCourseName());
@@ -240,7 +258,7 @@ public class CourseOverview extends AppCompatActivity {
             final Bookmark bm = myBookmarks[0];
             DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
             // Need to change .child("4PUZCL...") to user ID when login is connected
-            bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+            bookmark.child("User").child(uid).child("bookmark").child(bm.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     dataSnapshot.getRef().removeValue();

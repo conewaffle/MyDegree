@@ -5,7 +5,6 @@ import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,12 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
-import com.example.mydegree.Bookmark;
-import com.example.mydegree.CourseOverview.CourseOverview;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +40,10 @@ public class SavedItems extends BaseActivity {
     private ArrayList<Course> bookmarkList;
     private ProgressDialog progDialog;
     private TextView text;
+    private String uid;
+    private FirebaseAuth auth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,19 @@ public class SavedItems extends BaseActivity {
         setTitle("Saved Items");
 
         //Do the rest as you want for each activity
+        FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            uid = user.getUid();
+        } else {
+            uid = "4PUZCL42tVhL6wP90ZO2gZqOyhC3";
+        }
+
+
         text = findViewById(R.id.text);
         rv = findViewById(R.id.recyclerSaved);
         progDialog = new ProgressDialog(SavedItems.this);
@@ -109,7 +125,7 @@ public class SavedItems extends BaseActivity {
 
     private void addBookmark(final Course course, final int position){
         DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+        bookmark.child("User").child(uid).child("bookmark").child(course.getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSnapshot.getRef().setValue(course.getCourseName());
@@ -132,7 +148,7 @@ public class SavedItems extends BaseActivity {
 
     private void removeBookmark(final int position) {
         DatabaseReference bookmark = FirebaseDatabase.getInstance().getReference();
-        bookmark.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark").child(bookmarkList.get(position).getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
+        bookmark.child("User").child(uid).child("bookmark").child(bookmarkList.get(position).getCourseCode()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataSnapshot.getRef().removeValue();
@@ -203,7 +219,7 @@ public class SavedItems extends BaseActivity {
         @Override
         protected ArrayList<Course> doInBackground(String... strings) {
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference load = databaseReference.child("User").child("4PUZCL42tVhL6wP90ZO2gZqOyhC3").child("bookmark");
+            DatabaseReference load = databaseReference.child("User").child(uid).child("bookmark");
             load.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

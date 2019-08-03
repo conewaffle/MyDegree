@@ -4,12 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.mydegree.Login.Login;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Profile extends BaseActivity {
+
+    private TextView uid;
+    private Button logout;
+    private FirebaseAuth auth;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    private String userId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,6 +41,33 @@ public class Profile extends BaseActivity {
         setTitle("myProfile");
 
         //Do the rest as you want for each activity
+
+        FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        FirebaseUser user = auth.getCurrentUser();
+
+        logout = findViewById(R.id.logout);
+        uid = findViewById(R.id.uid);
+        if (user != null) {
+            userId = user.getUid();
+            uid.setText(userId);
+        } else {
+            uid.setText("No user logged in");
+        }
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                Intent intent = new Intent (Profile.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
