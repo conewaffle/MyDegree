@@ -372,35 +372,35 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             uoc3.setText("72 UOC");
             ts4.setText("Major");
             uoc4.setText("36-48 UOC");
-            ts5.setText("Business Electives");
+            ts5.setText("Business Elec.");
             uoc5.setText("18-30 UOC");
-            ts6.setText("General Education");
+            ts6.setText("General Ed.");
             uoc6.setText("12 UOC");
         } else if(programCode.equals("3979")){
-            ts1.setText("Stage 1 Compulsory");
+            ts1.setText("Stage 1 Core");
             uoc1.setText("42 UOC");
-            ts2.setText("Stage 2 Compulsory");
+            ts2.setText("Stage 2 Core");
             uoc2.setText("24 UOC");
-            ts3.setText("Stage 3 Compulsory");
+            ts3.setText("Stage 3 Core");
             uoc3.setText("30 UOC");
-            ts4.setText("INFS 2/3 Electives");
+            ts4.setText("INFS 2/3 Elec.");
             uoc4.setText("12 UOC");
             ts5.setText("Free Electives");
             uoc5.setText("24 UOC");
-            ts6.setText("General Education");
+            ts6.setText("General Ed.");
             uoc6.setText("12 UOC");
         } else if(programCode.equals("3964")){
-            ts1.setText("Stage 1 Compulsory");
+            ts1.setText("Stage 1 Core");
             uoc1.setText("42 UOC");
-            ts2.setText("Stage 2 Compulsory");
+            ts2.setText("Stage 2 Core");
             uoc2.setText("24 UOC");
-            ts3.setText("Stage 3 Courses");
+            ts3.setText("Stage 3");
             uoc3.setText("30 UOC");
-            ts4.setText("Industry Placement");
+            ts4.setText("Placement");
             uoc4.setText("36 UOC");
             ts5.setText("Honours");
             uoc5.setText("48 UOC");
-            ts6.setText("General Education");
+            ts6.setText("General Ed.");
             uoc6.setText("12 UOC");
         }
         //endregion
@@ -590,40 +590,52 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             if(arsc1.get(i).getStreamCourse().equals(course)){
                 ars1.add(temporaryItem);
                 ps1.setPlan(ars1);
+                new InsertPlanItemTask().execute(temporaryItem);
+                return;
             }
         }
         for(int i = 0; i<arsc2.size();i++){
             if(arsc2.get(i).getStreamCourse().equals(course)){
                 ars2.add(temporaryItem);
                 ps2.setPlan(ars2);
+                new InsertPlanItemTask().execute(temporaryItem);
+                return;
             }
         }
         for(int i = 0; i<arsc3.size();i++){
             if(arsc3.get(i).getStreamCourse().equals(course)){
                 ars3.add(temporaryItem);
                 ps3.setPlan(ars3);
+                new InsertPlanItemTask().execute(temporaryItem);
+                return;
             }
         }
         for(int i = 0; i<arsc4.size();i++){
             if(arsc4.get(i).getStreamCourse().equals(course)){
                 ars4.add(temporaryItem);
                 ps4.setPlan(ars4);
+                new InsertPlanItemTask().execute(temporaryItem);
+                return;
             }
         }
         for(int i = 0; i<arsc5.size();i++){
             if(arsc5.get(i).getStreamCourse().equals(course)){
                 ars5.add(temporaryItem);
                 ps5.setPlan(ars5);
+                new InsertPlanItemTask().execute(temporaryItem);
+                return;
             }
         }
         for(int i = 0; i<arsc6.size();i++){
             if(arsc6.get(i).getStreamCourse().equals(course)){
                 ars6.add(temporaryItem);
                 ps6.setPlan(ars6);
+                new InsertPlanItemTask().execute(temporaryItem);
+                return;
             }
         }
 
-        new InsertPlanItemTask().execute(temporaryItem);
+
 
 
     }
@@ -793,13 +805,25 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         @Override
         protected void onPostExecute(ArrayList<StreamCourse> result) {
+            ars1 = new ArrayList<>();
+            ps1.setPlan(ars1);
+            ars2 = new ArrayList<>();
+            ps2.setPlan(ars2);
+            ars3 = new ArrayList<>();
+            ps3.setPlan(ars3);
+            ars4 = new ArrayList<>();
+            ps4.setPlan(ars4);
+            ars5 = new ArrayList<>();
+            ps5.setPlan(ars5);
+            ars6 = new ArrayList<>();
+            ps6.setPlan(ars6);
             arsc1 = new ArrayList<>();
             arsc2 = new ArrayList<>();
             arsc3 = new ArrayList<>();
             arsc4 = new ArrayList<>();
             arsc5 = new ArrayList<>();
             arsc6 = new ArrayList<>();
-            if(programCode.equals("3584")){
+            if(programCode.contains("3584")){
                 for(int i=0; i<result.size(); i++){
                     if (result.get(i).getStreamId2().contains("3584COC")){
                         arsc1.add(result.get(i));
@@ -816,6 +840,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         arsc5.add(result.get(i));
                     }
                 }
+
+
             } else {
                 for(int i=0; i<result.size(); i++){
                     if (result.get(i).getStreamId2().contains("INFS1C")){
@@ -943,7 +969,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             planName = result.getPlanName();
             myPlanInfoId = result.getPlanId();
 
-            new GetStreamCoursesTask().execute(programCode);
+            new GetStreamCoursesTask().execute(result.getProgCode());
             new GetPlanItemsTask().execute(result.getPlanId());
             setupContent();
         }

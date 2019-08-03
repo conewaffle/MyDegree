@@ -68,7 +68,7 @@ public interface CourseDao {
     @Query("SELECT id AS courseCode, streamName AS courseName FROM stream WHERE isMajor = '1'")
     List<Bookmark> getMajors();
 
-    @Query("SELECT streamId2, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id  WHERE b.streamProg = :program GROUP BY a.streamCourse")
+    @Query("SELECT streamId2, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id  WHERE b.streamProg = :program")
     List<StreamCourse> getProgStreamCourses(String program);
 
     @Query("SELECT streamId2 AS streamId, streamName, streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t1 = '1' GROUP BY c.courseCode")

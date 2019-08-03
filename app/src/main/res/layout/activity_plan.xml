@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".Plan.Plan">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,7 +19,9 @@
             <Spinner
                 android:id="@+id/planSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/c1"
@@ -45,11 +47,12 @@
 
                         <TextView
                             android:id="@+id/textTopic1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
+                            android:layout_margin="4dp"
                             android:fontFamily="sans-serif-thin"
                             android:text="Year 1"
+                            android:textAlignment="center"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -64,6 +67,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="2dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -191,11 +195,12 @@
 
                         <TextView
                             android:id="@+id/textTopic2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
+                            android:layout_margin="4dp"
                             android:fontFamily="sans-serif-thin"
                             android:text="Year 2"
+                            android:textAlignment="center"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -210,6 +215,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="2dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -335,11 +341,12 @@
 
                         <TextView
                             android:id="@+id/textTopic3"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
+                            android:layout_margin="4dp"
                             android:fontFamily="sans-serif-thin"
                             android:text="Year 3"
+                            android:textAlignment="center"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -354,6 +361,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="2dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -480,11 +488,12 @@
 
                         <TextView
                             android:id="@+id/textTopic4"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
+                            android:layout_margin="4dp"
                             android:fontFamily="sans-serif-thin"
                             android:text="Year 4"
+                            android:textAlignment="center"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -499,6 +508,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="2dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -617,31 +627,31 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/streamsCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_margin="16dp"
                 app:cardBackgroundColor="@color/colorCard"
                 app:cardCornerRadius="8dp">
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:padding="8dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
                             app:cardBackgroundColor="@android:color/background_light"
                             app:cardCornerRadius="8dp">
 
                             <LinearLayout
-                                android:layout_width="128dp"
+                                android:layout_width="110dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -650,6 +660,7 @@
                                     android:id="@+id/streamText1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="Recycler View 1"
                                     android:textAlignment="center" />
 
@@ -657,6 +668,8 @@
                                     android:id="@+id/streamUOC1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
                                     android:text="# UOC"
                                     android:textAlignment="center" />
 
@@ -676,7 +689,7 @@
                             app:cardCornerRadius="8dp">
 
                             <LinearLayout
-                                android:layout_width="128dp"
+                                android:layout_width="110dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -685,6 +698,7 @@
                                     android:id="@+id/streamText2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="Recycler View 2"
                                     android:textAlignment="center" />
 
@@ -692,6 +706,8 @@
                                     android:id="@+id/streamUOC2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
                                     android:text="# UOC"
                                     android:textAlignment="center" />
 
@@ -711,7 +727,7 @@
                             app:cardCornerRadius="8dp">
 
                             <LinearLayout
-                                android:layout_width="128dp"
+                                android:layout_width="110dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -720,6 +736,7 @@
                                     android:id="@+id/streamText3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="Recycler View 3"
                                     android:textAlignment="center" />
 
@@ -727,6 +744,8 @@
                                     android:id="@+id/streamUOC3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
                                     android:text="# UOC"
                                     android:textAlignment="center" />
 
@@ -746,7 +765,7 @@
                             app:cardCornerRadius="8dp">
 
                             <LinearLayout
-                                android:layout_width="128dp"
+                                android:layout_width="110dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -755,6 +774,7 @@
                                     android:id="@+id/streamText4"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="Recycler View 4"
                                     android:textAlignment="center" />
 
@@ -762,6 +782,8 @@
                                     android:id="@+id/streamUOC4"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
                                     android:text="# UOC"
                                     android:textAlignment="center" />
 
@@ -782,7 +804,7 @@
                             app:cardCornerRadius="8dp">
 
                             <LinearLayout
-                                android:layout_width="128dp"
+                                android:layout_width="110dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -791,6 +813,7 @@
                                     android:id="@+id/streamText5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="Recycler View 5"
                                     android:textAlignment="center" />
 
@@ -798,6 +821,8 @@
                                     android:id="@+id/streamUOC5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
                                     android:text="# UOC"
                                     android:textAlignment="center" />
 
@@ -817,7 +842,7 @@
                             app:cardCornerRadius="8dp">
 
                             <LinearLayout
-                                android:layout_width="128dp"
+                                android:layout_width="110dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -825,7 +850,8 @@
                                 <TextView
                                     android:id="@+id/streamText6"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="Recycler View 6"
                                     android:textAlignment="center" />
 
@@ -833,6 +859,8 @@
                                     android:id="@+id/streamUOC6"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
                                     android:text="# UOC"
                                     android:textAlignment="center" />
 
@@ -851,6 +879,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
