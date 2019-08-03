@@ -1,5 +1,6 @@
 package com.example.mydegree;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,12 +13,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.mydegree.Plan.Plan;
 import com.example.mydegree.Saved.SavedItems;
 import com.example.mydegree.Search.Search;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -30,6 +43,13 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     protected static final int NAVDRAWER_LAUNCH_DELAY = 200;
     protected CoordinatorLayout coordinatorLayout;
     protected FrameLayout frameLayout;
+    protected TextView welcome;
+
+    protected FirebaseAuth auth;
+    protected DatabaseReference databaseReference;
+    protected FirebaseDatabase firebaseDatabase;
+    protected String userId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +66,36 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view2);
+        View view = navigationView.getHeaderView(0);
+        welcome = view.findViewById(R.id.welcome);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("User");
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            userId = user.getUid();
+
+            databaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String message = "Welcome, " + dataSnapshot.child("name").getValue().toString() + "!";
+                    welcome.setText(message);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+
+
 
         //this removes the activity transition animation and the screen will just appear when loaded
         overridePendingTransition(0,0);

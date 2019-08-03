@@ -20,13 +20,13 @@
         app:srcCompat="@mipmap/unsw_icon" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="4dp"
         android:layout_weight="0"
-        android:text="Welcome, Student!"
+        android:text="Welcome!"
         android:textColor="@android:color/black" />
 
 </LinearLayout>

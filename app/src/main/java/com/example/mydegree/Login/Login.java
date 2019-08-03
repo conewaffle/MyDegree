@@ -32,7 +32,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class Login extends AppCompatActivity {
 
     private TextView email, password, createAccount, forgotPassword;
-    private Button login;
+    private Button login, noLogin;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private GoogleSignInClient googleSignInClient;
@@ -49,6 +49,16 @@ public class Login extends AppCompatActivity {
         createAccount = findViewById(R.id.createAccount);
         forgotPassword = findViewById(R.id.forgotPassword);
         login = findViewById(R.id.login);
+        noLogin = findViewById(R.id.noLogin);
+
+        noLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Program.class);
+                startActivity(intent);
+            }
+        });
+
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +81,6 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Login.this, Program.class);
-                                    intent.putExtra("email", auth.getCurrentUser().getEmail());
-                                    intent.putExtra("name", auth.getCurrentUser().getDisplayName());
                                     startActivity(intent);
                                 } else {
                                     Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

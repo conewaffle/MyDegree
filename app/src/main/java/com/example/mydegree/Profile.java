@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mydegree.Login.Login;
+import com.example.mydegree.Login.User;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,6 +64,7 @@ public class Profile extends BaseActivity {
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 Intent intent = new Intent (Profile.this, Login.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });

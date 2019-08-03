@@ -107,6 +107,12 @@
                 android:text="Don't have an account? Create"
                 android:textAlignment="center"/>
 
+            <Button
+                android:id="@+id/noLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Proceed with no account"/>
+
         </LinearLayout>
 
         </androidx.cardview.widget.CardView>
