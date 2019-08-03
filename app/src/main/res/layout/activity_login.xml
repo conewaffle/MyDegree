@@ -126,7 +126,7 @@
                     android:layout_weight="1"
                     android:layout_margin="16dp"
                     android:textAlignment="center"
-                    android:text="Proceed with no account"/>
+                    android:text="Proceed without an account"/>
 
 <!--                <com.google.android.gms.common.SignInButton
                     android:id="@+id/googleLogin"
