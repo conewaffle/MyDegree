@@ -1241,6 +1241,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             p12.setPlan(result.get(i));
 
 
+
+
         }
     }
 
