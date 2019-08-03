@@ -54,11 +54,7 @@ public class ProgramOverviewFragment extends Fragment {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progDialog.setMessage("Loading Program...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.setCancelable(true);
-            progDialog.show();
+
         }
 
         @Override
@@ -86,7 +82,6 @@ public class ProgramOverviewFragment extends Fragment {
             name.setText(myProgram.getProgName());
             code.setText(myProgram.getProgCode());
 
-            progDialog.dismiss();
         }
     }
 }

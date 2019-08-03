@@ -31,8 +31,8 @@
             android:fontFamily="@font/source_sans_pro_semibold"
             android:text="App Name"
             android:textColor="#000"
-            android:textFontWeight="bold"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
