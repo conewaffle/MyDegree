@@ -442,90 +442,343 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         switch(item.getItemId()){
             case R.id.menu_remove:
 
+                com.example.mydegree.Room.Plan toDelete;
+                int position;
+
+                ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterTermList = new ArrayList<>();
+                masterTermList.add(ar1);
+                masterTermList.add(ar2);
+                masterTermList.add(ar3);
+                masterTermList.add(ar4);
+                masterTermList.add(ar5);
+                masterTermList.add(ar6);
+                masterTermList.add(ar7);
+                masterTermList.add(ar8);
+                masterTermList.add(ar9);
+                masterTermList.add(ar10);
+                masterTermList.add(ar11);
+                masterTermList.add(ar12);
+
+                ArrayList<PlanAdapter> masterTermAdapter = new ArrayList<>();
+                masterTermAdapter.add(p1);
+                masterTermAdapter.add(p2);
+                masterTermAdapter.add(p3);
+                masterTermAdapter.add(p4);
+                masterTermAdapter.add(p5);
+                masterTermAdapter.add(p6);
+                masterTermAdapter.add(p7);
+                masterTermAdapter.add(p8);
+                masterTermAdapter.add(p9);
+                masterTermAdapter.add(p10);
+                masterTermAdapter.add(p11);
+                masterTermAdapter.add(p12);
+
                 switch(recyclerLongClicked){
                     case R.id.r1:
-                        int position = ((PlanAdapter) r1.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete = ar1.get(position);
+                        position = ((PlanAdapter) r1.getAdapter()).getPosition();
+                        toDelete = ar1.get(position);
                         ar1.remove(position);
                         p1.setPlan(ar1);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
                         new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r2:
-                        final int position2 = ((PlanAdapter) r2.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete2 = ar2.get(position2);
-                        ar2.remove(position2);
+                        position = ((PlanAdapter) r2.getAdapter()).getPosition();
+                        toDelete = ar2.get(position);
+                        ar2.remove(position);
                         p2.setPlan(ar2);
-                        new DeletePlanItemTask().execute(toDelete2);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r3:
-                        final int position3 = ((PlanAdapter) r3.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete3 = ar3.get(position3);
-                        ar3.remove(position3);
+                        position = ((PlanAdapter) r3.getAdapter()).getPosition();
+                        toDelete = ar3.get(position);
+                        ar3.remove(position);
                         p3.setPlan(ar3);
-                        new DeletePlanItemTask().execute(toDelete3);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r4:
-                        final int position4 = ((PlanAdapter) r4.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete4 = ar4.get(position4);
-                        ar4.remove(position4);
+                        position = ((PlanAdapter) r4.getAdapter()).getPosition();
+                        toDelete = ar4.get(position);
+                        ar4.remove(position);
                         p4.setPlan(ar4);
-                        new DeletePlanItemTask().execute(toDelete4);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r5:
-                        final int position5 = ((PlanAdapter) r5.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete5 = ar5.get(position5);
-                        ar5.remove(position5);
+                        position = ((PlanAdapter) r5.getAdapter()).getPosition();
+                        toDelete = ar5.get(position);
+                        ar5.remove(position);
                         p5.setPlan(ar5);
-                        new DeletePlanItemTask().execute(toDelete5);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r6:
-                        final int position6 = ((PlanAdapter) r6.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete6 = ar6.get(position6);
-                        ar6.remove(position6);
+                        position = ((PlanAdapter) r6.getAdapter()).getPosition();
+                        toDelete = ar6.get(position);
+                        ar6.remove(position);
                         p6.setPlan(ar6);
-                        new DeletePlanItemTask().execute(toDelete6);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r7:
-                        final int position7 = ((PlanAdapter) r7.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete7 = ar7.get(position7);
-                        ar7.remove(position7);
+                        position = ((PlanAdapter) r7.getAdapter()).getPosition();
+                        toDelete = ar7.get(position);
+                        ar7.remove(position);
                         p7.setPlan(ar7);
-                        new DeletePlanItemTask().execute(toDelete7);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r8:
-                        final int position8 = ((PlanAdapter) r8.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete8 = ar8.get(position8);
-                        ar8.remove(position8);
+                        position = ((PlanAdapter) r8.getAdapter()).getPosition();
+                        toDelete = ar8.get(position);
+                        ar8.remove(position);
                         p8.setPlan(ar8);
-                        new DeletePlanItemTask().execute(toDelete8);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r9:
-                        final int position9 = ((PlanAdapter) r9.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete9 = ar9.get(position9);
-                        ar9.remove(position9);
+                        position = ((PlanAdapter) r9.getAdapter()).getPosition();
+                        toDelete = ar9.get(position);
+                        ar9.remove(position);
                         p9.setPlan(ar9);
-                        new DeletePlanItemTask().execute(toDelete9);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r10:
-                        final int position10 = ((PlanAdapter) r10.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete10 = ar10.get(position10);
-                        ar10.remove(position10);
+                        position = ((PlanAdapter) r10.getAdapter()).getPosition();
+                        toDelete = ar10.get(position);
+                        ar10.remove(position);
                         p10.setPlan(ar10);
-                        new DeletePlanItemTask().execute(toDelete10);
+
+                        ars1.remove(toDelete);
+                        ps1.setPlan(ars1);
+                        ars2.remove(toDelete);
+                        ps2.setPlan(ars2);
+                        ars3.remove(toDelete);
+                        ps3.setPlan(ars3);
+                        ars4.remove(toDelete);
+                        ps4.setPlan(ars4);
+                        ars5.remove(toDelete);
+                        ps5.setPlan(ars5);
+                        ars6.remove(toDelete);
+                        ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r11:
-                        final int position11 = ((PlanAdapter) r11.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete11 = ar11.get(position11);
-                        ar11.remove(position11);
+                        position = ((PlanAdapter) r11.getAdapter()).getPosition();
+                        toDelete = ar11.get(position);
+                        ar11.remove(position);
                         p11.setPlan(ar11);
-                        new DeletePlanItemTask().execute(toDelete11);
+
+                        ars1.remove(toDelete); ps1.setPlan(ars1);
+                        ars2.remove(toDelete); ps2.setPlan(ars2);
+                        ars3.remove(toDelete); ps3.setPlan(ars3);
+                        ars4.remove(toDelete); ps4.setPlan(ars4);
+                        ars5.remove(toDelete); ps5.setPlan(ars5);
+                        ars6.remove(toDelete); ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     case R.id.r12:
-                        final int position12 = ((PlanAdapter) r12.getAdapter()).getPosition();
-                        final com.example.mydegree.Room.Plan toDelete12 = ar12.get(position12);
-                        ar12.remove(position12);
-                        p12.setPlan(ar12);
-                        new DeletePlanItemTask().execute(toDelete12);
+                        position = ((PlanAdapter) r12.getAdapter()).getPosition();
+                        toDelete = ar12.get(position);
+                        ar12.remove(position); p12.setPlan(ar12);
+
+                        ars1.remove(toDelete); ps1.setPlan(ars1);
+                        ars2.remove(toDelete); ps2.setPlan(ars2);
+                        ars3.remove(toDelete); ps3.setPlan(ars3);
+                        ars4.remove(toDelete); ps4.setPlan(ars4);
+                        ars5.remove(toDelete); ps5.setPlan(ars5);
+                        ars6.remove(toDelete); ps6.setPlan(ars6);
+
+                        new DeletePlanItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV1:
+                        position = ps1.getPosition();
+                        toDelete = ars1.get(position);
+                        ars1.remove(toDelete); ps1.setPlan(ars1);
+
+                        for(int i=0; i<masterTermList.size();i++){
+                            masterTermList.get(i).remove(toDelete);
+                            masterTermAdapter.get(i).setPlan(masterTermList.get(i));
+                        }
+
+                        new DeletePlanItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV2:
+                        position = ps2.getPosition();
+                        toDelete = ars2.get(position);
+                        ars2.remove(toDelete); ps2.setPlan(ars2);
+
+                        for(int i=0; i<masterTermList.size();i++){
+                            masterTermList.get(i).remove(toDelete);
+                            masterTermAdapter.get(i).setPlan(masterTermList.get(i));
+                        }
+                        new DeletePlanItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV3:
+                        position = ps3.getPosition();
+                        toDelete = ars3.get(position);
+                        ars3.remove(toDelete); ps3.setPlan(ars3);
+
+                        for(int i=0; i<masterTermList.size();i++){
+                            masterTermList.get(i).remove(toDelete);
+                            masterTermAdapter.get(i).setPlan(masterTermList.get(i));
+                        }
+                        new DeletePlanItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV4:
+                        position = ps4.getPosition();
+                        toDelete = ars4.get(position);
+                        ars4.remove(toDelete); ps4.setPlan(ars4);
+
+                        for(int i=0; i<masterTermList.size();i++){
+                            masterTermList.get(i).remove(toDelete);
+                            masterTermAdapter.get(i).setPlan(masterTermList.get(i));
+                        }
+                        new DeletePlanItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV5:
+                        position = ps5.getPosition();
+                        toDelete = ars5.get(position);
+                        ars5.remove(toDelete); ps5.setPlan(ars5);
+
+                        for(int i=0; i<masterTermList.size();i++){
+                            masterTermList.get(i).remove(toDelete);
+                            masterTermAdapter.get(i).setPlan(masterTermList.get(i));
+                        }
+                        new DeletePlanItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV6:
+                        position = ps6.getPosition();
+                        toDelete = ars6.get(position);
+                        ars6.remove(toDelete); ps6.setPlan(ars6);
+
+                        for(int i=0; i<masterTermList.size();i++){
+                            masterTermList.get(i).remove(toDelete);
+                            masterTermAdapter.get(i).setPlan(masterTermList.get(i));
+                        }
+                        new DeletePlanItemTask().execute(toDelete);
                         break;
                     default:
                         break;
