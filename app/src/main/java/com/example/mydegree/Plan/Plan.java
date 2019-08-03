@@ -62,6 +62,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     public static final int PICK_PROGRAM_REQUEST = 1;
     public static final String PICK_FRAG_TAG = "pickFragTag";
     private String programCode, majorName, planName;
+    private String temporaryCourse;
     public int buttonLastClick;
     private com.example.mydegree.Room.Plan temporaryItem;
     private Spinner planSpinner;
@@ -582,61 +583,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         String course = bundle.getString(RESULT_COURSE);
         int term = bundle.getInt(FRAG_TERM);
         int year = bundle.getInt(FRAG_YEAR);
+        temporaryCourse = course;
 
         temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
 
         //ADDING THE COURSE TO THE STREAMS
-        for(int i = 0; i<arsc1.size();i++){
-            if(arsc1.get(i).getStreamCourse().equals(course)){
-                ars1.add(temporaryItem);
-                ps1.setPlan(ars1);
-                new InsertPlanItemTask().execute(temporaryItem);
-                return;
-            }
-        }
-        for(int i = 0; i<arsc2.size();i++){
-            if(arsc2.get(i).getStreamCourse().equals(course)){
-                ars2.add(temporaryItem);
-                ps2.setPlan(ars2);
-                new InsertPlanItemTask().execute(temporaryItem);
-                return;
-            }
-        }
-        for(int i = 0; i<arsc3.size();i++){
-            if(arsc3.get(i).getStreamCourse().equals(course)){
-                ars3.add(temporaryItem);
-                ps3.setPlan(ars3);
-                new InsertPlanItemTask().execute(temporaryItem);
-                return;
-            }
-        }
-        for(int i = 0; i<arsc4.size();i++){
-            if(arsc4.get(i).getStreamCourse().equals(course)){
-                ars4.add(temporaryItem);
-                ps4.setPlan(ars4);
-                new InsertPlanItemTask().execute(temporaryItem);
-                return;
-            }
-        }
-        for(int i = 0; i<arsc5.size();i++){
-            if(arsc5.get(i).getStreamCourse().equals(course)){
-                ars5.add(temporaryItem);
-                ps5.setPlan(ars5);
-                new InsertPlanItemTask().execute(temporaryItem);
-                return;
-            }
-        }
-        for(int i = 0; i<arsc6.size();i++){
-            if(arsc6.get(i).getStreamCourse().equals(course)){
-                ars6.add(temporaryItem);
-                ps6.setPlan(ars6);
-                new InsertPlanItemTask().execute(temporaryItem);
-                return;
-            }
-        }
-
-
-
+        new InsertPlanItemTask().execute(temporaryItem);
 
     }
 
@@ -1139,6 +1091,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             if(aLong==null){
                 Toast.makeText(Plan.this,"Error: You have already put this course on your plan.", Toast.LENGTH_SHORT).show();
             } else {
+                //region adding to plans
                 switch (buttonLastClick) {
                     case R.id.b11:
                         ar1.add(temporaryItem);
@@ -1189,6 +1142,52 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         p12.setPlan(ar12);
                         break;
                 }
+                //endregion
+
+                //region adding to streams
+                for(int i = 0; i<arsc1.size();i++){
+                    if(arsc1.get(i).getStreamCourse().equals(temporaryCourse)){
+                        ars1.add(temporaryItem);
+                        ps1.setPlan(ars1);
+                        return;
+                    }
+                }
+                for(int i = 0; i<arsc2.size();i++){
+                    if(arsc2.get(i).getStreamCourse().equals(temporaryCourse)){
+                        ars2.add(temporaryItem);
+                        ps2.setPlan(ars2);
+                        return;
+                    }
+                }
+                for(int i = 0; i<arsc3.size();i++){
+                    if(arsc3.get(i).getStreamCourse().equals(temporaryCourse)){
+                        ars3.add(temporaryItem);
+                        ps3.setPlan(ars3);
+                        return;
+                    }
+                }
+                for(int i = 0; i<arsc4.size();i++){
+                    if(arsc4.get(i).getStreamCourse().equals(temporaryCourse)){
+                        ars4.add(temporaryItem);
+                        ps4.setPlan(ars4);
+                        return;
+                    }
+                }
+                for(int i = 0; i<arsc5.size();i++){
+                    if(arsc5.get(i).getStreamCourse().equals(temporaryCourse)){
+                        ars5.add(temporaryItem);
+                        ps5.setPlan(ars5);
+                        return;
+                    }
+                }
+                for(int i = 0; i<arsc6.size();i++){
+                    if(arsc6.get(i).getStreamCourse().equals(temporaryCourse)){
+                        ars6.add(temporaryItem);
+                        ps6.setPlan(ars6);
+                        return;
+                    }
+                }
+                //endregion
             }
         }
     }
