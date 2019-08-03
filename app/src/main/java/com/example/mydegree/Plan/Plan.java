@@ -74,6 +74,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
     private RecyclerView rs1, rs2, rs3, rs4, rs5, rs6;
     private CardView cs1, cs2, cs3, cs4, cs5, cs6;
+    private CardView streamsCard;
+    private TextView yourCourses;
     private TextView ts1, ts2, ts3, ts4, ts5, ts6, uoc1, uoc2, uoc3, uoc4, uoc5, uoc6;
     private PlanAdapter ps1, ps2, ps3, ps4, ps5, ps6;
     private ArrayList<com.example.mydegree.Room.Plan> ars1, ars2, ars3, ars4, ars5, ars6;
@@ -283,14 +285,31 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         uoc5 = findViewById(R.id.streamUOC5);
         uoc6 = findViewById(R.id.streamUOC6);
 
+        streamsCard = findViewById(R.id.streamsCard);
+        streamsCard.setVisibility(View.GONE);
+        yourCourses = findViewById(R.id.textYourCourses);
+        yourCourses.setVisibility(View.GONE);
+
 
         //set up recyclers
         rs1 = findViewById(R.id.streamRV1);
+        rs1.setHasFixedSize(true);
+        rs1.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
         rs2 = findViewById(R.id.streamRV2);
+        rs2.setHasFixedSize(true);
+        rs2.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
         rs3 = findViewById(R.id.streamRV3);
+        rs3.setHasFixedSize(true);
+        rs3.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
         rs4 = findViewById(R.id.streamRV4);
+        rs4.setHasFixedSize(true);
+        rs4.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
         rs5 = findViewById(R.id.streamRV5);
+        rs5.setHasFixedSize(true);
+        rs5.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
         rs6 = findViewById(R.id.streamRV6);
+        rs6.setHasFixedSize(true);
+        rs6.setLayoutManager(new LinearLayoutManager(Plan.this, RecyclerView.VERTICAL, false));
 
 
         //setting adapters
@@ -330,8 +349,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     }
 
     private void setupContent(){
+        streamsCard.setVisibility(View.VISIBLE);
+        yourCourses.setVisibility(View.VISIBLE);
         if(programCode.equals("3979")){
             c4.setVisibility(View.GONE);
+        } else {
+            c4.setVisibility(View.VISIBLE);
         }
         if(planName!=null){
             if(!planName.isEmpty()){
@@ -405,8 +428,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 PlanInfo toInsert = new PlanInfo(0, planName,programCode);
 
                 new InsertPlanInfoTask().execute(toInsert);
-                new GetPlanInfosTask().execute();
                 new GetStreamCoursesTask().execute(programCode);
+                new GetPlanInfosTask().execute();
                 setupContent();
             }
         }
@@ -503,6 +526,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         p12.setPlan(ar12);
                         new DeletePlanItemTask().execute(toDelete12);
                         break;
+                    default:
+                        break;
                 }
 
 
@@ -560,7 +585,47 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
 
+        //ADDING THE COURSE TO THE STREAMS
+        for(int i = 0; i<arsc1.size();i++){
+            if(arsc1.get(i).getStreamCourse().equals(course)){
+                ars1.add(temporaryItem);
+                ps1.setPlan(ars1);
+            }
+        }
+        for(int i = 0; i<arsc2.size();i++){
+            if(arsc2.get(i).getStreamCourse().equals(course)){
+                ars2.add(temporaryItem);
+                ps2.setPlan(ars2);
+            }
+        }
+        for(int i = 0; i<arsc3.size();i++){
+            if(arsc3.get(i).getStreamCourse().equals(course)){
+                ars3.add(temporaryItem);
+                ps3.setPlan(ars3);
+            }
+        }
+        for(int i = 0; i<arsc4.size();i++){
+            if(arsc4.get(i).getStreamCourse().equals(course)){
+                ars4.add(temporaryItem);
+                ps4.setPlan(ars4);
+            }
+        }
+        for(int i = 0; i<arsc5.size();i++){
+            if(arsc5.get(i).getStreamCourse().equals(course)){
+                ars5.add(temporaryItem);
+                ps5.setPlan(ars5);
+            }
+        }
+        for(int i = 0; i<arsc6.size();i++){
+            if(arsc6.get(i).getStreamCourse().equals(course)){
+                ars6.add(temporaryItem);
+                ps6.setPlan(ars6);
+            }
+        }
+
         new InsertPlanItemTask().execute(temporaryItem);
+
+
     }
 
     private void showToastCourseFull(){
@@ -728,6 +793,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         @Override
         protected void onPostExecute(ArrayList<StreamCourse> result) {
+            arsc1 = new ArrayList<>();
+            arsc2 = new ArrayList<>();
+            arsc3 = new ArrayList<>();
+            arsc4 = new ArrayList<>();
+            arsc5 = new ArrayList<>();
+            arsc6 = new ArrayList<>();
             if(programCode.equals("3584")){
                 for(int i=0; i<result.size(); i++){
                     if (result.get(i).getStreamId2().contains("3584COC")){
@@ -823,6 +894,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 buttons2.setVisibility(View.GONE);
                 buttons3.setVisibility(View.GONE);
                 buttons4.setVisibility(View.GONE);
+                yourCourses.setVisibility(View.GONE);
+                streamsCard.setVisibility(View.GONE);
                 Snackbar.make(fab, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
             } else {
                 planSpinner.setVisibility(View.VISIBLE);
@@ -870,6 +943,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             planName = result.getPlanName();
             myPlanInfoId = result.getPlanId();
 
+            new GetStreamCoursesTask().execute(programCode);
             new GetPlanItemsTask().execute(result.getPlanId());
             setupContent();
         }
@@ -995,7 +1069,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             ar11 = result.get(i);
             p11.setPlan(result.get(i)); i++;
             ar12 = result.get(i);
-            p12.setPlan(result.get(i)); i++;
+            p12.setPlan(result.get(i));
 
 
         }

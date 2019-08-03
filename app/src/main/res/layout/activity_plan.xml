@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Plan.Plan">
 
@@ -605,18 +605,19 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textYourCourses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="Your Courses"
                 android:textSize="16sp" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/streamsCard"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:cardBackgroundColor="@color/colorCard"
                 app:cardCornerRadius="8dp">
@@ -628,12 +629,12 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
                             app:cardBackgroundColor="@android:color/background_light"
@@ -767,7 +768,8 @@
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/streamRV4"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:scrollbars="none" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -823,7 +825,7 @@
                                 <TextView
                                     android:id="@+id/streamText6"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:text="Recycler View 6"
                                     android:textAlignment="center" />
 
