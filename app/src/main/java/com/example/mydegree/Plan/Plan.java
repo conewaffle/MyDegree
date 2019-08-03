@@ -983,8 +983,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         arsc5.add(result.get(i));
                     }
                 }
-
-
             } else {
                 for(int i=0; i<result.size(); i++){
                     if (result.get(i).getStreamId2().contains("INFS1C")){
@@ -1083,6 +1081,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     new GetPlanItemsTask().execute(Integer.valueOf(thePlanId));
                     justCreated=0;
                     setupContent();
+                } else {
+                    //new GetStreamCoursesTask().execute(programCode);
                 }
             }
             progDialog.dismiss();
@@ -1118,7 +1118,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
-    private class GetPlanItemsTask extends AsyncTask<Integer, Void, ArrayList<ArrayList<com.example.mydegree.Room.Plan>>>{
+    private class GetPlanItemsTask extends AsyncTask<Integer, Void, ArrayList<ArrayList<com.example.mydegree.Room.Plan>>> {
 
         @Override
         protected ArrayList<ArrayList<com.example.mydegree.Room.Plan>> doInBackground(Integer... integers) {
@@ -1142,9 +1142,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             ArrayList<com.example.mydegree.Room.Plan> term11 = new ArrayList<>();
             ArrayList<com.example.mydegree.Room.Plan> term12 = new ArrayList<>();
 
-            for (int i = 0; i<myList.size();i++){
-                if (myList.get(i).getYear()==1){
-                    switch (myList.get(i).getTerm()){
+            for (int i = 0; i < myList.size(); i++) {
+                if (myList.get(i).getYear() == 1) {
+                    switch (myList.get(i).getTerm()) {
                         case 1:
                             term1.add(myList.get(i));
                             break;
@@ -1155,8 +1155,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             term3.add(myList.get(i));
                             break;
                     }
-                } else if (myList.get(i).getYear()==2){
-                    switch (myList.get(i).getTerm()){
+                } else if (myList.get(i).getYear() == 2) {
+                    switch (myList.get(i).getTerm()) {
                         case 1:
                             term4.add(myList.get(i));
                             break;
@@ -1167,8 +1167,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             term6.add(myList.get(i));
                             break;
                     }
-                } else if (myList.get(i).getYear()==3){
-                    switch (myList.get(i).getTerm()){
+                } else if (myList.get(i).getYear() == 3) {
+                    switch (myList.get(i).getTerm()) {
                         case 1:
                             term7.add(myList.get(i));
                             break;
@@ -1179,8 +1179,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             term9.add(myList.get(i));
                             break;
                     }
-                } else if (myList.get(i).getYear()==4){
-                    switch (myList.get(i).getTerm()){
+                } else if (myList.get(i).getYear() == 4) {
+                    switch (myList.get(i).getTerm()) {
                         case 1:
                             term10.add(myList.get(i));
                             break;
@@ -1195,18 +1195,19 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
 
             ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterList = new ArrayList<>();
-            masterList.add(term1);
-            masterList.add(term2);
-            masterList.add(term3);
-            masterList.add(term4);
-            masterList.add(term5);
-            masterList.add(term6);
-            masterList.add(term7);
-            masterList.add(term8);
-            masterList.add(term9);
-            masterList.add(term10);
-            masterList.add(term11);
-            masterList.add(term12);
+            masterList.add(0, term1);
+            masterList.add(1, term2);
+            masterList.add(2, term3);
+            masterList.add(3, term4);
+            masterList.add(4, term5);
+            masterList.add(5, term6);
+            masterList.add(6, term7);
+            masterList.add(7, term8);
+            masterList.add(8, term9);
+            masterList.add(9, term10);
+            masterList.add(10, term11);
+            masterList.add(11, term12);
+            masterList.add(12, myList);
 
 
             return masterList;
@@ -1216,33 +1217,95 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         protected void onPostExecute(ArrayList<ArrayList<com.example.mydegree.Room.Plan>> result) {
             int i = 0;
             ar1 = result.get(i);
-            p1.setPlan(result.get(i)); i++;
+            p1.setPlan(result.get(i));
+            i++;
             ar2 = result.get(i);
-            p2.setPlan(result.get(i)); i++;
+            p2.setPlan(result.get(i));
+            i++;
             ar3 = result.get(i);
-            p3.setPlan(result.get(i)); i++;
+            p3.setPlan(result.get(i));
+            i++;
             ar4 = result.get(i);
-            p4.setPlan(result.get(i)); i++;
+            p4.setPlan(result.get(i));
+            i++;
             ar5 = result.get(i);
-            p5.setPlan(result.get(i)); i++;
+            p5.setPlan(result.get(i));
+            i++;
             ar6 = result.get(i);
-            p6.setPlan(result.get(i)); i++;
+            p6.setPlan(result.get(i));
+            i++;
             ar7 = result.get(i);
-            p7.setPlan(result.get(i)); i++;
+            p7.setPlan(result.get(i));
+            i++;
             ar8 = result.get(i);
-            p8.setPlan(result.get(i)); i++;
+            p8.setPlan(result.get(i));
+            i++;
             ar9 = result.get(i);
-            p9.setPlan(result.get(i)); i++;
+            p9.setPlan(result.get(i));
+            i++;
             ar10 = result.get(i);
-            p10.setPlan(result.get(i)); i++;
+            p10.setPlan(result.get(i));
+            i++;
             ar11 = result.get(i);
-            p11.setPlan(result.get(i)); i++;
+            p11.setPlan(result.get(i));
+            i++;
             ar12 = result.get(i);
             p12.setPlan(result.get(i));
 
+            for (int k = 0; k < result.get(12).size(); k++) {
+                //the method is below
+                fillStreams(result.get(12).get(k));
+            }
 
         }
     }
+
+
+    private void fillStreams(com.example.mydegree.Room.Plan result) {
+        for (int j = 0; j < arsc1.size(); j++) {
+            if (arsc1.get(j).getStreamCourse().equals(result.getCourseCode())) {
+                ars1.add(result);
+                ps1.setPlan(ars1);
+                return;
+            }
+        }
+        for (int j = 0; j < arsc2.size(); j++) {
+            if (arsc2.get(j).getStreamCourse().equals(result.getCourseCode())){
+                ars2.add(result);
+                ps2.setPlan(ars2);
+                return;
+            }
+        }
+        for (int j = 0; j < arsc3.size(); j++) {
+            if (arsc3.get(j).getStreamCourse().equals(result.getCourseCode())) {
+                ars3.add(result);
+                ps3.setPlan(ars3);
+                return;
+            }
+        }
+        for (int j = 0; j < arsc4.size(); j++) {
+            if (arsc4.get(j).getStreamCourse().equals(result.getCourseCode())) {
+                ars4.add(result);
+                ps4.setPlan(ars4);
+                return;
+            }
+        }
+        for (int j = 0; j < arsc5.size(); j++) {
+            if (arsc5.get(j).getStreamCourse().equals(result.getCourseCode())) {
+                ars5.add(result);
+                ps5.setPlan(ars5);
+                return;
+            }
+        }
+        for (int j = 0; j < arsc6.size(); j++) {
+            if (arsc6.get(j).getStreamCourse().equals(result.getCourseCode())) {
+                ars6.add(result);
+                ps6.setPlan(ars6);
+                return;
+            }
+        }
+    }
+
 
     //VALIDATION WILL TAKE PLACE HERE.
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
@@ -1282,7 +1345,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             if(aLong==null){
                 Toast.makeText(Plan.this,"Error: You have already put this course on your plan.", Toast.LENGTH_SHORT).show();
             } else {
-                //region adding to plans
                 switch (buttonLastClick) {
                     case R.id.b11:
                         ar1.add(temporaryItem);
@@ -1333,52 +1395,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         p12.setPlan(ar12);
                         break;
                 }
-                //endregion
 
-                //region adding to streams
-                for(int i = 0; i<arsc1.size();i++){
-                    if(arsc1.get(i).getStreamCourse().equals(temporaryCourse)){
-                        ars1.add(temporaryItem);
-                        ps1.setPlan(ars1);
-                        return;
-                    }
-                }
-                for(int i = 0; i<arsc2.size();i++){
-                    if(arsc2.get(i).getStreamCourse().equals(temporaryCourse)){
-                        ars2.add(temporaryItem);
-                        ps2.setPlan(ars2);
-                        return;
-                    }
-                }
-                for(int i = 0; i<arsc3.size();i++){
-                    if(arsc3.get(i).getStreamCourse().equals(temporaryCourse)){
-                        ars3.add(temporaryItem);
-                        ps3.setPlan(ars3);
-                        return;
-                    }
-                }
-                for(int i = 0; i<arsc4.size();i++){
-                    if(arsc4.get(i).getStreamCourse().equals(temporaryCourse)){
-                        ars4.add(temporaryItem);
-                        ps4.setPlan(ars4);
-                        return;
-                    }
-                }
-                for(int i = 0; i<arsc5.size();i++){
-                    if(arsc5.get(i).getStreamCourse().equals(temporaryCourse)){
-                        ars5.add(temporaryItem);
-                        ps5.setPlan(ars5);
-                        return;
-                    }
-                }
-                for(int i = 0; i<arsc6.size();i++){
-                    if(arsc6.get(i).getStreamCourse().equals(temporaryCourse)){
-                        ars6.add(temporaryItem);
-                        ps6.setPlan(ars6);
-                        return;
-                    }
-                }
-                //endregion
+                fillStreams(temporaryItem);
             }
         }
     }
