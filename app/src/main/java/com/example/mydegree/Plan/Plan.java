@@ -446,6 +446,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 int position;
 
                 ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterTermList = new ArrayList<>();
+                //region adding to masterlist
                 masterTermList.add(ar1);
                 masterTermList.add(ar2);
                 masterTermList.add(ar3);
@@ -458,8 +459,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 masterTermList.add(ar10);
                 masterTermList.add(ar11);
                 masterTermList.add(ar12);
-
+                //endregion
                 ArrayList<PlanAdapter> masterTermAdapter = new ArrayList<>();
+                //region adding to masterlist
                 masterTermAdapter.add(p1);
                 masterTermAdapter.add(p2);
                 masterTermAdapter.add(p3);
@@ -472,6 +474,26 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 masterTermAdapter.add(p10);
                 masterTermAdapter.add(p11);
                 masterTermAdapter.add(p12);
+                //endregion
+                ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterStreamList = new ArrayList<>();
+                //region adding to masterlist
+                masterStreamList.add(ars1);
+                masterStreamList.add(ars2);
+                masterStreamList.add(ars3);
+                masterStreamList.add(ars4);
+                masterStreamList.add(ars5);
+                masterStreamList.add(ars6);
+                //endregion
+                ArrayList<PlanAdapter> masterStreamAdapter = new ArrayList<>();
+                //region adding to masterlist
+                masterStreamAdapter.add(ps1);
+                masterStreamAdapter.add(ps2);
+                masterStreamAdapter.add(ps3);
+                masterStreamAdapter.add(ps4);
+                masterStreamAdapter.add(ps5);
+                masterStreamAdapter.add(ps6);
+                //endregion
+
 
                 switch(recyclerLongClicked){
                     case R.id.r1:
@@ -480,18 +502,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar1.remove(position);
                         p1.setPlan(ar1);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -501,18 +515,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar2.remove(position);
                         p2.setPlan(ar2);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -522,18 +528,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar3.remove(position);
                         p3.setPlan(ar3);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -543,18 +541,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar4.remove(position);
                         p4.setPlan(ar4);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -564,18 +554,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar5.remove(position);
                         p5.setPlan(ar5);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -585,18 +567,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar6.remove(position);
                         p6.setPlan(ar6);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -606,18 +580,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar7.remove(position);
                         p7.setPlan(ar7);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -627,18 +593,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar8.remove(position);
                         p8.setPlan(ar8);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -648,18 +606,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar9.remove(position);
                         p9.setPlan(ar9);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -669,18 +619,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar10.remove(position);
                         p10.setPlan(ar10);
 
-                        ars1.remove(toDelete);
-                        ps1.setPlan(ars1);
-                        ars2.remove(toDelete);
-                        ps2.setPlan(ars2);
-                        ars3.remove(toDelete);
-                        ps3.setPlan(ars3);
-                        ars4.remove(toDelete);
-                        ps4.setPlan(ars4);
-                        ars5.remove(toDelete);
-                        ps5.setPlan(ars5);
-                        ars6.remove(toDelete);
-                        ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -690,12 +632,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         ar11.remove(position);
                         p11.setPlan(ar11);
 
-                        ars1.remove(toDelete); ps1.setPlan(ars1);
-                        ars2.remove(toDelete); ps2.setPlan(ars2);
-                        ars3.remove(toDelete); ps3.setPlan(ars3);
-                        ars4.remove(toDelete); ps4.setPlan(ars4);
-                        ars5.remove(toDelete); ps5.setPlan(ars5);
-                        ars6.remove(toDelete); ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
@@ -704,12 +644,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         toDelete = ar12.get(position);
                         ar12.remove(position); p12.setPlan(ar12);
 
-                        ars1.remove(toDelete); ps1.setPlan(ars1);
-                        ars2.remove(toDelete); ps2.setPlan(ars2);
-                        ars3.remove(toDelete); ps3.setPlan(ars3);
-                        ars4.remove(toDelete); ps4.setPlan(ars4);
-                        ars5.remove(toDelete); ps5.setPlan(ars5);
-                        ars6.remove(toDelete); ps6.setPlan(ars6);
+                        for(int i=0; i<masterStreamList.size();i++){
+                            masterStreamList.get(i).remove(toDelete);
+                            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+                        }
 
                         new DeletePlanItemTask().execute(toDelete);
                         break;
