@@ -9,16 +9,20 @@ import androidx.room.Room;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.mydegree.BaseActivity;
@@ -47,6 +51,8 @@ public class Search extends BaseActivity {
     private EditText searchText;
     private SearchAdapter mAdapter;
     private ArrayList<Course> defaultList;
+    private SearchView searchView;
+    private SearchView.OnQueryTextListener queryTextListener;
 
 
     @Override
@@ -64,8 +70,6 @@ public class Search extends BaseActivity {
         //Do the rest as you want for each activity
         progDialog = new ProgressDialog(Search.this);
         recycler = findViewById(R.id.recyclerSearch);
-        fabSearch = findViewById(R.id.fabSearch);
-        searchText = findViewById(R.id.searchEdit);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         //adds programs to top of list
@@ -73,12 +77,13 @@ public class Search extends BaseActivity {
         mAdapter = new SearchAdapter(defaultList);
         recycler.setAdapter(mAdapter);
 
-        //pressing search/Enter takes EditText and uses it to query db, in the doSearch method at bottom which initiates an AsyncTask
-        //consider making it that it searches whenever EditText state change (using listener) so that list updates without having to press search button
+        //region OLDSEARCH METHOD WITH BUTTON AND EDITTEXT
+/*        fabSearch = findViewById(R.id.fabSearch);
+        searchText = findViewById(R.id.searchEdit);
         fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doSearch();
+                doSearch(searchText.getText().toString());
             }
         });
 
@@ -86,13 +91,57 @@ public class Search extends BaseActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if((event.getAction()==KeyEvent.ACTION_DOWN)&&(keyCode==KeyEvent.KEYCODE_ENTER)){
-                    doSearch();
+                    doSearch(searchText.getText().toString());
                 }
                 return true;
             }
-        });
+        });*/
+        //endregion
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
+        if(searchItem!=null){
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if(searchView !=null){
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener(){
+                @Override
+                public boolean onQueryTextChange(String newText){
+                    Log.i("onQueryTextChange", newText);
+                    doSearch(newText);
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query){
+                    Log.i("onQueryTextSubmit", query);
+                    doSearch(query);
+                    hideKeyboard(Search.this);
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.app_bar_search) {
+            return false;
+        }
+        searchView.setOnQueryTextListener(queryTextListener);
+        return super.onOptionsItemSelected(item);
+    }
+
 
     //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
     @Override
@@ -117,11 +166,6 @@ public class Search extends BaseActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progDialog.setMessage("Gathering results...");
-            progDialog.setIndeterminate(false);
-            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDialog.setCancelable(true);
-            progDialog.show();
         }
 
         @Override
@@ -137,28 +181,27 @@ public class Search extends BaseActivity {
         @Override
         protected void onPostExecute(ArrayList<Course> result){
            if (result.size()==0){
-               Toast.makeText(Search.this,"No results found.",Toast.LENGTH_SHORT).show();
-               searchText.requestFocus();
+               //Toast.makeText(Search.this,"No results found.",Toast.LENGTH_SHORT).show();
+               //searchText.requestFocus();
+               mAdapter = new SearchAdapter(result);
+               recycler.setAdapter(mAdapter);
+               mAdapter.notifyDataSetChanged();
            } else {
                mAdapter = new SearchAdapter(result);
                recycler.setAdapter(mAdapter);
                mAdapter.notifyDataSetChanged();
-               hideKeyboard(Search.this);
+               //hideKeyboard(Search.this);
            }
-
-           progDialog.dismiss();
         }
     }
 
-    private void doSearch(){
-        String query = searchText.getText().toString();
-
+    private void doSearch(String query){
         if(query.isEmpty()){
-            Toast.makeText(Search.this, "Error! There is nothing to search for!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(Search.this, "Error! There is nothing to search for!", Toast.LENGTH_LONG).show();
             mAdapter = new SearchAdapter(defaultList);
             recycler.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
-            searchText.requestFocus();
+            //searchText.requestFocus();
         } else {
             //percent are used for the LIKE SQL statement
             String query2 = "%" + query + "%";

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/searchEdit"
@@ -20,12 +21,15 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Search for courses and programs"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0">
+            android:layout_weight="0"
+            android:visibility="gone">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabSearch"
@@ -36,7 +40,8 @@
                 app:backgroundTint="@android:color/transparent"
                 app:elevation="0dp"
                 app:fabSize="mini"
-                app:srcCompat="@drawable/search_icon" />
+                app:srcCompat="@drawable/search_icon"
+                android:visibility="gone"/>
         </FrameLayout>
 
     </LinearLayout>
