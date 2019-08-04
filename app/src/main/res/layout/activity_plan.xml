@@ -20,8 +20,9 @@
                 android:id="@+id/planSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"/>
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/c1"

@@ -1,6 +1,7 @@
 package com.example.mydegree.Plan;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.DialogFragment;
@@ -18,6 +19,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,6 +69,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private com.example.mydegree.Room.Plan temporaryItem;
     private Spinner planSpinner;
     private ArrayAdapter<String> spinAdapter;
+    private Spinner actionSpinner;
+
+    private Spinner toolbarSpinner;
+    private ArrayAdapter<String> actionAdapter;
     private int justCreated;
     private ProgressDialog progDialog;
 
@@ -95,16 +101,17 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         justCreated=1;
 
-        //region setting up fab
+        //region setting up fab (FAB NO LONGER USED)
         fab = (FloatingActionButton) findViewById(R.id.fab2);
-        fab.show();
+        fab.setVisibility(View.GONE);
+        /*fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent pickIntent = new Intent(Plan.this, AddPlan.class);
                 startActivityForResult(pickIntent, PICK_PROGRAM_REQUEST);
             }
-        });
+        });*/
         //endregion
 
         //region  setting up recyclers
@@ -255,6 +262,23 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         });
         //endregion
 
+        toolbarSpinner = findViewById(R.id.my_spinner);
+        toolbarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String lol = (String) parent.getItemAtPosition(position);
+                int i = lol.indexOf(" ");
+                String haha = lol.substring(0,i);
+                new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        toolbarSpinner.setDropDownVerticalOffset(125);
 
         //region STREAMS SETUPS
 
@@ -332,7 +356,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         //endregion
         progDialog = new ProgressDialog(Plan.this, ProgressDialog.STYLE_SPINNER);
 
-        new GetPlanInfosTask().execute();
+        //new GetPlanInfosTask().execute();
 
 
 
@@ -721,8 +745,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     default:
                         break;
                 }
-
-
         }
 
         return super.onContextItemSelected(item);
@@ -733,6 +755,27 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        MenuItem spinItem = menu.findItem(R.id.action_spinner);
+        actionSpinner = (Spinner) spinItem.getActionView();
+        actionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String lol = (String) parent.getItemAtPosition(position);
+                int i = lol.indexOf(" ");
+                String haha = lol.substring(0,i);
+                new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        new GetPlanInfosTask().execute();
         return true;
     }
 
@@ -740,25 +783,28 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_delete) {
-            if(programCode!=null && myPlanInfoId!=0){
-                new AlertDialog.Builder(Plan.this)
-                        .setTitle("Confirm Delete")
-                        .setMessage("Are you sure you want to delete this plan?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                new DeleteWholePlanTask().execute(myPlanInfoId);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null).show();
-            } else {
-                Toast.makeText(Plan.this, "There is no plan to delete!", Toast.LENGTH_SHORT).show();
-            }
-
-
-            return true;
+        switch (id){
+            case R.id.action_delete:
+                if(programCode!=null && myPlanInfoId!=0){
+                    new AlertDialog.Builder(Plan.this)
+                            .setTitle("Confirm Delete")
+                            .setMessage("Are you sure you want to delete this plan?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    new DeleteWholePlanTask().execute(myPlanInfoId);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
+                } else {
+                    Toast.makeText(Plan.this, "There is no plan to delete!", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            case R.id.action_add:
+                Intent pickIntent = new Intent(Plan.this, AddPlan.class);
+                startActivityForResult(pickIntent, PICK_PROGRAM_REQUEST);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -1044,6 +1090,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
             if(result.size()==0){
                 planSpinner.setVisibility(View.GONE);
+
+                toolbarSpinner.setVisibility(View.GONE);
+
                 p1.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
                 p2.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
                 p3.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
@@ -1063,18 +1112,26 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 buttons4.setVisibility(View.GONE);
                 yourCourses.setVisibility(View.GONE);
                 streamsCard.setVisibility(View.GONE);
-                Snackbar.make(fab, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(c1, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
             } else {
-                planSpinner.setVisibility(View.VISIBLE);
-                spinAdapter = new ArrayAdapter<String>(Plan.this, android.R.layout.simple_spinner_item, myStrings);
+                //planSpinner.setVisibility(View.VISIBLE);
+                spinAdapter = new ArrayAdapter<String>(Plan.this, R.layout.simple_spinner_item_v2, myStrings);
                 spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                planSpinner.setAdapter(spinAdapter);
-                planSpinner.setSelection(myStrings.size() - 1);
+
+                toolbarSpinner.setVisibility(View.VISIBLE);
+                toolbarSpinner.setAdapter(spinAdapter);
+                toolbarSpinner.setSelection(myStrings.size()-1);
+                //actionSpinner.setAdapter(spinAdapter);
+                //actionSpinner.setSelection(myStrings.size()-1);
+                //planSpinner.setAdapter(spinAdapter);
+                //planSpinner.setSelection(myStrings.size() - 1);
             }
 
             //this could prob be put in the "else" block above tho,.. idk why i put it in separate
             if(result.size()!=0) {
-                String omg = planSpinner.getSelectedItem().toString();
+                //String omg = planSpinner.getSelectedItem().toString();
+                //String omg = actionSpinner.getSelectedItem().toString();
+                String omg = toolbarSpinner.getSelectedItem().toString();
                 int fail = omg.indexOf(" ");
                 String thePlanId = omg.substring(0, fail);
                 if(justCreated==1){

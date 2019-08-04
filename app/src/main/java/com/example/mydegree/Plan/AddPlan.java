@@ -69,7 +69,11 @@ public class AddPlan extends AppCompatActivity {
                 planName = editName.getText().toString();
                 if(planName.isEmpty()){
                     if(major!=null) {
-                        resultIntent.putExtra(RESULT_NAME, fullProgString + " - " + returnMajorTitle(major));
+                        if(returnMajorTitle(major)!=null){
+                            resultIntent.putExtra(RESULT_NAME, fullProgString + " - " + returnMajorTitle(major));
+                        } else {
+                            resultIntent.putExtra(RESULT_NAME, fullProgString);
+                        }
                     } else {
                         resultIntent.putExtra(RESULT_NAME, fullProgString);
                     }
@@ -109,12 +113,11 @@ public class AddPlan extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String lol = (String) parent.getItemAtPosition(position);
                 major = lol.substring(0,6);
-                fullProgString.concat(" - " + lol.substring(10));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                major = null;
             }
         });
         //endregion
