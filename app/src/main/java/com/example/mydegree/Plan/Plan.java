@@ -278,7 +278,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
             }
         });
-        toolbarSpinner.setDropDownVerticalOffset(125);
+        toolbarSpinner.setDropDownVerticalOffset(132);
 
         //region STREAMS SETUPS
 
