@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Insert;
 import androidx.room.Room;
 
 import android.app.AlertDialog;
@@ -36,6 +37,7 @@ import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.PlanInfo;
+import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Stream;
 import com.example.mydegree.Room.StreamCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -824,8 +826,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
 
-        //ADDING THE COURSE TO THE STREAMS
-        new InsertPlanItemTask().execute(temporaryItem);
+        //CHECKPREREQS
+        new CheckPrereqsTask().execute(temporaryCourse);
 
     }
 
@@ -1319,7 +1321,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
-
     private void fillStreams(com.example.mydegree.Room.Plan result) {
         for (int j = 0; j < arsc1.size(); j++) {
             if (arsc1.get(j).getStreamCourse().equals(result.getCourseCode())) {
@@ -1364,7 +1365,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         }
     }
-
 
     //VALIDATION WILL TAKE PLACE HERE.
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
@@ -1454,9 +1454,88 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         p12.setPlan(ar12);
                         break;
                 }
-
                 fillStreams(temporaryItem);
             }
+        }
+    }
+
+    private class CheckPrereqsTask extends AsyncTask<String, Void, ArrayList<Prereq>> {
+
+        @Override
+        protected ArrayList<Prereq> doInBackground(String... query) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            ArrayList<Prereq> prereqsList = (ArrayList<Prereq>) db.courseDao().getPrereqs(query[0]);
+            return prereqsList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Prereq> result) {
+            ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterStreams = new ArrayList<>();
+            masterStreams.add(ars1);
+            masterStreams.add(ars2);
+            masterStreams.add(ars3);
+            masterStreams.add(ars4);
+            masterStreams.add(ars5);
+            masterStreams.add(ars6);
+
+            if(result.size()==0){
+                new InsertPlanItemTask().execute(temporaryItem);
+            } else {
+
+                //array containing a boolean (default is FALSE) for each pre-req
+                boolean[] myBools = new boolean[result.size()];
+
+                //this boolean will be true if all booleans in the above array are true
+                boolean areAllBoolsTrue = true;
+
+                //stores an array of Strings of any pre-requisites not done
+                ArrayList<String> toDoList = new ArrayList<>();
+
+                //for each item in streams, if they exist will make the boolean in the array for that prereq true
+                for (int i = 0; i<masterStreams.size(); i++){
+                    for(int j = 0; j<masterStreams.get(i).size();j++){
+                        for(int k = 0; k<result.size();k++){
+                            if(result.get(k).getPrereq().equals(masterStreams.get(i).get(j).getCourseCode())){
+                                myBools[k] = true;
+                            }
+                        }
+                    }
+                }
+
+                //if any boolean in the array is false, the whole test fails.
+                for(int l = 0; l<result.size();l++){
+                    if(!myBools[l]){
+                        toDoList.add(result.get(l).getPrereq());
+                        areAllBoolsTrue = false;
+                    }
+                }
+
+                //if everything was true, proceed. otherwise, show a dialog.
+                if(areAllBoolsTrue){
+                    new InsertPlanItemTask().execute(temporaryItem);
+                } else {
+                    String yetToDo = "";
+                    for(int m = 0; m<toDoList.size();m++){
+                        yetToDo = yetToDo  +  toDoList.get(m) + "  ";
+                    }
+                    new AlertDialog.Builder(Plan.this)
+                            .setTitle("Pre-requisites not completed!")
+                            .setMessage("Your plan does not have the following pre-requisites yet:" + "\n" + "\n" + yetToDo +  "\n" +  "\n" + "Do you still want to add this course to your plan?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
+                }
+
+            }
+
         }
     }
 
