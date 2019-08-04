@@ -1115,6 +1115,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 Snackbar.make(c1, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
             } else {
                 //planSpinner.setVisibility(View.VISIBLE);
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
                 spinAdapter = new ArrayAdapter<String>(Plan.this, R.layout.simple_spinner_item_v2, myStrings);
                 spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
