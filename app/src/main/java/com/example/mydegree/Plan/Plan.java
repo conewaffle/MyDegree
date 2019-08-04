@@ -63,7 +63,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private int myPlanInfoId;
     public static final int PICK_PROGRAM_REQUEST = 1;
     public static final String PICK_FRAG_TAG = "pickFragTag";
-    private String programCode, majorName, planName;
+    private String programCode, majorCode, planName;
     private String temporaryCourse;
     public int buttonLastClick;
     private com.example.mydegree.Room.Plan temporaryItem;
@@ -447,10 +447,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             if(resultCode==RESULT_OK){
                 //receiving data back and making Toasts to ensure its done
                 programCode = data.getStringExtra(RESULT_PROG);
-                majorName = data.getStringExtra(RESULT_MAJOR);
+                majorCode = data.getStringExtra(RESULT_MAJOR);
                 planName = data.getStringExtra(RESULT_NAME);
 
-                PlanInfo toInsert = new PlanInfo(0, planName,programCode);
+                PlanInfo toInsert = new PlanInfo(0, planName,programCode, majorCode);
 
                 new InsertPlanInfoTask().execute(toInsert);
                 new GetStreamCoursesTask().execute(programCode);
@@ -1020,7 +1020,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         arsc2.add(result.get(i));
                     } else if(result.get(i).getStreamId2().equals("3584I1")||result.get(i).getStreamId2().equals("INFS2C")||result.get(i).getStreamId2().equals("39793C")){
                         arsc3.add(result.get(i));
-                    } else if(result.get(i).getStreamId2().equals(majorName)){
+                    } else if(result.get(i).getStreamId2().equals(majorCode)){
                         arsc4.add(result.get(i));
                     } else if(result.get(i).getStreamId2().equals("GENED")){
                         arsc6.add(result.get(i));
@@ -1169,6 +1169,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             programCode = result.getProgCode();
             planName = result.getPlanName();
             myPlanInfoId = result.getPlanId();
+            majorCode = result.getMajorId();
 
             new GetStreamCoursesTask().execute(result.getProgCode());
             new GetPlanItemsTask().execute(result.getPlanId());

@@ -117,7 +117,6 @@ public class AddPlan extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                major = null;
             }
         });
         //endregion

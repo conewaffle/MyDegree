@@ -14,14 +14,16 @@ public class PlanInfo {
     private int planId;
     private String planName;
     private String progCode;
+    private String majorId;
 
     @Ignore
     public PlanInfo(){}
 
-    public PlanInfo(int planId, String planName, String progCode) {
+    public PlanInfo(int planId, String planName, String progCode, String majorId) {
         this.planId = planId;
         this.planName = planName;
         this.progCode = progCode;
+        this.majorId = majorId;
     }
 
     public int getPlanId() {
@@ -46,5 +48,13 @@ public class PlanInfo {
 
     public void setProgCode(String progCode) {
         this.progCode = progCode;
+    }
+
+    public String getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(String majorId) {
+        this.majorId = majorId;
     }
 }
