@@ -44,7 +44,7 @@
                             android:id="@+id/cardView1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic1"
@@ -53,11 +53,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="Stage 1 Compulsory Core"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -91,7 +89,7 @@
                             android:id="@+id/cardView2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic2"
@@ -100,11 +98,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="Researching"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -136,7 +132,7 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic3"
@@ -145,11 +141,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="Referencing"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
                         </androidx.cardview.widget.CardView>
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -180,7 +174,7 @@
                             android:id="@+id/cardView4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic4"
@@ -189,11 +183,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="Assignment Writing"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -227,7 +219,7 @@
                             android:id="@+id/cardView5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic5"
@@ -236,11 +228,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="Assignment Writing"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -274,7 +264,7 @@
                             android:id="@+id/cardView6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic6"
@@ -283,11 +273,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="General Education"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -321,7 +309,7 @@
                             android:id="@+id/cardView7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic7"
@@ -330,11 +318,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="General Education"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -374,7 +360,7 @@
                             android:id="@+id/cardView8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic8"
@@ -383,11 +369,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="General Education"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -431,7 +415,7 @@
                             android:id="@+id/cardView9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic9"
@@ -440,11 +424,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="General Education"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -479,7 +461,7 @@
                             android:id="@+id/cardView10"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorPrimaryDark">
+                            app:cardBackgroundColor="@color/colorCard">
 
                             <TextView
                                 android:id="@+id/textTopic10"
@@ -488,11 +470,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="General Education"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textSize="16sp" />
 
                         </androidx.cardview.widget.CardView>
 

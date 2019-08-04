@@ -68,6 +68,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private String programCode, majorCode, planName;
     private String temporaryCourse;
     public int buttonLastClick;
+    private int termLastClick;
     private com.example.mydegree.Room.Plan temporaryItem;
     private Spinner planSpinner;
     private ArrayAdapter<String> spinAdapter;
@@ -840,6 +841,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         buttonLastClick = v.getId();
         switch(v.getId()) {
             case R.id.b11:
+                termLastClick = 1;
                 if (ar1.size() == 3) {
                     showToastCourseFull();
                 } else {
@@ -847,6 +849,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b12:
+                termLastClick = 2;
                 if (ar2.size() == 3) {
                     showToastCourseFull();
                 } else {
@@ -854,6 +857,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b13:
+                termLastClick = 3;
                 if(ar3.size()==3){
                     showToastCourseFull();
                 } else {
@@ -861,6 +865,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b21:
+                termLastClick = 4;
                 if(ar4.size()==3){
                     showToastCourseFull();
                 } else {
@@ -868,6 +873,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b22:
+                termLastClick = 5;
                 if(ar5.size()==3){
                     showToastCourseFull();
                 } else {
@@ -875,6 +881,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b23:
+                termLastClick = 6;
                 if(ar6.size()==3){
                     showToastCourseFull();
                 } else {
@@ -882,6 +889,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b31:
+                termLastClick = 7;
                 if(ar7.size()==3){
                     showToastCourseFull();
                 } else {
@@ -889,6 +897,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b32:
+                termLastClick = 8;
                 if(ar8.size()==3){
                     showToastCourseFull();
                 } else {
@@ -896,6 +905,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b33:
+                termLastClick = 9;
                 if(ar9.size()==3){
                     showToastCourseFull();
                 } else {
@@ -903,6 +913,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b41:
+                termLastClick = 10;
                 if(ar10.size()==3){
                     showToastCourseFull();
                 } else {
@@ -910,6 +921,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b42:
+                termLastClick = 11;
                 if(ar11.size()==3){
                     showToastCourseFull();
                 } else {
@@ -917,6 +929,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
                 break;
             case R.id.b43:
+                termLastClick = 12;
                 if(ar12.size()==3){
                     showToastCourseFull();
                 } else {
@@ -1481,49 +1494,95 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             masterStreams.add(ars5);
             masterStreams.add(ars6);
 
-            if(result.size()==0){
-                new InsertPlanItemTask().execute(temporaryItem);
-            } else {
+            ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterTerms = new ArrayList<>();
+            masterTerms.add(ar1);
+            masterTerms.add(ar2);
+            masterTerms.add(ar3);
+            masterTerms.add(ar4);
+            masterTerms.add(ar5);
+            masterTerms.add(ar6);
+            masterTerms.add(ar7);
+            masterTerms.add(ar8);
+            masterTerms.add(ar9);
+            masterTerms.add(ar10);
+            masterTerms.add(ar11);
+            masterTerms.add(ar12);
 
-                //array containing a boolean (default is FALSE) for each pre-req
-                boolean[] myBools = new boolean[result.size()];
 
-                //this boolean will be true if all booleans in the above array are true
-                boolean areAllBoolsTrue = true;
+            int uocDone = 0;
+            boolean maturityFulfilled = false;
+            String level = Character.toString(temporaryCourse.charAt(4));
 
-                //stores an array of Strings of any pre-requisites not done
-                ArrayList<String> toDoList = new ArrayList<>();
+            String maturityError = "";
 
-                //for each item in streams, if they exist will make the boolean in the array for that prereq true
-                for (int i = 0; i<masterStreams.size(); i++){
-                    for(int j = 0; j<masterStreams.get(i).size();j++){
-                        for(int k = 0; k<result.size();k++){
-                            if(result.get(k).getPrereq().equals(masterStreams.get(i).get(j).getCourseCode())){
-                                myBools[k] = true;
-                            }
-                        }
+            //array containing a boolean (default is FALSE) for each pre-req
+            boolean[] myBools = new boolean[result.size()];
+
+            //this boolean will be true if all booleans in the above array are true
+            boolean areAllBoolsTrue = true;
+
+            //stores an array of Strings of any pre-requisites not done
+            ArrayList<String> toDoList = new ArrayList<>();
+
+
+            //region maturitychecker
+            //first term separate otherwise array index out of bounds (can't check for courses in term 0)
+            if(termLastClick==1){
+                if(level.equals("2")){
+                    maturityFulfilled = false;
+                    maturityError = "24 UOC must be completed before enrolling in Level 2 courses.";
+                } else if(level.equals("3")){
+                    maturityFulfilled = false;
+                    maturityError = "48 UOC must be completed before enrolling in Level 3 courses.";
+                } else if(level.equals("4")){
+                    maturityFulfilled = false;
+                    maturityError = "Level 4 courses can only be done in the Honours year.";
+                } else if(level.equals("1")){
+                    maturityFulfilled = true;
+                }
+            }
+
+            if(termLastClick>1){
+                for (int a = 0; a<(termLastClick-1); a++){
+                    for(int b = 0; b<masterTerms.get(a).size(); b++){
+                        uocDone = uocDone + 6;
                     }
                 }
 
-                //if any boolean in the array is false, the whole test fails.
-                for(int l = 0; l<result.size();l++){
-                    if(!myBools[l]){
-                        toDoList.add(result.get(l).getPrereq());
-                        areAllBoolsTrue = false;
+                if(level.equals("2")){
+                    if(uocDone<24){
+                        maturityFulfilled = false;
+                        maturityError = "24 UOC must be completed before enrolling in Level 2 courses." + "\n" + "\n" +  "You have only done " + uocDone + " UOC in your plan prior to the selected term.";
+                    } else {
+                        maturityFulfilled = true;
                     }
-                }
-
-                //if everything was true, proceed. otherwise, show a dialog.
-                if(areAllBoolsTrue){
-                    new InsertPlanItemTask().execute(temporaryItem);
+                } else if(level.equals("3")){
+                    if(uocDone<48){
+                        maturityFulfilled = false;
+                        maturityError = "48 UOC must be completed before enrolling in Level 3 courses."  + "\n" + "\n" +  "You have only done " + uocDone + " UOC in your plan prior to the selected term.";
+                    } else {
+                        maturityFulfilled = true;
+                    }
+                } else if(level.equals("4")){
+                    if(termLastClick<10){
+                        maturityFulfilled = false;
+                        maturityError = "Level 4 courses can only be done in the Honours year.";
+                    } else {
+                        maturityFulfilled = true;
+                    }
                 } else {
-                    String yetToDo = "";
-                    for(int m = 0; m<toDoList.size();m++){
-                        yetToDo = yetToDo  +  toDoList.get(m) + "  ";
-                    }
+                    maturityFulfilled = true;
+                }
+            }
+            //endregion
+
+            if(result.size()==0){
+                if (maturityFulfilled){
+                    new InsertPlanItemTask().execute(temporaryItem);
+                } else  {
                     new AlertDialog.Builder(Plan.this)
-                            .setTitle("Pre-requisites not completed!")
-                            .setMessage("Your plan does not have the following pre-requisites yet:" + "\n" + "\n" + yetToDo +  "\n" +  "\n" + "Do you still want to add this course to your plan?")
+                            .setTitle("Maturity requirements not met!")
+                            .setMessage(maturityError + "\n" + "\n" + "Do you still wish to add this course to your plan?")
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
@@ -1532,6 +1591,80 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null).show();
+                }
+            } else {
+                //for each prereq, if it exists in previous terms, it will make the boolean in the array for that prereq true
+                for (int i = 0; i<(termLastClick-1); i++){
+                    for(int j = 0; j<masterTerms.get(i).size();j++){
+                        for(int k = 0; k<result.size();k++){
+                            if(result.get(k).getPrereq().equals(masterTerms.get(i).get(j).getCourseCode())){
+                                myBools[k] = true;
+                            }
+                        }
+                    }
+                }
+                //if any boolean in the array is false, the whole test fails.
+                for(int l = 0; l<result.size();l++){
+                    if(!myBools[l]){
+                        toDoList.add(result.get(l).getPrereq());
+                        areAllBoolsTrue = false;
+                    }
+                }
+                //MAIN LOGIC HERE
+
+
+                if(areAllBoolsTrue){
+                    //TRUE AND TRUE
+                    if(maturityFulfilled){
+                        new InsertPlanItemTask().execute(temporaryItem);
+                    } else {
+                        //TRUE AND FALSE
+                        new AlertDialog.Builder(Plan.this)
+                                .setTitle("Maturity requirements not met!")
+                                .setMessage(maturityError + "\n" + "\n" + "Do you still wish to add this course to your plan?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        new InsertPlanItemTask().execute(temporaryItem);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null).show();
+                    }
+                } else {
+                    String yetToDo = "";
+                    for(int m = 0; m<toDoList.size();m++){
+                        yetToDo = yetToDo  +  toDoList.get(m) + "  ";
+                    }
+                    //FALSE AND TRUE
+                    if(maturityFulfilled){
+                        new AlertDialog.Builder(Plan.this)
+                                .setTitle("Pre-requisites not completed!")
+                                .setMessage("Your plan does not have the following pre-requisites prior to the selected term:" + "\n" + "\n" + yetToDo +  "\n" +  "\n" + "Do you still want to add this course to your plan?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        new InsertPlanItemTask().execute(temporaryItem);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null).show();
+                    } else {
+                        //FALSE AND FALSE
+                        new AlertDialog.Builder(Plan.this)
+                                .setTitle("Requirements not met!")
+                                .setMessage(maturityError + "\n" + "\n" + "Additionally, your plan does not have the following pre-requisites prior to the selected term:" + "\n" + "\n" + yetToDo +  "\n" +  "\n" + "Do you still want to add this course to your plan?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        new InsertPlanItemTask().execute(temporaryItem);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null).show();
+
+                    }
+
                 }
 
             }
