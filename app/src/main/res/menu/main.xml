@@ -8,7 +8,7 @@
         android:menuCategory="secondary"
         android:orderInCategory="200"
         android:title="Delete"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_add_black_24dp"
