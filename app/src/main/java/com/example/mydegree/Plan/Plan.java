@@ -1,5 +1,6 @@
 package com.example.mydegree.Plan;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.cardview.widget.CardView;
@@ -18,6 +19,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -27,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -42,9 +46,20 @@ import com.example.mydegree.Room.Stream;
 import com.example.mydegree.Room.StreamCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.example.mydegree.Plan.AddPlan.RESULT_MAJOR;
 import static com.example.mydegree.Plan.AddPlan.RESULT_NAME;
@@ -91,6 +106,14 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private ArrayList<com.example.mydegree.Room.Plan> ars1, ars2, ars3, ars4, ars5, ars6;
     private ArrayList<StreamCourse> arsc1, arsc2, arsc3, arsc4, arsc5, arsc6;
 
+    private String uid;
+    private FirebaseAuth auth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private Button sync, syncDown;
+    private TextView text;
+    private String course1, course2, course3, course4, course5, course6, course7, course8, course9, course10, course11, course12, course13, course14, course15, course16, course17, course18, course19, course20, course21, course22, course23, course24, course25, course26, course27, course28, course29, course30, course31, course32, course33;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +139,27 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         });*/
         //endregion
+
+
+        //region firebase
+
+        FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        final FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            uid = user.getUid();
+        } else {
+            uid = "4PUZCL42tVhL6wP90ZO2gZqOyhC3";
+        }
+
+        sync = findViewById(R.id.sync);
+        sync.setVisibility(View.GONE);
+        syncDown = findViewById(R.id.syncDown);
+
+        //endregion
+
 
         //region  setting up recyclers
         r1 = findViewById(R.id.r1);
@@ -254,8 +298,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 String lol = (String) parent.getItemAtPosition(position);
                 int i = lol.indexOf(" ");
                 String haha = lol.substring(0,i);
-                new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
 
+                if (user == null) {
+                    new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
+                } else {
+                    Toast.makeText(Plan.this, "", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -272,7 +320,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 String lol = (String) parent.getItemAtPosition(position);
                 int i = lol.indexOf(" ");
                 String haha = lol.substring(0,i);
-                new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
+                if (user == null) {
+                    new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
+                } else {
+                    Toast.makeText(Plan.this, "", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -362,9 +414,279 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         //new GetPlanInfosTask().execute();
 
 
-
+        if (user != null) {
+            uid = user.getUid();
+            syncDown.setVisibility(View.VISIBLE);
+        } else {
+            syncDown.setVisibility(View.GONE);
+        }
         //Do the rest as you want for each activity
 
+        syncDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTitle("");/*
+                retrievePlans();*/
+            }
+        });
+
+
+
+    }
+
+    private void retrievePlans() {
+        DatabaseReference retrieveRef = databaseReference.child("User").child(uid).child("progression");
+        retrieveRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> planIdList = new ArrayList<>();
+                List<String> courseList = new ArrayList<>();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String planId = ds.getKey() + " " + "-" + " " + ds.child("planName").getValue();
+                    planIdList.add(planId);
+
+                    String t1course = ds.child("1").child("course1").getValue(String.class);
+                    PlanObject planObject = new PlanObject();
+                    planObject.setCourse1(t1course);
+                    courseList.add(String.valueOf(planObject));
+
+                }
+
+                spinAdapter = new ArrayAdapter<String>(Plan.this, R.layout.simple_spinner_item_v2, planIdList);
+                spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                toolbarSpinner.setVisibility(View.VISIBLE);
+                toolbarSpinner.setAdapter(spinAdapter);
+                toolbarSpinner.setSelection(planIdList.size() - 1);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void syncPlan(final ArrayList<PlanInfo> result) {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            final ProgressDialog progressDialog = ProgressDialog.show(Plan.this, "Please wait", "Syncing...", true);
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (int i = 0; i < result.size(); i++) {
+                    String planId = String.valueOf(result.get(i).getPlanId());
+                    String progCode = result.get(i).getProgCode();
+                    String planName = result.get(i).getPlanName();
+                    String majorCode = result.get(i).getMajorId();
+
+                    DatabaseReference syncRef = databaseReference.child("User").child(uid).child("progression").child(planId);
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("progCode", progCode);
+                    map.put("planName", planName);
+                    if (progCode.equals("3584")) {
+                        map.put("majorCode", majorCode);
+                    }
+
+                    //region hell
+                        try {
+                            if (planId.equals(String.valueOf(ar1.get(0).getPlanId()))) {
+                                if (ar1.size() == 0) {
+                                    course1 = course2 = course3 = null;
+                                } else if (ar1.size() == 1) {
+                                    course1 = ar1.get(0).getCourseCode();
+                                    course2 = course3 = null;
+                                } else if (ar1.size() == 2) {
+                                    course1 = ar1.get(0).getCourseCode();
+                                    course2 = ar1.get(1).getCourseCode();
+                                    course3 = null;
+                                } else {
+                                    course1 = ar1.get(0).getCourseCode();
+                                    course2 = ar1.get(1).getCourseCode();
+                                    course3 = ar1.get(2).getCourseCode();
+                                }
+                                map.put("1", new PlanObject(course1, course2, course3));
+
+                                if (ar2.size() == 0) {
+                                    course4 = course5 = course6 = null;
+                                } else if (ar2.size() == 1) {
+                                    course4 = ar2.get(0).getCourseCode();
+                                    course5 = course6 = null;
+                                } else if (ar2.size() == 2) {
+                                    course4 = ar2.get(0).getCourseCode();
+                                    course5 = ar2.get(1).getCourseCode();
+                                    course6 = null;
+                                } else {
+                                    course4 = ar2.get(0).getCourseCode();
+                                    course5 = ar2.get(1).getCourseCode();
+                                    course6 = ar2.get(2).getCourseCode();
+                                }
+                                map.put("2", new PlanObject(course4, course5, course6));
+
+                                if (ar3.size() == 0) {
+                                    course7 = course8 = course9 = null;
+                                } else if (ar3.size() == 1) {
+                                    course7 = ar3.get(0).getCourseCode();
+                                    course8 = course9 = null;
+                                } else if (ar3.size() == 2) {
+                                    course7 = ar3.get(0).getCourseCode();
+                                    course8 = ar3.get(1).getCourseCode();
+                                    course9 = null;
+                                } else {
+                                    course7 = ar3.get(0).getCourseCode();
+                                    course8 = ar3.get(1).getCourseCode();
+                                    course9 = ar3.get(2).getCourseCode();
+                                }
+                                map.put("3", new PlanObject(course7, course8, course9));
+
+                                if (ar4.size() == 0) {
+                                    course10 = course11 = course12 = null;
+                                } else if (ar4.size() == 1) {
+                                    course10 = ar4.get(0).getCourseCode();
+                                    course11 = course12 = null;
+                                } else if (ar4.size() == 2) {
+                                    course10 = ar4.get(0).getCourseCode();
+                                    course11 = ar4.get(1).getCourseCode();
+                                    course12 = null;
+                                } else {
+                                    course10 = ar4.get(0).getCourseCode();
+                                    course11 = ar4.get(1).getCourseCode();
+                                    course12 = ar4.get(2).getCourseCode();
+                                }
+                                map.put("4", new PlanObject(course10, course11, course12));
+
+                                if (ar5.size() == 0) {
+                                    course13 = course14 = course15 = null;
+                                } else if (ar5.size() == 1) {
+                                    course13 = ar5.get(0).getCourseCode();
+                                    course14 = course15 = null;
+                                } else if (ar5.size() == 2) {
+                                    course13 = ar5.get(0).getCourseCode();
+                                    course14 = ar5.get(1).getCourseCode();
+                                    course15 = null;
+                                } else {
+                                    course13 = ar5.get(0).getCourseCode();
+                                    course14 = ar5.get(1).getCourseCode();
+                                    course15 = ar5.get(2).getCourseCode();
+                                }
+                                map.put("5", new PlanObject(course13, course14, course15));
+
+                                if (ar6.size() == 0) {
+                                    course16 = course17 = course18 = null;
+                                } else if (ar6.size() == 1) {
+                                    course16 = ar6.get(0).getCourseCode();
+                                    course17 = course18 = null;
+                                } else if (ar6.size() == 2) {
+                                    course16 = ar6.get(0).getCourseCode();
+                                    course17 = ar6.get(1).getCourseCode();
+                                    course18 = null;
+                                } else {
+                                    course16 = ar6.get(0).getCourseCode();
+                                    course17 = ar6.get(1).getCourseCode();
+                                    course18 = ar6.get(2).getCourseCode();
+                                }
+                                map.put("6", new PlanObject(course16, course17, course18));
+
+                                if (ar7.size() == 0) {
+                                    course19 = course20 = course21 = null;
+                                } else if (ar7.size() == 1) {
+                                    course17 = ar7.get(0).getCourseCode();
+                                    course20 = course21 = null;
+                                } else if (ar7.size() == 2) {
+                                    course19 = ar7.get(0).getCourseCode();
+                                    course20 = ar7.get(1).getCourseCode();
+                                    course21 = null;
+                                } else {
+                                    course19 = ar7.get(0).getCourseCode();
+                                    course20 = ar7.get(1).getCourseCode();
+                                    course21 = ar7.get(2).getCourseCode();
+                                }
+                                map.put("7", new PlanObject(course19, course20, course21));
+
+                                if (ar8.size() == 0) {
+                                    course22 = course23 = course24 = null;
+                                } else if (ar8.size() == 1) {
+                                    course22 = ar8.get(0).getCourseCode();
+                                    course23 = course24 = null;
+                                } else if (ar8.size() == 2) {
+                                    course22 = ar8.get(0).getCourseCode();
+                                    course23 = ar8.get(1).getCourseCode();
+                                    course24 = null;
+                                } else {
+                                    course22 = ar8.get(0).getCourseCode();
+                                    course23 = ar8.get(1).getCourseCode();
+                                    course24 = ar8.get(2).getCourseCode();
+                                }
+                                map.put("8", new PlanObject(course22, course23, course24));
+
+                                if (ar9.size() == 0) {
+                                    course25 = course26 = course27 = null;
+                                } else if (ar9.size() == 1) {
+                                    course25 = ar9.get(0).getCourseCode();
+                                    course26 = course27 = null;
+                                } else if (ar2.size() == 2) {
+                                    course25 = ar9.get(0).getCourseCode();
+                                    course26 = ar9.get(1).getCourseCode();
+                                    course27 = null;
+                                } else {
+                                    course25 = ar9.get(0).getCourseCode();
+                                    course26 = ar9.get(1).getCourseCode();
+                                    course27 = ar9.get(2).getCourseCode();
+                                }
+                                map.put("9", new PlanObject(course25, course26, course27));
+
+                                if (ar10.size() == 0) {
+                                    course28 = course29 = course30 = null;
+                                } else if (ar10.size() == 1) {
+                                    course28 = ar10.get(0).getCourseCode();
+                                    course29 = course30 = null;
+                                } else if (ar10.size() == 2) {
+                                    course28 = ar10.get(0).getCourseCode();
+                                    course29 = ar10.get(1).getCourseCode();
+                                    course30 = null;
+                                } else {
+                                    course28 = ar10.get(0).getCourseCode();
+                                    course29 = ar10.get(1).getCourseCode();
+                                    course30 = ar10.get(2).getCourseCode();
+                                }
+                                map.put("11", new PlanObject(course28, course29, course30));
+
+                                if (ar11.size() == 0) {
+                                    course31 = course32 = course33 = null;
+                                } else if (ar11.size() == 1) {
+                                    course31 = ar11.get(0).getCourseCode();
+                                    course32 = course33 = null;
+                                } else if (ar11.size() == 2) {
+                                    course31 = ar11.get(0).getCourseCode();
+                                    course32 = ar11.get(1).getCourseCode();
+                                    course33 = null;
+                                } else {
+                                    course31 = ar11.get(0).getCourseCode();
+                                    course32 = ar11.get(1).getCourseCode();
+                                    course33 = ar11.get(2).getCourseCode();
+                                }
+
+                                map.put("12", new PlanObject(course31, course32, course33));
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+
+                    }
+                    syncRef.updateChildren(map);
+                    //endregion
+                }
+                progressDialog.dismiss();
+                Snackbar.make(c1, "Sync successful.", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -439,6 +761,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         buttons2.setVisibility(View.VISIBLE);
         buttons3.setVisibility(View.VISIBLE);
         buttons4.setVisibility(View.VISIBLE);
+
+        sync.setVisibility(View.VISIBLE);
     }
 
 
@@ -827,7 +1151,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
 
-        //CHECKPREREQS
         new CheckPrereqsTask().execute(temporaryCourse);
 
     }
@@ -984,6 +1307,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
             db.courseDao().deleteWholePlan(integers[0]);
 
+
             return null;
         }
 
@@ -992,6 +1316,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             Toast.makeText(Plan.this, "Plan deleted.", Toast.LENGTH_SHORT).show();
             justCreated=1;
             new GetPlanInfosTask().execute();
+
+            DatabaseReference clear = databaseReference.child("User").child(uid).child("progression");
+            clear.child(String.valueOf(myPlanInfoId)).removeValue();
         }
     }
 
@@ -1091,7 +1418,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
 
         @Override
-        protected void onPostExecute(ArrayList<PlanInfo> result) {
+        protected void onPostExecute(final ArrayList<PlanInfo> result) {
             ArrayList<String> myStrings = new ArrayList<>();
             for(int i = 0; i<result.size(); i++){
                 myStrings.add(result.get(i).getPlanId() + " - " + result.get(i).getPlanName());
@@ -1159,6 +1486,19 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
             }
             progDialog.dismiss();
+
+            sync.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isNetworkAvailable()) {
+                        syncPlan(result);
+                    } else {
+                        Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
+                    }
+
+                }
+            });
+
         }
     }
 
@@ -1288,7 +1628,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ArrayList<com.example.mydegree.Room.Plan>> result) {
+        protected void onPostExecute(final ArrayList<ArrayList<com.example.mydegree.Room.Plan>> result) {
             int i = 0;
             ar1 = result.get(i);
             p1.setPlan(result.get(i));
@@ -1331,8 +1671,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 fillStreams(result.get(12).get(k));
             }
 
+
         }
     }
+
 
     private void fillStreams(com.example.mydegree.Room.Plan result) {
         for (int j = 0; j < arsc1.size(); j++) {
@@ -1378,6 +1720,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         }
     }
+
 
     //VALIDATION WILL TAKE PLACE HERE.
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
@@ -1467,6 +1810,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                         p12.setPlan(ar12);
                         break;
                 }
+
                 fillStreams(temporaryItem);
             }
         }
@@ -1691,5 +2035,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         return true;
     }
     //endregion
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 }
