@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mydegree.Plan.Plan;
+import com.example.mydegree.Profile.Profile;
 import com.example.mydegree.Saved.SavedItems;
 import com.example.mydegree.Search.Search;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(),Profile.class));
+                    startActivity(new Intent(getApplicationContext(), Profile.class));
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuprogram) {

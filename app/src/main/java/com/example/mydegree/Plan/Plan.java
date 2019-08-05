@@ -112,7 +112,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private DatabaseReference databaseReference;
     private Button sync, syncDown;
     private TextView text;
-    private String course1, course2, course3, course4, course5, course6, course7, course8, course9, course10, course11, course12, course13, course14, course15, course16, course17, course18, course19, course20, course21, course22, course23, course24, course25, course26, course27, course28, course29, course30, course31, course32, course33;
+    private String course1, course2, course3, course4, course5, course6, course7, course8, course9, course10, course11, course12, course13, course14, course15, course16, course17, course18, course19, course20, course21, course22, course23, course24, course25, course26, course27, course28, course29, course30, course31, course32, course33, course34, course35, course36;
 
     private int ifSwapping, swapPosition;
     private com.example.mydegree.Room.Plan toSwap;
@@ -160,7 +160,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         sync = findViewById(R.id.sync);
         sync.setVisibility(View.GONE);
-        syncDown = findViewById(R.id.syncDown);
 
         //endregion
 
@@ -410,7 +409,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         //new GetPlanInfosTask().execute();
 
 
-        if (user != null) {
+/*        if (user != null) {
             uid = user.getUid();
             syncDown.setVisibility(View.VISIBLE);
         } else {
@@ -422,9 +421,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             @Override
             public void onClick(View v) {
                 setTitle("");
-/*                retrievePlans();*/
+*//*                retrievePlans();*//*
             }
-        });
+        });*/
 
     }
 
@@ -636,7 +635,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                                     course29 = ar10.get(1).getCourseCode();
                                     course30 = ar10.get(2).getCourseCode();
                                 }
-                                map.put("11", new PlanObject(course28, course29, course30));
+                                map.put("10", new PlanObject(course28, course29, course30));
 
                                 if (ar11.size() == 0) {
                                     course31 = course32 = course33 = null;
@@ -652,8 +651,23 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                                     course32 = ar11.get(1).getCourseCode();
                                     course33 = ar11.get(2).getCourseCode();
                                 }
+                                map.put("11", new PlanObject(course31, course32, course33));
 
-                                map.put("12", new PlanObject(course31, course32, course33));
+                                if (ar12.size() == 0) {
+                                    course34 = course35 = course36 = null;
+                                } else if (ar12.size() == 1) {
+                                    course34 = ar12.get(0).getCourseCode();
+                                    course35 = course36 = null;
+                                } else if (ar12.size() == 2) {
+                                    course34 = ar12.get(0).getCourseCode();
+                                    course35 = ar12.get(1).getCourseCode();
+                                    course36 = null;
+                                } else {
+                                    course34 = ar12.get(0).getCourseCode();
+                                    course35 = ar12.get(1).getCourseCode();
+                                    course6 = ar12.get(2).getCourseCode();
+                                }
+                                map.put("12", new PlanObject(course34, course35, course36));
                             }
                         } catch (IndexOutOfBoundsException e) {
 
@@ -1646,6 +1660,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 public void onClick(View v) {
                     if(isNetworkAvailable()) {
                         syncPlan(result);
+                        addAchievement();
                     } else {
                         Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
                     }
@@ -1654,6 +1669,22 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             });
 
         }
+    }
+
+    private void addAchievement() {
+        databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String sync = "Online";
+                    dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private class GetOnePlanInfoTask extends AsyncTask<Integer, Void, PlanInfo>{

@@ -35,7 +35,7 @@
             android:name=".CourseOverview.CourseOverview"
             android:parentActivityName=".Search.Search"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Profile" />
+        <activity android:name=".Profile.Profile" />
         <activity android:name=".Program">
 <!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

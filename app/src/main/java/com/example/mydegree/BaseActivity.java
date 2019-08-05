@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.mydegree.Plan.Plan;
+import com.example.mydegree.Profile.Profile;
 import com.example.mydegree.Saved.SavedItems;
 import com.example.mydegree.Search.Search;
 import com.google.android.material.navigation.NavigationView;
@@ -29,8 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -136,7 +135,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(),Profile.class));
+                    startActivity(new Intent(getApplicationContext(), Profile.class));
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menuprogram) {
