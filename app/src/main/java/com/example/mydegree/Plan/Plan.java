@@ -299,11 +299,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 int i = lol.indexOf(" ");
                 String haha = lol.substring(0,i);
 
-                if (user == null) {
                     new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
-                } else {
-                    Toast.makeText(Plan.this, "", Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -320,12 +316,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 String lol = (String) parent.getItemAtPosition(position);
                 int i = lol.indexOf(" ");
                 String haha = lol.substring(0,i);
-                if (user == null) {
-                    new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
-                } else {
-                    Toast.makeText(Plan.this, "", Toast.LENGTH_SHORT).show();
-                }
 
+                    new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
             }
 
             @Override
@@ -425,12 +417,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         syncDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setTitle("");/*
-                retrievePlans();*/
+                setTitle("");
+/*                retrievePlans();*/
             }
         });
-
-
 
     }
 
@@ -440,17 +430,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<String> planIdList = new ArrayList<>();
-                List<String> courseList = new ArrayList<>();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String planId = ds.getKey() + " " + "-" + " " + ds.child("planName").getValue();
-                    planIdList.add(planId);
-
-                    String t1course = ds.child("1").child("course1").getValue(String.class);
-                    PlanObject planObject = new PlanObject();
-                    planObject.setCourse1(t1course);
-                    courseList.add(String.valueOf(planObject));
-
+                    int planId = Integer.parseInt(ds.getKey());
+                    String toolbarText = ds.getKey() + " " + "-" + " " + ds.child("planName").getValue();
+                    planIdList.add(toolbarText);
                 }
 
                 spinAdapter = new ArrayAdapter<String>(Plan.this, R.layout.simple_spinner_item_v2, planIdList);
@@ -458,16 +442,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
                 toolbarSpinner.setVisibility(View.VISIBLE);
                 toolbarSpinner.setAdapter(spinAdapter);
-                toolbarSpinner.setSelection(planIdList.size() - 1);
-
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
-
     }
 
     private void syncPlan(final ArrayList<PlanInfo> result) {

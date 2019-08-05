@@ -103,8 +103,6 @@ public class CourseOverview extends AppCompatActivity {
             uid = "4PUZCL42tVhL6wP90ZO2gZqOyhC3";
         }
 
-
-
         Intent i = getIntent();
         final Course myCourse =  i.getParcelableExtra(COURSE_PARCEL);
         String fromPrereq = i.getStringExtra(PrereqAdapter.PREREQ_PARCEL);
