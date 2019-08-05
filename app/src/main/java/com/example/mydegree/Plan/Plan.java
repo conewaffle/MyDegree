@@ -114,6 +114,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private TextView text;
     private String course1, course2, course3, course4, course5, course6, course7, course8, course9, course10, course11, course12, course13, course14, course15, course16, course17, course18, course19, course20, course21, course22, course23, course24, course25, course26, course27, course28, course29, course30, course31, course32, course33;
 
+    private int ifSwapping, swapPosition;
+    private com.example.mydegree.Room.Plan toSwap;
+    private int swapRemnant;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -298,8 +302,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 String lol = (String) parent.getItemAtPosition(position);
                 int i = lol.indexOf(" ");
                 String haha = lol.substring(0,i);
+                new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
 
-                    new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
             }
 
             @Override
@@ -316,8 +320,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 String lol = (String) parent.getItemAtPosition(position);
                 int i = lol.indexOf(" ");
                 String haha = lol.substring(0,i);
+                new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
 
-                    new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
             }
 
             @Override
@@ -677,6 +681,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         this.recyclerLongClicked = id;
     }
 
+    public void setIfSwapping(int ifSwapping1){
+        this.ifSwapping = ifSwapping1;
+    }
+
     private void setupContent(){
         streamsCard.setVisibility(View.VISIBLE);
         yourCourses.setVisibility(View.VISIBLE);
@@ -769,62 +777,63 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     //LONG-CLICK PLAN TO DELETE THINGS....
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+
+        ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterTermList = new ArrayList<>();
+        //region adding to masterlist
+        masterTermList.add(ar1);
+        masterTermList.add(ar2);
+        masterTermList.add(ar3);
+        masterTermList.add(ar4);
+        masterTermList.add(ar5);
+        masterTermList.add(ar6);
+        masterTermList.add(ar7);
+        masterTermList.add(ar8);
+        masterTermList.add(ar9);
+        masterTermList.add(ar10);
+        masterTermList.add(ar11);
+        masterTermList.add(ar12);
+        //endregion
+        ArrayList<PlanAdapter> masterTermAdapter = new ArrayList<>();
+        //region adding to masterlist
+        masterTermAdapter.add(p1);
+        masterTermAdapter.add(p2);
+        masterTermAdapter.add(p3);
+        masterTermAdapter.add(p4);
+        masterTermAdapter.add(p5);
+        masterTermAdapter.add(p6);
+        masterTermAdapter.add(p7);
+        masterTermAdapter.add(p8);
+        masterTermAdapter.add(p9);
+        masterTermAdapter.add(p10);
+        masterTermAdapter.add(p11);
+        masterTermAdapter.add(p12);
+        //endregion
+        ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterStreamList = new ArrayList<>();
+        //region adding to masterlist
+        masterStreamList.add(ars1);
+        masterStreamList.add(ars2);
+        masterStreamList.add(ars3);
+        masterStreamList.add(ars4);
+        masterStreamList.add(ars5);
+        masterStreamList.add(ars6);
+        //endregion
+        ArrayList<PlanAdapter> masterStreamAdapter = new ArrayList<>();
+        //region adding to masterlist
+        masterStreamAdapter.add(ps1);
+        masterStreamAdapter.add(ps2);
+        masterStreamAdapter.add(ps3);
+        masterStreamAdapter.add(ps4);
+        masterStreamAdapter.add(ps5);
+        masterStreamAdapter.add(ps6);
+        //endregion
+
+        com.example.mydegree.Room.Plan toDelete;
+        int position;
+
         switch(item.getItemId()){
             case R.id.menu_remove:
-
-                com.example.mydegree.Room.Plan toDelete;
-                int position;
-
-                ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterTermList = new ArrayList<>();
-                //region adding to masterlist
-                masterTermList.add(ar1);
-                masterTermList.add(ar2);
-                masterTermList.add(ar3);
-                masterTermList.add(ar4);
-                masterTermList.add(ar5);
-                masterTermList.add(ar6);
-                masterTermList.add(ar7);
-                masterTermList.add(ar8);
-                masterTermList.add(ar9);
-                masterTermList.add(ar10);
-                masterTermList.add(ar11);
-                masterTermList.add(ar12);
-                //endregion
-                ArrayList<PlanAdapter> masterTermAdapter = new ArrayList<>();
-                //region adding to masterlist
-                masterTermAdapter.add(p1);
-                masterTermAdapter.add(p2);
-                masterTermAdapter.add(p3);
-                masterTermAdapter.add(p4);
-                masterTermAdapter.add(p5);
-                masterTermAdapter.add(p6);
-                masterTermAdapter.add(p7);
-                masterTermAdapter.add(p8);
-                masterTermAdapter.add(p9);
-                masterTermAdapter.add(p10);
-                masterTermAdapter.add(p11);
-                masterTermAdapter.add(p12);
-                //endregion
-                ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterStreamList = new ArrayList<>();
-                //region adding to masterlist
-                masterStreamList.add(ars1);
-                masterStreamList.add(ars2);
-                masterStreamList.add(ars3);
-                masterStreamList.add(ars4);
-                masterStreamList.add(ars5);
-                masterStreamList.add(ars6);
-                //endregion
-                ArrayList<PlanAdapter> masterStreamAdapter = new ArrayList<>();
-                //region adding to masterlist
-                masterStreamAdapter.add(ps1);
-                masterStreamAdapter.add(ps2);
-                masterStreamAdapter.add(ps3);
-                masterStreamAdapter.add(ps4);
-                masterStreamAdapter.add(ps5);
-                masterStreamAdapter.add(ps6);
-                //endregion
-
-
+            case R.id.menu_delete:
+                //region delete/remove case ;
                 switch(recyclerLongClicked){
                     case R.id.r1:
                         position = ((PlanAdapter) r1.getAdapter()).getPosition();
@@ -1051,6 +1060,85 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     default:
                         break;
                 }
+                //endregion
+                break;
+            case R.id.menu_swap:
+                ifSwapping = 1;
+                switch(recyclerLongClicked){
+                    case R.id.r1:
+                        termLastClick=1;
+                        swapPosition = p1.getPosition();
+                        toSwap = ar1.get(swapPosition);
+                        showPickDialog(programCode, 1, 1);
+                        break;
+                    case R.id.r2:
+                        termLastClick=2;
+                        swapPosition = p2.getPosition();
+                        toSwap = ar2.get(swapPosition);
+                        showPickDialog(programCode, 1, 2);
+                        break;
+                    case R.id.r3:
+                        termLastClick=3;
+                        swapPosition = p3.getPosition();
+                        toSwap = ar3.get(swapPosition);
+                        showPickDialog(programCode, 1, 3);
+                        break;
+                    case R.id.r4:
+                        termLastClick=4;
+                        swapPosition = p4.getPosition();
+                        toSwap = ar4.get(swapPosition);
+                        showPickDialog(programCode, 2, 1);
+                        break;
+                    case R.id.r5:
+                        termLastClick=5;
+                        swapPosition = p5.getPosition();
+                        toSwap = ar5.get(swapPosition);
+                        showPickDialog(programCode, 2, 2);
+                        break;
+                    case R.id.r6:
+                        termLastClick=6;
+                        swapPosition = p6.getPosition();
+                        toSwap = ar6.get(swapPosition);
+                        showPickDialog(programCode, 2, 3);
+                        break;
+                    case R.id.r7:
+                        termLastClick=7;
+                        swapPosition = p7.getPosition();
+                        toSwap = ar7.get(swapPosition);
+                        showPickDialog(programCode, 3, 1);
+                        break;
+                    case R.id.r8:
+                        termLastClick=8;
+                        swapPosition = p8.getPosition();
+                        toSwap = ar8.get(swapPosition);
+                        showPickDialog(programCode, 3, 2);
+                        break;
+                    case R.id.r9:
+                        termLastClick=9;
+                        swapPosition = p9.getPosition();
+                        toSwap = ar9.get(swapPosition);
+                        showPickDialog(programCode, 3, 3);
+                        break;
+                    case R.id.r10:
+                        termLastClick=10;
+                        swapPosition = p10.getPosition();
+                        toSwap = ar10.get(swapPosition);
+                        showPickDialog(programCode, 4, 1);
+                        break;
+                    case R.id.r11:
+                        termLastClick=11;
+                        swapPosition = p11.getPosition();
+                        toSwap = ar11.get(swapPosition);
+                        showPickDialog(programCode, 4, 2);
+                        break;
+                    case R.id.r12:
+                        termLastClick=12;
+                        swapPosition = p12.getPosition();
+                        toSwap = ar12.get(swapPosition);
+                        showPickDialog(programCode, 4, 3);
+                        break;
+                }
+                break;
         }
 
         return super.onContextItemSelected(item);
@@ -1131,6 +1219,89 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
 
         new CheckPrereqsTask().execute(temporaryCourse);
+
+    }
+
+    private void swapCourse(){
+        ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterStreamList = new ArrayList<>();
+        //region adding to masterlist
+        masterStreamList.add(ars1);
+        masterStreamList.add(ars2);
+        masterStreamList.add(ars3);
+        masterStreamList.add(ars4);
+        masterStreamList.add(ars5);
+        masterStreamList.add(ars6);
+        //endregion
+        ArrayList<PlanAdapter> masterStreamAdapter = new ArrayList<>();
+        //region adding to masterlist
+        masterStreamAdapter.add(ps1);
+        masterStreamAdapter.add(ps2);
+        masterStreamAdapter.add(ps3);
+        masterStreamAdapter.add(ps4);
+        masterStreamAdapter.add(ps5);
+        masterStreamAdapter.add(ps6);
+        //endregion
+
+        switch (recyclerLongClicked){
+            case R.id.r1:
+                ar1.set(swapPosition, temporaryItem);
+                p1.setPlan(ar1);
+                break;
+            case R.id.r2:
+                ar2.set(swapPosition, temporaryItem);
+                p2.setPlan(ar2);
+                break;
+            case R.id.r3:
+                ar3.set(swapPosition, temporaryItem);
+                p3.setPlan(ar3);
+                break;
+            case R.id.r4:
+                ar4.set(swapPosition, temporaryItem);
+                p4.setPlan(ar4);
+                break;
+            case R.id.r5:
+                ar5.set(swapPosition, temporaryItem);
+                p5.setPlan(ar5);
+                break;
+            case R.id.r6:
+                ar6.set(swapPosition, temporaryItem);
+                p6.setPlan(ar6);
+                break;
+            case R.id.r7:
+                ar7.set(swapPosition, temporaryItem);
+                p7.setPlan(ar7);
+                break;
+            case R.id.r8:
+                ar8.set(swapPosition, temporaryItem);
+                p8.setPlan(ar8);
+                break;
+            case R.id.r9:
+                ar9.set(swapPosition, temporaryItem);
+                p9.setPlan(ar9);
+                break;
+            case R.id.r10:
+                ar10.set(swapPosition, temporaryItem);
+                p10.setPlan(ar10);
+                break;
+            case R.id.r11:
+                ar11.set(swapPosition, temporaryItem);
+                p11.setPlan(ar11);
+                break;
+            case R.id.r12:
+                ar12.set(swapPosition, temporaryItem);
+                p12.setPlan(ar12);
+                break;
+        }
+
+        for(int i=0; i<masterStreamList.size();i++){
+            masterStreamList.get(i).remove(toSwap);
+            masterStreamAdapter.get(i).setPlan(masterStreamList.get(i));
+        }
+
+        fillStreams(temporaryItem);
+
+        swapRemnant = 1;
+        new DeletePlanItemTask().execute(toSwap);
 
     }
 
@@ -1273,7 +1444,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Toast.makeText(Plan.this, "Course deleted from plan.", Toast.LENGTH_SHORT).show();
+            if(swapRemnant==0){
+                Toast.makeText(Plan.this, "Course deleted from plan.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Plan.this, toSwap.getCourseCode() + " has been swapped with " + temporaryCourse, Toast.LENGTH_SHORT).show();
+                swapRemnant =0;
+            }
         }
     }
 
@@ -1285,7 +1461,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     .build();
 
             db.courseDao().deleteWholePlan(integers[0]);
-
 
             return null;
         }
@@ -1650,10 +1825,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 fillStreams(result.get(12).get(k));
             }
 
-
         }
     }
-
 
     private void fillStreams(com.example.mydegree.Room.Plan result) {
         for (int j = 0; j < arsc1.size(); j++) {
@@ -1700,7 +1873,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
-
     //VALIDATION WILL TAKE PLACE HERE.
     private class InsertPlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Long>{
 
@@ -1718,12 +1890,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             try {
                 Long myLong = db.courseDao().insertPlan(plans[0]);
 
-                //dismiss fragment dialog
-                Fragment prev = getSupportFragmentManager().findFragmentByTag(PICK_FRAG_TAG);
-                if (prev != null) {
-                    DialogFragment df = (DialogFragment) prev;
-                    df.dismiss();
-                }
                 return myLong;
 
             }
@@ -1739,58 +1905,68 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             if(aLong==null){
                 Toast.makeText(Plan.this,"Error: You have already put this course on your plan.", Toast.LENGTH_SHORT).show();
             } else {
-                switch (buttonLastClick) {
-                    case R.id.b11:
-                        ar1.add(temporaryItem);
-                        p1.setPlan(ar1);
-                        break;
-                    case R.id.b12:
-                        ar2.add(temporaryItem);
-                        p2.setPlan(ar2);
-                        break;
-                    case R.id.b13:
-                        ar3.add(temporaryItem);
-                        p3.setPlan(ar3);
-                        break;
-                    case R.id.b21:
-                        ar4.add(temporaryItem);
-                        p4.setPlan(ar4);
-                        break;
-                    case R.id.b22:
-                        ar5.add(temporaryItem);
-                        p5.setPlan(ar5);
-                        break;
-                    case R.id.b23:
-                        ar6.add(temporaryItem);
-                        p6.setPlan(ar6);
-                        break;
-                    case R.id.b31:
-                        ar7.add(temporaryItem);
-                        p7.setPlan(ar7);
-                        break;
-                    case R.id.b32:
-                        ar8.add(temporaryItem);
-                        p8.setPlan(ar8);
-                        break;
-                    case R.id.b33:
-                        ar9.add(temporaryItem);
-                        p9.setPlan(ar9);
-                        break;
-                    case R.id.b41:
-                        ar10.add(temporaryItem);
-                        p10.setPlan(ar10);
-                        break;
-                    case R.id.b42:
-                        ar11.add(temporaryItem);
-                        p11.setPlan(ar11);
-                        break;
-                    case R.id.b43:
-                        ar12.add(temporaryItem);
-                        p12.setPlan(ar12);
-                        break;
+                if(ifSwapping==1){
+                    swapCourse();
+                } else {
+                    switch (buttonLastClick) {
+                        case R.id.b11:
+                            ar1.add(temporaryItem);
+                            p1.setPlan(ar1);
+                            break;
+                        case R.id.b12:
+                            ar2.add(temporaryItem);
+                            p2.setPlan(ar2);
+                            break;
+                        case R.id.b13:
+                            ar3.add(temporaryItem);
+                            p3.setPlan(ar3);
+                            break;
+                        case R.id.b21:
+                            ar4.add(temporaryItem);
+                            p4.setPlan(ar4);
+                            break;
+                        case R.id.b22:
+                            ar5.add(temporaryItem);
+                            p5.setPlan(ar5);
+                            break;
+                        case R.id.b23:
+                            ar6.add(temporaryItem);
+                            p6.setPlan(ar6);
+                            break;
+                        case R.id.b31:
+                            ar7.add(temporaryItem);
+                            p7.setPlan(ar7);
+                            break;
+                        case R.id.b32:
+                            ar8.add(temporaryItem);
+                            p8.setPlan(ar8);
+                            break;
+                        case R.id.b33:
+                            ar9.add(temporaryItem);
+                            p9.setPlan(ar9);
+                            break;
+                        case R.id.b41:
+                            ar10.add(temporaryItem);
+                            p10.setPlan(ar10);
+                            break;
+                        case R.id.b42:
+                            ar11.add(temporaryItem);
+                            p11.setPlan(ar11);
+                            break;
+                        case R.id.b43:
+                            ar12.add(temporaryItem);
+                            p12.setPlan(ar12);
+                            break;
+                    }
+                    fillStreams(temporaryItem);
                 }
+                //dismiss fragment dialog
+                Fragment prev = getSupportFragmentManager().findFragmentByTag(PICK_FRAG_TAG);
+                if (prev != null) {
+                    DialogFragment df = (DialogFragment) prev;
+                    df.dismiss();
 
-                fillStreams(temporaryItem);
+                }
             }
         }
     }

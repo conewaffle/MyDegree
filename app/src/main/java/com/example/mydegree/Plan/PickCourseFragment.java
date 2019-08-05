@@ -2,6 +2,7 @@ package com.example.mydegree.Plan;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
@@ -161,6 +163,10 @@ public class PickCourseFragment extends DialogFragment {
         }
     }
 
-
-
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        final Plan activity = (Plan) getActivity();
+        activity.setIfSwapping(0);
+    }
 }
