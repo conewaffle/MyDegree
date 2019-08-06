@@ -33,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -118,6 +119,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private com.example.mydegree.Room.Plan toSwap;
     private int swapRemnant;
 
+    private TextView pt1, pt2, pt3, pt4, pt5, pt6, pt7;
+    private ProgressBar pb1, pb2, pb3, pb4, pb5, pb6, pb7;
+    private TextView ptuoc1, ptuoc2, ptuoc3, ptuoc4, ptuoc5, ptuoc6, ptuoc7;
+    private int pb1max, pb1now, pb2max, pb2now, pb3max, pb3now, pb4max, pb4now, pb5max, pb5now, pb6max, pb6now, pb7max, pb7now;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -311,6 +316,32 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         });
         //endregion
+
+        //region setting up progress things
+        pb1 = findViewById(R.id.pb1);
+        pb2 = findViewById(R.id.pb2);
+        pb3 = findViewById(R.id.pb3);
+        pb4 = findViewById(R.id.pb4);
+        pb5 = findViewById(R.id.pb5);
+        pb6 = findViewById(R.id.pb6);
+        pb7 = findViewById(R.id.pb7);
+        pt1 = findViewById(R.id.pt1);
+        pt2 = findViewById(R.id.pt2);
+        pt3 = findViewById(R.id.pt3);
+        pt4 = findViewById(R.id.pt4);
+        pt5 = findViewById(R.id.pt5);
+        pt6 = findViewById(R.id.pt6);
+        pt7 = findViewById(R.id.pt7);
+        ptuoc1 = findViewById(R.id.ptuoc1);
+        ptuoc2 = findViewById(R.id.ptuoc2);
+        ptuoc3 = findViewById(R.id.ptuoc3);
+        ptuoc4 = findViewById(R.id.ptuoc4);
+        ptuoc5 = findViewById(R.id.ptuoc5);
+        ptuoc6 = findViewById(R.id.ptuoc6);
+        ptuoc7 = findViewById(R.id.ptuoc7);
+
+        //endregion
+
 
         toolbarSpinner = findViewById(R.id.my_spinner);
         toolbarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -755,7 +786,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             uoc6.setText("12 UOC");
         }
         //endregion
-
 
         //first make buttons visible
         buttons1.setVisibility(View.VISIBLE);
@@ -1856,6 +1886,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 fillStreams(result.get(12).get(k));
             }
 
+            fillProgress();
+
         }
     }
 
@@ -1902,6 +1934,46 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 return;
             }
         }
+
+    }
+
+    private void fillProgress(){
+        //region populating progression checks
+        String progUoc = "";
+        switch(programCode){
+            case "3584":
+            case "3964":
+                progUoc = "192";
+                break;
+            case "3979":
+                progUoc = "144";
+                break;
+
+        }
+
+        pt1.setText("I have completed minimum " + progUoc + " UOC for the program.");
+        pb1max = Integer.valueOf(progUoc);
+        pb1.setMax(pb1max);
+        pb1now = (ars1.size()+ars2.size()+ars3.size()+ars4.size()+ars5.size()+ars6.size())*6;
+
+        ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterStreams = new ArrayList<>();
+        masterStreams.add(ars1);
+        masterStreams.add(ars2);
+        masterStreams.add(ars3);
+        masterStreams.add(ars4);
+        masterStreams.add(ars5);
+        masterStreams.add(ars6);
+        for(int i = 0; i<masterStreams.size();i++){
+            for(int j = 0; j<masterStreams.get(i).size();j++){
+                if(masterStreams.get(i).get(j).getCourseCode().equals("INFS4802")||masterStreams.get(i).get(j).getCourseCode().equals("2101")){
+                    pb1now = pb1now + 5;
+                }
+            }
+        }
+
+        pb1.setProgress(pb1now);
+        ptuoc1.setText(pb1now+"/"+pb1max);
+        //endregion
     }
 
     //VALIDATION WILL TAKE PLACE HERE.
@@ -1990,6 +2062,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             break;
                     }
                     fillStreams(temporaryItem);
+                    fillProgress();
                 }
                 //dismiss fragment dialog
                 Fragment prev = getSupportFragmentManager().findFragmentByTag(PICK_FRAG_TAG);
