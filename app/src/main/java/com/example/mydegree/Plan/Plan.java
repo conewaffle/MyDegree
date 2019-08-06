@@ -2154,8 +2154,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         switch(programCode) {
             case "3584":
                 pb4String = "I have met the requirements for one Commerce major";
-                if(majorCode.equals("ECONJ1")){
-                    pb4max = 60;
+                if (majorCode != null) {
+                    if(majorCode.equals("ECONJ1")){
+                        pb4max = 60;
+                    }
                 } else {
                     pb4max = 48;
                 }
