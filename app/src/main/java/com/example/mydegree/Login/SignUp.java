@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -73,24 +72,24 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 if (!validate()) {
                     onSignUpFailed();
-                    return;
+                } else {
+                    signup.setEnabled(false);
+
+                    final ProgressDialog progressDialog = ProgressDialog.show(SignUp.this, "Please wait...", "Processing...", true);
+
+                    String name = input_name.getText().toString();
+                    String email = input_email.getText().toString();
+                    String password = input_password.getText().toString();
+
+                    new Handler().postDelayed(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    onSignUpSuccess();
+                                    progressDialog.dismiss();
+                                }
+                            }, 3000);
                 }
-                signup.setEnabled(false);
-
-                final ProgressDialog progressDialog = ProgressDialog.show(SignUp.this, "Please wait...", "Processing...", true);
-
-                String name = input_name.getText().toString();
-                String email = input_email.getText().toString();
-                String password = input_password.getText().toString();
-
-                new Handler().postDelayed(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                onSignUpSuccess();
-                                progressDialog.dismiss();
-                            }
-                        }, 3000);
             }
         });
 
@@ -127,15 +126,14 @@ public class SignUp extends AppCompatActivity {
                             DatabaseReference currentUser = databaseReference.child(auth.getCurrentUser().getUid());
                             currentUser.child("name").setValue(name);
                             currentUser.child("email").setValue(email);
+                            finish();
                             Intent intent = new Intent (SignUp.this, Login.class);
-                            SignUp.this.finish();
                             startActivity(intent);
                         } else {
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        finish();
     }
 
     // If sign up is unsuccessful
@@ -166,8 +164,9 @@ public class SignUp extends AppCompatActivity {
             input_email.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 20) {
-            input_password.setError("Password must be between 4 and 20 alphanumeric characters");
+        if (password.isEmpty() || password.length() < 6 || password.length() > 20) {
+            input_password.setError("Password must be between 6 and 20 alphanumeric characters");
+            valid = false;
         } else {
             input_password.setError(null);
         }
