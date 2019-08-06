@@ -2024,7 +2024,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             ptuoc6.setTypeface(Typeface.DEFAULT_BOLD);
             pb6.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFAA00")));
         } else {
-            pb6.setProgress(pb6now);
+            pb6.setProgress(levelOneLimit);
             ptuoc6.setTextColor(Color.DKGRAY);
             ptuoc6.setTypeface(Typeface.DEFAULT);
             pb6.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
