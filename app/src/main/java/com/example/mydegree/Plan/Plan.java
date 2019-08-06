@@ -2181,6 +2181,20 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             }
                         }
                     }
+                    for (int j = 0; j<ars1.size();j++){
+                        if(arsc4.get(i).getStreamCourse().equals(ars1.get(j).getCourseCode())){
+                            if(arsc4.get(i).isCore()){
+                                pb4corenow = pb4corenow + 6;
+                            }
+                        }
+                    }
+                    for (int j = 0; j<ars2.size();j++){
+                        if(arsc4.get(i).getStreamCourse().equals(ars2.get(j).getCourseCode())){
+                            if(arsc4.get(i).isCore()){
+                                pb4corenow = pb4corenow + 6;
+                            }
+                        }
+                    }
                 }
                 if(pb4elecnow>pb4elecmax){
                     pb4now = pb4corenow + pb4elecmax;
