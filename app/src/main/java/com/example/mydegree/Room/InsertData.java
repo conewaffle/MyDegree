@@ -492,6 +492,7 @@ public class InsertData {
         streamCourses.add(new StreamCourse("3964HC","INFS4801",true));
         streamCourses.add(new StreamCourse("3964HC","INFS4802",true));
         streamCourses.add(new StreamCourse("3964HC","INFS4886",true));
+        streamCourses.add(new StreamCourse("3964HC","INFS4887",true));
         streamCourses.add(new StreamCourse("3964HE","INFS4831",false));
         streamCourses.add(new StreamCourse("3964HE","INFS4854",false));
         streamCourses.add(new StreamCourse("3964HE","INFS4858",false));

@@ -1048,6 +1048,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/pc4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="4dp"
@@ -1076,7 +1077,7 @@
                                     android:layout_height="wrap_content"
                                     android:progress="50"
                                     android:progressTint="@color/colorPrimaryDark"
-                                    android:scaleY="4"  />
+                                    android:scaleY="4" />
 
                                 <TextView
                                     android:id="@+id/ptuoc4"
@@ -1095,6 +1096,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/pc5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="4dp"
@@ -1141,6 +1143,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/pc6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="4dp"
@@ -1169,7 +1172,7 @@
                                     android:layout_height="wrap_content"
                                     android:progress="50"
                                     android:progressTint="@color/colorPrimaryDark"
-                                    android:scaleY="4"  />
+                                    android:scaleY="4" />
 
                                 <TextView
                                     android:id="@+id/ptuoc6"

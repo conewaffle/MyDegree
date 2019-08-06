@@ -126,6 +126,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private ProgressBar pb1, pb2, pb3, pb4, pb5, pb6, pb7;
     private TextView ptuoc1, ptuoc2, ptuoc3, ptuoc4, ptuoc5, ptuoc6, ptuoc7;
     private int pb1max, pb1now, pb2max, pb2now, pb3max, pb3now, pb4max, pb4now, pb5max, pb5now, pb6max, pb6now, pb7max, pb7now;
+    private CardView pc5;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -342,6 +344,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         ptuoc5 = findViewById(R.id.ptuoc5);
         ptuoc6 = findViewById(R.id.ptuoc6);
         ptuoc7 = findViewById(R.id.ptuoc7);
+        pc5 = findViewById(R.id.pc5);
 
         //endregion
 
@@ -741,11 +744,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         } else {
             c4.setVisibility(View.VISIBLE);
         }
-        if(planName!=null){
+/*        if(planName!=null){
             if(!planName.isEmpty()){
                 setTitle(planName);
             }
-        }
+        }*/
 
         //region setting text for stream headings
         if(programCode.equals("3584")){
@@ -1962,7 +1965,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             case "3979":
                 progUoc = "144";
                 break;
-
         }
         pt1.setText("I have completed minimum " + progUoc + " UOC for the program.");
         pb1max = Integer.valueOf(progUoc);
@@ -1976,7 +1978,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         }
 
-        pb1.setProgress(pb1now);
+        if(pb1now>pb1max){
+            pb1.setProgress(pb1max);
+        } else {
+            pb1.setProgress(pb1now);
+        }
         ptuoc1.setText(pb1now+"/"+pb1max);
         //endregion
 
@@ -1985,7 +1991,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         pb7max = 12;
         pb7.setMax(pb7max);
         pb7now = ars6.size()*6;
-        pb7.setProgress(pb7now);
+        if(pb7now>pb7max){
+            pb7.setProgress(pb7max);
+        } else {
+            pb7.setProgress(pb7now);
+        }
         ptuoc7.setText(pb7now+"/"+pb7max);
         //endregion
 
@@ -2022,9 +2032,215 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         ptuoc6.setText(pb6now+"/"+pb6max);
         //endregion
 
+        //region progressbar 2
+        String pb2String = "";
+        switch(programCode){
+            case "3584":
+                pb2String = "I have completed 24 UOC (4 courses) of Commerce Compulsory Core and 72 UOC (12 courses) of INFS Compulsory Core courses";
+                pb2max = 96;
+                pb2now = (ars1.size()+ars3.size())*6;
+                break;
+            case "3964":
+                pb2String = "I have completed 90 UOC (15 courses) of 1st, 2nd and 3rd year compulsory core courses";
+                pb2max = 90;
+                pb2now = (ars1.size()+ars2.size()+ars3.size())*6;
+                for(int i = 0; i<3;i++){
+                    for(int j = 0; j<masterStreams.get(i).size();j++){
+                        switch(masterStreams.get(i).get(j).getCourseCode()){
+                            case "INFS2631":
+                            case "INFS3020":
+                            case "INFS3603":
+                            case "INFS3632":
+                            case "INFS3830":
+                            case "INFS3873":
+                                pb2now = pb2now - 6;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                int econ1203ormath1041 = 0;
+                int acct1511orecon1101 = 0;
+                for(int i =0; i<ars1.size();i++){
+                    switch(ars1.get(i).getCourseCode()){
+                        case "ECON1203":
+                        case "MATH1041":
+                            econ1203ormath1041++;
+                            break;
+                        case "ACCT1511":
+                        case "ECON1101":
+                            acct1511orecon1101++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if(econ1203ormath1041==2){
+                    pb2now = pb2now - 6;
+                }
+                if(acct1511orecon1101==2){
+                    pb2now = pb2now - 6;
+                }
+                break;
+            case "3979":
+                pb2String = "I have completed minimum 84 UOC (14 courses) from the School of ISTM";
+                pb2max = 84;
+                pb2now = 0;
+                for(int i = 0; i<(masterStreams.size()-1);i++){
+                    for(int j = 0; j<masterStreams.get(i).size();j++){
+                        if(masterStreams.get(i).get(j).getCourseCode().substring(0,4).equals("INFS")){
+                            pb2now = pb2now + 6;
+                        }
+                    }
+                }
+                break;
+        }
+        pt2.setText(pb2String);
+        pb2.setMax(pb2max);
+        if(pb2now>pb2max){
+            pb2.setProgress(pb2max);
+        } else {
+            pb2.setProgress(pb2now);
+        }
+        ptuoc2.setText(pb2now+"/"+pb2max);
+        //endregion
 
+        //region progressbar 3
+        String pb3String = "";
+        switch(programCode){
+            case "3584":
+                pb3String = "I have completed 18 UOC of flexible core courses";
+                pb3max = 18;
+                pb3now = ars2.size()*6;
+                break;
+            case "3964":
+                pb3String = "I have completed 6 UOC of INFS Stage 2/3 elective";
+                pb3max = 6;
+                pb3now = 0;
+                for(int i = 0; i<ars3.size();i++){
+                    switch(ars3.get(i).getCourseCode()){
+                        case "INFS2631":
+                        case "INFS3020":
+                        case "INFS3603":
+                        case "INFS3632":
+                        case "INFS3830":
+                        case "INFS3873":
+                            pb3now = pb3now + 6;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            case "3979":
+                pb3String = "I have a minimum of 12 UOC (2 courses) from the INFS Stage 2/3 electives";
+                pb3max = 12;
+                pb3now = ars3.size()*6;
+                break;
+        }
+        pt3.setText(pb3String);
+        pb3.setMax(pb3max);
+        if(pb3now>pb3max){
+            pb3.setProgress(pb3max);
+        } else {
+            pb3.setProgress(pb3now);
+        }
+        ptuoc3.setText(pb3now+"/"+pb3max);
+        //endregion
 
+        //region progressbar 4
+        String pb4String = "";
+        switch(programCode) {
+            case "3584":
+                pb4String = "I have met the requirements for one Commerce major";
+                if(majorCode.equals("ECONJ1")){
+                    pb4max = 60;
+                } else {
+                    pb4max = 48;
+                }
 
+                pb4now = ars4.size() * 6;
+                int pb4coremax = 0;
+                int pb4corenow = 0;
+                int pb4elecmax = pb4max - pb4coremax;
+                int pb4elecnow = 0;
+
+                for(int i = 0; i<arsc4.size(); i++){
+                    if (arsc4.get(i).isCore()){
+                        pb4coremax = pb4coremax + 6;
+                    }
+                    for (int j = 0; j<ars4.size();j++){
+                        if(arsc4.get(i).getStreamCourse().equals(ars4.get(j).getCourseCode())){
+                            if(arsc4.get(i).isCore()){
+                                pb4corenow = pb4corenow + 6;
+                            } else {
+                                pb4elecnow = pb4elecnow + 6;
+                            }
+                        }
+                    }
+                }
+                if(pb4elecnow>pb4elecmax){
+                    pb4now = pb4corenow + pb4elecmax;
+                } else {
+                    pb4now = pb4corenow + pb4elecnow;
+                }
+                break;
+            case "3964":
+                pb4String = "I have completed minimum 36 UOC of industrial placement courses";
+                pb4max = 36;
+                pb4now = ars4.size()*12;
+                break;
+            case "3979":
+                pb4String = "I have completed no more than 24 UOC (4 courses) of free electives";
+                pb4max = 24;
+                pb4now = ars5.size()*6;
+                break;
+        }
+        pt4.setText(pb4String);
+        pb4.setMax(pb4max);
+        if(pb4now>pb4max){
+            pb4.setProgress(pb4max);
+        } else {
+            pb4.setProgress(pb4now);
+        }
+        ptuoc4.setText(pb4now+"/"+pb4max);
+        //endregion
+
+        //region progressbar 5
+        String pb5String = "";
+        switch(programCode){
+            case "3584":
+                pb5String = "I have completed a minimum of 18 UOC (3 courses) of Business School electives";
+                pb5max = 18;
+                pb5now = ars5.size()*6;
+                break;
+            case "3964":
+                pb5String = "I have completed 24 UOC of specified level 4 INFS courses plus a 24 UOC thesis";
+                pb5max = 48;
+                pb5now = ars5.size()*6;
+                for(int j = 0; j<ars5.size();j++){
+                    if(ars5.get(j).getCourseCode().equals("INFS4802")){
+                        pb5now = pb5now + 6;
+                    }
+                }
+                break;
+            case "3979":
+                pb5max = 100;
+                pb5now = 0;
+                break;
+        }
+        pt5.setText(pb5String);
+        pb5.setMax(pb5max);
+        if(pb5now>pb5max){
+            pb5.setProgress(pb5max);
+        } else {
+            pb5.setProgress(pb5now);
+        }
+        ptuoc5.setText(pb5now+"/"+pb5max);
+        if(programCode.equals("3979")){
+            pc5.setVisibility(View.GONE);
+        }
 
     }
 
