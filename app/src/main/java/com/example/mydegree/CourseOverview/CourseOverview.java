@@ -63,14 +63,14 @@ public class CourseOverview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_overview);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
+/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Add block for drag and drop/home page?", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         recycler = findViewById(R.id.recyclerPrereq);
         recycler.setHasFixedSize(true);
@@ -257,13 +257,13 @@ public class CourseOverview extends AppCompatActivity {
         setTitle(courseCode + " - " + myCourse.getCourseName());
         String terms = "";
         if(myCourse.isT1()){
-            terms = terms + "T1 ";
+            terms = terms + " T1 ";
         }
         if(myCourse.isT2()){
-            terms = terms + "T2";
+            terms = terms + " T2 ";
         }
         if(myCourse.isT3()){
-            terms = terms + " T3";
+            terms = terms + " T3 ";
         }
         availability.setText(terms);
         String campus1;
@@ -271,7 +271,7 @@ public class CourseOverview extends AppCompatActivity {
             campus1 = "Kensington";
         } else {campus1 = "Other";}
         campus.setText(campus1);
-        String level = "Undergraduate";
+        String level = "Undergrad";
         if(myCourse.getLevel()>3){level = "Honours";}
         grad.setText(level);
         uoc.setText(Integer.toString(myCourse.getCourseUoc()) + " UOC");
