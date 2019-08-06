@@ -18,7 +18,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteConstraintException;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -33,6 +36,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -118,6 +122,10 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private com.example.mydegree.Room.Plan toSwap;
     private int swapRemnant;
 
+    private TextView pt1, pt2, pt3, pt4, pt5, pt6, pt7;
+    private ProgressBar pb1, pb2, pb3, pb4, pb5, pb6, pb7;
+    private TextView ptuoc1, ptuoc2, ptuoc3, ptuoc4, ptuoc5, ptuoc6, ptuoc7;
+    private int pb1max, pb1now, pb2max, pb2now, pb3max, pb3now, pb4max, pb4now, pb5max, pb5now, pb6max, pb6now, pb7max, pb7now;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -311,6 +319,32 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         });
         //endregion
+
+        //region setting up progress things
+        pb1 = findViewById(R.id.pb1);
+        pb2 = findViewById(R.id.pb2);
+        pb3 = findViewById(R.id.pb3);
+        pb4 = findViewById(R.id.pb4);
+        pb5 = findViewById(R.id.pb5);
+        pb6 = findViewById(R.id.pb6);
+        pb7 = findViewById(R.id.pb7);
+        pt1 = findViewById(R.id.pt1);
+        pt2 = findViewById(R.id.pt2);
+        pt3 = findViewById(R.id.pt3);
+        pt4 = findViewById(R.id.pt4);
+        pt5 = findViewById(R.id.pt5);
+        pt6 = findViewById(R.id.pt6);
+        pt7 = findViewById(R.id.pt7);
+        ptuoc1 = findViewById(R.id.ptuoc1);
+        ptuoc2 = findViewById(R.id.ptuoc2);
+        ptuoc3 = findViewById(R.id.ptuoc3);
+        ptuoc4 = findViewById(R.id.ptuoc4);
+        ptuoc5 = findViewById(R.id.ptuoc5);
+        ptuoc6 = findViewById(R.id.ptuoc6);
+        ptuoc7 = findViewById(R.id.ptuoc7);
+
+        //endregion
+
 
         toolbarSpinner = findViewById(R.id.my_spinner);
         toolbarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -755,7 +789,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             uoc6.setText("12 UOC");
         }
         //endregion
-
 
         //first make buttons visible
         buttons1.setVisibility(View.VISIBLE);
@@ -1464,6 +1497,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 Toast.makeText(Plan.this, toSwap.getCourseCode() + " has been swapped with " + temporaryCourse, Toast.LENGTH_SHORT).show();
                 swapRemnant =0;
             }
+
+            fillProgress();
         }
     }
 
@@ -1856,6 +1891,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 fillStreams(result.get(12).get(k));
             }
 
+            fillProgress();
+
         }
     }
 
@@ -1902,6 +1939,93 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 return;
             }
         }
+
+    }
+
+    private void fillProgress(){
+
+        ArrayList<ArrayList<com.example.mydegree.Room.Plan>> masterStreams = new ArrayList<>();
+        masterStreams.add(ars1);
+        masterStreams.add(ars2);
+        masterStreams.add(ars3);
+        masterStreams.add(ars4);
+        masterStreams.add(ars5);
+        masterStreams.add(ars6);
+
+        //region progress bar 1 (total uoc for program)
+        String progUoc = "";
+        switch(programCode){
+            case "3584":
+            case "3964":
+                progUoc = "192";
+                break;
+            case "3979":
+                progUoc = "144";
+                break;
+
+        }
+        pt1.setText("I have completed minimum " + progUoc + " UOC for the program.");
+        pb1max = Integer.valueOf(progUoc);
+        pb1.setMax(pb1max);
+        pb1now = (ars1.size()+ars2.size()+ars3.size()+ars4.size()+ars5.size()+ars6.size())*6;
+        for(int i = 0; i<masterStreams.size();i++){
+            for(int j = 0; j<masterStreams.get(i).size();j++){
+                if(masterStreams.get(i).get(j).getCourseCode().equals("INFS4802")||masterStreams.get(i).get(j).getCourseCode().equals("2101")){
+                    pb1now = pb1now + 6;
+                }
+            }
+        }
+
+        pb1.setProgress(pb1now);
+        ptuoc1.setText(pb1now+"/"+pb1max);
+        //endregion
+
+        //region progress bar 7 (gen eds)
+        pt7.setText("I have completed exactly 12 UOC of Gen Ed courses.");
+        pb7max = 12;
+        pb7.setMax(pb7max);
+        pb7now = ars6.size()*6;
+        pb7.setProgress(pb7now);
+        ptuoc7.setText(pb7now+"/"+pb7max);
+        //endregion
+
+        //region progress bar 6 (level 1 course limit)
+        int levelOneLimit = 0;
+        if(programCode.equals("3979")){
+            levelOneLimit = 60;
+        } else {
+            levelOneLimit = 72;
+        }
+        pt6.setText("I have completed no more than " + levelOneLimit + " UOC of level 1 courses (excluding Gen Ed).");
+        pb6max = levelOneLimit;
+        pb6.setMax(pb6max);
+        pb6now = 0;
+            //streamsSize-1 to not include general ed arraylist at ars6
+        for(int i = 0; i<(masterStreams.size()-1);i++){
+            for(int j = 0; j<masterStreams.get(i).size();j++){
+                if(Character.toString(masterStreams.get(i).get(j).getCourseCode().charAt(4)).equals("1")){
+                    pb6now = pb6now + 6;
+                }
+            }
+        }
+        if(pb6now>levelOneLimit){
+            pb6.setProgress(levelOneLimit);
+            ptuoc6.setTextColor(getResources().getColor(R.color.design_default_color_error));
+            ptuoc6.setTypeface(Typeface.DEFAULT_BOLD);
+            pb6.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFAA00")));
+        } else {
+            pb6.setProgress(pb6now);
+            ptuoc6.setTextColor(Color.DKGRAY);
+            ptuoc6.setTypeface(Typeface.DEFAULT);
+            pb6.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
+        }
+        ptuoc6.setText(pb6now+"/"+pb6max);
+        //endregion
+
+
+
+
+
     }
 
     //VALIDATION WILL TAKE PLACE HERE.
@@ -1990,6 +2114,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             break;
                     }
                     fillStreams(temporaryItem);
+                    fillProgress();
                 }
                 //dismiss fragment dialog
                 Fragment prev = getSupportFragmentManager().findFragmentByTag(PICK_FRAG_TAG);
