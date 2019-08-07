@@ -3,7 +3,6 @@ package com.example.mydegree.Login;
 public class User {
     public String name, email;
 
-
     public User(){}
 
     public User(String name, String email) {
