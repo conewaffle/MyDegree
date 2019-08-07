@@ -22,6 +22,7 @@ import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -1356,7 +1357,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     }
 
     private void showToastCourseFull(){
-        Toast.makeText(Plan.this, "You cannot place anymore courses in this term!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Plan.this, "You cannot place anymore courses in this term! You can long-press a course to swap it out.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -2025,9 +2026,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             pb6.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#FFAA00")));
         } else {
             pb6.setProgress(levelOneLimit);
-            ptuoc6.setTextColor(Color.DKGRAY);
+            ptuoc6.setTextColor(Color.GRAY);
             ptuoc6.setTypeface(Typeface.DEFAULT);
-            pb6.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimaryDark)));
+            pb6.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
         }
         ptuoc6.setText(pb6now+"/"+pb6max);
         //endregion
