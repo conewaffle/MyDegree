@@ -38,6 +38,9 @@ public interface CourseDao {
     @Insert (onConflict = OnConflictStrategy.ABORT)
     long insertPlan(Plan plan);
 
+    @Query ("UPDATE planinfo SET planName = :planName WHERE planId = :planId")
+    void updatePlanName(String planName, int planId);
+
     @Query("SELECT * FROM course WHERE courseCode LIKE :query OR courseName LIKE :query")
     List<Course> getSearchCourses(String query);
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Insert;
 import androidx.room.Room;
+import androidx.room.Update;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -72,8 +73,10 @@ import static com.example.mydegree.Plan.AddPlan.RESULT_PROG;
 import static com.example.mydegree.Plan.PickCourseFragment.FRAG_TERM;
 import static com.example.mydegree.Plan.PickCourseFragment.FRAG_YEAR;
 import static com.example.mydegree.Plan.PickCourseFragment.RESULT_COURSE;
+import static com.example.mydegree.Plan.RenameFragment.FRAG_NEW_NAME;
+import static com.example.mydegree.Plan.RenameFragment.FRAG_PLAN_SPINNER_POSITION;
 
-public class Plan extends BaseActivity implements View.OnClickListener, PickCourseFragment.PickCoursesListener {
+public class Plan extends BaseActivity implements View.OnClickListener, PickCourseFragment.PickCoursesListener, RenameFragment.RenamePlanListener {
 
     private RecyclerView r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12;
     private PlanAdapter p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
@@ -85,6 +88,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private int myPlanInfoId;
     public static final int PICK_PROGRAM_REQUEST = 1;
     public static final String PICK_FRAG_TAG = "pickFragTag";
+    public static final String RENAME_FRAG_TAG = "renameFragTag";
     private String programCode, majorCode, planName;
     private String temporaryCourse;
     public int buttonLastClick;
@@ -128,6 +132,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private TextView ptuoc1, ptuoc2, ptuoc3, ptuoc4, ptuoc5, ptuoc6, ptuoc7;
     private int pb1max, pb1now, pb2max, pb2now, pb3max, pb3now, pb4max, pb4now, pb5max, pb5now, pb6max, pb6now, pb7max, pb7now;
     private CardView pc5;
+
+    private int planRenamePosition;
+    private boolean isRenaming;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1250,6 +1257,14 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 Intent pickIntent = new Intent(Plan.this, AddPlan.class);
                 startActivityForResult(pickIntent, PICK_PROGRAM_REQUEST);
                 return true;
+            case R.id.action_rename:
+                if(programCode!=null && myPlanInfoId!=0){
+                    showRenameDialog(myPlanInfoId, planName, programCode, toolbarSpinner.getSelectedItemPosition());
+                } else {
+                    Toast.makeText(Plan.this,"There is no plan to rename!", Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -1270,6 +1285,25 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         temporaryItem = new com.example.mydegree.Room.Plan(myPlanInfoId, year, term, course);
 
         new CheckPrereqsTask().execute(temporaryCourse);
+
+    }
+
+    private void showRenameDialog(int myPlanInfoId, String oldPlanName, String programCode, int planPosition){
+        FragmentManager fm = getSupportFragmentManager();
+        RenameFragment renameFragment = RenameFragment.newInstance(oldPlanName,myPlanInfoId, planPosition, programCode);
+        renameFragment.show(fm, RENAME_FRAG_TAG);
+    }
+
+    @Override
+    public void onFinishRename(Bundle bundle){
+        String newName = bundle.getString(FRAG_NEW_NAME);
+        planRenamePosition = bundle.getInt(FRAG_PLAN_SPINNER_POSITION);
+        ArrayList<String> myStrings = new ArrayList<>();
+        myStrings.add(newName);
+        myStrings.add(Integer.toString(myPlanInfoId));
+        isRenaming = true;
+        new UpdatePlanInfoTask().execute(myStrings);
+
 
     }
 
@@ -1481,6 +1515,24 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
     }
 
+    private class UpdatePlanInfoTask extends AsyncTask<ArrayList<String>, Void, Void> {
+        @Override
+        protected Void doInBackground(ArrayList<String>... strings) {
+            CourseDb db = Room
+                    .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
+                    .build();
+
+            db.courseDao().updatePlanName(strings[0].get(0), Integer.valueOf(strings[0].get(1)));
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            new GetPlanInfosTask().execute();
+        }
+    }
+
     private class DeletePlanItemTask extends AsyncTask<com.example.mydegree.Room.Plan, Void, Void> {
         @Override
         protected Void doInBackground(com.example.mydegree.Room.Plan... plans) {
@@ -1670,7 +1722,13 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
                 toolbarSpinner.setVisibility(View.VISIBLE);
                 toolbarSpinner.setAdapter(spinAdapter);
-                toolbarSpinner.setSelection(myStrings.size()-1);
+                if(isRenaming){
+                    toolbarSpinner.setSelection(planRenamePosition);
+                } else {
+                    toolbarSpinner.setSelection(myStrings.size()-1);
+                }
+                isRenaming = false;
+
                 //actionSpinner.setAdapter(spinAdapter);
                 //actionSpinner.setSelection(myStrings.size()-1);
                 //planSpinner.setAdapter(spinAdapter);
