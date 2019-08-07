@@ -28,7 +28,11 @@
             android:id="@+id/plansearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:queryHint="Search courses" />
+            android:iconifiedByDefault="false"
+            android:orientation="horizontal"
+            android:queryHint="Search courses"
+            android:paddingStart="-16dp"
+            android:layout_marginBottom="4dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/plansearchcycler"

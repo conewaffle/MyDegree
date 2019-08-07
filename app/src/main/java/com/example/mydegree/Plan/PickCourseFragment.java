@@ -100,6 +100,7 @@ public class PickCourseFragment extends DialogFragment {
         planCycler.setHasFixedSize(true);
         planCycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         searchView = view.findViewById(R.id.plansearch);
+        searchView.setIconifiedByDefault(false);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         queryTextListener = new SearchView.OnQueryTextListener(){
