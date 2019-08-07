@@ -13,9 +13,18 @@ import com.example.mydegree.Major;
 import com.example.mydegree.ProgramDetails.ProgramDetail;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +33,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public static final String COURSE_PARCEL = "courseParcel";
     public static final String PROG_CODE = "progCode";
     public static final String MAJOR_CODE = "majorCode";
+
+    private String uid;
+    private FirebaseAuth auth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private int clickCount = 0;
 
     private ArrayList<Course> mDataset;
 
@@ -46,6 +61,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         @Override
         public void onClick(View view){
+
+            auth = FirebaseAuth.getInstance();
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference();
+
+            final FirebaseUser user = auth.getCurrentUser();
+            if (user != null) {
+                uid = user.getUid();
+
+                clickCount = clickCount + 1;
+                if (clickCount == 30) {
+                    library();
+                }
+            }
+
+
             int position = getAdapterPosition();
             Course myCourse = mDataset.get(position);
             if(myCourse.getCourseCode().length()==4){
@@ -91,5 +122,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return mDataset.size();
     }
 
+    private void library() {
+        databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String sync = "Basser Steps";
+                dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

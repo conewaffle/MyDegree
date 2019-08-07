@@ -1,5 +1,6 @@
 package com.example.mydegree.Plan;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -20,6 +21,14 @@ import com.example.mydegree.Bookmark;
 import com.example.mydegree.Program;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -39,11 +48,24 @@ public class AddPlan extends AppCompatActivity {
     public static final String RESULT_NAME = "resultName";
     private ArrayList<Bookmark> majorNames;
     private String majorTitle;
+    private int clickCount = 0;
+
+    private String uid;
+    private FirebaseAuth auth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plan);
+
+
+        FirebaseApp.initializeApp(this);
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        final FirebaseUser user = auth.getCurrentUser();
 
         button = findViewById(R.id.pickProgBtn);
         editName = findViewById(R.id.namePlan);
@@ -56,10 +78,10 @@ public class AddPlan extends AppCompatActivity {
 
         new GetSpinnerItemsTask().execute();
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clickCount = clickCount + 1;
 
                 Intent resultIntent = new Intent(AddPlan.this, Plan.class);
                 resultIntent.putExtra(RESULT_PROG, programCode);
@@ -81,6 +103,24 @@ public class AddPlan extends AppCompatActivity {
                     resultIntent.putExtra(RESULT_NAME,planName);
                 }
                 setResult(RESULT_OK, resultIntent);
+
+
+                if (user != null) {
+                    uid = user.getUid();
+
+                    if (clickCount > 1) {
+                        theNucleus();
+                    }
+
+                    if (programCode.equals("3964")) {
+                        scholar();
+                    }
+
+                    if (programCode.equals("3584") || programCode.equals("3979")) {
+                        businessSchool();
+                    }
+                }
+
                 finish();
             }
         });
@@ -185,5 +225,51 @@ public class AddPlan extends AppCompatActivity {
 
         }
     }
+
+    // region badges
+    private void theNucleus() {
+        databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String sync = "The Nucleus";
+                dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void scholar() {
+        databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String sync = "Scholar";
+                dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void businessSchool() {
+        databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String sync = "Business School";
+                dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    //endregion
 
 }

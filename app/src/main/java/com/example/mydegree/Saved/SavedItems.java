@@ -234,6 +234,10 @@ public class SavedItems extends BaseActivity {
                     if (bookmarkList.size() == 0) {
                         text.setText("You have no courses saved.");
                     }
+
+                    if (bookmarkList.size() > 9) {
+                        bookshop();
+                    }
                     progDialog.dismiss();
                 }
 
@@ -243,6 +247,21 @@ public class SavedItems extends BaseActivity {
             });
             return bookmarkList;
         }
+    }
+
+    private void bookshop() {
+        databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String sync = "Bookshop";
+                dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private boolean isNetworkAvailable() {
