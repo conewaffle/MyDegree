@@ -1,24 +1,30 @@
 package com.example.mydegree.Plan;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.mydegree.Bookmark;
@@ -30,19 +36,32 @@ import com.example.mydegree.Room.StreamCoursePlan;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.example.mydegree.Search.Search;
+//import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+
+import static com.example.mydegree.Search.Search.hideKeyboard;
+//import gr.escsoft.michaelprimez.searchablespinner.*;
+
 public class PickCourseFragment extends DialogFragment {
 
     private Spinner courseSpinner;
     private Button confirm;
     private Bundle myBundle;
     private String pickedCourse;
+    //private SearchableSpinner searchableSpinner;
     private int term, year;
-    private ArrayAdapter<String> courseAdapter;
+    private ArrayAdapter<String> courseAdapter, courseAdapter2;
     public static final String FRAG_PROGRAM = "fragProgram";
     public static final String FRAG_MAJOR = "fragMajor";
     public static final String FRAG_TERM = "fragTerm";
     public static final String FRAG_YEAR = "fragYear";
     public static final String RESULT_COURSE = "resultCourse";
+    private RecyclerView planCycler;
+    private SearchView searchView;
+    private SearchView.OnQueryTextListener queryTextListener;
+    private PlanSearchAdapter mAdapter;
+    private ArrayList<String> dbResult;
+    private ArrayList<String> searchFilteredResult;
 
     public PickCourseFragment(){    }
 
@@ -77,8 +96,47 @@ public class PickCourseFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //region setting up spinner onClick
-        courseSpinner = (Spinner) view.findViewById(R.id.courseSpinner);
+        planCycler = view.findViewById(R.id.plansearchcycler);
+        planCycler.setHasFixedSize(true);
+        planCycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        searchView = view.findViewById(R.id.plansearch);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        queryTextListener = new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextChange(String newText){
+                Log.i("onQueryTextChange", newText);
+                doSearch(newText);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query){
+                Log.i("onQueryTextSubmit", query);
+                doSearch(query);
+                searchView.clearFocus();
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        //region old views now UNUSED
+/*        searchableSpinner = (SearchableSpinner) view.findViewById(R.id.searchableSpinner);
+        searchableSpinner.setTitle("Select a course:");
+        searchableSpinner.setPositiveButton("OK");
+        searchableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String lol = (String) parent.getItemAtPosition(position);
+                pickedCourse = lol.substring(0,8);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
+
+        /*courseSpinner = (Spinner) view.findViewById(R.id.courseSpinner);
         courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -90,11 +148,9 @@ public class PickCourseFragment extends DialogFragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
-        //endregion
+        });*/
 
-        //region button set up onClick
-        confirm = view.findViewById(R.id.btnConfirmCourse);
+        /*confirm = view.findViewById(R.id.btnConfirmCourse);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +163,7 @@ public class PickCourseFragment extends DialogFragment {
                 //dismiss now moved into onfragmentdialog
                 //dismiss();
             }
-        }) ;
+        }) ;*/
         //endregion
 
         term = getArguments().getInt(FRAG_TERM, 0);
@@ -115,6 +171,24 @@ public class PickCourseFragment extends DialogFragment {
 
         new GetSpinnerCourses().execute(getArguments());
 
+    }
+
+    private void doSearch(String query){
+        if(query.isEmpty()){
+            mAdapter = new PlanSearchAdapter(dbResult, year, term, getActivity());
+            planCycler.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            searchFilteredResult = new ArrayList<>();
+            for(int i = 0; i<dbResult.size();i++){
+                if(dbResult.get(i).toUpperCase().contains(query.toUpperCase())){
+                    searchFilteredResult.add(dbResult.get(i));
+                }
+            }
+            mAdapter = new PlanSearchAdapter(searchFilteredResult, year, term, getActivity());
+            planCycler.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private class GetSpinnerCourses extends AsyncTask<Bundle, Void, ArrayList<String>> {
@@ -156,10 +230,13 @@ public class PickCourseFragment extends DialogFragment {
 
         @Override
         protected void onPostExecute(ArrayList<String> result){
-            courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, result);
+            /*courseAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, result);
             courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             courseSpinner.setAdapter(courseAdapter);
-
+            searchableSpinner.setAdapter(courseAdapter);*/
+            dbResult = result;
+            mAdapter = new PlanSearchAdapter(result, term, year, getActivity());
+            planCycler.setAdapter(mAdapter);
         }
     }
 
