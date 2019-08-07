@@ -28,6 +28,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -119,8 +120,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private FirebaseAuth auth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    private Button sync, syncDown;
-    private TextView text;
+    private Button sync;
+    private int firebaseLoad;
     private String course1, course2, course3, course4, course5, course6, course7, course8, course9, course10, course11, course12, course13, course14, course15, course16, course17, course18, course19, course20, course21, course22, course23, course24, course25, course26, course27, course28, course29, course30, course31, course32, course33, course34, course35, course36;
 
     private int ifSwapping, swapPosition;
@@ -145,8 +146,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         //region customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuplan);
         setTitle("myPlan");
-        //endregion
-
         justCreated=1;
 
         //region setting up fab (FAB NO LONGER USED)
@@ -163,21 +162,41 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         //endregion
 
 
-        //region firebase
+        //region setting up firebase
+        sync = findViewById(R.id.sync);
+        sync.setVisibility(View.GONE);
 
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+
         final FirebaseUser user = auth.getCurrentUser();
+
         if (user != null) {
-            uid = user.getUid();
+            if (isNetworkAvailable()) {
+            databaseReference.child("User").child(uid).child("progression").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        if (ds.exists()) {
+                            firebaseLoad = 1;
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            retrievePlans();
+
+            } else {
+                Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
+            }
         } else {
             uid = "4PUZCL42tVhL6wP90ZO2gZqOyhC3";
         }
-
-        sync = findViewById(R.id.sync);
-        sync.setVisibility(View.GONE);
 
         //endregion
 
@@ -453,43 +472,326 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         //new GetPlanInfosTask().execute();
 
-
-/*        if (user != null) {
-            uid = user.getUid();
-            syncDown.setVisibility(View.VISIBLE);
-        } else {
-            syncDown.setVisibility(View.GONE);
-        }
         //Do the rest as you want for each activity
-
-        syncDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setTitle("");
-*//*                retrievePlans();*//*
-            }
-        });*/
 
     }
 
     private void retrievePlans() {
-        DatabaseReference retrieveRef = databaseReference.child("User").child(uid).child("progression");
-        retrieveRef.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("User").child(uid).child("progression").addListenerForSingleValueEvent(new ValueEventListener() {
+            final ProgressDialog progressDialog = ProgressDialog.show(Plan.this, "Please wait", "Syncing...", true);
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> planIdList = new ArrayList<>();
-
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
                     int planId = Integer.parseInt(ds.getKey());
-                    String toolbarText = ds.getKey() + " " + "-" + " " + ds.child("planName").getValue();
-                    planIdList.add(toolbarText);
+                    programCode = ds.child("progCode").getValue(String.class);
+                    majorCode = ds.child("majorCode").getValue(String.class);
+                    planName = ds.child("planName").getValue(String.class);
+
+                    PlanInfo toInsert = new PlanInfo(planId, planName, programCode, majorCode);
+                    new InsertPlanInfoTask().execute(toInsert);
+
+                        //region year 1
+                        if (ds.hasChild("1") || ds.hasChild("2") || ds.hasChild("3")) {
+                            int year = 1;
+
+                            if (ds.hasChild("1")) {
+                                int term = 1;
+
+                                if (ds.child("1").hasChild("course1")) {
+                                    String course = ds.child("1").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("1").hasChild("course2")) {
+                                    String course = ds.child("1").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("1").hasChild("course3")) {
+                                    String course = ds.child("1").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                            }
+
+                            if (ds.hasChild("2")) {
+                                int term = 2;
+
+                                if (ds.child("2").hasChild("course1")) {
+                                    String course = ds.child("2").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("2").hasChild("course2")) {
+                                    String course = ds.child("2").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("2").hasChild("course3")) {
+                                    String course = ds.child("2").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+
+                            if (ds.hasChild("3")) {
+                                int term = 3;
+
+                                if (ds.child("3").hasChild("course1")) {
+                                    String course = ds.child("3").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("3").hasChild("course2")) {
+                                    String course = ds.child("3").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("3").hasChild("course3")) {
+                                    String course = ds.child("3").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+                        }
+
+
+                        //endregion
+
+                        //region year 2
+                        if (ds.hasChild("4") || ds.hasChild("5") || ds.hasChild("6")) {
+                            int year = 2;
+
+                            if (ds.hasChild("4")) {
+                                int term = 1;
+
+                                if (ds.child("4").hasChild("course1")) {
+                                    String course = ds.child("4").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("4").hasChild("course2")) {
+                                    String course = ds.child("4").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("4").hasChild("course3")) {
+                                    String course = ds.child("4").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                            }
+
+                            if (ds.hasChild("5")) {
+                                int term = 2;
+
+                                if (ds.child("5").hasChild("course1")) {
+                                    String course = ds.child("5").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("5").hasChild("course2")) {
+                                    String course = ds.child("5").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("5").hasChild("course3")) {
+                                    String course = ds.child("5").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+
+                            if (ds.hasChild("3")) {
+                                int term = 3;
+
+                                if (ds.child("6").hasChild("course1")) {
+                                    String course = ds.child("6").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("6").hasChild("course2")) {
+                                    String course = ds.child("6").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("6").hasChild("course3")) {
+                                    String course = ds.child("6").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+                        }
+
+                        //endregion
+
+                        //region year 3
+
+                        if (ds.hasChild("7") || ds.hasChild("8") || ds.hasChild("9")) {
+                            int year = 3;
+
+                            if (ds.hasChild("7")) {
+                                int term = 1;
+
+                                if (ds.child("7").hasChild("course1")) {
+                                    String course = ds.child("7").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("7").hasChild("course2")) {
+                                    String course = ds.child("7").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("7").hasChild("course3")) {
+                                    String course = ds.child("7").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                            }
+
+                            if (ds.hasChild("8")) {
+                                int term = 2;
+
+                                if (ds.child("8").hasChild("course1")) {
+                                    String course = ds.child("8").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("8").hasChild("course2")) {
+                                    String course = ds.child("8").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("8").hasChild("course3")) {
+                                    String course = ds.child("8").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+
+                            if (ds.hasChild("3")) {
+                                int term = 3;
+
+                                if (ds.child("9").hasChild("course1")) {
+                                    String course = ds.child("9").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("9").hasChild("course2")) {
+                                    String course = ds.child("9").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("9").hasChild("course3")) {
+                                    String course = ds.child("9").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+                        }
+
+                        //endregion
+
+                        //region year 4
+
+                        if (ds.hasChild("10") || ds.hasChild("11") || ds.hasChild("12")) {
+                            int year = 4;
+
+                            if (ds.hasChild("10")) {
+                                int term = 1;
+
+                                if (ds.child("10").hasChild("course1")) {
+                                    String course = ds.child("10").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("10").hasChild("course2")) {
+                                    String course = ds.child("10").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("10").hasChild("course3")) {
+                                    String course = ds.child("10").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                            }
+
+                            if (ds.hasChild("11")) {
+                                int term = 2;
+
+                                if (ds.child("11").hasChild("course1")) {
+                                    String course = ds.child("11").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("11").hasChild("course2")) {
+                                    String course = ds.child("11").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("11").hasChild("course3")) {
+                                    String course = ds.child("11").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+
+                            if (ds.hasChild("3")) {
+                                int term = 3;
+
+                                if (ds.child("12").hasChild("course1")) {
+                                    String course = ds.child("12").child("course1").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("12").hasChild("course2")) {
+                                    String course = ds.child("12").child("course2").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+
+                                if (ds.child("12").hasChild("course3")) {
+                                    String course = ds.child("12").child("course3").getValue(String.class);
+                                    temporaryItem = new com.example.mydegree.Room.Plan(planId, year, term, course);
+                                    new InsertPlanItemTask().execute(temporaryItem);
+                                }
+                            }
+                        }
+                        //endregion
                 }
-
-                spinAdapter = new ArrayAdapter<String>(Plan.this, R.layout.simple_spinner_item_v2, planIdList);
-                spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                toolbarSpinner.setVisibility(View.VISIBLE);
-                toolbarSpinner.setAdapter(spinAdapter);
+                new GetPlanInfosTask().execute();
+                progressDialog.dismiss();
+                Snackbar.make(c1, "Sync successful.", Snackbar.LENGTH_LONG).show();
             }
 
             @Override
@@ -807,7 +1109,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         buttons3.setVisibility(View.VISIBLE);
         buttons4.setVisibility(View.VISIBLE);
 
-        sync.setVisibility(View.VISIBLE);
     }
 
 
@@ -818,6 +1119,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         if (requestCode == PICK_PROGRAM_REQUEST){
             if(resultCode==RESULT_OK){
                 //receiving data back and making Toasts to ensure its done
+
                 programCode = data.getStringExtra(RESULT_PROG);
                 majorCode = data.getStringExtra(RESULT_MAJOR);
                 planName = data.getStringExtra(RESULT_NAME);
@@ -1503,15 +1805,21 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             CourseDb db = Room
                     .databaseBuilder(Plan.this, CourseDb.class, "coursedb")
                     .build();
+            try {
+                Long myLong = db.courseDao().insertPlanInfo(planInfos[0]);
 
-            Long myLong = db.courseDao().insertPlanInfo(planInfos[0]);
+                return myLong;
 
-            return myLong;
+            }
+            catch (SQLiteConstraintException e){
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
         protected void onPostExecute(Long result) {
-            myPlanInfoId = result.intValue();
+/*            myPlanInfoId = result.intValue();*/
         }
     }
 
@@ -1691,7 +1999,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
             if(result.size()==0){
                 planSpinner.setVisibility(View.GONE);
-
+                sync.setVisibility(View.GONE);
                 toolbarSpinner.setVisibility(View.GONE);
 
                 p1.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
@@ -1713,7 +2021,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 buttons4.setVisibility(View.GONE);
                 yourCourses.setVisibility(View.GONE);
                 streamsCard.setVisibility(View.GONE);
-                Snackbar.make(c1, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
+
+                if (firebaseLoad == 1) {
+                    Snackbar.make(c1, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).dismiss();
+                } else {
+                    Snackbar.make(c1, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).show();
+                }
             } else {
                 //planSpinner.setVisibility(View.VISIBLE);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -1755,16 +2068,14 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             sync.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isNetworkAvailable()) {
+                    if (isNetworkAvailable()) {
                         syncPlan(result);
                         addAchievement();
                     } else {
                         Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
                     }
-
                 }
             });
-
         }
     }
 
@@ -2015,6 +2326,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         masterStreams.add(ars6);
 
         //region progress bar 1 (total uoc for program)
+
         String progUoc = "";
         switch(programCode){
             case "3584":
@@ -2349,7 +2661,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         @Override
         protected void onPostExecute(Long aLong) {
             if(aLong==null){
-                Toast.makeText(Plan.this,"Error: You have already put this course on your plan.", Toast.LENGTH_SHORT).show();
+                if (firebaseLoad != 1) {
+                    Toast.makeText(Plan.this,"Error: You have already put this course on your plan.", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 if(ifSwapping==1){
                     swapCourse();
@@ -2455,6 +2769,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             masterTerms.add(ar12);
 
 
+            firebaseLoad = 0;
             int uocDone = 0;
             boolean maturityFulfilled = false;
             String level = Character.toString(temporaryCourse.charAt(4));

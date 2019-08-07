@@ -61,6 +61,7 @@ public class Profile extends BaseActivity {
         badgeAdapter = new BadgeAdapter(this, Badges.getBadges());
         badgeRV.setAdapter(badgeAdapter);
 
+        logout = findViewById(R.id.logout);
 
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
@@ -74,30 +75,9 @@ public class Profile extends BaseActivity {
             uid.setText(userId);
         } else {
             uid.setText("No user logged in");
+            logout.setText("Log In");
         }
-/*
 
-        databaseReference.child("User").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("progression").exists()) {
-                    String sync = "Online";
-                    dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
-                    Badges.getBadges().get(0);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-*/
-
-
-
-
-        logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

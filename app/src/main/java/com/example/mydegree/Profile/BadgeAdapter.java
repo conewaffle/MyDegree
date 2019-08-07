@@ -55,28 +55,29 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.ViewHolder> 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         FirebaseUser user = auth.getCurrentUser();
-        userId = user.getUid();
 
 /*        holder.badgeCard.setAlpha(1);*/
         holder.badgeName.setText(badgeList.get(position).getBadgeName());
         holder.badgeDesc.setText(badgeList.get(position).getBadgeDesc());
 
-        databaseReference.child("User").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("achievements").child("Online").exists()) {
-                    String online = String.valueOf(badgeList.get(position).getBadgeName());
-                    if (online.equals("Online"))
-                        holder.cardLL.setAlpha(1);
+        if (user != null) {
+            userId = user.getUid();
+            databaseReference.child("User").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child("achievements").child("Online").exists()) {
+                        String online = String.valueOf(badgeList.get(position).getBadgeName());
+                        if (online.equals("Online"))
+                            holder.cardLL.setAlpha(1);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        }
 
     }
 

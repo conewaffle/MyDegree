@@ -32,7 +32,7 @@ public interface CourseDao {
     @Insert
     void insertStreamCourses(StreamCourse streamCourse);
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.ABORT)
     long insertPlanInfo(PlanInfo planInfo);
 
     @Insert (onConflict = OnConflictStrategy.ABORT)
