@@ -38,7 +38,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private FirebaseAuth auth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    private int clickCount = 0;
+    private static int clickCount = 0;
 
     private ArrayList<Course> mDataset;
 
@@ -61,7 +61,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         @Override
         public void onClick(View view){
-
+            clickCount ++;
             auth = FirebaseAuth.getInstance();
             firebaseDatabase = FirebaseDatabase.getInstance();
             databaseReference = firebaseDatabase.getReference();
@@ -70,12 +70,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             if (user != null) {
                 uid = user.getUid();
 
-                clickCount = clickCount + 1;
-                if (clickCount == 30) {
+                if (clickCount >= 30) {
                     library();
                 }
             }
-
 
             int position = getAdapterPosition();
             Course myCourse = mDataset.get(position);

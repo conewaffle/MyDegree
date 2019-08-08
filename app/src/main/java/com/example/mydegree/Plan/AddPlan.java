@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,7 +49,7 @@ public class AddPlan extends AppCompatActivity {
     public static final String RESULT_NAME = "resultName";
     private ArrayList<Bookmark> majorNames;
     private String majorTitle;
-    private int clickCount;
+    private static int clickCount = 0;
 
     private String uid;
     private FirebaseAuth auth;
@@ -77,10 +78,12 @@ public class AddPlan extends AppCompatActivity {
         setTitle("Create a plan");
 
         new GetSpinnerItemsTask().execute();
-        clickCount = 0;
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clickCount++;
+                Log.d("TAG", String.valueOf(clickCount));
                 Intent resultIntent = new Intent(AddPlan.this, Plan.class);
                 resultIntent.putExtra(RESULT_PROG, programCode);
                 if(major!=null) {
@@ -102,19 +105,16 @@ public class AddPlan extends AppCompatActivity {
                 }
                 setResult(RESULT_OK, resultIntent);
 
-                clickCount = clickCount + 1;
                 if (user != null) {
                     uid = user.getUid();
 
-                    if (clickCount > 1) {
+                    if (clickCount >= 10) {
                         theNucleus();
                     }
 
                     if (programCode.equals("3964")) {
                         scholar();
-                    }
-
-                    if (programCode.equals("3584") || programCode.equals("3979")) {
+                    } else {
                         businessSchool();
                     }
                 }
@@ -123,6 +123,7 @@ public class AddPlan extends AppCompatActivity {
 
             }
         });
+
 
 
         //region testing spinnerselectedlisteners
