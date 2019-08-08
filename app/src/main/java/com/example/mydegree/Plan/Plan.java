@@ -2509,6 +2509,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 if (majorCode != null) {
                     if(majorCode.equals("ECONJ1")){
                         pb4max = 60;
+                    } else {
+                        pb4max = 48;
                     }
                 } else {
                     pb4max = 48;
@@ -2553,6 +2555,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 } else {
                     pb4now = pb4corenow + pb4elecnow;
                 }
+
                 break;
             case "3964":
                 pb4String = "I have completed minimum 36 UOC of industrial placement courses";
