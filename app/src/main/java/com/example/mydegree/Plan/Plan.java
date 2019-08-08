@@ -608,7 +608,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             }
                         }
 
-                        if (ds.hasChild("3")) {
+                        if (ds.hasChild("6")) {
                             int term = 3;
 
                             if (ds.child("6").hasChild("course1")) {
@@ -683,7 +683,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             }
                         }
 
-                        if (ds.hasChild("3")) {
+                        if (ds.hasChild("9")) {
                             int term = 3;
 
                             if (ds.child("9").hasChild("course1")) {
@@ -758,7 +758,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             }
                         }
 
-                        if (ds.hasChild("3")) {
+                        if (ds.hasChild("12")) {
                             int term = 3;
 
                             if (ds.child("12").hasChild("course1")) {
@@ -2613,10 +2613,16 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             pc5.setVisibility(View.GONE);
         }
 
-        int hundy = 100;
-        if ((pb1.getProgress() == hundy) && (pb2.getProgress() == hundy) && (pb3.getProgress() == hundy) && (pb4.getProgress() == hundy)
-            && (pb5.getProgress() == hundy) && (pb6.getProgress() == hundy) && (pb7.getProgress() == hundy)) {
-            basserSteps();
+        if (programCode.equals("3964") || programCode.equals("3584")) {
+            if ((pb1.getProgress() == pb1max) && (pb2.getProgress() == pb2max) && (pb3.getProgress() == pb3max) && (pb4.getProgress() == pb4max)
+                    && (pb5.getProgress() == pb5max) && (pb6.getProgress() == pb6max) && (pb7.getProgress() == pb7max)) {
+                basserSteps();
+            }
+        } else {
+            if ((pb1.getProgress() == pb1max) && (pb2.getProgress() == pb2max) && (pb3.getProgress() == pb3max) && (pb4.getProgress() == pb4max)
+                    && (pb6.getProgress() == pb6max) && (pb7.getProgress() == pb7max)) {
+                basserSteps();
+            }
         }
 
     }
