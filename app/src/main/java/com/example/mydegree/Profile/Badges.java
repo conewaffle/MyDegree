@@ -50,7 +50,7 @@ public class Badges {
         badge.add(new Badges(R.drawable.ic_round_sync_24px, "Post Office", "You have saved a plan to the cloud"));
         badge.add(new Badges(R.drawable.ic_round_school_24px,"Scholar", "You have created a Co-op plan"));
         badge.add(new Badges(R.drawable.ic_round_business_24px,"Business School", "You have created an INFS or Commerce/INFS plan"));
-        badge.add(new Badges(R.drawable.ic_baseline_bookmark_border_24px, "Library", "You have viewed 30 courses"));
+        badge.add(new Badges(R.drawable.ic_baseline_bookmark_border_24px, "Library", "You have viewed 30 courses, majors or programs"));
         badge.add(new Badges(R.drawable.ic_baseline_bookmark_24px,"Bookshop", "You have bookmarked 10 items"));
         badge.add(new Badges(R.drawable.ic_round_business_24px,"Roundhouse", "You have deleted a plan"));
         badge.add(new Badges(R.drawable.ic_baseline_add_circle_outline_24px,"The Nucleus", "You have created 10 plans"));
