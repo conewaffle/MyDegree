@@ -53,6 +53,7 @@ public class Search extends BaseActivity {
     private ArrayList<Course> defaultList;
     private SearchView searchView;
     private SearchView.OnQueryTextListener queryTextListener;
+    private MenuItem thisMenuItem;
 
 
     @Override
@@ -159,6 +160,12 @@ public class Search extends BaseActivity {
             super.onNavigationItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigationView.setCheckedItem(navigationView.getMenu().getItem(0));
     }
 
     private class GetSearchTask extends AsyncTask<String, Void, ArrayList<Course>> {

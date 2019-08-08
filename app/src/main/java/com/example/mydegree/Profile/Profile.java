@@ -108,4 +108,9 @@ public class Profile extends BaseActivity {
         }
         return true;
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigationView.setCheckedItem(navigationView.getMenu().getItem(3));
+    }
 }

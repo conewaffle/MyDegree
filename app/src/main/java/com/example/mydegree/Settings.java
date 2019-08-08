@@ -67,6 +67,11 @@ public class Settings extends BaseActivity {
         }
         return true;
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigationView.setCheckedItem(navigationView.getMenu().getItem(5));
+    }
 
     //THIS WILL DELETE ALL ROWS FROM THE DB (useful for updating database
     private class DeleteRoomTask extends AsyncTask<Void, Void, Void> {
