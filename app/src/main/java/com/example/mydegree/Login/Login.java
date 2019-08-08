@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,24 +82,30 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog progressDialog = ProgressDialog.show(Login.this, "Please wait", "Processing...", true);
-                (auth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()))
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressDialog.dismiss();
+                if (!validate()) {
+                    login.setEnabled(true);
+                } else {
+                    login.setEnabled(false);
+                    final ProgressDialog progressDialog = ProgressDialog.show(Login.this, "Please wait", "Processing...", true);
+                    (auth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()))
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    progressDialog.dismiss();
 
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Login.this, Program.class);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Login.this, Program.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
-                            }
-                        });
+                            });
+                }
             }
-        });
+            });
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,71 +114,22 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-/*
-
-        // Need to fix this - keeps coming up with Error 12500
-
-        SignInButton login = findViewById(R.id.googleLogin);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = googleSignInClient.getSignInIntent();
-                startActivityForResult(intent, 123);
-            }
-        });
-
     }
 
-    @Override
-    public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public boolean validate() {
+        boolean valid = true;
+        String emailInput = email.getText().toString();
+        String passwordInput = password.getText().toString();
 
-        if (requestCode == 123) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account != null) {
-                    firebaseAuthWithGoogle(account);
-                }
-            } catch (ApiException e) {
-                Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+        if (emailInput.isEmpty() || passwordInput.isEmpty()) {
+            email.setError("Must have input");
+            valid = false;
+        } else {
+            email.setError(null);
         }
+        return valid;
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = auth.getCurrentUser();
-                            Toast.makeText(Login.this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login.this, Program.class);
-                            startActivity(intent);
-                            finish();
-                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Login.this, "Error - "+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
-    }
 
     public class addListenerOnTextChange implements TextWatcher {
         private Context context;
