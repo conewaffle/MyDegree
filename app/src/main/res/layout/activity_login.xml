@@ -30,7 +30,7 @@
             android:layout_gravity="center"
             android:layout_margin="16dp"
             android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="App Name"
+            android:text="TriAngles"
             android:textColor="#000"
             android:textSize="28sp"
             android:textStyle="bold" />
