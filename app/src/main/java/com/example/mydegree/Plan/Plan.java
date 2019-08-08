@@ -2019,8 +2019,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 yourCourses.setVisibility(View.GONE);
                 streamsCard.setVisibility(View.GONE);
 
-                sync.setVisibility(View.GONE);
-
                 if (firebaseLoad == 1) {
                     Snackbar.make(c1, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).dismiss();
                 } else {

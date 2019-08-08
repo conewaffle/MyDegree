@@ -48,7 +48,7 @@ public class AddPlan extends AppCompatActivity {
     public static final String RESULT_NAME = "resultName";
     private ArrayList<Bookmark> majorNames;
     private String majorTitle;
-    private int clickCount = 0;
+    private int clickCount;
 
     private String uid;
     private FirebaseAuth auth;
@@ -77,12 +77,10 @@ public class AddPlan extends AppCompatActivity {
         setTitle("Create a plan");
 
         new GetSpinnerItemsTask().execute();
-
+        clickCount = 0;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCount = clickCount + 1;
-
                 Intent resultIntent = new Intent(AddPlan.this, Plan.class);
                 resultIntent.putExtra(RESULT_PROG, programCode);
                 if(major!=null) {
@@ -104,7 +102,7 @@ public class AddPlan extends AppCompatActivity {
                 }
                 setResult(RESULT_OK, resultIntent);
 
-
+                clickCount = clickCount + 1;
                 if (user != null) {
                     uid = user.getUid();
 
@@ -122,6 +120,7 @@ public class AddPlan extends AppCompatActivity {
                 }
 
                 finish();
+
             }
         });
 
