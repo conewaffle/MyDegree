@@ -86,16 +86,6 @@ public class ProgramDetail extends AppCompatActivity {
 
     }
 
-
-    public static class PlaceholderFragment extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_program_detail, container, false);
-            return rootView;
-        }
-    }
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

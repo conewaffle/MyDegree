@@ -1,33 +1,51 @@
-package com.example.mydegree;
+package com.example.mydegree.Progress;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.room.Room;
-
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-
+import com.example.mydegree.BaseActivity;
+import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.InsertData;
 import com.example.mydegree.Room.Prereq;
-import com.example.mydegree.Room.ProgramStream;
 import com.example.mydegree.Room.Stream;
 import com.example.mydegree.Room.StreamCourse;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.room.Room;
+import androidx.viewpager.widget.ViewPager;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Program extends BaseActivity {
 
     public static final String ROOM_INITIALISED = "coursesInitialised";
+
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    private ProgressDialog progDialog;
+    private Toolbar toolbar;
+    private AppBarLayout appbar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,39 +55,55 @@ public class Program extends BaseActivity {
         //inflate your activity layout here!
         inflater.inflate(R.layout.activity_program, frameLayout, true);
 
-        //customise this for each nav menu destination
         navigationView.setCheckedItem(R.id.menuprogram);
         setTitle("myProgram");
 
-        //FLOATING ACTION BUTTON STUFFS
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
-        fab.show();
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "This will eventually lead to add plan?", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-            }
-        });
+        // Removes shadow from BaseActivity AppBar
+        appbar = findViewById(R.id.app_bar);
+        appbar.setOutlineProvider(null);
 
-        //Do the rest as you want for each activity
-
-        //THIS WILL check for the database and execute querying it
         SharedPreferences checkDbPrefs = getSharedPreferences(ROOM_INITIALISED, MODE_PRIVATE);
         if (checkDbPrefs.getInt(ROOM_INITIALISED,0)!=1){
             new InsertRoomTask().execute();
         } else {
             // new insert query task
         }
+
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        progDialog = new ProgressDialog(Program.this);
+
+/*        i = getIntent();
+        progString = i.getStringExtra(SearchAdapter.PROG_CODE);
+
+        String title = progString;
+        if (progString.equals("3979")){
+            title = progString + " - Information Systems";
+        } else if (progString.equals("3584")){
+            title = progString + " - Commerce / Information Systems";
+        } else {
+            title = progString + " - Information Systems (Co-op) (Hons)";
+        }
+        toolbar.setTitle(title);*/
+
     }
 
-    //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
-    //THIS METHOD MUST BE ADDED TO ALL NAV MENU DESTINATIONS, CUSTOMISE FOR IF ID=R.ID.MENU____
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -86,8 +120,6 @@ public class Program extends BaseActivity {
         super.onStart();
         navigationView.setCheckedItem(navigationView.getMenu().getItem(1));
     }
-
-
 
     //THIS WILL POPULATE THE DATABASE ON INITIALISATION
     private class InsertRoomTask extends AsyncTask<Void, Void, Void> {
@@ -148,4 +180,32 @@ public class Program extends BaseActivity {
         }
 
     }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = new ProgressFragment();
+                    break;
+                case 1:
+                    fragment = new RoadmapFragment();
+/*                    fragment.setArguments(bundle);*/
+                    break;
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
 }

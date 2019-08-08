@@ -36,7 +36,7 @@
             android:parentActivityName=".Search.Search"
             android:theme="@style/AppTheme" />
         <activity android:name=".Profile.Profile" />
-        <activity android:name=".Program">
+        <activity android:name=".Progress.Program">
 <!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.mydegree.Plan.Plan;
 import com.example.mydegree.Profile.Profile;
+import com.example.mydegree.Progress.Program;
 import com.example.mydegree.Saved.SavedItems;
 import com.example.mydegree.Search.Search;
 import com.google.android.material.navigation.NavigationView;
@@ -90,7 +91,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             });
-
+        } else {
+            String message = "Welcome, student!";
+            welcome.setText(message);
         }
 
 
@@ -142,7 +145,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(),Program.class));
+                    startActivity(new Intent(getApplicationContext(), Program.class));
                 }
             }, NAVDRAWER_LAUNCH_DELAY);
         } else if (id == R.id.menusaved) {

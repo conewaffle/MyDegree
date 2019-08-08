@@ -174,7 +174,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         if (user != null) {
             uid = user.getUid();
-            databaseReference.child("User").child(uid).child("progression").addListenerForSingleValueEvent(new ValueEventListener() {
+            databaseReference.child("User").child(uid).child("plans").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -470,7 +470,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     }
 
     private void retrievePlans() {
-        databaseReference.child("User").child(uid).child("progression").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("User").child(uid).child("plans").addListenerForSingleValueEvent(new ValueEventListener() {
             final ProgressDialog progressDialog = ProgressDialog.show(Plan.this, "Please wait", "Syncing...", true);
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -806,7 +806,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     String planName = result.get(i).getPlanName();
                     String majorCode = result.get(i).getMajorId();
 
-                    DatabaseReference syncRef = databaseReference.child("User").child(uid).child("progression").child(planId);
+                    DatabaseReference syncRef = databaseReference.child("User").child(uid).child("plans").child(planId);
                     Map<String, Object> map = new HashMap<>();
                     map.put("progCode", progCode);
                     map.put("planName", planName);
@@ -1877,7 +1877,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             justCreated=1;
             new GetPlanInfosTask().execute();
 
-            DatabaseReference clear = databaseReference.child("User").child(uid).child("progression");
+            DatabaseReference clear = databaseReference.child("User").child(uid).child("plans");
             clear.child(String.valueOf(myPlanInfoId)).removeValue();
             roundhouse();
         }

@@ -1,6 +1,5 @@
 package com.example.mydegree;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.room.Room;
 
@@ -15,13 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
-import com.example.mydegree.Room.InsertData;
 
-import java.util.ArrayList;
-
-import static com.example.mydegree.Program.ROOM_INITIALISED;
+import static com.example.mydegree.Progress.Program.ROOM_INITIALISED;
 
 public class Settings extends BaseActivity {
 

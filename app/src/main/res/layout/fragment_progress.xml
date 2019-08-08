@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Progress.ProgressFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/progInfoCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/colorCard"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/progName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Program"
+                        android:textColor="#000"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/progCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Code"/>
+
+                        <TextView
+                            android:id="@+id/progMajor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:text="Major" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/streamsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/colorCard"
+                app:cardCornerRadius="8dp">
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@android:color/background_light"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/streamText1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Recycler View 1"
+                                    android:textAlignment="center" />
+
+                                <TextView
+                                    android:id="@+id/streamUOC1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/streamRV1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@android:color/background_light"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/streamText2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Recycler View 2"
+                                    android:textAlignment="center" />
+
+                                <TextView
+                                    android:id="@+id/streamUOC2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/streamRV2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@android:color/background_light"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/streamText3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Recycler View 3"
+                                    android:textAlignment="center" />
+
+                                <TextView
+                                    android:id="@+id/streamUOC3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/streamRV3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@android:color/background_light"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/streamText4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Recycler View 4"
+                                    android:textAlignment="center" />
+
+                                <TextView
+                                    android:id="@+id/streamUOC4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/streamRV4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:scrollbars="none"
+                                    android:layout_marginBottom="8dp"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@android:color/background_light"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/streamText5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Recycler View 5"
+                                    android:textAlignment="center" />
+
+                                <TextView
+                                    android:id="@+id/streamUOC5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/streamRV5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@android:color/background_light"
+                            app:cardCornerRadius="8dp">
+
+                            <LinearLayout
+                                android:layout_width="110dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/streamText6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Recycler View 6"
+                                    android:textAlignment="center" />
+
+                                <TextView
+                                    android:id="@+id/streamUOC6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="# UOC"
+                                    android:textAlignment="center" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/streamRV6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/checkListCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/colorCard"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/pt1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="I have completed a minimum of X UOC in X courses." />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/pb1"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progressDrawable="@drawable/plan_progressbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/ptuoc1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:text="X/48"
+                                    android:textSize="11sp" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/pt2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="I have completed a minimum of X UOC in X courses." />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/pb2"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progressDrawable="@drawable/plan_progressbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/ptuoc2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:text="X/48"
+                                    android:textSize="11sp" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/pt3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="I have completed a minimum of X UOC in X courses." />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/pb3"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progressDrawable="@drawable/plan_progressbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/ptuoc3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:text="X/48"
+                                    android:textSize="11sp" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/pc4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/pt4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="I have completed a minimum of X UOC in X courses." />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/pb4"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progressDrawable="@drawable/plan_progressbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/ptuoc4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:text="X/48"
+                                    android:textSize="11sp" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/pc5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/pt5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="I have completed a minimum of X UOC in X courses." />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/pb5"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progressDrawable="@drawable/plan_progressbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/ptuoc5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:text="X/48"
+                                    android:textSize="11sp" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/pc6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/pt6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="I have completed a minimum of X UOC in X courses." />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/pb6"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progressDrawable="@drawable/plan_progressbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/ptuoc6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:text="X/48"
+                                    android:textSize="11sp" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/pt7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="I have completed a minimum of X UOC in X courses." />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/pb7"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:progressDrawable="@drawable/plan_progressbar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                                <TextView
+                                    android:id="@+id/ptuoc7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:text="X/48"
+                                    android:textSize="11sp" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@+id/frameLayout"
+        app:layout_anchorGravity="right|bottom"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+</LinearLayout>

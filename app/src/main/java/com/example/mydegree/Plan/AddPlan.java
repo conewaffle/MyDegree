@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,10 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mydegree.Bookmark;
-import com.example.mydegree.Program;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
 import com.google.firebase.FirebaseApp;
@@ -32,8 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class AddPlan extends AppCompatActivity {
 

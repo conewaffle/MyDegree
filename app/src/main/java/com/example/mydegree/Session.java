@@ -3,6 +3,7 @@ package com.example.mydegree;
 import android.app.Application;
 import android.content.Intent;
 
+import com.example.mydegree.Progress.Program;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
