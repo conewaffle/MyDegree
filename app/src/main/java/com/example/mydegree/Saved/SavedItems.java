@@ -203,6 +203,11 @@ public class SavedItems extends BaseActivity {
         }
         return true;
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigationView.setCheckedItem(navigationView.getMenu().getItem(4));
+    }
 
     private class GetSavedCodesTask extends AsyncTask<String, Void, ArrayList<Course>> {
 

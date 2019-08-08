@@ -81,6 +81,12 @@ public class Program extends BaseActivity {
         return true;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigationView.setCheckedItem(navigationView.getMenu().getItem(1));
+    }
+
 
 
     //THIS WILL POPULATE THE DATABASE ON INITIALISATION

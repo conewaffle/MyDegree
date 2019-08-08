@@ -3006,6 +3006,12 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         }
         return true;
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigationView.setCheckedItem(navigationView.getMenu().getItem(2));
+    }
     //endregion
 
     private boolean isNetworkAvailable() {
