@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -61,7 +62,6 @@ public class Profile extends BaseActivity {
 
         appbar = findViewById(R.id.app_bar);
         appbar.setOutlineProvider(null);
-
         //Do the rest as you want for each activity
 
         badgeRV = findViewById(R.id.badgeRV);

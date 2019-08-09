@@ -33,6 +33,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -166,7 +167,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
 
         //region setting up firebase
-        sync = findViewById(R.id.sync);
 
         FirebaseApp.initializeApp(this);
         auth = FirebaseAuth.getInstance();
@@ -175,23 +175,27 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
         final FirebaseUser user = auth.getCurrentUser();
 
-        if (user != null) {
-            uid = user.getUid();
-            databaseReference.child("User").child(uid).child("plans").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        if (ds.exists()) {
-                            firebaseLoad = 1;
+        if (isNetworkAvailable()) {
+            if (user != null) {
+                uid = user.getUid();
+                databaseReference.child("User").child(uid).child("plans").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            if (ds.exists()) {
+                                firebaseLoad = 1;
+                            }
                         }
                     }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) { }
-            });
-            retrievePlans();
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+                retrievePlans();
+            }
         } else {
-            uid = "4PUZCL42tVhL6wP90ZO2gZqOyhC3";
+            Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
         }
 
         //endregion
@@ -382,7 +386,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 int i = lol.indexOf(" ");
                 String haha = lol.substring(0,i);
                 new GetOnePlanInfoTask().execute(Integer.valueOf(haha));
-
             }
 
             @Override
@@ -391,6 +394,21 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
         });
         toolbarSpinner.setDropDownVerticalOffset(132);
+        toolbarSpinner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (isNetworkAvailable()) {
+                    if (user != null) {
+                        syncPlan(resultToSync);
+                        uniWide();
+                        toolbarSpinner.setEnabled(true);
+                    }
+                } else {
+                    Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
+                }
+                return false;
+            }
+        });
 
         //region STREAMS SETUPS
 
@@ -799,19 +817,16 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         });
     }
 
-    private void syncPlan(final ArrayList<PlanInfo> result) {
+    private void syncPlan(final ArrayList<PlanInfo> resultToSync) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            final ProgressDialog progressDialog = ProgressDialog.show(Plan.this, "Please wait", "Syncing...", true);
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (int i = 0; i < result.size(); i++) {
-                    String planId = String.valueOf(result.get(i).getPlanId());
-                    String progCode = result.get(i).getProgCode();
-                    String planName = result.get(i).getPlanName();
-                    String majorCode = result.get(i).getMajorId();
+                for (int i = 0; i < resultToSync.size(); i++) {
+                    String planId = String.valueOf(resultToSync.get(i).getPlanId());
+                    String progCode = resultToSync.get(i).getProgCode();
+                    String planName = resultToSync.get(i).getPlanName();
+                    String majorCode = resultToSync.get(i).getMajorId();
 
                     DatabaseReference syncRef = databaseReference.child("User").child(uid).child("plans").child(planId);
                     Map<String, Object> map = new HashMap<>();
@@ -1021,12 +1036,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     }
                     syncRef.updateChildren(map);
                     //endregion
-                }
-                progressDialog.dismiss();
-                if(result.size()==0){
-                    Snackbar.make(c1, "Sync successful. There are no plans.", Snackbar.LENGTH_LONG).show();
-                } else {
-                    Snackbar.make(c1, "Sync successful.", Snackbar.LENGTH_LONG).show();
                 }
             }
 
@@ -1571,20 +1580,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 } else {
                     Toast.makeText(Plan.this,"There is no plan to rename!", Toast.LENGTH_SHORT).show();
                 }
-
-                return true;
-            case R.id.action_sync:
-                if (isNetworkAvailable()) {
-                    if(resultToSync!=null){
-                        syncPlan(resultToSync);
-                        uniWide();
-                    } else {
-                        Snackbar.make(c1, "No plan to sync", Snackbar.LENGTH_LONG).show();
-                    }
-
-                } else {
-                    Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
-                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -2022,7 +2017,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             }
             if(result.size()==0){
                 planSpinner.setVisibility(View.GONE);
-                sync.setVisibility(View.GONE);
                 toolbarSpinner.setVisibility(View.GONE);
 
                 p1.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
@@ -2067,7 +2061,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     toolbarSpinner.setSelection(myStrings.size()-1);
                 }
                 isRenaming = false;
-                sync.setVisibility(View.VISIBLE);
 
                 //actionSpinner.setAdapter(spinAdapter);
                 //actionSpinner.setSelection(myStrings.size()-1);
@@ -2094,18 +2087,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
             //adding this variable so that it can be accessed outside of this asynctask by the menu button
             resultToSync = result;
-
-            sync.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isNetworkAvailable()) {
-                        syncPlan(result);
-                        uniWide();
-                    } else {
-                        Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
-                    }
-                }
-            });
         }
     }
 
@@ -3055,6 +3036,21 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         navigationView.setCheckedItem(navigationView.getMenu().getItem(2));
     }
     //endregion
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isNetworkAvailable()) {
+            final FirebaseUser user = auth.getCurrentUser();
+            if (user != null) {
+                syncPlan(resultToSync);
+                uniWide();
+                toolbarSpinner.setEnabled(true);
+            }
+        } else {
+            Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
+        }
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
