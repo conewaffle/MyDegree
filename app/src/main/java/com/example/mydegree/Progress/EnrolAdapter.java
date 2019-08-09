@@ -75,7 +75,7 @@ public class EnrolAdapter extends RecyclerView.Adapter<EnrolAdapter.EnrolViewHol
 
             //some complex ass way of getting the correct recycler
             //((com.example.mydegree.Progress.Program) v.getContext()).setRecyclerClicked((RecyclerView) v.getParent().getParent());
-          /*  ((com.example.mydegree.Progress.Program) v.getContext()).setRecyclerLongClicked(((RecyclerView) v.getParent().getParent()).getId());*/
+            ((Program) v.getContext()).setStreamLastClicked(((RecyclerView) v.getParent().getParent()).getId());
         }
 
         @Override

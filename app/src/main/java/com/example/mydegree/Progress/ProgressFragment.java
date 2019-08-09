@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -52,6 +53,8 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
     private EnrolAdapter es1, es2, es3, es4, es5, es6;
     private ArrayList<EnrolmentItem> ars1, ars2, ars3, ars4, ars5, ars6;
     private ArrayList<StreamCourse> arsc1, arsc2, arsc3, arsc4, arsc5, arsc6;
+
+    private TextView yourCourses, yourCheckList;
 
     private TextView pt1, pt2, pt3, pt4, pt5, pt6, pt7;
     private ProgressBar pb1, pb2, pb3, pb4, pb5, pb6, pb7;
@@ -156,8 +159,12 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         uoc6 = view.findViewById(R.id.streamUOC6);
 
         streamsCard = view.findViewById(R.id.streamsCard);
-        streamsCard.setVisibility(View.GONE);
+        yourCourses = view.findViewById(R.id.yourCompleted);
+        yourCheckList = view.findViewById(R.id.yourChecklist);
         checkListCard = view.findViewById(R.id.checkListCard);
+        streamsCard.setVisibility(View.GONE);
+        yourCourses.setVisibility(View.GONE);
+        yourCheckList.setVisibility(View.GONE);
         checkListCard.setVisibility(View.GONE);
 
         //set up recyclers
@@ -203,6 +210,58 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         new GetEnrolInfosTask().execute();
 
         return view;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        EnrolmentItem toDelete;
+        int position;
+        switch(item.getItemId()) {
+            case R.id.menu_remove:
+            case R.id.menu_delete:
+                switch(((Program) getActivity()).getStreamLastClicked()){
+                    case R.id.streamRV1:
+                        position = es1.getPosition();
+                        toDelete = ars1.get(position);
+                        ars1.remove(toDelete);
+                        es1.setPlan(ars1);
+                        new DeleteEnrolItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV2:
+                        position = es2.getPosition();
+                        toDelete = ars2.get(position);
+                        ars2.remove(toDelete); es2.setPlan(ars2);
+                        new DeleteEnrolItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV3:
+                        position = es3.getPosition();
+                        toDelete = ars3.get(position);
+                        ars3.remove(toDelete); es3.setPlan(ars3);
+                        new DeleteEnrolItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV4:
+                        position = es4.getPosition();
+                        toDelete = ars4.get(position);
+                        ars4.remove(toDelete); es4.setPlan(ars4);
+                        new DeleteEnrolItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV5:
+                        position = es5.getPosition();
+                        toDelete = ars5.get(position);
+                        ars5.remove(toDelete); es5.setPlan(ars5);
+                        new DeleteEnrolItemTask().execute(toDelete);
+                        break;
+                    case R.id.streamRV6:
+                        position = es6.getPosition();
+                        toDelete = ars6.get(position);
+                        ars6.remove(toDelete); es6.setPlan(ars6);
+                        new DeleteEnrolItemTask().execute(toDelete);
+                        break;
+                }
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -447,9 +506,30 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 }
 
                 checkListCard.setVisibility(View.VISIBLE);
+                yourCourses.setVisibility(View.VISIBLE);
+                yourCheckList.setVisibility(View.VISIBLE);
 
                 new GetStreamCoursesTask().execute(programCode);
             }
+        }
+    }
+
+    private class DeleteEnrolItemTask extends AsyncTask<EnrolmentItem, Void, Void> {
+        @Override
+        protected Void doInBackground(EnrolmentItem... enrolmentItems) {
+            CourseDb db = Room
+                    .databaseBuilder(getActivity(), CourseDb.class, "coursedb")
+                    .build();
+
+            db.courseDao().deleteEnrolItem(enrolmentItems[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(getActivity(), "Course deleted from plan.", Toast.LENGTH_SHORT).show();
+
+            fillProgress();
         }
     }
 

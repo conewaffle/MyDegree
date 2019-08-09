@@ -66,6 +66,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/yourCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -337,6 +338,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/yourChecklist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

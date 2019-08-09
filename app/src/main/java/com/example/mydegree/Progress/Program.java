@@ -5,6 +5,7 @@ import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.EnrolmentInfo;
+import com.example.mydegree.Room.EnrolmentItem;
 import com.example.mydegree.Room.InsertData;
 import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Stream;
@@ -56,6 +57,7 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
     private String pickedCourse;
     private ArrayList<ProgramUpdateListener> programUpdateListeners;
     private ArrayList<CourseUpdateListener> courseUpdateListeners;
+    private int streamLastClicked;
 
 
     @Override
@@ -116,6 +118,14 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
 
     public void setProgCode(String toInsertCode){
         progCode = toInsertCode;
+    }
+
+    public int getStreamLastClicked(){
+        return streamLastClicked;
+    }
+
+    public void setStreamLastClicked(int clicked){
+        streamLastClicked = clicked;
     }
 
     public interface ProgramUpdateListener {

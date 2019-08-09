@@ -119,6 +119,9 @@ public interface CourseDao {
     @Delete
     void deletePlanItem(Plan plan);
 
+    @Delete
+    void deleteEnrolItem(EnrolmentItem enrolmentItem);
+
     @Update
     void updateCourse(Course course);
 
