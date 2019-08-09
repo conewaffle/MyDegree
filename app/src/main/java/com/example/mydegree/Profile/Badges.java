@@ -46,18 +46,18 @@ public class Badges {
     public static ArrayList<Badges> getBadges() {
         ArrayList<Badges> badge = new ArrayList<>();
 
-        badge.add(new Badges(R.drawable.ic_baseline_account_circle_24px, "Arc", "You have created an account"));
-        badge.add(new Badges(R.drawable.ic_round_sync_24px, "Post Office", "You have saved a plan to the cloud"));
-        badge.add(new Badges(R.drawable.ic_round_school_24px,"Scholar", "You have created a Co-op plan"));
-        badge.add(new Badges(R.drawable.ic_round_business_24px,"Business School", "You have created an INFS or Commerce/INFS plan"));
-        badge.add(new Badges(R.drawable.ic_baseline_bookmark_border_24px, "Law Library", "You have viewed 10 courses, majors or programs"));
-        badge.add(new Badges(R.drawable.ic_baseline_bookmark_border_24px, "Main Library", "You have viewed 30 courses, majors or programs"));
-        badge.add(new Badges(R.drawable.ic_baseline_bookmark_24px,"Bookshop", "You have bookmarked 10 items"));
-        badge.add(new Badges(R.drawable.ic_round_delete_outline_24px,"Roundhouse", "You have deleted a plan"));
-        badge.add(new Badges(R.drawable.ic_baseline_add_circle_outline_24px,"The Nucleus", "You have created 10 plans"));
-        badge.add(new Badges(R.drawable.ic_round_playlist_add_check_24px,"Basser Steps", "You have completed a plan"));
-        badge.add(new Badges(R.drawable.ic_round_warning_24px,"IT Service Desk", "You have broken a requirement rule"));
-        badge.add(new Badges(R.drawable.ic_round_home_24px,"University Terraces", "You have spent 10 hours using TriAngles"));
+        badge.add(new Badges(R.drawable.badge_arc, "Arc", "You have created an account"));
+        badge.add(new Badges(R.drawable.badge_uniwide, "UniWide", "You have saved a plan to the cloud"));
+        badge.add(new Badges(R.drawable.badge_coop,"Scholar", "You have created a Co-op plan"));
+        badge.add(new Badges(R.drawable.badge_asb,"Business School", "You have created an Information System or Commerce/Information Systems plan"));
+        badge.add(new Badges(R.drawable.badge_law, "Law Library", "You have viewed 10 courses, majors or programs"));
+        badge.add(new Badges(R.drawable.badge_main, "Main Library", "You have viewed 30 courses, majors or programs"));
+        badge.add(new Badges(R.drawable.badge_bookshop,"Bookshop", "You have bookmarked 10 items"));
+        badge.add(new Badges(R.drawable.badge_roundhouse,"Roundhouse", "You have deleted a plan"));
+        badge.add(new Badges(R.drawable.badge_nucleus,"The Nucleus", "You have created 10 plans"));
+        badge.add(new Badges(R.drawable.badge_basser,"Basser Steps", "You have completed a plan"));
+        badge.add(new Badges(R.drawable.badge_it,"IT Service Desk", "You have broken a requirement rule"));
+        badge.add(new Badges(R.drawable.badge_terraces,"University Terraces", "You have spent 10 hours using TriAngles"));
 
         return badge;
     }

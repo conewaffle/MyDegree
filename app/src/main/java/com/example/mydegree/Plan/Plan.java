@@ -2077,7 +2077,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 public void onClick(View v) {
                     if (isNetworkAvailable()) {
                         syncPlan(result);
-                        postOffice();
+                        uniWide();
                     } else {
                         Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
                     }
@@ -2945,11 +2945,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
 
 
     //region badge insertion methods lol
-    private void postOffice() {
+    private void uniWide() {
         databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String sync = "Post Office";
+                String sync = "UniWide";
                 dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
             }
 
