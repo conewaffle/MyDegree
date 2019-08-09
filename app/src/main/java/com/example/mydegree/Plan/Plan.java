@@ -1023,7 +1023,11 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     //endregion
                 }
                 progressDialog.dismiss();
-                Snackbar.make(c1, "Sync successful.", Snackbar.LENGTH_LONG).show();
+                if(result.size()==0){
+                    Snackbar.make(c1, "Sync successful. There are no plans.", Snackbar.LENGTH_LONG).show();
+                } else {
+                    Snackbar.make(c1, "Sync successful.", Snackbar.LENGTH_LONG).show();
+                }
             }
 
             @Override
