@@ -70,9 +70,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!validate()) {
-                    login.setEnabled(true);
                 } else {
-                    login.setEnabled(false);
                     final ProgressDialog progressDialog = ProgressDialog.show(Login.this, "Please wait", "Processing...", true);
                     (auth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()))
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

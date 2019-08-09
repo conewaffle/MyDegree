@@ -2043,6 +2043,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                     toolbarSpinner.setSelection(myStrings.size()-1);
                 }
                 isRenaming = false;
+                sync.setVisibility(View.VISIBLE);
 
                 //actionSpinner.setAdapter(spinAdapter);
                 //actionSpinner.setSelection(myStrings.size()-1);

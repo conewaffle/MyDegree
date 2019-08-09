@@ -70,8 +70,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             if (user != null) {
                 uid = user.getUid();
 
+                if (clickCount >= 10) {
+                    lawLibrary();
+                }
+
                 if (clickCount >= 30) {
-                    library();
+                    mainLibrary();
                 }
             }
 
@@ -120,11 +124,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return mDataset.size();
     }
 
-    private void library() {
+    private void lawLibrary() {
         databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String sync = "Basser Steps";
+                String sync = "Law Library";
+                dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void mainLibrary() {
+        databaseReference.child("User").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String sync = "Main Library";
                 dataSnapshot.child("achievements").getRef().child(sync).setValue(sync);
             }
 
