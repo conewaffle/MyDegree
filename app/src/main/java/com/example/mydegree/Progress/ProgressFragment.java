@@ -544,7 +544,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Toast.makeText(getActivity(), "Course deleted from plan.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Course deleted from program.", Toast.LENGTH_SHORT).show();
 
             fillProgress();
         }
@@ -662,6 +662,8 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
             pb1.setProgress(pb1now);
         }
         ptuoc1.setText(pb1now+"/"+pb1max);
+
+        ((Program) getActivity()).onRoadmapUpdate(pb1now, pb1max);
         //endregion
 
         //region progress bar 7 (gen eds)

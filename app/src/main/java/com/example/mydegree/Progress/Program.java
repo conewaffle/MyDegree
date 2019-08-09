@@ -57,8 +57,9 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
     private String pickedCourse;
     private ArrayList<ProgramUpdateListener> programUpdateListeners;
     private ArrayList<CourseUpdateListener> courseUpdateListeners;
+    private ArrayList<RoadmapUpdateListener> roadmapUpdateListeners;
     private int streamLastClicked;
-
+    private int pbmax, pbnow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,7 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
 
         programUpdateListeners = new ArrayList<>();
         courseUpdateListeners = new ArrayList<>();
+        roadmapUpdateListeners = new ArrayList<>();
 
     }
 
@@ -126,6 +128,24 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
 
     public void setStreamLastClicked(int clicked){
         streamLastClicked = clicked;
+    }
+
+    public interface RoadmapUpdateListener{
+        void onRoadmapUpdate(int pbNow, int pbMax);
+    }
+
+    public synchronized  void registerRoadmapUpdateListener(RoadmapUpdateListener listener){
+        roadmapUpdateListeners.add(listener);
+    }
+
+    public synchronized  void unregisterRoadmapUpdateListener(RoadmapUpdateListener listener){
+        roadmapUpdateListeners.add(listener);
+    }
+
+    public synchronized  void onRoadmapUpdate(int pbNow, int pbMax){
+        for(RoadmapUpdateListener listener : roadmapUpdateListeners){
+            listener.onRoadmapUpdate(pbNow, pbMax);
+        }
     }
 
     public interface ProgramUpdateListener {
