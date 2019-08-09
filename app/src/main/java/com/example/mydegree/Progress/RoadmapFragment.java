@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.mydegree.R;
 
@@ -19,6 +20,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private ProgressDialog progDialog;
     private ProgressBar roadmapBar;
     private int localPbNow, localPbMax;
+    private TextView progressText, progressPercent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,7 +30,8 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
         progDialog = new ProgressDialog(getActivity());
         roadmapBar = view.findViewById(R.id.pb);
-
+        progressText = view.findViewById(R.id.progressText);
+        progressPercent = view.findViewById(R.id.progressPercent);
 
         return view;
     }
@@ -47,6 +50,11 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     public void onRoadmapUpdate(int pbNow, int pbMax) {
         roadmapBar.setMax(pbMax);
         roadmapBar.setProgress(pbNow);
+        progressText.setText(pbNow + " / " + pbMax + " UOC Completed");
+
+        double percent = (double) pbNow*100/(double)pbMax;
+        int percentRounded = (int) Math.round(percent);
+        progressPercent.setText(percentRounded + "%");
     }
 
     @Override
