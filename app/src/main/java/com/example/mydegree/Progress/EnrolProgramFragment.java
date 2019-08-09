@@ -1,5 +1,8 @@
 package com.example.mydegree.Progress;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,7 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.room.Room;
@@ -20,6 +25,15 @@ import androidx.room.Room;
 import com.example.mydegree.Bookmark;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
+import com.example.mydegree.Room.EnrolmentItem;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -34,6 +48,12 @@ public class EnrolProgramFragment extends DialogFragment {
     public static final String RESULT_PROG = "resultProg";
     public static final String RESULT_MAJOR = "resultMajor";
     private ArrayList<Bookmark> majorNames;
+
+    private String uid;
+    private FirebaseAuth auth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private ArrayList<EnrolmentItem> syncResult;
 
     public EnrolProgramFragment(){    }
 
@@ -81,6 +101,22 @@ public class EnrolProgramFragment extends DialogFragment {
                 listener.onFinishEnrol(resultBundle);
                 ((Program) getActivity()).onProgramUpdate(programCode, major);
                 dismiss();
+
+
+                FirebaseApp.initializeApp(getActivity());
+                auth = FirebaseAuth.getInstance();
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference();
+
+                if (isNetworkAvailable()) {
+                    final FirebaseUser user = auth.getCurrentUser();
+                    if (user != null) {
+                        uid = user.getUid();
+                        syncProgress();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Sync unsuccessful", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -169,5 +205,32 @@ public class EnrolProgramFragment extends DialogFragment {
             majorSpinner.setAdapter(majorAdapter);
 
         }
+    }
+
+    private void syncProgress() {
+        databaseReference.child("User").child(uid).child("enrolment").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String program = programCode;
+                String majorId = major.substring(0,6);
+                String majorFullName = major;
+
+                dataSnapshot.child("progCode").getRef().setValue(program);
+                dataSnapshot.child("majorCode").getRef().setValue(majorId);
+                dataSnapshot.child("majorFullName").getRef().setValue(major);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

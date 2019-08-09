@@ -174,6 +174,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         databaseReference = firebaseDatabase.getReference();
 
         final FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            uid = user.getUid();
+        }
 
         if (isNetworkAvailable()) {
             if (user != null) {
@@ -821,222 +824,223 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    for (int i = 0; i < resultToSync.size(); i++) {
+                        String planId = String.valueOf(resultToSync.get(i).getPlanId());
+                        String progCode = resultToSync.get(i).getProgCode();
+                        String planName = resultToSync.get(i).getPlanName();
+                        String majorCode = resultToSync.get(i).getMajorId();
 
-                for (int i = 0; i < resultToSync.size(); i++) {
-                    String planId = String.valueOf(resultToSync.get(i).getPlanId());
-                    String progCode = resultToSync.get(i).getProgCode();
-                    String planName = resultToSync.get(i).getPlanName();
-                    String majorCode = resultToSync.get(i).getMajorId();
-
-                    DatabaseReference syncRef = databaseReference.child("User").child(uid).child("plans").child(planId);
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("progCode", progCode);
-                    map.put("planName", planName);
-                    if (progCode.equals("3584")) {
-                        map.put("majorCode", majorCode);
-                    }
-
-                    //region hell
-                    try {
-                        if (planId.equals(String.valueOf(ar1.get(0).getPlanId()))) {
-                            if (ar1.size() == 0) {
-                                course1 = course2 = course3 = null;
-                            } else if (ar1.size() == 1) {
-                                course1 = ar1.get(0).getCourseCode();
-                                course2 = course3 = null;
-                            } else if (ar1.size() == 2) {
-                                course1 = ar1.get(0).getCourseCode();
-                                course2 = ar1.get(1).getCourseCode();
-                                course3 = null;
-                            } else {
-                                course1 = ar1.get(0).getCourseCode();
-                                course2 = ar1.get(1).getCourseCode();
-                                course3 = ar1.get(2).getCourseCode();
-                            }
-                            map.put("1", new PlanObject(course1, course2, course3));
-
-                            if (ar2.size() == 0) {
-                                course4 = course5 = course6 = null;
-                            } else if (ar2.size() == 1) {
-                                course4 = ar2.get(0).getCourseCode();
-                                course5 = course6 = null;
-                            } else if (ar2.size() == 2) {
-                                course4 = ar2.get(0).getCourseCode();
-                                course5 = ar2.get(1).getCourseCode();
-                                course6 = null;
-                            } else {
-                                course4 = ar2.get(0).getCourseCode();
-                                course5 = ar2.get(1).getCourseCode();
-                                course6 = ar2.get(2).getCourseCode();
-                            }
-                            map.put("2", new PlanObject(course4, course5, course6));
-
-                            if (ar3.size() == 0) {
-                                course7 = course8 = course9 = null;
-                            } else if (ar3.size() == 1) {
-                                course7 = ar3.get(0).getCourseCode();
-                                course8 = course9 = null;
-                            } else if (ar3.size() == 2) {
-                                course7 = ar3.get(0).getCourseCode();
-                                course8 = ar3.get(1).getCourseCode();
-                                course9 = null;
-                            } else {
-                                course7 = ar3.get(0).getCourseCode();
-                                course8 = ar3.get(1).getCourseCode();
-                                course9 = ar3.get(2).getCourseCode();
-                            }
-                            map.put("3", new PlanObject(course7, course8, course9));
-
-                            if (ar4.size() == 0) {
-                                course10 = course11 = course12 = null;
-                            } else if (ar4.size() == 1) {
-                                course10 = ar4.get(0).getCourseCode();
-                                course11 = course12 = null;
-                            } else if (ar4.size() == 2) {
-                                course10 = ar4.get(0).getCourseCode();
-                                course11 = ar4.get(1).getCourseCode();
-                                course12 = null;
-                            } else {
-                                course10 = ar4.get(0).getCourseCode();
-                                course11 = ar4.get(1).getCourseCode();
-                                course12 = ar4.get(2).getCourseCode();
-                            }
-                            map.put("4", new PlanObject(course10, course11, course12));
-
-                            if (ar5.size() == 0) {
-                                course13 = course14 = course15 = null;
-                            } else if (ar5.size() == 1) {
-                                course13 = ar5.get(0).getCourseCode();
-                                course14 = course15 = null;
-                            } else if (ar5.size() == 2) {
-                                course13 = ar5.get(0).getCourseCode();
-                                course14 = ar5.get(1).getCourseCode();
-                                course15 = null;
-                            } else {
-                                course13 = ar5.get(0).getCourseCode();
-                                course14 = ar5.get(1).getCourseCode();
-                                course15 = ar5.get(2).getCourseCode();
-                            }
-                            map.put("5", new PlanObject(course13, course14, course15));
-
-                            if (ar6.size() == 0) {
-                                course16 = course17 = course18 = null;
-                            } else if (ar6.size() == 1) {
-                                course16 = ar6.get(0).getCourseCode();
-                                course17 = course18 = null;
-                            } else if (ar6.size() == 2) {
-                                course16 = ar6.get(0).getCourseCode();
-                                course17 = ar6.get(1).getCourseCode();
-                                course18 = null;
-                            } else {
-                                course16 = ar6.get(0).getCourseCode();
-                                course17 = ar6.get(1).getCourseCode();
-                                course18 = ar6.get(2).getCourseCode();
-                            }
-                            map.put("6", new PlanObject(course16, course17, course18));
-
-                            if (ar7.size() == 0) {
-                                course19 = course20 = course21 = null;
-                            } else if (ar7.size() == 1) {
-                                course17 = ar7.get(0).getCourseCode();
-                                course20 = course21 = null;
-                            } else if (ar7.size() == 2) {
-                                course19 = ar7.get(0).getCourseCode();
-                                course20 = ar7.get(1).getCourseCode();
-                                course21 = null;
-                            } else {
-                                course19 = ar7.get(0).getCourseCode();
-                                course20 = ar7.get(1).getCourseCode();
-                                course21 = ar7.get(2).getCourseCode();
-                            }
-                            map.put("7", new PlanObject(course19, course20, course21));
-
-                            if (ar8.size() == 0) {
-                                course22 = course23 = course24 = null;
-                            } else if (ar8.size() == 1) {
-                                course22 = ar8.get(0).getCourseCode();
-                                course23 = course24 = null;
-                            } else if (ar8.size() == 2) {
-                                course22 = ar8.get(0).getCourseCode();
-                                course23 = ar8.get(1).getCourseCode();
-                                course24 = null;
-                            } else {
-                                course22 = ar8.get(0).getCourseCode();
-                                course23 = ar8.get(1).getCourseCode();
-                                course24 = ar8.get(2).getCourseCode();
-                            }
-                            map.put("8", new PlanObject(course22, course23, course24));
-
-                            if (ar9.size() == 0) {
-                                course25 = course26 = course27 = null;
-                            } else if (ar9.size() == 1) {
-                                course25 = ar9.get(0).getCourseCode();
-                                course26 = course27 = null;
-                            } else if (ar2.size() == 2) {
-                                course25 = ar9.get(0).getCourseCode();
-                                course26 = ar9.get(1).getCourseCode();
-                                course27 = null;
-                            } else {
-                                course25 = ar9.get(0).getCourseCode();
-                                course26 = ar9.get(1).getCourseCode();
-                                course27 = ar9.get(2).getCourseCode();
-                            }
-                            map.put("9", new PlanObject(course25, course26, course27));
-
-                            if (ar10.size() == 0) {
-                                course28 = course29 = course30 = null;
-                            } else if (ar10.size() == 1) {
-                                course28 = ar10.get(0).getCourseCode();
-                                course29 = course30 = null;
-                            } else if (ar10.size() == 2) {
-                                course28 = ar10.get(0).getCourseCode();
-                                course29 = ar10.get(1).getCourseCode();
-                                course30 = null;
-                            } else {
-                                course28 = ar10.get(0).getCourseCode();
-                                course29 = ar10.get(1).getCourseCode();
-                                course30 = ar10.get(2).getCourseCode();
-                            }
-                            map.put("10", new PlanObject(course28, course29, course30));
-
-                            if (ar11.size() == 0) {
-                                course31 = course32 = course33 = null;
-                            } else if (ar11.size() == 1) {
-                                course31 = ar11.get(0).getCourseCode();
-                                course32 = course33 = null;
-                            } else if (ar11.size() == 2) {
-                                course31 = ar11.get(0).getCourseCode();
-                                course32 = ar11.get(1).getCourseCode();
-                                course33 = null;
-                            } else {
-                                course31 = ar11.get(0).getCourseCode();
-                                course32 = ar11.get(1).getCourseCode();
-                                course33 = ar11.get(2).getCourseCode();
-                            }
-                            map.put("11", new PlanObject(course31, course32, course33));
-
-                            if (ar12.size() == 0) {
-                                course34 = course35 = course36 = null;
-                            } else if (ar12.size() == 1) {
-                                course34 = ar12.get(0).getCourseCode();
-                                course35 = course36 = null;
-                            } else if (ar12.size() == 2) {
-                                course34 = ar12.get(0).getCourseCode();
-                                course35 = ar12.get(1).getCourseCode();
-                                course36 = null;
-                            } else {
-                                course34 = ar12.get(0).getCourseCode();
-                                course35 = ar12.get(1).getCourseCode();
-                                course36 = ar12.get(2).getCourseCode();
-                            }
-                            map.put("12", new PlanObject(course34, course35, course36));
+                        DatabaseReference syncRef = databaseReference.child("User").child(uid).child("plans").child(planId);
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("progCode", progCode);
+                        map.put("planName", planName);
+                        if (progCode.equals("3584")) {
+                            map.put("majorCode", majorCode);
                         }
-                    } catch (IndexOutOfBoundsException e) {
 
+                        //region hell
+                        try {
+                            if (planId.equals(String.valueOf(ar1.get(0).getPlanId()))) {
+                                if (ar1.size() == 0) {
+                                    course1 = course2 = course3 = null;
+                                } else if (ar1.size() == 1) {
+                                    course1 = ar1.get(0).getCourseCode();
+                                    course2 = course3 = null;
+                                } else if (ar1.size() == 2) {
+                                    course1 = ar1.get(0).getCourseCode();
+                                    course2 = ar1.get(1).getCourseCode();
+                                    course3 = null;
+                                } else {
+                                    course1 = ar1.get(0).getCourseCode();
+                                    course2 = ar1.get(1).getCourseCode();
+                                    course3 = ar1.get(2).getCourseCode();
+                                }
+                                map.put("1", new PlanObject(course1, course2, course3));
+
+                                if (ar2.size() == 0) {
+                                    course4 = course5 = course6 = null;
+                                } else if (ar2.size() == 1) {
+                                    course4 = ar2.get(0).getCourseCode();
+                                    course5 = course6 = null;
+                                } else if (ar2.size() == 2) {
+                                    course4 = ar2.get(0).getCourseCode();
+                                    course5 = ar2.get(1).getCourseCode();
+                                    course6 = null;
+                                } else {
+                                    course4 = ar2.get(0).getCourseCode();
+                                    course5 = ar2.get(1).getCourseCode();
+                                    course6 = ar2.get(2).getCourseCode();
+                                }
+                                map.put("2", new PlanObject(course4, course5, course6));
+
+                                if (ar3.size() == 0) {
+                                    course7 = course8 = course9 = null;
+                                } else if (ar3.size() == 1) {
+                                    course7 = ar3.get(0).getCourseCode();
+                                    course8 = course9 = null;
+                                } else if (ar3.size() == 2) {
+                                    course7 = ar3.get(0).getCourseCode();
+                                    course8 = ar3.get(1).getCourseCode();
+                                    course9 = null;
+                                } else {
+                                    course7 = ar3.get(0).getCourseCode();
+                                    course8 = ar3.get(1).getCourseCode();
+                                    course9 = ar3.get(2).getCourseCode();
+                                }
+                                map.put("3", new PlanObject(course7, course8, course9));
+
+                                if (ar4.size() == 0) {
+                                    course10 = course11 = course12 = null;
+                                } else if (ar4.size() == 1) {
+                                    course10 = ar4.get(0).getCourseCode();
+                                    course11 = course12 = null;
+                                } else if (ar4.size() == 2) {
+                                    course10 = ar4.get(0).getCourseCode();
+                                    course11 = ar4.get(1).getCourseCode();
+                                    course12 = null;
+                                } else {
+                                    course10 = ar4.get(0).getCourseCode();
+                                    course11 = ar4.get(1).getCourseCode();
+                                    course12 = ar4.get(2).getCourseCode();
+                                }
+                                map.put("4", new PlanObject(course10, course11, course12));
+
+                                if (ar5.size() == 0) {
+                                    course13 = course14 = course15 = null;
+                                } else if (ar5.size() == 1) {
+                                    course13 = ar5.get(0).getCourseCode();
+                                    course14 = course15 = null;
+                                } else if (ar5.size() == 2) {
+                                    course13 = ar5.get(0).getCourseCode();
+                                    course14 = ar5.get(1).getCourseCode();
+                                    course15 = null;
+                                } else {
+                                    course13 = ar5.get(0).getCourseCode();
+                                    course14 = ar5.get(1).getCourseCode();
+                                    course15 = ar5.get(2).getCourseCode();
+                                }
+                                map.put("5", new PlanObject(course13, course14, course15));
+
+                                if (ar6.size() == 0) {
+                                    course16 = course17 = course18 = null;
+                                } else if (ar6.size() == 1) {
+                                    course16 = ar6.get(0).getCourseCode();
+                                    course17 = course18 = null;
+                                } else if (ar6.size() == 2) {
+                                    course16 = ar6.get(0).getCourseCode();
+                                    course17 = ar6.get(1).getCourseCode();
+                                    course18 = null;
+                                } else {
+                                    course16 = ar6.get(0).getCourseCode();
+                                    course17 = ar6.get(1).getCourseCode();
+                                    course18 = ar6.get(2).getCourseCode();
+                                }
+                                map.put("6", new PlanObject(course16, course17, course18));
+
+                                if (ar7.size() == 0) {
+                                    course19 = course20 = course21 = null;
+                                } else if (ar7.size() == 1) {
+                                    course17 = ar7.get(0).getCourseCode();
+                                    course20 = course21 = null;
+                                } else if (ar7.size() == 2) {
+                                    course19 = ar7.get(0).getCourseCode();
+                                    course20 = ar7.get(1).getCourseCode();
+                                    course21 = null;
+                                } else {
+                                    course19 = ar7.get(0).getCourseCode();
+                                    course20 = ar7.get(1).getCourseCode();
+                                    course21 = ar7.get(2).getCourseCode();
+                                }
+                                map.put("7", new PlanObject(course19, course20, course21));
+
+                                if (ar8.size() == 0) {
+                                    course22 = course23 = course24 = null;
+                                } else if (ar8.size() == 1) {
+                                    course22 = ar8.get(0).getCourseCode();
+                                    course23 = course24 = null;
+                                } else if (ar8.size() == 2) {
+                                    course22 = ar8.get(0).getCourseCode();
+                                    course23 = ar8.get(1).getCourseCode();
+                                    course24 = null;
+                                } else {
+                                    course22 = ar8.get(0).getCourseCode();
+                                    course23 = ar8.get(1).getCourseCode();
+                                    course24 = ar8.get(2).getCourseCode();
+                                }
+                                map.put("8", new PlanObject(course22, course23, course24));
+
+                                if (ar9.size() == 0) {
+                                    course25 = course26 = course27 = null;
+                                } else if (ar9.size() == 1) {
+                                    course25 = ar9.get(0).getCourseCode();
+                                    course26 = course27 = null;
+                                } else if (ar2.size() == 2) {
+                                    course25 = ar9.get(0).getCourseCode();
+                                    course26 = ar9.get(1).getCourseCode();
+                                    course27 = null;
+                                } else {
+                                    course25 = ar9.get(0).getCourseCode();
+                                    course26 = ar9.get(1).getCourseCode();
+                                    course27 = ar9.get(2).getCourseCode();
+                                }
+                                map.put("9", new PlanObject(course25, course26, course27));
+
+                                if (ar10.size() == 0) {
+                                    course28 = course29 = course30 = null;
+                                } else if (ar10.size() == 1) {
+                                    course28 = ar10.get(0).getCourseCode();
+                                    course29 = course30 = null;
+                                } else if (ar10.size() == 2) {
+                                    course28 = ar10.get(0).getCourseCode();
+                                    course29 = ar10.get(1).getCourseCode();
+                                    course30 = null;
+                                } else {
+                                    course28 = ar10.get(0).getCourseCode();
+                                    course29 = ar10.get(1).getCourseCode();
+                                    course30 = ar10.get(2).getCourseCode();
+                                }
+                                map.put("10", new PlanObject(course28, course29, course30));
+
+                                if (ar11.size() == 0) {
+                                    course31 = course32 = course33 = null;
+                                } else if (ar11.size() == 1) {
+                                    course31 = ar11.get(0).getCourseCode();
+                                    course32 = course33 = null;
+                                } else if (ar11.size() == 2) {
+                                    course31 = ar11.get(0).getCourseCode();
+                                    course32 = ar11.get(1).getCourseCode();
+                                    course33 = null;
+                                } else {
+                                    course31 = ar11.get(0).getCourseCode();
+                                    course32 = ar11.get(1).getCourseCode();
+                                    course33 = ar11.get(2).getCourseCode();
+                                }
+                                map.put("11", new PlanObject(course31, course32, course33));
+
+                                if (ar12.size() == 0) {
+                                    course34 = course35 = course36 = null;
+                                } else if (ar12.size() == 1) {
+                                    course34 = ar12.get(0).getCourseCode();
+                                    course35 = course36 = null;
+                                } else if (ar12.size() == 2) {
+                                    course34 = ar12.get(0).getCourseCode();
+                                    course35 = ar12.get(1).getCourseCode();
+                                    course36 = null;
+                                } else {
+                                    course34 = ar12.get(0).getCourseCode();
+                                    course35 = ar12.get(1).getCourseCode();
+                                    course36 = ar12.get(2).getCourseCode();
+                                }
+                                map.put("12", new PlanObject(course34, course35, course36));
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+
+                        }
+                        syncRef.updateChildren(map);
+                        //endregion
                     }
-                    syncRef.updateChildren(map);
-                    //endregion
-                }
+                } catch (NullPointerException e) {}
             }
 
             @Override
@@ -3045,7 +3049,6 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
             if (user != null) {
                 syncPlan(resultToSync);
                 uniWide();
-                toolbarSpinner.setEnabled(true);
             }
         } else {
             Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();

@@ -1,12 +1,13 @@
 package com.example.mydegree.Progress;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -28,14 +29,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mydegree.Bookmark;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.EnrolmentInfo;
 import com.example.mydegree.Room.EnrolmentItem;
 import com.example.mydegree.Room.StreamCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -70,7 +77,12 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
     private NestedScrollView progressScroll;
 
     private EnrolmentItem temporaryItem;
-    //TODO: Firebase
+
+    private String uid;
+    private FirebaseAuth auth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private int firebaseLoad = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +92,14 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
         progDialog = new ProgressDialog(getActivity());
 
+        FirebaseApp.initializeApp(getActivity());
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        final FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            uid = user.getUid();
+        }
 
         fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -245,41 +265,53 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                         ars1.remove(toDelete);
                         es1.setPlan(ars1);
                         new DeleteEnrolItemTask().execute(toDelete);
+                        firebaseDel(toDelete);
                         break;
                     case R.id.streamRV2:
                         position = es2.getPosition();
                         toDelete = ars2.get(position);
                         ars2.remove(toDelete); es2.setPlan(ars2);
                         new DeleteEnrolItemTask().execute(toDelete);
+                        firebaseDel(toDelete);
                         break;
                     case R.id.streamRV3:
                         position = es3.getPosition();
                         toDelete = ars3.get(position);
                         ars3.remove(toDelete); es3.setPlan(ars3);
                         new DeleteEnrolItemTask().execute(toDelete);
+                        firebaseDel(toDelete);
                         break;
                     case R.id.streamRV4:
                         position = es4.getPosition();
                         toDelete = ars4.get(position);
                         ars4.remove(toDelete); es4.setPlan(ars4);
                         new DeleteEnrolItemTask().execute(toDelete);
+                        firebaseDel(toDelete);
                         break;
                     case R.id.streamRV5:
                         position = es5.getPosition();
                         toDelete = ars5.get(position);
                         ars5.remove(toDelete); es5.setPlan(ars5);
                         new DeleteEnrolItemTask().execute(toDelete);
+                        firebaseDel(toDelete);
                         break;
                     case R.id.streamRV6:
                         position = es6.getPosition();
                         toDelete = ars6.get(position);
                         ars6.remove(toDelete); es6.setPlan(ars6);
                         new DeleteEnrolItemTask().execute(toDelete);
+                        firebaseDel(toDelete);
                         break;
                 }
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+
+    private void firebaseDel(EnrolmentItem toDelete) {
+        String course = toDelete.getCourseCode();
+        DatabaseReference clear = databaseReference.child("User").child(uid).child("enrolment").child("courses");
+        clear.child(course).removeValue();
     }
 
     @Override
@@ -445,17 +477,18 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                     .databaseBuilder(getActivity(), CourseDb.class, "coursedb")
                     .build();
 
-            ArrayList<EnrolmentInfo> myList = (ArrayList<EnrolmentInfo>) db.courseDao().getEnrolInfos();
-            if(myList.size()>0){
-                String majorId = myList.get(0).getMajorId();
-                ArrayList<EnrolmentInfo> myMajorName = (ArrayList<EnrolmentInfo>) db.courseDao().getMajorName(majorId);
-                if(myMajorName.size()>0){
-                    myList.add(myMajorName.get(0));
+            try {
+                ArrayList<EnrolmentInfo> myList = (ArrayList<EnrolmentInfo>) db.courseDao().getEnrolInfos();
+                if (myList.size() > 0) {
+                    String majorId = myList.get(0).getMajorId();
+                    ArrayList<EnrolmentInfo> myMajorName = (ArrayList<EnrolmentInfo>) db.courseDao().getMajorName(majorId);
+                    if (myMajorName.size() > 0) {
+                        myList.add(myMajorName.get(0));
+                    }
                 }
-
-            }
-
-            return myList;
+                return myList;
+            } catch (SQLiteConstraintException e) {}
+            return null;
         }
 
         @Override
@@ -536,6 +569,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 yourCheckList.setVisibility(View.VISIBLE);
 
                 new GetStreamCoursesTask().execute(programCode);
+
             }
         }
     }
@@ -548,6 +582,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                     .build();
 
             db.courseDao().deleteEnrolItem(enrolmentItems[0]);
+
             return null;
         }
 
@@ -577,13 +612,11 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         protected void onPostExecute(final ArrayList<EnrolmentItem> result) {
 
             for (int i = 0; i < result.size(); i++) {
-
                 fillStreams(result.get(i));
             }
-
             fillProgress();
-
         }
+
     }
 
     private void fillStreams(EnrolmentItem result) {
@@ -978,9 +1011,9 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         @Override
         protected void onPostExecute(Long aLong) {
             if(aLong==null){
-                //if (firebaseLoad != 1) {
+                if (firebaseLoad != 1) {
                     Toast.makeText(getActivity(),"Error: You have already put this course on your program.", Toast.LENGTH_SHORT).show();
-               // }
+                }
             } else {
                 fillStreams(temporaryItem);
                 fillProgress();
@@ -998,16 +1031,212 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
     @Override
     public void onCourseUpdate(String courseCode){
         // to do here
-        temporaryItem =  new EnrolmentItem(programCode, courseCode);
+        temporaryItem = new EnrolmentItem(programCode, courseCode);
         new InsertEnrolmentItemTask().execute(temporaryItem);
+    }
 
+    private void retrieveProgress() {
+        databaseReference.child("User").child(uid).child("enrolment").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                programCode = String.valueOf(dataSnapshot.child("progCode").getValue());
+                majorCode = String.valueOf(dataSnapshot.child("majorCode").getValue());
+                majorFullName = String.valueOf(dataSnapshot.child("majorFullName").getValue());
+
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String courseCode = ds.getKey();
+                    temporaryItem = new EnrolmentItem(programCode, courseCode);
+                    new InsertEnrolmentItemTask().execute(temporaryItem);
+                }
+
+                String toSet = "";
+                switch(programCode){
+                    case "3584":
+                        toSet = "Commerce / Information Systems";
+                        break;
+                    case "3979":
+                        toSet = "Information Systems";
+                        break;
+                    case "3964":
+                        toSet = "Information Systems (Co-op) (Hons)";
+                        break;
+                }
+                progName.setText(toSet);
+                if(programCode.equals("3584")){
+                    progMajor.setText(majorFullName);
+                    progMajor.setVisibility(View.VISIBLE);
+                }
+                progCode.setText(programCode);
+
+                programCode = programCode;
+                majorCode = majorFullName.substring(0,6);
+
+                streamsCard.setVisibility(View.VISIBLE);
+                if(programCode.equals("3584")){
+                    ts1.setText("Commerce Core");
+                    uoc1.setText("24 UOC");
+                    ts2.setText("Flexible Core");
+                    uoc2.setText("18 UOC");
+                    ts3.setText("INFS Core");
+                    uoc3.setText("72 UOC");
+                    ts4.setText("Major");
+                    uoc4.setText("36-48 UOC");
+                    ts5.setText("Business Elec.");
+                    uoc5.setText("18-30 UOC");
+                    ts6.setText("General Ed.");
+                    uoc6.setText("12 UOC");
+                } else if(programCode.equals("3979")){
+                    ts1.setText("Stage 1 Core");
+                    uoc1.setText("42 UOC");
+                    ts2.setText("Stage 2 Core");
+                    uoc2.setText("24 UOC");
+                    ts3.setText("Stage 3 Core");
+                    uoc3.setText("30 UOC");
+                    ts4.setText("INFS 2/3 Elec.");
+                    uoc4.setText("12 UOC");
+                    ts5.setText("Free Electives");
+                    uoc5.setText("24 UOC");
+                    ts6.setText("General Ed.");
+                    uoc6.setText("12 UOC");
+                } else if(programCode.equals("3964")){
+                    ts1.setText("Stage 1 Core");
+                    uoc1.setText("42 UOC");
+                    ts2.setText("Stage 2 Core");
+                    uoc2.setText("24 UOC");
+                    ts3.setText("Stage 3");
+                    uoc3.setText("30 UOC");
+                    ts4.setText("Placement");
+                    uoc4.setText("36 UOC");
+                    ts5.setText("Honours");
+                    uoc5.setText("48 UOC");
+                    ts6.setText("General Ed.");
+                    uoc6.setText("12 UOC");
+                }
+
+                checkListCard.setVisibility(View.VISIBLE);
+
+
+                new GetStreamCoursesTask().execute(programCode);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void syncProgressItem() {
+        databaseReference.child("User").child(uid).child("enrolment").child("courses").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String program = programCode;
+
+                try {
+                    if (ars1.size() > 0) {
+                        for (int m = 0; m < ars1.size(); m++) {
+                            String course = ars1.get(m).getCourseCode();
+                            dataSnapshot.child(course).getRef().setValue(program);
+                        }
+                    }
+
+                    if (ars2.size() > 0) {
+                        for (int n = 0; n < ars2.size(); n++) {
+                            String course = ars1.get(n).getCourseCode();
+                            dataSnapshot.child(course).getRef().setValue(program);
+                        }
+                    }
+
+                    if (ars3.size() > 0) {
+                        for (int o = 0; o < ars3.size(); o++) {
+                            String course = ars3.get(o).getCourseCode();
+                            dataSnapshot.child(course).getRef().setValue(program);
+                        }
+                    }
+
+                    if (ars4.size() > 0) {
+                        for (int p = 0; p < ars4.size(); p++) {
+                            String course = ars4.get(p).getCourseCode();
+                            dataSnapshot.child(course).getRef().setValue(program);
+                        }
+                    }
+
+                    if (ars5.size() > 0) {
+                        for (int q = 0; q < ars5.size(); q++) {
+                            String course = ars5.get(q).getCourseCode();
+                            dataSnapshot.child(course).getRef().setValue(program);
+                        }
+                    }
+
+                    if (ars6.size() > 0) {
+                        for (int r = 0; r < ars6.size(); r++) {
+                            String course = ars6.get(r).getCourseCode();
+                            dataSnapshot.child(course).getRef().setValue(program);
+                        }
+                    }
+                } catch (NullPointerException e) {}
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
+/*
+        FirebaseApp.initializeApp(getActivity());
+        auth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        if (isNetworkAvailable()) {
+            final FirebaseUser user = auth.getCurrentUser();
+            if (user != null) {
+                uid = user.getUid();
+                databaseReference.child("User").child(uid).child("enrolment").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            if (ds.exists()) {
+                                firebaseLoad = 1;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+                retrieveProgress();
+            } else {
+                ((Program) context).registerProgramUpdateListener(this);
+                ((Program) context).registerCourseUpdateListener(this);
+            }
+        } else {
+            Toast.makeText(getActivity(), "Sync unsuccessful", Toast.LENGTH_SHORT).show();
+        }*/
         ((Program) context).registerProgramUpdateListener(this);
         ((Program) context).registerCourseUpdateListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (isNetworkAvailable()) {
+            final FirebaseUser user = auth.getCurrentUser();
+            if (user != null) {
+                syncProgressItem();
+            }
+        } else {
+            Toast.makeText(getActivity(), "Sync unsuccessful", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -1016,4 +1245,12 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         ((Program) getActivity()).unregisterProgramUpdateListener(this);
         ((Program) getActivity()).unregisterCourseUpdateListener(this);
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }
