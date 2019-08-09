@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_outline_school_24px"/>
+
+    <TextView
+        android:id="@+id/badgeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:text="Achivement Name"/>
+
+    <TextView
+        android:id="@+id/badgeDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_weight="1"
+        android:text="Achivement Description"/>
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:background="#ffffff"
+        android:padding="16dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_baseline_close_24px" />
+
+</LinearLayout>
