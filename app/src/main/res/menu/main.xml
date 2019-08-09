@@ -21,12 +21,12 @@
         android:orderInCategory="100"
         android:title="Add"
         app:showAsAction="always" />
-    <item
+<!--    <item
         android:id="@+id/action_sync"
         android:icon="@android:drawable/ic_popup_sync"
         android:title="Sync"
         app:showAsAction="never"
-        android:orderInCategory="50"/>
+        android:orderInCategory="50"/>-->
     <item
         android:id="@+id/action_spinner"
         android:background="@color/colorPrimary"
