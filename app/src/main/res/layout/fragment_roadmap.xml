@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".Progress.RoadmapFragment">
 
+    <TextView
+        android:id="@+id/progressText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enrol in a program to view your progression!"
+        android:textAlignment="center" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,15 +41,9 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="184dp"
             android:layout_marginBottom="345dp"
-            android:text="99%"
+            android:text="0%"
             android:textSize="24sp" />
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/progressText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="very incomplete" />
 
 </FrameLayout>

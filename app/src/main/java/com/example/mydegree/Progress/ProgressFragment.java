@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mydegree.Bookmark;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.EnrolmentInfo;
@@ -397,10 +398,8 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                         arsc2.add(result.get(i));
                     } else if(result.get(i).getStreamId2().equals("3584I1")||result.get(i).getStreamId2().equals("INFS2C")||result.get(i).getStreamId2().equals("39793C")){
                         arsc3.add(result.get(i));
-                    } else if(majorCode!=null){
-                        if(result.get(i).getStreamId2().equals(majorCode)) {
-                            arsc4.add(result.get(i));
-                        }
+                    } else if(result.get(i).getStreamId2().equals(majorCode)) {
+                        arsc4.add(result.get(i));
                     } else if(result.get(i).getStreamId2().equals("GENED")){
                         arsc6.add(result.get(i));
                     } else {
@@ -447,6 +446,15 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                     .build();
 
             ArrayList<EnrolmentInfo> myList = (ArrayList<EnrolmentInfo>) db.courseDao().getEnrolInfos();
+            if(myList.size()>0){
+                String majorId = myList.get(0).getMajorId();
+                ArrayList<EnrolmentInfo> myMajorName = (ArrayList<EnrolmentInfo>) db.courseDao().getMajorName(majorId);
+                if(myMajorName.size()>0){
+                    myList.add(myMajorName.get(0));
+                }
+
+            }
+
             return myList;
         }
 
@@ -456,12 +464,13 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 streamsCard.setVisibility(View.GONE);
                 checkListCard.setVisibility(View.GONE);
             } else {
-
                 programCode = result.get(0).getProgCode();
                 ((Program) getActivity()).setProgCode(programCode);
                 majorCode = result.get(0).getMajorId();
                 progCode.setText(programCode);
-                progMajor.setText(majorCode);
+                if(result.size()>1){
+                    progMajor.setText(result.get(1).getMajorId());
+                }
                 String toSet = "";
                 switch(programCode){
                     case "3584":
