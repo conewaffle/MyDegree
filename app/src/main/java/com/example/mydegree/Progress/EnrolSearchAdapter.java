@@ -39,8 +39,12 @@ public class EnrolSearchAdapter extends RecyclerView.Adapter<EnrolSearchAdapter.
             int position = getAdapterPosition();
             String progCode = mDataset.get(position).substring(0,8);
 
-            PickEnrolItemFragment.PickEnrolItemListener listener = (PickEnrolItemFragment.PickEnrolItemListener) context;
-            listener.onFinishPickEnrolItem(progCode);
+/*            PickEnrolItemFragment.PickEnrolItemListener listener = (PickEnrolItemFragment.PickEnrolItemListener) context;
+            listener.onFinishPickEnrolItem(progCode);*/
+
+            ((Program) context).onCourseUpdate(progCode);
+            //TO BE DISMISSED IN THE CHECKERS.
+
         }
     }
 

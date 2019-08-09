@@ -110,6 +110,9 @@ public interface CourseDao {
     @Query("SELECT * FROM 'enrolmentinfo'")
     List<EnrolmentInfo> getEnrolInfos();
 
+    @Insert (onConflict = OnConflictStrategy.ABORT)
+    long insertEnrolItem(EnrolmentItem enrolmentItem);
+
 /*    @Query("DELETE FROM `plan` WHERE planId = :planId AND courseCode = :courseCode")
     void deletePlanItem(int planId, String courseCode);*/
 

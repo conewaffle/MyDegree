@@ -58,10 +58,6 @@ public class PickEnrolItemFragment extends DialogFragment {
         return frag;
     }
 
-    public interface PickEnrolItemListener{
-        void onFinishPickEnrolItem(String string);
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

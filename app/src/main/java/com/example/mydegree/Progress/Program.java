@@ -42,7 +42,7 @@ import static com.example.mydegree.Progress.EnrolProgramFragment.RESULT_MAJOR;
 import static com.example.mydegree.Progress.EnrolProgramFragment.RESULT_PROG;
 import static com.example.mydegree.Progress.ProgressFragment.ENROL_FRAG_TAG;
 
-public class Program extends BaseActivity implements EnrolProgramFragment.EnrolProgramListener, PickEnrolItemFragment.PickEnrolItemListener {
+public class Program extends BaseActivity implements EnrolProgramFragment.EnrolProgramListener {
 
     public static final String ROOM_INITIALISED = "coursesInitialised";
 
@@ -114,9 +114,8 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
         return progCode;
     }
 
-    @Override
-    public void onFinishPickEnrolItem(String string) {
-        pickedCourse = string;
+    public void setProgCode(String toInsertCode){
+        progCode = toInsertCode;
     }
 
     public interface ProgramUpdateListener {

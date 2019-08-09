@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,6 +62,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
     public static final String ENROL_FRAG_TAG = "enrolFragTag";
     public static final String PICK_ENROL_ITEM_FRAG_TAG = "pickEnrolItemFragTag";
 
+    private EnrolmentItem temporaryItem;
     //TODO: Firebase
 
     @Override
@@ -378,6 +381,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
             } else {
 
                 programCode = result.get(0).getProgCode();
+                ((Program) getActivity()).setProgCode(programCode);
                 majorCode = result.get(0).getMajorId();
                 progCode.setText(programCode);
                 progMajor.setText(majorCode);
@@ -443,6 +447,8 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 }
 
                 checkListCard.setVisibility(View.VISIBLE);
+
+                new GetStreamCoursesTask().execute(programCode);
             }
         }
     }
@@ -838,9 +844,54 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
     }
 
+    private class InsertEnrolmentItemTask extends AsyncTask<EnrolmentItem, Void, Long>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Long doInBackground(EnrolmentItem... enrolmentItem) {
+            CourseDb db = Room
+                    .databaseBuilder(getActivity(), CourseDb.class, "coursedb")
+                    .build();
+
+            try {
+                Long myLong = db.courseDao().insertEnrolItem(enrolmentItem[0]);
+                return myLong;
+            }
+            catch (SQLiteConstraintException e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Long aLong) {
+            if(aLong==null){
+                //if (firebaseLoad != 1) {
+                    Toast.makeText(getActivity(),"Error: You have already put this course on your program.", Toast.LENGTH_SHORT).show();
+               // }
+            } else {
+                fillStreams(temporaryItem);
+                fillProgress();
+                //dismiss fragment dialog
+                Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(PICK_ENROL_ITEM_FRAG_TAG);
+                if (prev != null) {
+                    DialogFragment df = (DialogFragment) prev;
+                    df.dismiss();
+                }
+            }
+        }
+    }
+
 
     @Override
     public void onCourseUpdate(String courseCode){
+        // to do here
+        temporaryItem =  new EnrolmentItem(programCode, courseCode);
+        new InsertEnrolmentItemTask().execute(temporaryItem);
 
     }
 
