@@ -15,8 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mydegree.R;
+import com.example.mydegree.Room.EnrolmentItem;
 import com.example.mydegree.Room.StreamCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -32,8 +34,8 @@ public class ProgressFragment extends Fragment {
     private CardView cs1, cs2, cs3, cs4, cs5, cs6;
     private CardView streamsCard;
     private TextView ts1, ts2, ts3, ts4, ts5, ts6, uoc1, uoc2, uoc3, uoc4, uoc5, uoc6;
-    //private PlanAdapter ps1, ps2, ps3, ps4, ps5, ps6;
-    //private ArrayList<com.example.mydegree.Room.Plan> ars1, ars2, ars3, ars4, ars5, ars6;
+    private EnrolAdapter es1, es2, es3, es4, es5, es6;
+    private ArrayList<EnrolmentItem> ars1, ars2, ars3, ars4, ars5, ars6;
     private ArrayList<StreamCourse> arsc1, arsc2, arsc3, arsc4, arsc5, arsc6;
 
     private TextView pt1, pt2, pt3, pt4, pt5, pt6, pt7;
@@ -52,11 +54,11 @@ public class ProgressFragment extends Fragment {
 
         progDialog = new ProgressDialog(getActivity());
 
-        fab = view.findViewById(R.id.fab);
+        fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Snackbar.make(fab, "This will add stuff", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -95,14 +97,12 @@ public class ProgressFragment extends Fragment {
         //region STREAMS SETUPS
 
         //set up new stream ArrayList
-
-        // need to change entity
-/*        ars1 = new ArrayList<>();
+        ars1 = new ArrayList<>();
         ars2 = new ArrayList<>();
         ars3 = new ArrayList<>();
         ars4 = new ArrayList<>();
         ars5 = new ArrayList<>();
-        ars6 = new ArrayList<>();*/
+        ars6 = new ArrayList<>();
         arsc1 = new ArrayList<>();
         arsc2 = new ArrayList<>();
         arsc3 = new ArrayList<>();
@@ -148,22 +148,22 @@ public class ProgressFragment extends Fragment {
         rs6.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
 
-/*        //setting adapters
+        //setting adapters
 
-        ps1 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
-        ps2 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
-        ps3 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
-        ps4 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
-        ps5 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
-        ps6 = new PlanAdapter(new ArrayList<com.example.mydegree.Room.Plan>());
+        es1 = new EnrolAdapter(new ArrayList<EnrolmentItem>());
+        es2 = new EnrolAdapter(new ArrayList<EnrolmentItem>());
+        es3 = new EnrolAdapter(new ArrayList<EnrolmentItem>());
+        es4 = new EnrolAdapter(new ArrayList<EnrolmentItem>());
+        es5 = new EnrolAdapter(new ArrayList<EnrolmentItem>());
+        es6 = new EnrolAdapter(new ArrayList<EnrolmentItem>());
 
         //bind recyclers to adapters
-        rs1.setAdapter(ps1);
-        rs2.setAdapter(ps2);
-        rs3.setAdapter(ps3);
-        rs4.setAdapter(ps4);
-        rs5.setAdapter(ps5);
-        rs6.setAdapter(ps6);*/
+        rs1.setAdapter(es1);
+        rs2.setAdapter(es2);
+        rs3.setAdapter(es3);
+        rs4.setAdapter(es4);
+        rs5.setAdapter(es5);
+        rs6.setAdapter(es6);
 
         //endregion
 

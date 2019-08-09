@@ -133,6 +133,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private TextView ptuoc1, ptuoc2, ptuoc3, ptuoc4, ptuoc5, ptuoc6, ptuoc7;
     private int pb1max, pb1now, pb2max, pb2now, pb3max, pb3now, pb4max, pb4now, pb5max, pb5now, pb6max, pb6now, pb7max, pb7now;
     private CardView pc5;
+    private CardView checkListCard;
 
     private int planRenamePosition;
     private boolean isRenaming;
@@ -365,6 +366,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         ptuoc6 = findViewById(R.id.ptuoc6);
         ptuoc7 = findViewById(R.id.ptuoc7);
         pc5 = findViewById(R.id.pc5);
+        checkListCard = findViewById(R.id.checkListCard);
+        checkListCard.setVisibility(View.GONE);
 
         //endregion
 
@@ -1101,6 +1104,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         buttons2.setVisibility(View.VISIBLE);
         buttons3.setVisibility(View.VISIBLE);
         buttons4.setVisibility(View.VISIBLE);
+        checkListCard.setVisibility(View.VISIBLE);
 
     }
 
@@ -2018,6 +2022,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 buttons4.setVisibility(View.GONE);
                 yourCourses.setVisibility(View.GONE);
                 streamsCard.setVisibility(View.GONE);
+                checkListCard.setVisibility(View.GONE);
 
                 if (firebaseLoad == 1) {
                     Snackbar.make(c1, "You have no plans! Make a plan by pressing the + button.", Snackbar.LENGTH_LONG).dismiss();
