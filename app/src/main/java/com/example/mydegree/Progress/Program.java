@@ -4,6 +4,7 @@ import com.example.mydegree.BaseActivity;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.Course;
 import com.example.mydegree.Room.CourseDb;
+import com.example.mydegree.Room.EnrolmentInfo;
 import com.example.mydegree.Room.InsertData;
 import com.example.mydegree.Room.Prereq;
 import com.example.mydegree.Room.Stream;
@@ -18,6 +19,7 @@ import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.room.Insert;
 import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 
@@ -36,7 +38,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Program extends BaseActivity {
+import static com.example.mydegree.Progress.EnrolProgramFragment.RESULT_MAJOR;
+import static com.example.mydegree.Progress.EnrolProgramFragment.RESULT_PROG;
+import static com.example.mydegree.Progress.ProgressFragment.ENROL_FRAG_TAG;
+
+public class Program extends BaseActivity implements EnrolProgramFragment.EnrolProgramListener, PickEnrolItemFragment.PickEnrolItemListener {
 
     public static final String ROOM_INITIALISED = "coursesInitialised";
 
@@ -45,6 +51,9 @@ public class Program extends BaseActivity {
     private ProgressDialog progDialog;
     private Toolbar toolbar;
     private AppBarLayout appbar;
+    private String progCode;
+    private String majCode;
+    private String pickedCourse;
 
 
     @Override
@@ -100,6 +109,27 @@ public class Program extends BaseActivity {
     }
 
     @Override
+    public void onFinishEnrol(Bundle bundle){
+        progCode = bundle.getString(RESULT_PROG);
+        if(bundle.getString(RESULT_MAJOR)!=null){
+            majCode = bundle.getString(RESULT_MAJOR);
+        } else {
+            majCode = null;
+        }
+        final EnrolmentInfo toInsert = new EnrolmentInfo(progCode, majCode);
+        new InsertEnrolInfoTask().execute(toInsert);
+    }
+
+    public String getProgCode(){
+        return progCode;
+    }
+
+    @Override
+    public void onFinishPickEnrolItem(String string) {
+        pickedCourse = string;
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
@@ -121,6 +151,25 @@ public class Program extends BaseActivity {
         navigationView.setCheckedItem(navigationView.getMenu().getItem(1));
     }
 
+    private class InsertEnrolInfoTask extends AsyncTask<EnrolmentInfo, Void, Void>{
+
+        @Override
+        protected Void doInBackground(EnrolmentInfo... enrolmentInfos) {
+            CourseDb db = Room
+                    .databaseBuilder(Program.this, CourseDb.class, "coursedb")
+                    .build();
+
+            db.courseDao().insertEnrolmentInfo(enrolmentInfos[0]);
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
     //THIS WILL POPULATE THE DATABASE ON INITIALISATION
     private class InsertRoomTask extends AsyncTask<Void, Void, Void> {
 
@@ -178,8 +227,10 @@ public class Program extends BaseActivity {
             progDialog.dismiss();
             //new Query Courses Task . execute
         }
-
     }
+
+
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

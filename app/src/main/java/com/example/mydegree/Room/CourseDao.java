@@ -17,19 +17,19 @@ public interface CourseDao {
     @Query("SELECT * FROM course")
     List<Course> getCourses();
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.ABORT)
     void insertCourse(Course course);
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.ABORT)
     void insertProgram(Program program);
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.ABORT)
     void insertPrereq(Prereq prereq);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertStream(Stream stream);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertStreamCourses(StreamCourse streamCourse);
 
     @Insert (onConflict = OnConflictStrategy.ABORT)
@@ -37,6 +37,12 @@ public interface CourseDao {
 
     @Insert (onConflict = OnConflictStrategy.ABORT)
     long insertPlan(Plan plan);
+
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
+    void insertEnrolmentInfo(EnrolmentInfo enrolmentInfo);
+
+    @Insert (onConflict = OnConflictStrategy.ABORT)
+    void insertEnrolmentItem(EnrolmentItem enrolmentItem);
 
     @Query ("UPDATE planinfo SET planName = :planName WHERE planId = :planId")
     void updatePlanName(String planName, int planId);
@@ -82,6 +88,9 @@ public interface CourseDao {
 
     @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t3 = '1' GROUP BY c.courseCode")
     List<StreamCoursePlan> getTermThreeX(String program);
+
+    @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program  GROUP BY c.courseCode")
+    List<StreamCoursePlan> getAllTerms(String program);
 
     @Query("SELECT * FROM planinfo")
     List<PlanInfo> getAllPlanInfos();

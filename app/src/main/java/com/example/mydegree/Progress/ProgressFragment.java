@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,9 @@ public class ProgressFragment extends Fragment {
     private TextView ptuoc1, ptuoc2, ptuoc3, ptuoc4, ptuoc5, ptuoc6, ptuoc7;
     private int pb1max, pb1now, pb2max, pb2now, pb3max, pb3now, pb4max, pb4now, pb5max, pb5now, pb6max, pb6now, pb7max, pb7now;
     private CardView pc5;
+    private CardView checkListCard;
+    public static final String ENROL_FRAG_TAG = "enrolFragTag";
+    public static final String PICK_ENROL_ITEM_FRAG_TAG = "pickEnrolItemFragTag";
 
     //TODO: Firebase
 
@@ -58,7 +62,17 @@ public class ProgressFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(fab, "This will add stuff", Snackbar.LENGTH_SHORT).show();
+                //only do if program is null
+                if(((Program) getActivity()).getProgCode()==null){
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    EnrolProgramFragment enrolProgramFragment = EnrolProgramFragment.newInstance();
+                    enrolProgramFragment.show(fm, ENROL_FRAG_TAG);
+                } else {
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    PickEnrolItemFragment pickEnrolItemFragment = PickEnrolItemFragment.newInstance(((Program) getActivity()).getProgCode());
+                    pickEnrolItemFragment.show(fm, PICK_ENROL_ITEM_FRAG_TAG);
+                }
+
             }
         });
 
@@ -126,6 +140,8 @@ public class ProgressFragment extends Fragment {
 
         streamsCard = view.findViewById(R.id.streamsCard);
         streamsCard.setVisibility(View.GONE);
+        checkListCard = view.findViewById(R.id.checkListCard);
+        checkListCard.setVisibility(View.GONE);
 
         //set up recyclers
         rs1 = view.findViewById(R.id.streamRV1);
@@ -170,4 +186,5 @@ public class ProgressFragment extends Fragment {
 
         return view;
     }
+
 }
