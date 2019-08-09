@@ -99,8 +99,8 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.ViewHolder> 
             databaseReference.child("User").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child("achievements").child("Post Office").exists()) {
-                        if (String.valueOf(badgeList.get(position).getBadgeName()).equals("Post Office")) {
+                    if (dataSnapshot.child("achievements").child("UniWide").exists()) {
+                        if (String.valueOf(badgeList.get(position).getBadgeName()).equals("UniWide")) {
                             holder.cardLL.setAlpha(1);
                         }
                     }
