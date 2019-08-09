@@ -1012,7 +1012,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                             } else {
                                 course34 = ar12.get(0).getCourseCode();
                                 course35 = ar12.get(1).getCourseCode();
-                                course6 = ar12.get(2).getCourseCode();
+                                course36 = ar12.get(2).getCourseCode();
                             }
                             map.put("12", new PlanObject(course34, course35, course36));
                         }

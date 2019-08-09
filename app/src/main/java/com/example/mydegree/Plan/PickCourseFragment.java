@@ -236,7 +236,7 @@ public class PickCourseFragment extends DialogFragment {
             courseSpinner.setAdapter(courseAdapter);
             searchableSpinner.setAdapter(courseAdapter);*/
             dbResult = result;
-            mAdapter = new PlanSearchAdapter(result, term, year, getActivity());
+            mAdapter = new PlanSearchAdapter(result, year, term, getActivity());
             planCycler.setAdapter(mAdapter);
         }
     }
