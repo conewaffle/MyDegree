@@ -8,6 +8,7 @@
     tools:context=".Progress.ProgressFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/progressScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -80,9 +81,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginTop="4dp"
                 app:cardBackgroundColor="@color/colorCard"
                 app:cardCornerRadius="8dp">
 
@@ -131,7 +132,7 @@
                                     android:id="@+id/streamRV1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"/>
+                                    android:layout_marginBottom="8dp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -170,7 +171,7 @@
                                     android:id="@+id/streamRV2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"/>
+                                    android:layout_marginBottom="8dp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -209,7 +210,7 @@
                                     android:id="@+id/streamRV3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"/>
+                                    android:layout_marginBottom="8dp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -248,8 +249,8 @@
                                     android:id="@+id/streamRV4"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:scrollbars="none"
-                                    android:layout_marginBottom="8dp"/>
+                                    android:layout_marginBottom="8dp"
+                                    android:scrollbars="none" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -288,7 +289,7 @@
                                     android:id="@+id/streamRV5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"/>
+                                    android:layout_marginBottom="8dp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -327,7 +328,7 @@
                                     android:id="@+id/streamRV6"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="8dp"/>
+                                    android:layout_marginBottom="8dp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -350,8 +351,8 @@
                 android:id="@+id/checkListCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/colorCard"
@@ -379,8 +380,8 @@
                                 android:id="@+id/pt1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses."
-                                android:layout_marginBottom="4dp"/>
+                                android:layout_marginBottom="4dp"
+                                android:text="I have completed a minimum of X UOC in X courses." />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -389,10 +390,9 @@
                                 <ProgressBar
                                     android:id="@+id/pb1"
                                     style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/plan_progressbar"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    />
+                                    android:progressDrawable="@drawable/plan_progressbar" />
 
                                 <TextView
                                     android:id="@+id/ptuoc1"
@@ -425,8 +425,8 @@
                                 android:id="@+id/pt2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses."
-                                android:layout_marginBottom="4dp"/>
+                                android:layout_marginBottom="4dp"
+                                android:text="I have completed a minimum of X UOC in X courses." />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -435,9 +435,9 @@
                                 <ProgressBar
                                     android:id="@+id/pb2"
                                     style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/plan_progressbar"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:progressDrawable="@drawable/plan_progressbar" />
 
                                 <TextView
                                     android:id="@+id/ptuoc2"
@@ -471,8 +471,8 @@
                                 android:id="@+id/pt3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses."
-                                android:layout_marginBottom="4dp"/>
+                                android:layout_marginBottom="4dp"
+                                android:text="I have completed a minimum of X UOC in X courses." />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -481,9 +481,9 @@
                                 <ProgressBar
                                     android:id="@+id/pb3"
                                     style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/plan_progressbar"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:progressDrawable="@drawable/plan_progressbar" />
 
                                 <TextView
                                     android:id="@+id/ptuoc3"
@@ -518,8 +518,8 @@
                                 android:id="@+id/pt4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses."
-                                android:layout_marginBottom="4dp"/>
+                                android:layout_marginBottom="4dp"
+                                android:text="I have completed a minimum of X UOC in X courses." />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -528,9 +528,9 @@
                                 <ProgressBar
                                     android:id="@+id/pb4"
                                     style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/plan_progressbar"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:progressDrawable="@drawable/plan_progressbar" />
 
                                 <TextView
                                     android:id="@+id/ptuoc4"
@@ -565,8 +565,8 @@
                                 android:id="@+id/pt5"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses."
-                                android:layout_marginBottom="4dp"/>
+                                android:layout_marginBottom="4dp"
+                                android:text="I have completed a minimum of X UOC in X courses." />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -575,9 +575,9 @@
                                 <ProgressBar
                                     android:id="@+id/pb5"
                                     style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/plan_progressbar"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:progressDrawable="@drawable/plan_progressbar" />
 
                                 <TextView
                                     android:id="@+id/ptuoc5"
@@ -611,8 +611,8 @@
                                 android:id="@+id/pt6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses."
-                                android:layout_marginBottom="4dp"/>
+                                android:layout_marginBottom="4dp"
+                                android:text="I have completed a minimum of X UOC in X courses." />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -621,9 +621,9 @@
                                 <ProgressBar
                                     android:id="@+id/pb6"
                                     style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/plan_progressbar"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="wrap_content"
+                                    android:progressDrawable="@drawable/plan_progressbar" />
 
                                 <TextView
                                     android:id="@+id/ptuoc6"
@@ -655,8 +655,8 @@
                                 android:id="@+id/pt7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses."
-                                android:layout_marginBottom="4dp"/>
+                                android:layout_marginBottom="4dp"
+                                android:text="I have completed a minimum of X UOC in X courses." />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -665,9 +665,9 @@
                                 <ProgressBar
                                     android:id="@+id/pb7"
                                     style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/plan_progressbar"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:progressDrawable="@drawable/plan_progressbar" />
 
                                 <TextView
                                     android:id="@+id/ptuoc7"

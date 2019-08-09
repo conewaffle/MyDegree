@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -65,6 +66,8 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
     public static final String ENROL_FRAG_TAG = "enrolFragTag";
     public static final String PICK_ENROL_ITEM_FRAG_TAG = "pickEnrolItemFragTag";
 
+    private NestedScrollView progressScroll;
+
     private EnrolmentItem temporaryItem;
     //TODO: Firebase
 
@@ -75,6 +78,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         view = inflater.inflate(R.layout.fragment_progress, container, false);
 
         progDialog = new ProgressDialog(getActivity());
+
 
         fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +97,19 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
             }
         });
+
+        progressScroll = view.findViewById(R.id.progressScroll);
+        progressScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    fab.hide();
+                } else {
+                    fab.show();
+                }
+            }
+        });
+
 
         progName = view.findViewById(R.id.progName);
         progName.setText("Not yet enrolled.");
