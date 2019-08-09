@@ -52,8 +52,10 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
     private Toolbar toolbar;
     private AppBarLayout appbar;
     private String progCode;
-    private String majCode;
+    private String majCode, majName;
     private String pickedCourse;
+    private ArrayList<ProgramUpdateListener> programUpdateListeners;
+    private ArrayList<CourseUpdateListener> courseUpdateListeners;
 
 
     @Override
@@ -93,29 +95,17 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
 
         progDialog = new ProgressDialog(Program.this);
 
-/*        i = getIntent();
-        progString = i.getStringExtra(SearchAdapter.PROG_CODE);
-
-        String title = progString;
-        if (progString.equals("3979")){
-            title = progString + " - Information Systems";
-        } else if (progString.equals("3584")){
-            title = progString + " - Commerce / Information Systems";
-        } else {
-            title = progString + " - Information Systems (Co-op) (Hons)";
-        }
-        toolbar.setTitle(title);*/
+        programUpdateListeners = new ArrayList<>();
+        courseUpdateListeners = new ArrayList<>();
 
     }
 
     @Override
     public void onFinishEnrol(Bundle bundle){
         progCode = bundle.getString(RESULT_PROG);
-        if(bundle.getString(RESULT_MAJOR)!=null){
-            majCode = bundle.getString(RESULT_MAJOR);
-        } else {
-            majCode = null;
-        }
+        majName = bundle.getString(RESULT_MAJOR);
+        majCode = majName.substring(0,6);
+
         final EnrolmentInfo toInsert = new EnrolmentInfo(progCode, majCode);
         new InsertEnrolInfoTask().execute(toInsert);
     }
@@ -127,6 +117,42 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
     @Override
     public void onFinishPickEnrolItem(String string) {
         pickedCourse = string;
+    }
+
+    public interface ProgramUpdateListener {
+        void onProgramUpdate(String programCode, String majorCode);
+    }
+
+    public synchronized  void registerProgramUpdateListener(ProgramUpdateListener listener){
+        programUpdateListeners.add(listener);
+    }
+
+    public synchronized  void unregisterProgramUpdateListener(ProgramUpdateListener listener){
+        programUpdateListeners.remove(listener);
+    }
+
+    public synchronized  void onProgramUpdate(String programCode, String majorCode){
+        for(ProgramUpdateListener listener : programUpdateListeners){
+            listener.onProgramUpdate(programCode, majorCode);
+        }
+    }
+
+    public interface CourseUpdateListener {
+        void onCourseUpdate(String courseCode);
+    }
+
+    public synchronized  void registerCourseUpdateListener(CourseUpdateListener listener){
+        courseUpdateListeners.add(listener);
+    }
+
+    public synchronized  void unregisterCourseUpdateListener(CourseUpdateListener listener){
+        courseUpdateListeners.remove(listener);
+    }
+
+    public synchronized  void onCourseUpdate(String courseCode){
+        for(CourseUpdateListener listener : courseUpdateListeners){
+            listener.onCourseUpdate(courseCode);
+        }
     }
 
     @Override

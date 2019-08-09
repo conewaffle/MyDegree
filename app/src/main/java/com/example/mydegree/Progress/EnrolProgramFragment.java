@@ -72,10 +72,14 @@ public class EnrolProgramFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 resultBundle = new Bundle();
-                resultBundle.putString(RESULT_PROG, major);
+                if(major.equals("No major chosen yet")){
+                    major = "Major not declared";
+                }
+                resultBundle.putString(RESULT_MAJOR, major);
                 resultBundle.putString(RESULT_PROG, programCode);
                 EnrolProgramFragment.EnrolProgramListener listener = (EnrolProgramListener) getActivity();
                 listener.onFinishEnrol(resultBundle);
+                ((Program) getActivity()).onProgramUpdate(programCode, major);
                 dismiss();
             }
         });
@@ -104,7 +108,8 @@ public class EnrolProgramFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String lol = (String) parent.getItemAtPosition(position);
-                major = lol.substring(0,6);
+                //major = lol.substring(0,6);
+                major =  lol;
             }
 
             @Override

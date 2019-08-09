@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.mydegree.R;
 
-public class RoadmapFragment extends Fragment {
+public class RoadmapFragment extends Fragment implements Program.ProgramUpdateListener, Program.CourseUpdateListener {
 
     private View view;
     private ProgressDialog progDialog;
@@ -24,5 +24,15 @@ public class RoadmapFragment extends Fragment {
         progDialog = new ProgressDialog(getActivity());
 
         return view;
+    }
+
+    @Override
+    public void onProgramUpdate(String programCode, String majorName) {
+
+    }
+
+    @Override
+    public void onCourseUpdate(String courseCode) {
+
     }
 }

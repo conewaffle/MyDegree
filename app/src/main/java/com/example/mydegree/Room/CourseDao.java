@@ -89,7 +89,7 @@ public interface CourseDao {
     @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program AND c.t3 = '1' GROUP BY c.courseCode")
     List<StreamCoursePlan> getTermThreeX(String program);
 
-    @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program  GROUP BY c.courseCode")
+    @Query("SELECT streamId2 AS streamId, streamName,  streamCourse, core FROM streamcourse a JOIN stream b ON a.streamId2=b.id JOIN course c ON a.streamCourse = c.courseCode WHERE b.streamProg = :program  AND c.t1 IN ('1','2','3') GROUP BY c.courseCode")
     List<StreamCoursePlan> getAllTerms(String program);
 
     @Query("SELECT * FROM planinfo")
@@ -101,8 +101,14 @@ public interface CourseDao {
     @Query("SELECT * FROM 'plan' WHERE planId = :planId")
     List<Plan> getPlanItems(int planId);
 
+    @Query("SELECT * FROM 'enrolmentitem' WHERE progCode = :progCode")
+    List<EnrolmentItem> getEnrolItems(String progCode);
+
     @Query("DELETE FROM planinfo WHERE planId = :planId")
     void deleteWholePlan(int planId);
+
+    @Query("SELECT * FROM 'enrolmentinfo'")
+    List<EnrolmentInfo> getEnrolInfos();
 
 /*    @Query("DELETE FROM `plan` WHERE planId = :planId AND courseCode = :courseCode")
     void deletePlanItem(int planId, String courseCode);*/
