@@ -2033,7 +2033,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 p10.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
                 p11.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
                 p12.setPlan(new ArrayList<com.example.mydegree.Room.Plan>());
-                setTitle("myPlan");
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
+                setTitle("Create a plan");
                 buttons1.setVisibility(View.GONE);
                 buttons2.setVisibility(View.GONE);
                 buttons3.setVisibility(View.GONE);
