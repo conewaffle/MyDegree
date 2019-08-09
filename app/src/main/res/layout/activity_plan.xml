@@ -635,14 +635,17 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Progression Checklist"
+                android:layout_marginBottom="4dp"
+                android:text="Your Plan's Courses"
                 android:textSize="16sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/streamsCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/colorCard"
                 app:cardCornerRadius="8dp">
 
@@ -897,6 +900,17 @@
 
             </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/textProgCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:text="Progression Checklist"
+                android:textSize="16sp" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/checkListCard"
                 android:layout_width="match_parent"
@@ -929,7 +943,8 @@
                                 android:id="@+id/pt1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses." />
+                                android:text="I have completed a minimum of X UOC in X courses."
+                                android:layout_marginBottom="4dp"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -974,7 +989,8 @@
                                 android:id="@+id/pt2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses." />
+                                android:text="I have completed a minimum of X UOC in X courses."
+                                android:layout_marginBottom="4dp"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -1019,7 +1035,8 @@
                                 android:id="@+id/pt3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses." />
+                                android:text="I have completed a minimum of X UOC in X courses."
+                                android:layout_marginBottom="4dp"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -1065,7 +1082,8 @@
                                 android:id="@+id/pt4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses." />
+                                android:text="I have completed a minimum of X UOC in X courses."
+                                android:layout_marginBottom="4dp"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -1111,7 +1129,8 @@
                                 android:id="@+id/pt5"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses." />
+                                android:text="I have completed a minimum of X UOC in X courses."
+                                android:layout_marginBottom="4dp"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -1156,7 +1175,8 @@
                                 android:id="@+id/pt6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses." />
+                                android:text="I have completed a minimum of X UOC in X courses."
+                                android:layout_marginBottom="4dp"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -1199,7 +1219,8 @@
                                 android:id="@+id/pt7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="I have completed a minimum of X UOC in X courses." />
+                                android:text="I have completed a minimum of X UOC in X courses."
+                                android:layout_marginBottom="4dp"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"

@@ -110,7 +110,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private RecyclerView rs1, rs2, rs3, rs4, rs5, rs6;
     private CardView cs1, cs2, cs3, cs4, cs5, cs6;
     private CardView streamsCard;
-    private TextView yourCourses;
+    private TextView yourCourses, yourProgCheck;
     private TextView ts1, ts2, ts3, ts4, ts5, ts6, uoc1, uoc2, uoc3, uoc4, uoc5, uoc6;
     private PlanAdapter ps1, ps2, ps3, ps4, ps5, ps6;
     private ArrayList<com.example.mydegree.Room.Plan> ars1, ars2, ars3, ars4, ars5, ars6;
@@ -424,6 +424,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
         streamsCard.setVisibility(View.GONE);
         yourCourses = findViewById(R.id.textYourCourses);
         yourCourses.setVisibility(View.GONE);
+        yourProgCheck = findViewById(R.id.textProgCheck);
+        yourProgCheck.setVisibility(View.GONE);
 
 
         //set up recyclers
@@ -1045,6 +1047,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private void setupContent(){
         streamsCard.setVisibility(View.VISIBLE);
         yourCourses.setVisibility(View.VISIBLE);
+        yourProgCheck.setVisibility(View.VISIBLE);
         if(programCode.equals("3979")){
             c4.setVisibility(View.GONE);
         } else {
@@ -2021,6 +2024,7 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 buttons3.setVisibility(View.GONE);
                 buttons4.setVisibility(View.GONE);
                 yourCourses.setVisibility(View.GONE);
+                yourProgCheck.setVisibility(View.GONE);
                 streamsCard.setVisibility(View.GONE);
                 checkListCard.setVisibility(View.GONE);
 

@@ -277,7 +277,6 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
 
         new GetStreamCoursesTask().execute(programCode);
-        new GetEnrolItemsTask().execute(programCode);
 
     }
 
@@ -354,6 +353,8 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 }
             }
 
+            new GetEnrolItemsTask().execute(programCode);
+
         }
     }
     private class GetEnrolInfosTask extends AsyncTask<Void, Void, ArrayList<EnrolmentInfo>> {
@@ -385,7 +386,6 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 majorCode = result.get(0).getMajorId();
                 progCode.setText(programCode);
                 progMajor.setText(majorCode);
-                new GetEnrolItemsTask().execute(result.get(0).getProgCode());
                 String toSet = "";
                 switch(programCode){
                     case "3584":
