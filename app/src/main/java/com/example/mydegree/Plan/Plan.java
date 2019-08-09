@@ -138,6 +138,8 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
     private int planRenamePosition;
     private boolean isRenaming;
 
+    private ArrayList<PlanInfo> resultToSync;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1567,6 +1569,19 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
 
                 return true;
+            case R.id.action_sync:
+                if (isNetworkAvailable()) {
+                    if(resultToSync!=null){
+                        syncPlan(resultToSync);
+                        uniWide();
+                    } else {
+                        Snackbar.make(c1, "No plan to sync", Snackbar.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    Snackbar.make(c1, "Network connection unavailable. Sync unsuccessful.", Snackbar.LENGTH_LONG).show();
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -2071,6 +2086,9 @@ public class Plan extends BaseActivity implements View.OnClickListener, PickCour
                 }
             }
             progDialog.dismiss();
+
+            //adding this variable so that it can be accessed outside of this asynctask by the menu button
+            resultToSync = result;
 
             sync.setOnClickListener(new View.OnClickListener() {
                 @Override
