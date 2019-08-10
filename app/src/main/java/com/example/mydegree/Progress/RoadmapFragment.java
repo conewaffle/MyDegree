@@ -166,6 +166,9 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             autoTransition.setDuration(1000);
             TransitionManager.beginDelayedTransition(constraintLayout, autoTransition);
             float vBias = (float) ((double) 1 - (double)localPercent / (double) 100);
+            if(vBias<0){
+                vBias=0;
+            }
             applyConstraint.setVerticalBias(R.id.person, vBias);
             applyConstraint.applyTo(constraintLayout);
 

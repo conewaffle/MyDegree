@@ -206,6 +206,13 @@ public class InsertData {
         courses.add(new Course("PHYS1160", "Introduction to Astronomy", "Introduction to Astronomy and the search for life elsewhere.This course provides a broad overview of Astronomy and our place in the Cosmos. It covers the solar system and its exploration, stars, galaxies and cosmology, the Earth as a habitable planet and the search for life elsewhere in the universe. The course is delivered wholly on the internet through  Moodle. The course is suitable as an introductory course for science students or as a general education course for non-scientists.", 1, 6, 5, true, true, true, null, "Online"));
         courses.add(new Course("COMP2521", "Data Structures and Algorithms", "The goal of this course is to deepen students' understanding of data structures and algorithms and how these can be employed effectively in the design of software systems. We anticipate that it will generally be taken in the second year of a program, but since its only prerequisite is COMP1511, is it possible to take it in first year. It is an important course in covering a range of core data structures and algorithms that will be used in context in later courses.\n" + "\n" + "Topics: \nAn introduction the structure, analysis and usage of a range of fundamental data types and the core algorithms that operate on them, including: algorithm analysis, sorting, searching, trees, graphs, files, algorithmic strategies, analysis and measurement of programs. Labs and programming assignments in C, using a range of Unix tools.", 2, 6, 7, true, true, true, null, "Face-to-face"));
         courses.add(new Course("COMP1511", "Programming Fundamentals", "An introduction to problem-solving via programming, which aims to have students develop proficiency in using a high level programming language. Topics: algorithms, program structures (statements, sequence, selection, iteration, functions), data types (numeric, character), data structures (arrays, tuples, pointers, lists), storage structures (memory, addresses), introduction to analysis of algorithms, testing, code quality, teamwork, and reflective practice. The course includes extensive practical work in labs and programming projects.  \n" + "\n" + "Additional Information \n" +"\n" + "This course should be taken by all CSE majors, and any other students who have an interest in computing or who wish to be extended. It does not require any prior computing knowledge or experience.\n" + "\n" + "COMP1511 leads on to COMP1521, COMP1531, COMP2511 and COMP2521, which form the core of the study of computing at UNSW and which are prerequisites for the full range of further computing courses.\n" + "\n" + "Due to overlapping material, students who complete COMP1511 may not also enrol in COMP1911 or COMP1921.",1,6,7,true,true,true,null,"Face-to-face"));
+        courses.add(new Course("FREE0001","Free Elective Dummy","This subject is a dummy subject for you to enter free electives outside of the business school.",0, 6, 0, true, true, true, null, "Face-to-face"));
+        courses.add(new Course("FREE0002","Free Elective Dummy","This subject is a dummy subject for you to enter free electives outside of the business school.",0, 6, 0, true, true, true, null, "Face-to-face"));
+        courses.add(new Course("FREE0003","Free Elective Dummy","This subject is a dummy subject for you to enter free electives outside of the business school.",0, 6, 0, true, true, true, null, "Face-to-face"));
+        courses.add(new Course("FREE0004","Free Elective Dummy","This subject is a dummy subject for you to enter free electives outside of the business school.",0, 6, 0, true, true, true, null, "Face-to-face"));
+        courses.add(new Course("GNED0001","General Education Dummy","This subject is a dummy subject for you to enter in a general education course that is not in our database.",0,6,0,true,true,true,null,"Face-to-face"));
+        courses.add(new Course("GNED0002","General Education Dummy","This subject is a dummy subject for you to enter in a general education course that is not in our database.",0,6,0,true,true,true,null,"Face-to-face"));
+
 
         return courses;
     }
@@ -811,6 +818,8 @@ public class InsertData {
         streamCourses.add(new StreamCourse("GENED","PHYS1160", false));
         streamCourses.add(new StreamCourse("GENED","COMP1511", false));
         streamCourses.add(new StreamCourse("GENED","COMP2521", false));
+        streamCourses.add(new StreamCourse("GENED","GNED0001", false));
+        streamCourses.add(new StreamCourse("GENED","GNED0002", false));
 
         streamCourses.add(new StreamCourse("3584M","ACCTA1", false));
         streamCourses.add(new StreamCourse("3584M","COMMF1", false));
@@ -830,6 +839,13 @@ public class InsertData {
         streamCourses.add(new StreamCourse("INFSE","INFS3632", false));
         streamCourses.add(new StreamCourse("INFSE","INFS3830", false));
         streamCourses.add(new StreamCourse("INFSE","INFS3873", false));
+
+        streamCourses.add(new StreamCourse("3979F","FREE0001", false));
+        streamCourses.add(new StreamCourse("3979F","FREE0002", false));
+        streamCourses.add(new StreamCourse("3979F","FREE0003", false));
+        streamCourses.add(new StreamCourse("3979F","FREE0004", false));
+
+
 
         //to do: more gen ed courses?? (OR LIKE  a create your own gen-ed subject placeholder with its own term offerings?, and business electives?
 

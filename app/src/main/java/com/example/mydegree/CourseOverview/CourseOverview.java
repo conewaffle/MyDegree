@@ -63,15 +63,6 @@ public class CourseOverview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_overview);
 
-/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab3);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Add block for drag and drop/home page?", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         recycler = findViewById(R.id.recyclerPrereq);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
