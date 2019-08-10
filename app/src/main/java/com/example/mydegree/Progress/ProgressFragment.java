@@ -102,6 +102,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         }
 
         fab = getActivity().findViewById(R.id.fab);
+        fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1253,4 +1254,11 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && fab!=null) {
+            fab.show();
+        }
+    }
 }

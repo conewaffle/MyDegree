@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mydegree.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RoadmapFragment extends Fragment implements Program.ProgramUpdateListener, Program.CourseUpdateListener, Program.RoadmapUpdateListener {
 
@@ -29,6 +30,8 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private ProgressDialog progDialog;
     private ProgressBar roadmapBar;
     private int localPercent;
+    private float localFrom, localTo;
+    private FloatingActionButton fab;
     private TextView progressText, progressPercent;
     private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100, person;
     private ConstraintLayout constraintLayout;
@@ -43,6 +46,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         roadmapBar = view.findViewById(R.id.pb);
         progressText = view.findViewById(R.id.progressText);
         progressPercent = view.findViewById(R.id.progressPercent);
+        fab = getActivity().findViewById(R.id.fab);
 
         yellow25 = view.findViewById(R.id.booksyellow);
         red25 = view.findViewById(R.id.booksred);
@@ -77,7 +81,9 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     @Override
     public void onRoadmapUpdate(int pbNow, int pbMax) {
         roadmapBar.setMax(pbMax);
-        roadmapBar.setProgress(pbNow);
+        localFrom = localPercent;
+        localTo = pbNow;
+        //roadmapBar.setProgress(pbNow);
         progressText.setText(pbNow + " / " + pbMax + " UOC Completed");
 
         double percent = (double) pbNow*100/(double)pbMax;
@@ -137,11 +143,14 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
     }
 
+
+
     //trying to implement a moving animation
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser) {
+            fab.hide();
             ConstraintSet applyConstraint = new ConstraintSet();
             applyConstraint.clone(constraintLayout);
             AutoTransition autoTransition = new AutoTransition();
@@ -150,9 +159,35 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             float vBias = (float) ((double) 1 - (double)localPercent / (double) 100);
             applyConstraint.setVerticalBias(R.id.person, vBias);
             applyConstraint.applyTo(constraintLayout);
+
+            ProgressBarAnimation anim = new ProgressBarAnimation(roadmapBar, localFrom, localTo);
+            anim.setDuration(800);
+            roadmapBar.startAnimation(anim);
+
         } else {
 
         }
+    }
+
+    public class ProgressBarAnimation extends Animation{
+        private ProgressBar progressBar;
+        private float from;
+        private float  to;
+
+        public ProgressBarAnimation(ProgressBar progressBar, float from, float to) {
+            super();
+            this.progressBar = progressBar;
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            float value = from + (to - from) * interpolatedTime;
+            progressBar.setProgress((int) value);
+        }
+
     }
 
     @Override
