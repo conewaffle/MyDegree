@@ -2,9 +2,11 @@ package com.example.mydegree.Progress;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
@@ -35,6 +37,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private TextView progressText, progressPercent;
     private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100, person;
     private ConstraintLayout constraintLayout;
+    private CardView card1, card2, card3, card4, card5, card6, card7;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,9 +52,17 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         fab = getActivity().findViewById(R.id.fab);
 
         person = view.findViewById(R.id.person);
+        person.bringToFront();
 
         constraintLayout = view.findViewById(R.id.roadmapConstraint);
 
+        card1 = view.findViewById(R.id.card1);
+        card2 = view.findViewById(R.id.card2);
+        card3 = view.findViewById(R.id.card3);
+        card4 = view.findViewById(R.id.card4);
+        card5 = view.findViewById(R.id.card5);
+        card6 = view.findViewById(R.id.card6);
+        card7 = view.findViewById(R.id.card7);
         return view;
     }
 
@@ -83,19 +94,61 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
     private void changeIcons(){
         if(localPercent<17){
-
+            card1.setCardBackgroundColor(Color.YELLOW);
+            card2.setCardBackgroundColor(Color.BLACK);
+            card3.setCardBackgroundColor(Color.BLACK);
+            card4.setCardBackgroundColor(Color.BLACK);
+            card5.setCardBackgroundColor(Color.BLACK);
+            card6.setCardBackgroundColor(Color.BLACK);
+            card7.setCardBackgroundColor(Color.BLACK);
         } else if(localPercent<33){
-
+            card1.setCardBackgroundColor(Color.YELLOW);
+            card2.setCardBackgroundColor(Color.YELLOW);
+            card3.setCardBackgroundColor(Color.BLACK);
+            card4.setCardBackgroundColor(Color.BLACK);
+            card5.setCardBackgroundColor(Color.BLACK);
+            card6.setCardBackgroundColor(Color.BLACK);
+            card7.setCardBackgroundColor(Color.BLACK);
         } else if(localPercent<50){
-
+            card1.setCardBackgroundColor(Color.YELLOW);
+            card2.setCardBackgroundColor(Color.YELLOW);
+            card3.setCardBackgroundColor(Color.YELLOW);
+            card4.setCardBackgroundColor(Color.BLACK);
+            card5.setCardBackgroundColor(Color.BLACK);
+            card6.setCardBackgroundColor(Color.BLACK);
+            card7.setCardBackgroundColor(Color.BLACK);
         } else if(localPercent<67){
-
+            card1.setCardBackgroundColor(Color.YELLOW);
+            card2.setCardBackgroundColor(Color.YELLOW);
+            card3.setCardBackgroundColor(Color.YELLOW);
+            card4.setCardBackgroundColor(Color.YELLOW);
+            card5.setCardBackgroundColor(Color.BLACK);
+            card6.setCardBackgroundColor(Color.BLACK);
+            card7.setCardBackgroundColor(Color.BLACK);
         } else if(localPercent<83){
-
+            card1.setCardBackgroundColor(Color.YELLOW);
+            card2.setCardBackgroundColor(Color.YELLOW);
+            card3.setCardBackgroundColor(Color.YELLOW);
+            card4.setCardBackgroundColor(Color.YELLOW);
+            card5.setCardBackgroundColor(Color.YELLOW);
+            card6.setCardBackgroundColor(Color.BLACK);
+            card7.setCardBackgroundColor(Color.BLACK);
         } else if (localPercent<100){
-
+            card1.setCardBackgroundColor(Color.YELLOW);
+            card2.setCardBackgroundColor(Color.YELLOW);
+            card3.setCardBackgroundColor(Color.YELLOW);
+            card4.setCardBackgroundColor(Color.YELLOW);
+            card5.setCardBackgroundColor(Color.YELLOW);
+            card6.setCardBackgroundColor(Color.YELLOW);
+            card7.setCardBackgroundColor(Color.BLACK);
         } else {
-
+            card1.setCardBackgroundColor(Color.YELLOW);
+            card2.setCardBackgroundColor(Color.YELLOW);
+            card3.setCardBackgroundColor(Color.YELLOW);
+            card4.setCardBackgroundColor(Color.YELLOW);
+            card5.setCardBackgroundColor(Color.YELLOW);
+            card6.setCardBackgroundColor(Color.YELLOW);
+            card7.setCardBackgroundColor(Color.YELLOW);
         }
     }
 
