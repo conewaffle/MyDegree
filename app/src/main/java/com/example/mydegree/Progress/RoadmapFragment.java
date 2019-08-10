@@ -5,10 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,7 +25,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private ProgressBar roadmapBar;
     private int localPercent;
     private TextView progressText, progressPercent;
-    private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100;
+    private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100, person;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,9 +50,11 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         red50.setAlpha(0.1f);
         red75.setAlpha(0.1f);
         red100.setAlpha(0.1f);
+        person = view.findViewById(R.id.person);
 
         return view;
     }
+
 
     @Override
     public void onProgramUpdate(String programCode, String majorName) {
@@ -120,6 +125,30 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             red50.setVisibility(View.INVISIBLE);
             red75.setVisibility(View.INVISIBLE);
             red100.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
+    //trying to implement a moving animation
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            super.onResume();
+            Animation a = new Animation() {
+                @Override
+                protected void applyTransformation(float interpolatedTime, Transformation t) {
+                    ConstraintLayout.LayoutParams lparams = (ConstraintLayout.LayoutParams) person.getLayoutParams();
+                    float vBias = (float) ((double) 1 - (double)localPercent / (double) 100);
+                    lparams.verticalBias =  vBias;
+                    person.setLayoutParams(lparams);
+                }
+            };
+            a.setDuration(1000); // in ms
+            a.setFillAfter(true);
+            person.startAnimation(a);
+        } else {
+
         }
     }
 
