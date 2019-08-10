@@ -47,6 +47,9 @@ public interface CourseDao {
     @Query ("UPDATE planinfo SET planName = :planName WHERE planId = :planId")
     void updatePlanName(String planName, int planId);
 
+    @Query("UPDATE enrolmentinfo SET majorId = :majorId WHERE progCode = '3584'")
+    void updateMajor(String majorId);
+
     @Query("SELECT * FROM course WHERE courseCode LIKE :query OR courseName LIKE :query")
     List<Course> getSearchCourses(String query);
 

@@ -482,9 +482,13 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 ArrayList<EnrolmentInfo> myList = (ArrayList<EnrolmentInfo>) db.courseDao().getEnrolInfos();
                 if (myList.size() > 0) {
                     String majorId = myList.get(0).getMajorId();
-                    ArrayList<EnrolmentInfo> myMajorName = (ArrayList<EnrolmentInfo>) db.courseDao().getMajorName(majorId);
-                    if (myMajorName.size() > 0) {
-                        myList.add(myMajorName.get(0));
+                    if(myList.get(0).getProgCode().equals("3584")&&majorId.equals("Major ")){
+                        myList.add(new EnrolmentInfo("","Major not declared"));
+                    } else {
+                        ArrayList<EnrolmentInfo> myMajorName = (ArrayList<EnrolmentInfo>) db.courseDao().getMajorName(majorId);
+                        if (myMajorName.size() > 0) {
+                            myList.add(myMajorName.get(0));
+                        }
                     }
                 }
                 return myList;
@@ -500,10 +504,18 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
             } else {
                 programCode = result.get(0).getProgCode();
                 ((Program) getActivity()).setProgCode(programCode);
+
+                //refreshes the options menu (to change major) based on the new program code
+                getActivity().invalidateOptionsMenu();
+
                 majorCode = result.get(0).getMajorId();
                 progCode.setText(programCode);
                 if(result.size()>1){
-                    progMajor.setText(result.get(1).getMajorId());
+                    if(result.get(1).getProgCode().equals("")){
+                        progMajor.setText(result.get(1).getMajorId());
+                    } else {
+                        progMajor.setText(result.get(1).getProgCode() + " - " +  result.get(1).getMajorId());
+                    }
                 }
                 String toSet = "";
                 switch(programCode){

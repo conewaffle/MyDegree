@@ -35,6 +35,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -43,7 +44,7 @@ import static com.example.mydegree.Progress.EnrolProgramFragment.RESULT_MAJOR;
 import static com.example.mydegree.Progress.EnrolProgramFragment.RESULT_PROG;
 import static com.example.mydegree.Progress.ProgressFragment.ENROL_FRAG_TAG;
 
-public class Program extends BaseActivity implements EnrolProgramFragment.EnrolProgramListener {
+public class Program extends BaseActivity implements EnrolProgramFragment.EnrolProgramListener, ChangeMajorFragment.ChangeMajorListener {
 
     public static final String ROOM_INITIALISED = "coursesInitialised";
 
@@ -60,6 +61,8 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
     private ArrayList<RoadmapUpdateListener> roadmapUpdateListeners;
     private int streamLastClicked;
     private int pbmax, pbnow;
+
+    public static final String FRAG_CHANGE_MAJOR = "fragChangeMajor";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,6 +115,43 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
 
         final EnrolmentInfo toInsert = new EnrolmentInfo(progCode, majCode);
         new InsertEnrolInfoTask().execute(toInsert);
+    }
+
+    @Override
+    public void onFinishChangeMajor(String majorFullTitle) {
+        majName = majorFullTitle;
+        majCode = majName.substring(0,6);
+
+        new UpdateEnrolInfoTask().execute(majCode);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(progCode!=null){
+            if(progCode.equals("3584")){
+                getMenuInflater().inflate(R.menu.change_major, menu);
+            }
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.menu_change_major:
+                if(progCode.equals("3584")){
+                    FragmentManager fm = getSupportFragmentManager();
+                    ChangeMajorFragment changeMajorFragment = ChangeMajorFragment.newInstance();
+                    changeMajorFragment.show(fm, FRAG_CHANGE_MAJOR);
+                } else {
+                    Toast.makeText(Program.this, "You are not enrolled in Program 3584 Commerce / Information Systems!", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public String getProgCode(){
@@ -225,6 +265,26 @@ public class Program extends BaseActivity implements EnrolProgramFragment.EnrolP
             super.onPostExecute(aVoid);
         }
     }
+
+    private class UpdateEnrolInfoTask extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            CourseDb db = Room
+                    .databaseBuilder(Program.this, CourseDb.class, "coursedb")
+                    .build();
+
+            db.courseDao().updateMajor(strings[0]);
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
+
     //THIS WILL POPULATE THE DATABASE ON INITIALISATION
     private class InsertRoomTask extends AsyncTask<Void, Void, Void> {
 
