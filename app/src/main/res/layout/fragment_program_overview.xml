@@ -181,6 +181,16 @@
 
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/programWeb"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Program Outline"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:background="@color/colorPrimary"
+                android:padding="16dp"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

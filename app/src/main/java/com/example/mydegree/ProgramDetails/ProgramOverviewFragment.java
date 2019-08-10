@@ -2,6 +2,7 @@ package com.example.mydegree.ProgramDetails;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.room.Room;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mydegree.R;
@@ -30,6 +32,7 @@ public class ProgramOverviewFragment extends Fragment {
     private TextView duration, uoc, desc, name, code;
     private ProgressDialog progDialog;
     private String progString;
+    private Button programWeb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +79,14 @@ public class ProgramOverviewFragment extends Fragment {
             desc = view.findViewById(R.id.progDesc);
             name = view.findViewById(R.id.progDetailName);
             code = view.findViewById(R.id.progDetailCode);
+            programWeb = view.findViewById(R.id.programWeb);
+            programWeb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.handbook.unsw.edu.au/undergraduate/programs/2019/"+progString));
+                    startActivity(webIntent);
+                }
+            });
             desc.setText(myProgram.getProgDesc());
             uoc.setText(myProgram.getProgUoc() + " UOC");
             duration.setText(myProgram.getYears() + " Years");
