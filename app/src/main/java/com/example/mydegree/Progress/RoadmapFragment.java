@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,8 +20,9 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private View view;
     private ProgressDialog progDialog;
     private ProgressBar roadmapBar;
-    private int localPbNow, localPbMax;
+    private int localPercent;
     private TextView progressText, progressPercent;
+    private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +34,19 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         roadmapBar = view.findViewById(R.id.pb);
         progressText = view.findViewById(R.id.progressText);
         progressPercent = view.findViewById(R.id.progressPercent);
+
+        yellow25 = view.findViewById(R.id.booksyellow);
+        red25 = view.findViewById(R.id.booksred);
+        yellow50 = view.findViewById(R.id.ayellow);
+        red50 = view.findViewById(R.id.ared);
+        yellow75 = view.findViewById(R.id.transcriptyellow);
+        red75 = view.findViewById(R.id.transcriptred);
+        yellow100 = view.findViewById(R.id.hatyellow);
+        red100 = view.findViewById(R.id.hatred);
+        red25.setAlpha(0.1f);
+        red50.setAlpha(0.1f);
+        red75.setAlpha(0.1f);
+        red100.setAlpha(0.1f);
 
         return view;
     }
@@ -54,7 +69,58 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
         double percent = (double) pbNow*100/(double)pbMax;
         int percentRounded = (int) Math.round(percent);
+        localPercent = percentRounded;
         progressPercent.setText(percentRounded + "%");
+        changeIcons();
+    }
+
+    private void changeIcons(){
+        if(localPercent<25){
+            yellow25.setVisibility(View.INVISIBLE);
+            yellow50.setVisibility(View.INVISIBLE);
+            yellow75.setVisibility(View.INVISIBLE);
+            yellow100.setVisibility(View.INVISIBLE);
+            red25.setVisibility(View.VISIBLE);
+            red50.setVisibility(View.VISIBLE);
+            red75.setVisibility(View.VISIBLE);
+            red100.setVisibility(View.VISIBLE);
+        } else if(localPercent<50){
+            yellow25.setVisibility(View.VISIBLE);
+            yellow50.setVisibility(View.INVISIBLE);
+            yellow75.setVisibility(View.INVISIBLE);
+            yellow100.setVisibility(View.INVISIBLE);
+            red25.setVisibility(View.INVISIBLE);
+            red50.setVisibility(View.VISIBLE);
+            red75.setVisibility(View.VISIBLE);
+            red100.setVisibility(View.VISIBLE);
+        } else if(localPercent<75){
+            yellow25.setVisibility(View.VISIBLE);
+            yellow50.setVisibility(View.VISIBLE);
+            yellow75.setVisibility(View.INVISIBLE);
+            yellow100.setVisibility(View.INVISIBLE);
+            red25.setVisibility(View.INVISIBLE);
+            red50.setVisibility(View.INVISIBLE);
+            red75.setVisibility(View.VISIBLE);
+            red100.setVisibility(View.VISIBLE);
+        } else if(localPercent<100){
+            yellow25.setVisibility(View.VISIBLE);
+            yellow50.setVisibility(View.VISIBLE);
+            yellow75.setVisibility(View.VISIBLE);
+            yellow100.setVisibility(View.INVISIBLE);
+            red25.setVisibility(View.INVISIBLE);
+            red50.setVisibility(View.INVISIBLE);
+            red75.setVisibility(View.INVISIBLE);
+            red100.setVisibility(View.VISIBLE);
+        } else {
+            yellow25.setVisibility(View.VISIBLE);
+            yellow50.setVisibility(View.VISIBLE);
+            yellow75.setVisibility(View.VISIBLE);
+            yellow100.setVisibility(View.VISIBLE);
+            red25.setVisibility(View.INVISIBLE);
+            red50.setVisibility(View.INVISIBLE);
+            red75.setVisibility(View.INVISIBLE);
+            red100.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
