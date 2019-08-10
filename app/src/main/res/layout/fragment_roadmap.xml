@@ -34,22 +34,23 @@
             <ProgressBar
                 android:id="@+id/pb"
                 style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_width="80dp"
+                android:layout_height="490dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 android:max="100"
                 android:progress="0"
                 android:progressDrawable="@drawable/progress_bar_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressText" />
+                app:layout_constraintTop_toBottomOf="@+id/progressText"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/progressPercent"
@@ -65,19 +66,6 @@
                 app:layout_constraintTop_toTopOf="@+id/pb" />
 
             <ImageView
-                android:id="@+id/booksyellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_icon_books_yellow"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toStartOf="@+id/pb"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/pb"
-                app:layout_constraintVertical_bias="0.75" />
-
-            <ImageView
                 android:id="@+id/flagtop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,17 +74,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toTopOf="@+id/pb" />
-
-            <ImageView
-                android:id="@+id/ayellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_a_yellow"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toStartOf="@+id/pb"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/pb" />
 
             <ImageView
@@ -110,81 +87,19 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
-                android:id="@+id/transcriptyellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_transcript_yellow"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toEndOf="@+id/ayellow"
-                app:layout_constraintTop_toTopOf="@+id/pb"
-                app:layout_constraintVertical_bias="0.25" />
-
-            <ImageView
-                android:id="@+id/hatyellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_grad_hat"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toEndOf="@+id/ayellow"
-                app:layout_constraintTop_toTopOf="@+id/pb"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:id="@+id/booksred"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_icon_books_red"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toEndOf="@+id/booksyellow"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/pb"
-                app:layout_constraintVertical_bias="0.75" />
-
-            <ImageView
-                android:id="@+id/ared"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_icon_a_red"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toStartOf="@+id/progressPercent"
-                app:layout_constraintTop_toTopOf="@+id/pb" />
-
-            <ImageView
-                android:id="@+id/transcriptred"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_transcript_red"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toEndOf="@+id/ared"
-                app:layout_constraintTop_toTopOf="@+id/pb"
-                app:layout_constraintVertical_bias="0.25" />
-
-            <ImageView
-                android:id="@+id/hatred"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_grad_hat_red"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toEndOf="@+id/ared"
-                app:layout_constraintTop_toTopOf="@+id/pb"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
                 android:id="@+id/person"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/roadmapConstraint"
                 android:layout_marginTop="8dp"
                 android:paddingStart="-32dp"
                 android:paddingTop="-32dp"
                 android:paddingBottom="-32dp"
                 android:src="@mipmap/walking_icon_fore"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintEnd_toEndOf="@+id/pb"
+                app:layout_constraintStart_toStartOf="@+id/pb"
+                app:layout_constraintTop_toTopOf="@+id/pb" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

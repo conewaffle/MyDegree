@@ -48,18 +48,6 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         progressPercent = view.findViewById(R.id.progressPercent);
         fab = getActivity().findViewById(R.id.fab);
 
-        yellow25 = view.findViewById(R.id.booksyellow);
-        red25 = view.findViewById(R.id.booksred);
-        yellow50 = view.findViewById(R.id.ayellow);
-        red50 = view.findViewById(R.id.ared);
-        yellow75 = view.findViewById(R.id.transcriptyellow);
-        red75 = view.findViewById(R.id.transcriptred);
-        yellow100 = view.findViewById(R.id.hatyellow);
-        red100 = view.findViewById(R.id.hatred);
-        red25.setAlpha(0.1f);
-        red50.setAlpha(0.1f);
-        red75.setAlpha(0.1f);
-        red100.setAlpha(0.1f);
         person = view.findViewById(R.id.person);
 
         constraintLayout = view.findViewById(R.id.roadmapConstraint);
@@ -94,53 +82,21 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     }
 
     private void changeIcons(){
-        if(localPercent<25){
-            yellow25.setVisibility(View.INVISIBLE);
-            yellow50.setVisibility(View.INVISIBLE);
-            yellow75.setVisibility(View.INVISIBLE);
-            yellow100.setVisibility(View.INVISIBLE);
-            red25.setVisibility(View.VISIBLE);
-            red50.setVisibility(View.VISIBLE);
-            red75.setVisibility(View.VISIBLE);
-            red100.setVisibility(View.VISIBLE);
-        } else if(localPercent<50){
-            yellow25.setVisibility(View.VISIBLE);
-            yellow50.setVisibility(View.INVISIBLE);
-            yellow75.setVisibility(View.INVISIBLE);
-            yellow100.setVisibility(View.INVISIBLE);
-            red25.setVisibility(View.INVISIBLE);
-            red50.setVisibility(View.VISIBLE);
-            red75.setVisibility(View.VISIBLE);
-            red100.setVisibility(View.VISIBLE);
-        } else if(localPercent<75){
-            yellow25.setVisibility(View.VISIBLE);
-            yellow50.setVisibility(View.VISIBLE);
-            yellow75.setVisibility(View.INVISIBLE);
-            yellow100.setVisibility(View.INVISIBLE);
-            red25.setVisibility(View.INVISIBLE);
-            red50.setVisibility(View.INVISIBLE);
-            red75.setVisibility(View.VISIBLE);
-            red100.setVisibility(View.VISIBLE);
-        } else if(localPercent<100){
-            yellow25.setVisibility(View.VISIBLE);
-            yellow50.setVisibility(View.VISIBLE);
-            yellow75.setVisibility(View.VISIBLE);
-            yellow100.setVisibility(View.INVISIBLE);
-            red25.setVisibility(View.INVISIBLE);
-            red50.setVisibility(View.INVISIBLE);
-            red75.setVisibility(View.INVISIBLE);
-            red100.setVisibility(View.VISIBLE);
-        } else {
-            yellow25.setVisibility(View.VISIBLE);
-            yellow50.setVisibility(View.VISIBLE);
-            yellow75.setVisibility(View.VISIBLE);
-            yellow100.setVisibility(View.VISIBLE);
-            red25.setVisibility(View.INVISIBLE);
-            red50.setVisibility(View.INVISIBLE);
-            red75.setVisibility(View.INVISIBLE);
-            red100.setVisibility(View.INVISIBLE);
-        }
+        if(localPercent<17){
 
+        } else if(localPercent<33){
+
+        } else if(localPercent<50){
+
+        } else if(localPercent<67){
+
+        } else if(localPercent<83){
+
+        } else if (localPercent<100){
+
+        } else {
+
+        }
     }
 
 
