@@ -76,7 +76,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         if (mDataset.get(position).isCore()) {
             holder.name.setText("Core");
         } else {
-            holder.searchCard.setBackgroundColor(Color.WHITE);
             holder.name.setText("Option " + (position+1));
         }
 

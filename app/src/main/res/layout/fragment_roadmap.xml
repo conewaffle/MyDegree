@@ -108,7 +108,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card7"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="70dp"
                 android:background="@drawable/elevatorborder"
                 app:cardBackgroundColor="@color/white"
@@ -116,7 +116,7 @@
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/space"
-                app:layout_constraintTop_toTopOf="@+id/space" >
+                app:layout_constraintTop_toTopOf="@+id/space">
 
                 <TextView
                     android:id="@+id/textView3"

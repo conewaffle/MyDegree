@@ -28,11 +28,12 @@
                     android:id="@+id/card1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -73,11 +74,12 @@
                     android:id="@+id/card2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -117,11 +119,12 @@
                     android:id="@+id/card3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -154,15 +157,17 @@
                             android:nestedScrollingEnabled="false" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -203,11 +208,12 @@
                     android:id="@+id/card5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -248,11 +254,12 @@
                     android:id="@+id/card6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -293,11 +300,12 @@
                     android:id="@+id/card7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -335,7 +343,7 @@
                             android:id="@+id/freeText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"/>
+                            android:layout_margin="8dp" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -344,11 +352,12 @@
                     android:id="@+id/card8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -388,8 +397,8 @@
                             android:id="@+id/bizElec"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="TextView"
-                            android:layout_margin="8dp"/>
+                            android:layout_margin="8dp"
+                            android:text="TextView" />
 
                     </LinearLayout>
 
@@ -399,11 +408,12 @@
                     android:id="@+id/card9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
@@ -445,11 +455,12 @@
                     android:id="@+id/card10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
                     app:cardBackgroundColor="@android:color/background_light"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="2dp">
 
                     <LinearLayout
