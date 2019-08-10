@@ -30,7 +30,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private ProgressDialog progDialog;
     private ProgressBar roadmapBar;
     private int localPercent;
-    private float localFrom, localTo;
+    private float localFrom, localTo, localNow;
     private FloatingActionButton fab;
     private TextView progressText, progressPercent;
     private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100, person;
@@ -81,7 +81,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     @Override
     public void onRoadmapUpdate(int pbNow, int pbMax) {
         roadmapBar.setMax(pbMax);
-        //localFrom = localPercent;
+        localNow = pbNow;
         localTo = pbNow;
         //roadmapBar.setProgress(pbNow);
         progressText.setText(pbNow + " / " + pbMax + " UOC Completed");
@@ -163,7 +163,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             ProgressBarAnimation anim = new ProgressBarAnimation(roadmapBar, localFrom, localTo);
             anim.setDuration(800);
             roadmapBar.startAnimation(anim);
-            localFrom = (float) localPercent;
+            localFrom = (float) localNow;
 
         } else {
 
