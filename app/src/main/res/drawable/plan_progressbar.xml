@@ -4,7 +4,7 @@
     <item android:id="@android:id/background">
         <shape>
             <corners android:radius="8dp"/>
-            <solid android:color = "@color/colorCard"/>
+            <solid android:color = "@color/progressBarHorizontalBackground"/>
         </shape>
     </item>
 

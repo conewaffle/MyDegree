@@ -96,13 +96,14 @@
                 android:layout_width="80dp"
                 android:layout_height="70dp"
                 android:backgroundTint="@color/colorCard"
-                android:foreground="@color/colorCard"
+                android:foreground="@color/elevatorShaft"
                 android:visibility="visible"
+                app:cardBackgroundColor="@color/elevatorShaft"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/pb"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" >
+                app:layout_constraintStart_toStartOf="parent">
 
             </androidx.cardview.widget.CardView>
 
@@ -114,7 +115,6 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/space"
                 app:layout_constraintTop_toTopOf="@+id/space">
 
@@ -127,15 +127,14 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card6"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="70dp"
                 android:background="@drawable/elevatorborder"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toBottomOf="@+id/card7" >
+                app:layout_constraintTop_toBottomOf="@+id/card7">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -146,13 +145,12 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card5"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toBottomOf="@+id/card6" >
+                app:layout_constraintTop_toBottomOf="@+id/card6">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -163,13 +161,12 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card4"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toBottomOf="@+id/card5" >
+                app:layout_constraintTop_toBottomOf="@+id/card5">
 
                 <TextView
                     android:id="@+id/textView17"
@@ -180,13 +177,12 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card3"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toBottomOf="@+id/card4" >
+                app:layout_constraintTop_toBottomOf="@+id/card4">
 
                 <TextView
                     android:id="@+id/textView18"
@@ -197,12 +193,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card2"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toBottomOf="@+id/card3" >
+                app:layout_constraintTop_toBottomOf="@+id/card3">
 
                 <TextView
                     android:id="@+id/textView19"
@@ -213,13 +208,12 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card1"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pb"
-                app:layout_constraintTop_toBottomOf="@+id/card2" >
+                app:layout_constraintTop_toBottomOf="@+id/card2">
 
                 <TextView
                     android:id="@+id/textView20"

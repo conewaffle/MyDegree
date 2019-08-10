@@ -699,7 +699,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 progUoc = "144";
                 break;
         }
-        pt1.setText("I have completed minimum " + progUoc + " UOC for the program.");
+        pt1.setText("I have completed minimum " + progUoc + " UOC for the program");
         pb1max = Integer.valueOf(progUoc);
         pb1.setMax(pb1max);
         pb1now = (ars1.size()+ars2.size()+ars3.size()+ars4.size()+ars5.size()+ars6.size())*6;
@@ -722,7 +722,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         //endregion
 
         //region progress bar 7 (gen eds)
-        pt7.setText("I have completed exactly 12 UOC of Gen Ed courses.");
+        pt7.setText("I have completed exactly 12 UOC of Gen Ed courses");
         pb7max = 12;
         pb7.setMax(pb7max);
         pb7now = ars6.size()*6;
@@ -741,7 +741,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         } else {
             levelOneLimit = 72;
         }
-        pt6.setText("I have completed no more than " + levelOneLimit + " UOC of level 1 courses (excluding Gen Ed).");
+        pt6.setText("I have completed no more than " + levelOneLimit + " UOC of level 1 courses (excluding Gen Ed)");
         pb6max = levelOneLimit;
         pb6.setMax(pb6max);
         pb6now = 0;
