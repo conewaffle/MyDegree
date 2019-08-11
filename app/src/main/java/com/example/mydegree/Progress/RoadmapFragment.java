@@ -44,6 +44,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private ConstraintLayout constraintLayout;
     private CardView card1, card2, card3, card4, card5, card6, card7;
     private LinearLayout floor1, floor2, floor3, floor4, floor5, floor6, floor7;
+    private int colorFrom, colorTo;
 
     private CardView cardRope, shaft, topSpace, topLights, shaftLights;
 
@@ -90,6 +91,10 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         floor6 = view.findViewById(R.id.floor6);
         floor7 = view.findViewById(R.id.floor7);
 
+
+        colorFrom = getResources().getColor(R.color.common_google_signin_btn_text_light_pressed, getActivity().getTheme());
+        colorTo = Color.TRANSPARENT;
+
         return view;
     }
 
@@ -130,63 +135,63 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
     //change is now done IN ANIMATION  in the method below this
     private void changeIcons(){
- /*       if(localPercent<17){
-            floor1.setBackgroundTintMode(null);
-            floor2.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor3.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor4.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+        if(localPercent<17){
+            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor2.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor3.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor4.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor5.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor6.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor7.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
         } else if(localPercent<33){
-            floor1.setBackgroundTintMode(null);
-            floor2.setBackgroundTintMode(null);
-            floor3.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor4.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor3.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor4.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor5.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor6.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor7.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
         } else if(localPercent<50){
-            floor1.setBackgroundTintMode(null);
-            floor2.setBackgroundTintMode(null);
-            floor3.setBackgroundTintMode(null);
-            floor4.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor3.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor4.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor5.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor6.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor7.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
         } else if(localPercent<67){
-            floor1.setBackgroundTintMode(null);
-            floor2.setBackgroundTintMode(null);
-            floor3.setBackgroundTintMode(null);
-            floor4.setBackgroundTintMode(null);
-            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor3.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor4.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor5.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor6.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor7.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
         } else if(localPercent<83){
-            floor1.setBackgroundTintMode(null);
-            floor2.setBackgroundTintMode(null);
-            floor3.setBackgroundTintMode(null);
-            floor4.setBackgroundTintMode(null);
-            floor5.setBackgroundTintMode(null);
-            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
-            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor3.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor4.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor5.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor6.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
+            floor7.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
         } else if (localPercent<100){
-            floor1.setBackgroundTintMode(null);
-            floor2.setBackgroundTintMode(null);
-            floor3.setBackgroundTintMode(null);
-            floor4.setBackgroundTintMode(null);
-            floor5.setBackgroundTintMode(null);
-            floor6.setBackgroundTintMode(null);
-            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor3.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor4.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor5.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor6.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor7.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
         } else {
-            floor1.setBackgroundTintMode(null);
-            floor2.setBackgroundTintMode(null);
-            floor3.setBackgroundTintMode(null);
-            floor4.setBackgroundTintMode(null);
-            floor5.setBackgroundTintMode(null);
-            floor6.setBackgroundTintMode(null);
-            floor7.setBackgroundTintMode(null);
-        }*/
+            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor3.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor4.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor5.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor6.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            floor7.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+        }
     }
 
 
@@ -216,32 +221,84 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             ProgressBarAnimation anim = new ProgressBarAnimation(roadmapBar, localFrom, localTo);
             anim.setDuration(800);
             roadmapBar.startAnimation(anim);
-            int colorFrom = getResources().getColor(R.color.common_google_signin_btn_text_light_pressed, getActivity().getTheme());
-            int colorTo = Color.TRANSPARENT;
 
+            if(localFrom!=localNow){
+                //animating light switch for each level
+                ValueAnimator tintAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+                tintAnimation.setDuration(2000);
+                tintAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        double percentFrom = (double) localFrom*100/(double)localMax;
+                        int fromRounded = (int) Math.round(percentFrom);
+                        double percentTo = (double) localTo*100/(double)localMax;
+                        int toRounded = (int) Math.round(percentTo);
 
-            //animating light switch for each level
-            ValueAnimator tintAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-            tintAnimation.setDuration(2000);
-            tintAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    double percentFrom = (double) localFrom*100/(double)localMax;
-                    int fromRounded = (int) Math.round(percentFrom);
-                    double percentTo = (double) localTo*100/(double)localMax;
-                    int toRounded = (int) Math.round(percentTo);
-
-                    floor1.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                    /*floor1.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
                     if(toRounded>=17){floor2.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())); }
                     if(toRounded>=33){floor3.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())); }
                     if(toRounded>=50){floor4.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
                     if(toRounded>=67){floor5.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
                     if(toRounded>=83){floor6.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
                     if(toRounded>=100){floor7.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
+*/
+                        if(toRounded<17){
+                            if(!(localFrom<17)){
+                                floor1.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            }
+                        } else if (toRounded<33){
+                            if(!(localFrom<33&&localFrom>=17)){
+                                floor1.setBackgroundTintList(null);
+                                floor2.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            }
+                        } else if (toRounded<50){
+                            if(!(localFrom<50&&localFrom>=33)){
+                                floor1.setBackgroundTintList(null);
+                                floor2.setBackgroundTintList(null);
+                                floor3.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            }
+                        } else if (toRounded<67){
+                            if(!(localFrom<67&&localFrom>=50)){
+                                floor1.setBackgroundTintList(null);
+                                floor2.setBackgroundTintList(null);
+                                floor3.setBackgroundTintList(null);
+                                floor4.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            }
+                        } else if (toRounded<83){
+                            if(!(localFrom<83&&localFrom>=67)){
+                                floor1.setBackgroundTintList(null);
+                                floor2.setBackgroundTintList(null);
+                                floor3.setBackgroundTintList(null);
+                                floor4.setBackgroundTintList(null);
+                                floor5.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            }
+                        } else if (toRounded<100) {
+                            if(!(localFrom<100&&localFrom>=83)){
+                                floor1.setBackgroundTintList(null);
+                                floor2.setBackgroundTintList(null);
+                                floor3.setBackgroundTintList(null);
+                                floor4.setBackgroundTintList(null);
+                                floor5.setBackgroundTintList(null);
+                                floor6.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            }
+                        } else {
+                            if(!(localFrom>=100)){
+                                floor1.setBackgroundTintList(null);
+                                floor2.setBackgroundTintList(null);
+                                floor3.setBackgroundTintList(null);
+                                floor4.setBackgroundTintList(null);
+                                floor5.setBackgroundTintList(null);
+                                floor6.setBackgroundTintList(null);
+                                floor7.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            }
 
-                }
-            });
-            tintAnimation.start();
+                        }
+
+                    }
+                });
+                tintAnimation.start();
+            }
+
 
             //MUST BE LAST
             localFrom = (float) localNow;
