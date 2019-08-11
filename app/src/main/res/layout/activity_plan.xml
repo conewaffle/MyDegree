@@ -623,12 +623,12 @@
                 android:id="@+id/textYourCourses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:text="Your Plan's Courses"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/streamsCard"
@@ -901,12 +901,12 @@
                 android:id="@+id/textProgCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:text="Progression Checklist"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/checkListCard"
