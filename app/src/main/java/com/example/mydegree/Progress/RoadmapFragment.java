@@ -1,8 +1,12 @@
 package com.example.mydegree.Progress;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,12 +37,15 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private ProgressDialog progDialog;
     private ProgressBar roadmapBar;
     private int localPercent;
-    private float localFrom, localTo, localNow;
+    private float localFrom, localTo, localNow, localMax;
     private FloatingActionButton fab;
     private TextView progressText, progressPercent;
     private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100, person;
     private ConstraintLayout constraintLayout;
     private CardView card1, card2, card3, card4, card5, card6, card7;
+    private LinearLayout floor1, floor2, floor3, floor4, floor5, floor6, floor7;
+
+    private CardView cardRope, shaft, topSpace, topLights, shaftLights;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,8 +59,19 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         progressPercent = view.findViewById(R.id.progressPercent);
         fab = getActivity().findViewById(R.id.fab);
 
+        topSpace = view.findViewById(R.id.topSpace);
+        cardRope = view.findViewById(R.id.cardRope);
+        topLights = view.findViewById(R.id.topLights);
+        topLights.bringToFront();
+        //sendViewToBack(topSpace);
+
+        shaft = view.findViewById(R.id.shaft);
+        sendViewToBack(shaft);
+        shaftLights = view.findViewById(R.id.shaftLights);
+        //shaftLights.bringToFront();
         person = view.findViewById(R.id.person);
         person.bringToFront();
+
 
         constraintLayout = view.findViewById(R.id.roadmapConstraint);
 
@@ -63,7 +82,23 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         card5 = view.findViewById(R.id.card5);
         card6 = view.findViewById(R.id.card6);
         card7 = view.findViewById(R.id.card7);
+        floor1 = view.findViewById(R.id.floor1);
+        floor2 = view.findViewById(R.id.floor2);
+        floor3 = view.findViewById(R.id.floor3);
+        floor4 = view.findViewById(R.id.floor4);
+        floor5 = view.findViewById(R.id.floor5);
+        floor6 = view.findViewById(R.id.floor6);
+        floor7 = view.findViewById(R.id.floor7);
+
         return view;
+    }
+
+    public static void sendViewToBack(final View child) {
+        final ViewGroup parent = (ViewGroup)child.getParent();
+        if (parent != null) {
+            parent.removeView(child);
+            parent.addView(child, 0);
+        }
     }
 
 
@@ -80,6 +115,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     @Override
     public void onRoadmapUpdate(int pbNow, int pbMax) {
         roadmapBar.setMax(pbMax);
+        localMax = pbMax;
         localNow = pbNow;
         localTo = pbNow;
         //roadmapBar.setProgress(pbNow);
@@ -92,64 +128,65 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         changeIcons();
     }
 
+    //change is now done IN ANIMATION  in the method below this
     private void changeIcons(){
-        if(localPercent<17){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.BLACK);
-            card3.setCardBackgroundColor(Color.BLACK);
-            card4.setCardBackgroundColor(Color.BLACK);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+ /*       if(localPercent<17){
+            floor1.setBackgroundTintMode(null);
+            floor2.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor3.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor4.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
         } else if(localPercent<33){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.BLACK);
-            card4.setCardBackgroundColor(Color.BLACK);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            floor1.setBackgroundTintMode(null);
+            floor2.setBackgroundTintMode(null);
+            floor3.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor4.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
         } else if(localPercent<50){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.BLACK);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            floor1.setBackgroundTintMode(null);
+            floor2.setBackgroundTintMode(null);
+            floor3.setBackgroundTintMode(null);
+            floor4.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
         } else if(localPercent<67){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            floor1.setBackgroundTintMode(null);
+            floor2.setBackgroundTintMode(null);
+            floor3.setBackgroundTintMode(null);
+            floor4.setBackgroundTintMode(null);
+            floor5.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
         } else if(localPercent<83){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.YELLOW);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            floor1.setBackgroundTintMode(null);
+            floor2.setBackgroundTintMode(null);
+            floor3.setBackgroundTintMode(null);
+            floor4.setBackgroundTintMode(null);
+            floor5.setBackgroundTintMode(null);
+            floor6.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
+            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
         } else if (localPercent<100){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.YELLOW);
-            card6.setCardBackgroundColor(Color.YELLOW);
-            card7.setCardBackgroundColor(Color.BLACK);
+            floor1.setBackgroundTintMode(null);
+            floor2.setBackgroundTintMode(null);
+            floor3.setBackgroundTintMode(null);
+            floor4.setBackgroundTintMode(null);
+            floor5.setBackgroundTintMode(null);
+            floor6.setBackgroundTintMode(null);
+            floor7.setBackgroundTintMode(PorterDuff.Mode.SRC_OVER);
         } else {
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.YELLOW);
-            card6.setCardBackgroundColor(Color.YELLOW);
-            card7.setCardBackgroundColor(Color.YELLOW);
-        }
+            floor1.setBackgroundTintMode(null);
+            floor2.setBackgroundTintMode(null);
+            floor3.setBackgroundTintMode(null);
+            floor4.setBackgroundTintMode(null);
+            floor5.setBackgroundTintMode(null);
+            floor6.setBackgroundTintMode(null);
+            floor7.setBackgroundTintMode(null);
+        }*/
     }
 
 
@@ -159,7 +196,10 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser) {
+
             fab.hide();
+
+            //animating elevator position
             ConstraintSet applyConstraint = new ConstraintSet();
             applyConstraint.clone(constraintLayout);
             AutoTransition autoTransition = new AutoTransition();
@@ -172,13 +212,39 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             applyConstraint.setVerticalBias(R.id.person, vBias);
             applyConstraint.applyTo(constraintLayout);
 
+            //animating progressbar position
             ProgressBarAnimation anim = new ProgressBarAnimation(roadmapBar, localFrom, localTo);
             anim.setDuration(800);
             roadmapBar.startAnimation(anim);
+            int colorFrom = getResources().getColor(R.color.common_google_signin_btn_text_light_pressed, getActivity().getTheme());
+            int colorTo = Color.TRANSPARENT;
+
+
+            //animating light switch for each level
+            ValueAnimator tintAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+            tintAnimation.setDuration(2000);
+            tintAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    double percentFrom = (double) localFrom*100/(double)localMax;
+                    int fromRounded = (int) Math.round(percentFrom);
+                    double percentTo = (double) localTo*100/(double)localMax;
+                    int toRounded = (int) Math.round(percentTo);
+
+                    floor1.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                    if(toRounded>=17){floor2.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())); }
+                    if(toRounded>=33){floor3.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())); }
+                    if(toRounded>=50){floor4.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
+                    if(toRounded>=67){floor5.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
+                    if(toRounded>=83){floor6.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
+                    if(toRounded>=100){floor7.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));}
+
+                }
+            });
+            tintAnimation.start();
+
+            //MUST BE LAST
             localFrom = (float) localNow;
-
-        } else {
-
         }
     }
 

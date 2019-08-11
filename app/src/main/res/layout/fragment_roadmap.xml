@@ -44,7 +44,7 @@
             <ProgressBar
                 android:id="@+id/pb"
                 style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="80dp"
+                android:layout_width="28dp"
                 android:layout_height="420dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
@@ -59,7 +59,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progressText"
+                app:layout_constraintTop_toBottomOf="@+id/topSpace"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
@@ -75,6 +75,20 @@
                 app:layout_constraintStart_toStartOf="@+id/pb"
                 app:layout_constraintTop_toTopOf="@+id/pb" />
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/shaft"
+                android:layout_width="80dp"
+                android:layout_height="420dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/elevatorShaft"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <ImageView
                 android:id="@+id/flagtop"
                 android:layout_width="wrap_content"
@@ -82,7 +96,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_flag_yellow"
-                app:layout_constraintBottom_toTopOf="@+id/space"
+                app:layout_constraintBottom_toTopOf="@+id/topSpace"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.55"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -93,15 +107,59 @@
                 android:layout_height="70dp"
                 android:layout_alignBottom="@+id/roadmapConstraint"
                 android:background="@drawable/elevatorborder"
+                android:backgroundTint="@color/progressBarHorizontalBackground"
                 android:src="@mipmap/walking_icon_fore2"
+                android:translationZ="1dp"
                 app:layout_constraintBottom_toBottomOf="@+id/pb"
                 app:layout_constraintEnd_toEndOf="@+id/pb"
                 app:layout_constraintStart_toStartOf="@+id/pb"
-                app:layout_constraintTop_toTopOf="@+id/space"
+                app:layout_constraintTop_toTopOf="@+id/topSpace"
                 app:layout_constraintVertical_bias="1.0" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/space"
+                android:id="@+id/cardRope"
+                android:layout_width="28dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardBackgroundColor="@android:color/black"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="1dp"
+                app:layout_constraintBottom_toBottomOf="@+id/topSpace"
+                app:layout_constraintEnd_toEndOf="@+id/topSpace"
+                app:layout_constraintStart_toStartOf="@+id/topSpace"
+                app:layout_constraintTop_toTopOf="@+id/topSpace" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/shaftLights"
+                android:layout_width="18dp"
+                android:layout_height="420dp"
+                android:layout_marginBottom="16dp"
+                android:translationZ="0dp"
+                app:cardBackgroundColor="@color/elevatorShaft"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/topLights"
+                android:layout_width="18dp"
+                android:layout_height="55dp"
+                android:elevation="1dp"
+                android:translationZ="1dp"
+                app:cardBackgroundColor="@color/elevatorShaft"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/shaftLights"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/topSpace"
                 android:layout_width="80dp"
                 android:layout_height="70dp"
                 android:backgroundTint="@color/colorCard"
@@ -110,9 +168,9 @@
                 app:cardBackgroundColor="@color/elevatorShaft"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/pb"
+                app:layout_constraintBottom_toTopOf="@+id/shaft"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card7"
@@ -121,14 +179,17 @@
                 android:background="@drawable/elevatorborder"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintStart_toEndOf="@+id/space"
-                app:layout_constraintTop_toTopOf="@+id/space">
+                app:layout_constraintStart_toEndOf="@+id/topSpace"
+                app:layout_constraintTop_toTopOf="@+id/topSpace">
 
                 <LinearLayout
+                    android:id="@+id/floor7"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/roadmap_ceo"/>
+                    android:background="@drawable/roadmap_ceo"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:backgroundTintMode="src_over"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -144,14 +205,17 @@
                 android:background="@drawable/elevatorborder"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintStart_toEndOf="@+id/pb"
+                app:layout_constraintStart_toEndOf="@+id/shaft"
                 app:layout_constraintTop_toBottomOf="@+id/card7">
 
                 <LinearLayout
+                    android:id="@+id/floor6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/roadmap_director"/>
+                    android:background="@drawable/roadmap_director"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:backgroundTintMode="src_over"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -165,14 +229,17 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintStart_toEndOf="@+id/pb"
+                app:layout_constraintStart_toEndOf="@+id/shaft"
                 app:layout_constraintTop_toBottomOf="@+id/card6">
 
                 <LinearLayout
+                    android:id="@+id/floor5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/roadmap_manager"/>
+                    android:background="@drawable/roadmap_manager"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:backgroundTintMode="src_over"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -186,14 +253,17 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintStart_toEndOf="@+id/pb"
+                app:layout_constraintStart_toEndOf="@+id/shaft"
                 app:layout_constraintTop_toBottomOf="@+id/card5">
 
                 <LinearLayout
+                    android:id="@+id/floor4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/roadmap_consultant"/>
+                    android:background="@drawable/roadmap_consultant"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:backgroundTintMode="src_over"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -207,14 +277,17 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintStart_toEndOf="@+id/pb"
+                app:layout_constraintStart_toEndOf="@+id/shaft"
                 app:layout_constraintTop_toBottomOf="@+id/card4">
 
                 <LinearLayout
+                    android:id="@+id/floor3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/roadmap_grad"/>
+                    android:background="@drawable/roadmap_grad"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:backgroundTintMode="src_over"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/textView18"
@@ -228,14 +301,17 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintStart_toEndOf="@+id/pb"
+                app:layout_constraintStart_toEndOf="@+id/shaft"
                 app:layout_constraintTop_toBottomOf="@+id/card3">
 
                 <LinearLayout
+                    android:id="@+id/floor2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/roadmap_intern"/>
+                    android:background="@drawable/roadmap_intern"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:backgroundTintMode="src_over"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/textView19"
@@ -249,13 +325,16 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:layout_constraintStart_toEndOf="@+id/pb"
+                app:layout_constraintStart_toEndOf="@+id/shaft"
                 app:layout_constraintTop_toBottomOf="@+id/card2">
 
                 <LinearLayout
+                    android:id="@+id/floor1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/roadmap_foyer"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:backgroundTintMode="src_over"
                     android:orientation="vertical" />
 
                 <TextView
@@ -264,6 +343,8 @@
                     android:layout_height="wrap_content"
                     android:text="" />
             </androidx.cardview.widget.CardView>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
