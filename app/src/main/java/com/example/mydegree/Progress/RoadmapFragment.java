@@ -95,29 +95,52 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private void changeIcons(){
         if(localPercent<17){
             card1.setAlpha(1);
+            card2.setAlpha(0);
+            card3.setAlpha(0);
+            card4.setAlpha(0);
+            card5.setAlpha(0);
+            card6.setAlpha(0);
+            card7.setAlpha(0);
         } else if(localPercent<33){
             card1.setAlpha(1);
             card2.setAlpha(1);
+            card3.setAlpha(0);
+            card4.setAlpha(0);
+            card5.setAlpha(0);
+            card6.setAlpha(0);
+            card7.setAlpha(0);
         } else if(localPercent<50){
             card1.setAlpha(1);
             card2.setAlpha(1);
             card3.setAlpha(1);
+            card4.setAlpha(0);
+            card5.setAlpha(0);
+            card6.setAlpha(0);
+            card7.setAlpha(0);
         } else if(localPercent<67){
             card1.setAlpha(1);
             card2.setAlpha(1);
             card3.setAlpha(1);
             card4.setAlpha(1);
+            card5.setAlpha(0);
+            card6.setAlpha(0);
+            card7.setAlpha(0);
         } else if(localPercent<83){
             card1.setAlpha(1);
             card2.setAlpha(1);
             card3.setAlpha(1);
             card4.setAlpha(1);
+            card5.setAlpha(1);
+            card6.setAlpha(0);
+            card7.setAlpha(0);
         } else if (localPercent<100){
             card1.setAlpha(1);
             card2.setAlpha(1);
             card3.setAlpha(1);
             card4.setAlpha(1);
             card5.setAlpha(1);
+            card6.setAlpha(0);
+            card7.setAlpha(0);
         } else {
             card1.setAlpha(1);
             card2.setAlpha(1);
@@ -125,6 +148,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             card4.setAlpha(1);
             card5.setAlpha(1);
             card6.setAlpha(1);
+            card7.setAlpha(1);
         }
     }
 
