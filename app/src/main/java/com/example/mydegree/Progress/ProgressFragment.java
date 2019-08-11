@@ -2,6 +2,7 @@ package com.example.mydegree.Progress;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Color;
@@ -29,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mydegree.ProgramDetails.ProgramDetail;
 import com.example.mydegree.R;
 import com.example.mydegree.Room.CourseDb;
 import com.example.mydegree.Room.EnrolmentInfo;
@@ -46,6 +48,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static com.example.mydegree.Search.SearchAdapter.PROG_CODE;
 
 public class ProgressFragment extends Fragment implements Program.ProgramUpdateListener, Program.CourseUpdateListener {
 
@@ -72,6 +76,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
     private int pb1max, pb1now, pb2max, pb2now, pb3max, pb3now, pb4max, pb4now, pb5max, pb5now, pb6max, pb6now, pb7max, pb7now;
     private CardView pc5;
     private CardView checkListCard;
+    private CardView progInfoCard;
     public static final String ENROL_FRAG_TAG = "enrolFragTag";
     public static final String PICK_ENROL_ITEM_FRAG_TAG = "pickEnrolItemFragTag";
 
@@ -198,6 +203,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         uoc5 = view.findViewById(R.id.streamUOC5);
         uoc6 = view.findViewById(R.id.streamUOC6);
 
+        progInfoCard = view.findViewById(R.id.progInfoCard);
         streamsCard = view.findViewById(R.id.streamsCard);
         yourCourses = view.findViewById(R.id.yourCompleted);
         yourCheckList = view.findViewById(R.id.yourChecklist);
@@ -319,9 +325,23 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         }
     }
 
+    private void activateProgCard(){
+        progInfoCard.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(programCode.length()==4){
+                    Intent viewIntent = new Intent(v.getContext(), ProgramDetail.class);
+                    viewIntent.putExtra(PROG_CODE, programCode);
+                    v.getContext().startActivity(viewIntent);
+                }
+            }
+        });
+    }
+
     @Override
     public void onProgramUpdate(String programCode2, String majorFullName2) {
         programCode = programCode2;
+        activateProgCard();
         majorFullName = majorFullName2;
         String toSet = "";
         switch(programCode){
@@ -510,6 +530,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 checkListCard.setVisibility(View.GONE);
             } else {
                 programCode = result.get(0).getProgCode();
+                activateProgCard();
                 ((Program) getActivity()).setProgCode(programCode);
 
                 //refreshes the options menu (to change major) based on the new program code
