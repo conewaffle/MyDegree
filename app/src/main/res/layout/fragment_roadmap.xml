@@ -118,9 +118,8 @@
                 android:id="@+id/card7"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
-                android:background="@drawable/elevatorborder"
-                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
+                android:alpha="0.5"
                 app:layout_constraintStart_toEndOf="@+id/space"
                 app:layout_constraintTop_toTopOf="@+id/space">
 
@@ -141,8 +140,7 @@
                 android:id="@+id/card6"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
-                android:background="@drawable/elevatorborder"
-                app:cardBackgroundColor="@color/white"
+                android:alpha="0.5"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card7">
@@ -164,6 +162,7 @@
                 android:id="@+id/card5"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
+                android:alpha="0.5"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card6">
@@ -185,6 +184,7 @@
                 android:id="@+id/card4"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
+                android:alpha="0.5"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card5">
@@ -206,6 +206,7 @@
                 android:id="@+id/card3"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
+                android:alpha="0.5"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card4">
@@ -227,6 +228,7 @@
                 android:id="@+id/card2"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
+                android:alpha="0.5"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card3">

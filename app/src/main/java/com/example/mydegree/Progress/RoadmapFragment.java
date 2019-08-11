@@ -94,61 +94,37 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
     private void changeIcons(){
         if(localPercent<17){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.BLACK);
-            card3.setCardBackgroundColor(Color.BLACK);
-            card4.setCardBackgroundColor(Color.BLACK);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            card1.setAlpha(1);
         } else if(localPercent<33){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.BLACK);
-            card4.setCardBackgroundColor(Color.BLACK);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            card1.setAlpha(1);
+            card2.setAlpha(1);
         } else if(localPercent<50){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.BLACK);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            card1.setAlpha(1);
+            card2.setAlpha(1);
+            card3.setAlpha(1);
         } else if(localPercent<67){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.BLACK);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            card1.setAlpha(1);
+            card2.setAlpha(1);
+            card3.setAlpha(1);
+            card4.setAlpha(1);
         } else if(localPercent<83){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.YELLOW);
-            card6.setCardBackgroundColor(Color.BLACK);
-            card7.setCardBackgroundColor(Color.BLACK);
+            card1.setAlpha(1);
+            card2.setAlpha(1);
+            card3.setAlpha(1);
+            card4.setAlpha(1);
         } else if (localPercent<100){
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.YELLOW);
-            card6.setCardBackgroundColor(Color.YELLOW);
-            card7.setCardBackgroundColor(Color.BLACK);
+            card1.setAlpha(1);
+            card2.setAlpha(1);
+            card3.setAlpha(1);
+            card4.setAlpha(1);
+            card5.setAlpha(1);
         } else {
-            card1.setCardBackgroundColor(Color.YELLOW);
-            card2.setCardBackgroundColor(Color.YELLOW);
-            card3.setCardBackgroundColor(Color.YELLOW);
-            card4.setCardBackgroundColor(Color.YELLOW);
-            card5.setCardBackgroundColor(Color.YELLOW);
-            card6.setCardBackgroundColor(Color.YELLOW);
-            card7.setCardBackgroundColor(Color.YELLOW);
+            card1.setAlpha(1);
+            card2.setAlpha(1);
+            card3.setAlpha(1);
+            card4.setAlpha(1);
+            card5.setAlpha(1);
+            card6.setAlpha(1);
         }
     }
 

@@ -1087,7 +1087,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
                     if (ars2.size() > 0) {
                         for (int n = 0; n < ars2.size(); n++) {
-                            String course = ars1.get(n).getCourseCode();
+                            String course = ars2.get(n).getCourseCode();
                             dataSnapshot.child(course).getRef().setValue(program);
                         }
                     }
