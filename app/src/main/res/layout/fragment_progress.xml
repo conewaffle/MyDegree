@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
                 android:text="Your Completed Courses"
                 android:textSize="17sp" />
 
@@ -350,6 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
                 android:text="Progression Checklist"
                 android:textSize="17sp" />
 
