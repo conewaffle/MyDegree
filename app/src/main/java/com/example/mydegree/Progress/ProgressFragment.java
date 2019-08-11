@@ -311,9 +311,12 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
     }
 
     private void firebaseDel(EnrolmentItem toDelete) {
-        String course = toDelete.getCourseCode();
-        DatabaseReference clear = databaseReference.child("User").child(uid).child("enrolment").child("courses");
-        clear.child(course).removeValue();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            String course = toDelete.getCourseCode();
+            DatabaseReference clear = databaseReference.child("User").child(uid).child("enrolment").child("courses");
+            clear.child(course).removeValue();
+        }
     }
 
     @Override
@@ -1059,83 +1062,6 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                 programCode = String.valueOf(dataSnapshot.child("progCode").getValue());
                 majorCode = String.valueOf(dataSnapshot.child("majorCode").getValue());
                 majorFullName = String.valueOf(dataSnapshot.child("majorFullName").getValue());
-
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String courseCode = ds.getKey();
-                    temporaryItem = new EnrolmentItem(programCode, courseCode);
-                    new InsertEnrolmentItemTask().execute(temporaryItem);
-                }
-
-                String toSet = "";
-                switch(programCode){
-                    case "3584":
-                        toSet = "Commerce / Information Systems";
-                        break;
-                    case "3979":
-                        toSet = "Information Systems";
-                        break;
-                    case "3964":
-                        toSet = "Information Systems (Co-op) (Hons)";
-                        break;
-                }
-                progName.setText(toSet);
-                if(programCode.equals("3584")){
-                    progMajor.setText(majorFullName);
-                    progMajor.setVisibility(View.VISIBLE);
-                }
-                progCode.setText(programCode);
-
-                programCode = programCode;
-                majorCode = majorFullName.substring(0,6);
-
-
-                streamsCard.setVisibility(View.VISIBLE);
-                if(programCode.equals("3584")){
-                    ts1.setText("Commerce Core");
-                    uoc1.setText("24 UOC");
-                    ts2.setText("Flexible Core");
-                    uoc2.setText("18 UOC");
-                    ts3.setText("INFS Core");
-                    uoc3.setText("72 UOC");
-                    ts4.setText("Major");
-                    uoc4.setText("36-48 UOC");
-                    ts5.setText("Business Elec.");
-                    uoc5.setText("18-30 UOC");
-                    ts6.setText("General Ed.");
-                    uoc6.setText("12 UOC");
-                } else if(programCode.equals("3979")){
-                    ts1.setText("Stage 1 Core");
-                    uoc1.setText("42 UOC");
-                    ts2.setText("Stage 2 Core");
-                    uoc2.setText("24 UOC");
-                    ts3.setText("Stage 3 Core");
-                    uoc3.setText("30 UOC");
-                    ts4.setText("INFS 2/3 Elec.");
-                    uoc4.setText("12 UOC");
-                    ts5.setText("Free Electives");
-                    uoc5.setText("24 UOC");
-                    ts6.setText("General Ed.");
-                    uoc6.setText("12 UOC");
-                } else if(programCode.equals("3964")){
-                    ts1.setText("Stage 1 Core");
-                    uoc1.setText("42 UOC");
-                    ts2.setText("Stage 2 Core");
-                    uoc2.setText("24 UOC");
-                    ts3.setText("Stage 3");
-                    uoc3.setText("30 UOC");
-                    ts4.setText("Placement");
-                    uoc4.setText("36 UOC");
-                    ts5.setText("Honours");
-                    uoc5.setText("48 UOC");
-                    ts6.setText("General Ed.");
-                    uoc6.setText("12 UOC");
-                }
-
-                checkListCard.setVisibility(View.VISIBLE);
-
-
-                new GetStreamCoursesTask().execute(programCode);
             }
 
             @Override
@@ -1213,7 +1139,6 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         auth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-
         if (isNetworkAvailable()) {
             final FirebaseUser user = auth.getCurrentUser();
             if (user != null) {
@@ -1227,7 +1152,6 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }

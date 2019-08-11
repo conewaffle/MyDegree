@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="#72c9f8"
     tools:context=".Progress.RoadmapFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:background="@drawable/roadmap_bg">
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -103,9 +112,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/pb"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card7"
@@ -114,15 +121,20 @@
                 android:background="@drawable/elevatorborder"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
                 app:layout_constraintStart_toEndOf="@+id/space"
                 app:layout_constraintTop_toTopOf="@+id/space">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/roadmap_ceo"/>
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="C.E.O" />
+                    android:text="" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -132,15 +144,20 @@
                 android:background="@drawable/elevatorborder"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card7">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/roadmap_director"/>
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Director" />
+                    android:text="" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -148,15 +165,20 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card6">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/roadmap_manager"/>
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Manager" />
+                    android:text="" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -164,15 +186,20 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/roadmap_consultant"/>
 
                 <TextView
                     android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Consultant" />
+                    android:text="" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -180,15 +207,20 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card4">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/roadmap_grad"/>
 
                 <TextView
                     android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Graduate" />
+                    android:text="" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -199,11 +231,17 @@
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card3">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/roadmap_intern"/>
+
                 <TextView
                     android:id="@+id/textView19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Intern" />
+                    android:text="" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -211,15 +249,20 @@
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 app:cardCornerRadius="0dp"
-                app:cardElevation="2dp"
                 app:layout_constraintStart_toEndOf="@+id/pb"
                 app:layout_constraintTop_toBottomOf="@+id/card2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/roadmap_foyer"
+                    android:orientation="vertical" />
 
                 <TextView
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Foyer" />
+                    android:text="" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
