@@ -35,6 +35,7 @@ import com.example.mydegree.Room.EnrolmentInfo;
 import com.example.mydegree.Room.EnrolmentItem;
 import com.example.mydegree.Room.StreamCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -134,9 +135,9 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
 
         progName = view.findViewById(R.id.progName);
-        progName.setText("Not yet enrolled.");
+        progName.setText("Enrol in a program!");
         progCode = view.findViewById(R.id.progCode);
-        progCode.setText("Press the + button to enrol in a program.");
+        progCode.setText("Press the + button to enrol in a program");
         progMajor = view.findViewById(R.id.progMajor);
 
         // only for 3584
@@ -388,6 +389,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         yourCheckList.setVisibility(View.VISIBLE);
 
 
+        Snackbar.make(streamsCard, "Enter courses you complete with the + button!", Snackbar.LENGTH_LONG).show();
         new GetStreamCoursesTask().execute(programCode);
 
     }
