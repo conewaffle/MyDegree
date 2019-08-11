@@ -384,6 +384,8 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
         }
 
         checkListCard.setVisibility(View.VISIBLE);
+        yourCourses.setVisibility(View.VISIBLE);
+        yourCheckList.setVisibility(View.VISIBLE);
 
 
         new GetStreamCoursesTask().execute(programCode);
@@ -1084,6 +1086,7 @@ public class ProgressFragment extends Fragment implements Program.ProgramUpdateL
 
                 programCode = programCode;
                 majorCode = majorFullName.substring(0,6);
+
 
                 streamsCard.setVisibility(View.VISIBLE);
                 if(programCode.equals("3584")){
