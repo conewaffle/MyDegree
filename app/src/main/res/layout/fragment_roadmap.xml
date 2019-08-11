@@ -176,8 +176,6 @@
                 android:id="@+id/card7"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
-                android:background="@drawable/elevatorborder"
-                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toEndOf="@+id/topSpace"
                 app:layout_constraintTop_toTopOf="@+id/topSpace">
@@ -202,8 +200,6 @@
                 android:id="@+id/card6"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
-                android:background="@drawable/elevatorborder"
-                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toEndOf="@+id/shaft"
                 app:layout_constraintTop_toBottomOf="@+id/card7">
