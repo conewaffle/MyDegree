@@ -31,6 +31,10 @@ import android.widget.TextView;
 import com.example.mydegree.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
+
 public class RoadmapFragment extends Fragment implements Program.ProgramUpdateListener, Program.CourseUpdateListener, Program.RoadmapUpdateListener {
 
     private View view;
@@ -46,6 +50,7 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private LinearLayout floor1, floor2, floor3, floor4, floor5, floor6, floor7;
     private int colorFrom, colorTo;
     private ImageView plane;
+    private KonfettiView viewKonfetti;
 
     private CardView cardRope, shaft, topSpace, topLights, shaftLights;
 
@@ -78,6 +83,8 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
 
         constraintLayout = view.findViewById(R.id.roadmapConstraint);
+        viewKonfetti = view.findViewById(R.id.viewKonfetti);
+        viewKonfetti.bringToFront();
 
         card1 = view.findViewById(R.id.card1);
         card2 = view.findViewById(R.id.card2);
@@ -295,6 +302,16 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
                                 floor5.setBackgroundTintList(null);
                                 floor6.setBackgroundTintList(null);
                                 floor7.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
+                            viewKonfetti.build()
+                                    .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                                    .setDirection(0.0, 359.0)
+                                    .setSpeed(1f, 5f)
+                                    .setFadeOutEnabled(true)
+                                    .setTimeToLive(2000L)
+                                    .addShapes(Shape.RECT, Shape.CIRCLE)
+                                    .addSizes(new Size(12, 5))
+                                    .setPosition(-50f, viewKonfetti.getWidth() + 50f, -50f, -50f)
+                                    .streamFor(50, 1000L);
                         }
 
                     }

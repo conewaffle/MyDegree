@@ -22,6 +22,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
+        <nl.dionsegijn.konfetti.KonfettiView
+            android:id="@+id/viewKonfetti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/roadmapConstraint"
             android:layout_width="match_parent"
@@ -45,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
                 android:text="Enrol in a program to view your progression!"
                 android:textAlignment="center"
                 android:textSize="14sp"
