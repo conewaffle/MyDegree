@@ -128,12 +128,12 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         localNow = pbNow;
         localTo = pbNow;
         //roadmapBar.setProgress(pbNow);
-        progressText.setText(pbNow + " / " + pbMax + " UOC Completed (" + localPercent + "%)");
 
         double percent = (double) pbNow*100/(double)pbMax;
         int percentRounded = (int) Math.round(percent);
         localPercent = percentRounded;/*
         progressPercent.setText(percentRounded + "%");*/
+        progressText.setText(pbNow + " / " + pbMax + " UOC Completed (" + localPercent + "%)");
         changeIcons();
     }
 
@@ -188,13 +188,15 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
             floor6.setBackgroundTintList(ColorStateList.valueOf(colorTo));
             floor7.setBackgroundTintList(ColorStateList.valueOf(colorFrom));
         } else {
-            floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
-            floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
-            floor3.setBackgroundTintList(ColorStateList.valueOf(colorTo));
-            floor4.setBackgroundTintList(ColorStateList.valueOf(colorTo));
-            floor5.setBackgroundTintList(ColorStateList.valueOf(colorTo));
-            floor6.setBackgroundTintList(ColorStateList.valueOf(colorTo));
-            floor7.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            if(!(localPercent>=100)){
+                floor1.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+                floor2.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+                floor3.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+                floor4.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+                floor5.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+                floor6.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+                floor7.setBackgroundTintList(ColorStateList.valueOf(colorTo));
+            }
         }
     }
 
@@ -286,7 +288,6 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
                                 floor6.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
                             }
                         } else {
-                            if(!(localFrom>=100)){
                                 floor1.setBackgroundTintList(null);
                                 floor2.setBackgroundTintList(null);
                                 floor3.setBackgroundTintList(null);
@@ -294,8 +295,6 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
                                 floor5.setBackgroundTintList(null);
                                 floor6.setBackgroundTintList(null);
                                 floor7.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue()));
-                            }
-
                         }
 
                     }

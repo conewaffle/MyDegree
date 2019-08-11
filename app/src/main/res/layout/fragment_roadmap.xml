@@ -160,7 +160,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/shaftLights"
-                android:layout_width="18dp"
+                android:layout_width="22dp"
                 android:layout_height="420dp"
                 android:layout_marginBottom="16dp"
                 android:translationZ="0dp"
@@ -173,7 +173,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/topLights"
-                android:layout_width="18dp"
+                android:layout_width="22dp"
                 android:layout_height="55dp"
                 android:elevation="1dp"
                 android:translationZ="1dp"
