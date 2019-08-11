@@ -29,17 +29,43 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true">
 
+            <ImageView
+                android:id="@+id/plane"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/roadmapConstraint"
+                android:src="@drawable/roadmap_plane"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/progressText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:text="Enrol in a program to view your progression!"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/progressPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="0%"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/pb"
+                app:layout_constraintEnd_toEndOf="@+id/pb"
+                app:layout_constraintStart_toStartOf="@+id/pb"
+                app:layout_constraintTop_toTopOf="@+id/pb" />
 
             <ProgressBar
                 android:id="@+id/pb"
@@ -62,22 +88,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/topSpace"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <TextView
-                android:id="@+id/progressPercent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="0%"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/pb"
-                app:layout_constraintEnd_toEndOf="@+id/pb"
-                app:layout_constraintStart_toStartOf="@+id/pb"
-                app:layout_constraintTop_toTopOf="@+id/pb" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/shaft"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="420dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -91,30 +104,44 @@
 
             <ImageView
                 android:id="@+id/flagtop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_flag_yellow"
                 app:layout_constraintBottom_toTopOf="@+id/topSpace"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.55"
+                app:layout_constraintHorizontal_bias="0.53"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/person"
-                android:layout_width="70dp"
+                android:layout_width="60dp"
                 android:layout_height="70dp"
-                android:layout_alignBottom="@+id/roadmapConstraint"
-                android:background="@drawable/elevatorborder"
-                android:backgroundTint="@color/progressBarHorizontalBackground"
-                android:src="@mipmap/walking_icon_fore2"
+                app:cardCornerRadius="0dp"
                 android:translationZ="1dp"
+                android:layout_alignBottom="@+id/roadmapConstraint"
                 app:layout_constraintBottom_toBottomOf="@+id/pb"
                 app:layout_constraintEnd_toEndOf="@+id/pb"
                 app:layout_constraintStart_toStartOf="@+id/pb"
                 app:layout_constraintTop_toTopOf="@+id/topSpace"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/roadmap_elev"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/walking_icon_fore2"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardRope"
@@ -160,7 +187,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/topSpace"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:backgroundTint="@color/colorCard"
                 android:foreground="@color/elevatorShaft"
@@ -171,6 +198,16 @@
                 app:layout_constraintBottom_toTopOf="@+id/shaft"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+<!--            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/card7"
+                app:layout_constraintStart_toEndOf="@id/topSpace">
+
+            </androidx.cardview.widget.CardView>-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card7"

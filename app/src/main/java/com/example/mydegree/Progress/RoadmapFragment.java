@@ -40,11 +40,12 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
     private float localFrom, localTo, localNow, localMax;
     private FloatingActionButton fab;
     private TextView progressText, progressPercent;
-    private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100, person;
+    private ImageView yellow25, red25, yellow50, red50, yellow75, red75, yellow100, red100;
     private ConstraintLayout constraintLayout;
-    private CardView card1, card2, card3, card4, card5, card6, card7;
+    private CardView card1, card2, card3, card4, card5, card6, card7, person;
     private LinearLayout floor1, floor2, floor3, floor4, floor5, floor6, floor7;
     private int colorFrom, colorTo;
+    private ImageView plane;
 
     private CardView cardRope, shaft, topSpace, topLights, shaftLights;
 
@@ -60,6 +61,8 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
         progressPercent = view.findViewById(R.id.progressPercent);
         fab = getActivity().findViewById(R.id.fab);
 
+        plane = view.findViewById(R.id.plane);
+        plane.setVisibility(View.INVISIBLE);
         topSpace = view.findViewById(R.id.topSpace);
         cardRope = view.findViewById(R.id.cardRope);
         topLights = view.findViewById(R.id.topLights);
@@ -119,17 +122,18 @@ public class RoadmapFragment extends Fragment implements Program.ProgramUpdateLi
 
     @Override
     public void onRoadmapUpdate(int pbNow, int pbMax) {
+        plane.setVisibility(View.VISIBLE);
         roadmapBar.setMax(pbMax);
         localMax = pbMax;
         localNow = pbNow;
         localTo = pbNow;
         //roadmapBar.setProgress(pbNow);
-        progressText.setText(pbNow + " / " + pbMax + " UOC Completed");
+        progressText.setText(pbNow + " / " + pbMax + " UOC Completed (" + localPercent + "%)");
 
         double percent = (double) pbNow*100/(double)pbMax;
         int percentRounded = (int) Math.round(percent);
-        localPercent = percentRounded;
-        progressPercent.setText(percentRounded + "%");
+        localPercent = percentRounded;/*
+        progressPercent.setText(percentRounded + "%");*/
         changeIcons();
     }
 
