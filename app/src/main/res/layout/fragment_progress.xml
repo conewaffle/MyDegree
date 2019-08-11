@@ -70,8 +70,8 @@
                 android:id="@+id/yourCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
                 android:text="Your Completed Courses"
                 android:textSize="17sp" />
 
@@ -348,8 +348,8 @@
                 android:id="@+id/yourChecklist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
                 android:text="Progression Checklist"
                 android:textSize="17sp" />
 
