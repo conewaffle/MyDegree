@@ -200,7 +200,7 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24px);
-            Snackbar mySnackbar = Snackbar.make(bookmark, "Course bookmarked", Snackbar.LENGTH_SHORT);
+            Snackbar mySnackbar = Snackbar.make(bookmark, "Course bookmarked", Snackbar.LENGTH_LONG);
             mySnackbar.setAction("Go to bookmarks", new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
@@ -236,7 +236,7 @@ public class CourseOverview extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24px);
-            Snackbar.make(bookmark, "Course removed from bookmarks", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(bookmark, "Course removed from bookmarks", Snackbar.LENGTH_LONG).show();
 
         }
     }
